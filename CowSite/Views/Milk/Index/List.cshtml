@@ -38,21 +38,6 @@
         }
 
         function InitBtnEvent() {
-            $('#btnMilkProcedure').ligerButton({
-                width: 80,
-                text: '挤奶规程',
-                disabled: false,
-                click: function () {
-                    $.ligerDialog.open({
-                        title: "挤奶规程",
-                        height: 430,
-                        width: 450,
-                        url: "../../Milk/Procedure/Milking"
-                    });
-                },
-                icon: null
-            });
-
             $('#btnParameter').ligerButton({
                 width: 80,
                 text: '奶厅参数',
@@ -97,21 +82,6 @@
                 },
                 icon: null
             });
-
-            $('#btnMastitis').ligerButton({
-                width: 80,
-                text: '隐乳检测',
-                disabled: false,
-                click: function () {
-                    $.ligerDialog.open({
-                        title: "隐性乳房炎检测记录",
-                        height: 430,
-                        width: 450,
-                        url: "../../Milk/Mastitis/Add"
-                    });
-                },
-                icon: null
-            });
         }
     </script>
 </head>
@@ -135,9 +105,6 @@
             </div>
         </div>
         <div class="ml5 mt5 mb5">
-            <div class="btn-group">
-                <div id="btnMilkProcedure"></div>
-            </div>
             <div class="btn-group">
                 <div id="btnParameter"></div>
             </div>

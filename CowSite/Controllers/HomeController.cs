@@ -9,9 +9,6 @@ namespace CowSite.Controllers
 {
     public class HomeController : Controller
     {
-        TaskBLL task = new TaskBLL();
-        FarmInfo farm = new FarmInfo();
-
         public ActionResult Index()
         {
             ViewBag.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
@@ -24,6 +21,8 @@ namespace CowSite.Controllers
         /// <returns></returns>
         public JsonResult GetCowGroupSummary(int pastureID)
         {
+            FarmInfo farm = new FarmInfo();
+
             // 牛群整体结构
             ArrayList arrCowSummary = new ArrayList();
             arrCowSummary.Add(new { name = "经产牛", value = farm.CountOfMultiParity });
@@ -39,11 +38,11 @@ namespace CowSite.Controllers
             arrBreedSummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedMultiParity });
             arrBreedSummary.Add(new { name = "已配未检牛", value=  farm.CountOfInseminatedMultiParity });
             arrBreedSummary.Add(new { name = "已孕头数", value = farm.CountOfPregnantMultiParity });
-            // 经产牛胎次状况
+            // 青年牛繁殖状况
             ArrayList arrParitySummary = new ArrayList();
-            arrParitySummary.Add(new { name = "1胎牛", value = farm.CountOfParity1Cows });
-            arrParitySummary.Add(new { name = "2胎牛", value = farm.CountOfParity2Cows });
-            arrParitySummary.Add(new { name = "3胎及以上的牛", value =farm.CountOfParity3AndMoreCows });
+            arrParitySummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedNullParity });
+            arrParitySummary.Add(new { name = "已配未检牛", value = farm.CountOfInseminatedNullParity });
+            arrParitySummary.Add(new { name = "已孕头数", value = farm.CountOfPregnantNullParity });
 
             return Json(new 
             {
@@ -56,6 +55,8 @@ namespace CowSite.Controllers
 
         public JsonResult GetToDoList()
         {
+            TaskBLL task = new TaskBLL();
+
             List<DairyTask> lstTask = task.GetRecentUnfinishedTaskList(UserBLL.Instance.CurrentUser.ID, UserBLL.Instance.CurrentUser.Pasture.ID);
 
             return Json(new

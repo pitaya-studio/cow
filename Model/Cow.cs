@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DairyCow.Model
 {
     /// <summary>
-    /// 牛的信息类
+    /// 牛的信息类sssss
     /// </summary>
     public class Cow
     {

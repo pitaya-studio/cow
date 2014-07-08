@@ -1,0 +1,33 @@
+﻿.displayBlock{display:block;}
+
+.mt5{margin-top:5px;}
+.mr5{margin-right:5px;}
+.mb5{margin-bottom:5px;}
+.ml5{margin-left:5px;}
+
+.mt10{margin-top:10px;}
+.mr10{margin-right:10px;}
+.mb10{margin-bottom:10px;}
+.ml10{margin-left:10px;}
+
+.tr {text-align:right;}
+
+.fl{float: left;}
+
+.dib{display: inline-block;}
+
+.none{display:none;}
+
+
+.clearfix:after
+{
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+.clearboth
+{
+    clear: both;
+}

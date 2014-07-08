@@ -1,0 +1,159 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>奶厅子系统</title>
+    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            InitBtnEvent();
+            loadmilkHallList();
+        })
+
+        var milkHallGridManager;
+        function loadmilkHallList() {
+            milkHallGridManager = $("#milkHallGrid").ligerGrid({
+                checkbox: true,
+                columns: [
+                    { display: '牧场', name: 'PastureID', align: 'left', minWidth: 60 },
+                    { display: '真空压力', name: 'VacuumPressure', align: 'left', minWidth: 120 },
+                    { display: '脉动次数', name: 'Pulsation', align: 'left', minWidth: 120 }
+                ],
+                pageSize: 10,
+                width: '100%',
+                height: '100%',
+                url: "../../Milk/Index/GetMilkHallList"
+            });
+            $("#pageloading").hide();
+        }
+
+        function InitBtnEvent() {
+            $('#btnMilkProcedure').ligerButton({
+                width: 80,
+                text: '挤奶规程',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({
+                        title: "挤奶规程",
+                        height: 430,
+                        width: 450,
+                        url: "../../Milk/Procedure/Milking"
+                    });
+                },
+                icon: null
+            });
+
+            $('#btnParameter').ligerButton({
+                width: 80,
+                text: '奶厅参数',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({
+                        title: "奶厅参数配置",
+                        height: 430,
+                        width: 450,
+                        url: "../../Milk/Parameter/Edit"
+                    });
+                },
+                icon: null
+            });
+
+            $('#btnMilkability').ligerButton({
+                width: 80,
+                text: '奶量记录',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({
+                        title: "产奶量记录",
+                        height: 430,
+                        width: 450,
+                        url: "../../Milk/Milkability/Add"
+                    });
+                },
+                icon: null
+            });
+
+            $('#btnMilkSale').ligerButton({
+                width: 80,
+                text: '售奶记录',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({
+                        title: "售奶记录",
+                        height: 430,
+                        width: 450,
+                        url: "../../Milk/MilkSale/Add"
+                    });
+                },
+                icon: null
+            });
+
+            $('#btnMastitis').ligerButton({
+                width: 80,
+                text: '隐乳检测',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({
+                        title: "隐性乳房炎检测记录",
+                        height: 430,
+                        width: 450,
+                        url: "../../Milk/Mastitis/Add"
+                    });
+                },
+                icon: null
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header mt10 mb10">
+            <div class="btn-group">
+                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+            </div>
+            <div class="btn-group">
+                <ul class="nav nav-pills">
+                    <li><a href="../../Home/Index">首页</a></li>
+                    <li><a href="javascript:void(0);">任务</a></li>
+                    <li><a href="../../Breed/Index/List">繁殖</a></li>
+                    <li><a href="../../Feed/Index/List">饲养</a></li>
+                    <li class="active"><a href="javascript:void(0);">奶厅</a></li>
+                    <li><a href="../../Medical/Index/List">兽医</a></li>
+                    <li><a href="../../Platform/Formula/List">平台</a></li>
+                    <li><a href="../../Users/Index/List">场长</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="ml5 mt5 mb5">
+            <div class="btn-group">
+                <div id="btnMilkProcedure"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnParameter"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnMilkability"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnMilkSale"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnMastitis"></div>
+            </div>
+        </div>
+        <div id="milkHallGrid" class="displayBlock ml5 mr5"></div>
+        <div id="message"></div>
+        <div class="l-loading" id="pageloading"></div>
+    </div>
+</body>
+</html>

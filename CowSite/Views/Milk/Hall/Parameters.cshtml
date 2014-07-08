@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>奶厅参数</title>
+    <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
+    <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/plugins/ligerForm.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/plugins/ligerTextBox.js"></script>
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadMilkHallInfo();
+            InitBtnEvent();
+        })
+
+        function loadMilkHallInfo() {
+            $("#milkHallInfo").ligerForm({
+                inputWidth: 160, labelWidth: 120, space: 40,
+                fields: [
+                { display: "真空压力(mpa)", name: "VacuumPressure", type: "text", width: 270, validate: { required: true } },
+                { display: "脉动次数(次/min)", name: "Pulsation", type: "text", width: 270, validate: { required: true } },
+                { display: "设备清洗次数", name: "CleanupCount", type: "text", width: 270, validate: { required: true } },
+                { display: "奶厅备注", name: "Name", type: "textarea", width: 270 }
+                ]
+            });
+            @*liger.get("milkHallInfo").getEditor("Name").setValue("@ViewBag.Name");
+            liger.get("milkHallInfo").getEditor("VacuumPressure").setValue("@ViewBag.VacuumPressure");
+            liger.get("milkHallInfo").getEditor("Pulsation").setValue("@ViewBag.Pulsation");
+            liger.get("milkHallInfo").getEditor("CleanupCount").setValue("@ViewBag.CleanupCount");*@
+
+        }
+
+        function InitBtnEvent() {
+            $('#btnSubmit').ligerButton({
+                width: 60,
+                text: '保存',
+                click: function () {
+                    //提交表单
+                    document.getElementById('milkHallInfo').submit();
+                    parent.$.ligerDialog.close();
+                    parent.$(".l-dialog,.l-window-mask").hide();
+                },
+                icon: null
+            });
+            $('#btnCancel').ligerButton({
+                width: 60,
+                text: '取消',
+                click: function () {
+                    parent.$.ligerDialog.close();
+                    parent.$(".l-dialog,.l-window-mask").hide();
+                },
+                icon: null
+            });
+        }
+    </script>
+</head>
+<body>
+    <form class="form-inline" action="~/Milk/Parameter/Update" method="post" id="milkHallInfo"></form>
+    <div style="text-align:center;">
+        <input type="button" id="btnSubmit" value="保存" />
+        <input type="button" id="btnCancel" value="取消" />
+    </div>
+</body>
+</html>

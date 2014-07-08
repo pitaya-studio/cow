@@ -1,0 +1,101 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>兽医子系统</title>
+    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            initBtnEvent();
+        })
+
+        function initBtnEvent() {
+            $('#btnDiagnoses').ligerButton({
+                width: 80,
+                text: '疾病诊治',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({ title: "疾病诊治", height: 430, width: 450, url: '' });
+                },
+                icon: null
+            });
+
+            $('#btnMastitis').ligerButton({
+                width: 80,
+                text: '隐形乳房炎检测',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({ title: "隐形乳房炎检测", height: 430, width: 450, url: '../../Medical/Mastitis/Add' });
+                },
+                icon: null
+            });
+
+            $('#btnFootParing').ligerButton({
+                width: 80,
+                text: '修蹄',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({ title: "修蹄", height: 430, width: 450, url: '../../Medical/RepairHoof/Add' });
+                },
+                icon: null
+            });
+
+            $('#btnMilkBreast').ligerButton({
+                width: 80,
+                text: '去附乳',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({ title: "去附乳", height: 430, width: 450, url: '../../Medical/RemoveAddMilk/Add' });
+                },
+                icon: null
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header mt10 mb10">
+            <div class="btn-group">
+                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+            </div>
+            <div class="btn-group">
+                <ul class="nav nav-pills">
+                    <li><a href="../../Home/Index">首页</a></li>
+                    <li><a href="javascript:void(0);">任务</a></li>
+                    <li><a href="../../Breed/Index/List">繁殖</a></li>
+                    <li><a href="./../../Feed/Index/List">饲养</a></li>
+                    <li><a href="../../Milk/Index/List">奶厅</a></li>
+                    <li class="active"><a href="javascript:void(0);">兽医</a></li>
+                    <li><a href="../../Platform/Formula/List">平台</a></li>
+                    <li><a href="../../Users/Index/List">场长</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="ml5 mt5 mb5">
+            <div class="btn-group">
+                <div id="btnDiagnoses"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnMastitis"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnFootParing"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnMilkBreast"></div>
+            </div>
+        </div>
+        <div id="cowGroupGrid" class="displayBlock ml5 mr5"></div>
+        <div id="message"></div>
+        <div class="l-loading" id="pageloading"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>易牧通-登陆</title>
+    <link rel="shortcut icon" href="images/emutong.ico">
+    <script type="text/javascript" src="../Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Style/base.css">
+    <link href="../Style/emutong_style.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $('#btnLogin').click(function () {
+                $.ajax({
+                    type: 'get',
+                    url: "../Login/Login",
+                    cache: false,
+                    data: { userID: 'user1' },
+                    dataType: "json"
+                }).success(function (formulaInfo) {
+                    window.location.href = "../Home/Index";
+                });                
+            })
+        })
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-md-push-1 col-sm-6">
+                    <a href="#" id="emutong_logo"><img src="../Images/emutong_logo.png" alt="Logo"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="banner">
+        <div class="inner">
+            <p> <strong>登录易牧通系统</strong></p>
+            <div>
+                <input type="text" value="用户名" class="logininput">
+                <input type="text" value="密码" class="logininput">
+            </div>
+            <footer>
+                <div>
+                    <input id="btnLogin" type="button" value="登录" class="btn"><a href="#">忘记密码？</a>
+                </div>
+            </footer>
+        </div>
+    </section>
+    <div class="container">
+        <div id="emutong_nav">
+            <ul>
+                <li><a href="#"><img src="../Images/Login/nav-1.jpg" border="0"></a></li>
+                <li><a href="#"><img src="../Images/Login/nav-2.jpg" border="0"></a></li>
+                <li><a href="#"><img src="../Images/Login/nav-3.jpg" border="0"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="index_foot">©2014 易牧通 <a href="#"> 版权所有</a>  |   <a href="#">帮助</a>  |    <a href="#">服务电话</a>  |   <a href="#">公司信息</a></div>
+</body>
+</html>

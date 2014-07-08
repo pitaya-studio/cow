@@ -1,0 +1,161 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>配方维护</title>
+    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../cripts/jquery-tools-min.js"></script>
+    <script type="text/javascript" src="../../Scripts/json2.js"></script>
+    <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var formulaID = "@ViewBag.FormulaID";
+
+        $(function () {
+            loadFormulaList();
+
+            $("#formulaSelector").change(function () {
+                formulaID = $('#formulaSelector').val();
+                loadFodderList(formulaID);
+            });
+        })
+
+        function loadFormulaList() {
+            $.ajax({
+                type: 'get',
+                url: "../../Platform/Formula/GetFormulaList",
+                cache: false,
+                dataType: "json"
+            }).success(function (formula) {
+                if (formula) {
+                    $("#formulaSelector").empty();
+                    $.each(formula, function () {
+                        $('#formulaSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                    });
+
+                    if (formulaID) {
+                        $.each(formula, function () {
+                            if (this.ID = formulaID) {
+                                $('#formulaName').val(this.Name);
+                                return;
+                            }
+                        });
+                    }
+                    else {
+                        formulaID = formula[0].ID;
+                        $('#formulaName').val(formula[0].Name);
+                    }
+                    loadFodderList(formulaID);
+                }
+            });
+        }
+
+        function loadFodderList(formulaID) {
+            $.ajax({
+                type: 'get',
+                url: "../../Platform/Formula/GetFormulaInfoList",
+                cache: false,
+                data: { formulaID: formulaID },
+                dataType: "json"
+            }).success(function (formulaInfo) {
+                if (formulaInfo) {
+                    var fooderGridManager = $("#fooderGrid").ligerGrid({
+                        columns: [
+                            { display: '饲料ID', name: 'ID', width: 1, hide: true },
+                            { display: '饲料名称', name: 'Name', align: 'left' },
+                            { display: "量", name: "Quantity", width: 100, type: 'int', editor: { type: 'int' } },
+                            { display: '营养成分A', name: 'DryMatter', align: 'left', width: 100 },
+                            { display: '营养成分B', name: 'NND', align: 'left', width: 100 },
+                            { display: '营养成分C', name: 'Calcium', align: 'left', width: 100 },
+                            { display: '营养成分D', name: 'Phosphorus', align: 'left', width: 100 },
+                            { display: '营养成分E', name: 'Protein', align: 'left', width: 100 },
+                            { display: '营养成分C2', name: 'RefPrice', align: 'left', width: 100 }
+                        ],
+                        pageSize: 15,
+                        width: '100%',
+                        isScroll: false,
+                        data: formulaInfo,
+                        enabledEdit: false,
+                        clickToEdit: false,
+                        pager: false
+                    });
+                    $("#pageloading").hide();
+                    initButton();
+                }
+            });
+        }
+
+        function initButton() {
+            $('#btnAdd').show().ligerButton({
+                width: 80,
+                text: '添加配方',
+                disabled: false,
+                click: function () {
+                    var editUrl = "../../Platform/Formula/Modify";
+                    $.ligerDialog.open({ title: "添加配方", height: 630, width: 550, url: editUrl });
+                },
+                icon: null
+            });
+
+            $('#btnModify').show().ligerButton({
+                width: 80,
+                text: '修改配方',
+                disabled: false,
+                click: function () {
+                    var editUrl = "../../Platform/Formula/Modify?FormulaID=" + $('#formulaSelector').val();
+                    $.ligerDialog.open({ title: "添加配方", height: 630, width: 550, url: editUrl });
+                },
+                icon: null
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header mt10 mb10">
+            <div class="btn-group">
+                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+            </div>
+            <div class="btn-group">
+                <ul class="nav nav-pills">
+                    <li><a href="../../Home/Index">首页</a></li>
+                    <li><a href="javascript:void(0);">任务</a></li>
+                    <li><a href="../../Breed/Index/List">繁殖</a></li>
+                    <li><a href="../../Feed/Index/List">饲养</a></li>
+                    <li><a href="../../Milk/Index/List">奶厅</a></li>
+                    <li><a href="../../Medical/Index/List">兽医</a></li>
+                    <li class="active"><a href="javascript:void(0);">平台</a></li>
+                    <li><a href="../../Users/Index/List">场长</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="btn-group" style="margin: 10px 0px 10px 0px;">
+            <button type="button" class="btn btn-default">牧场管理</button>
+            <button type="button" class="btn btn-primary">配方管理</button>
+            <button type="button" class="btn btn-default">指定配方</button>
+            <button type="button" class="btn btn-default">饲料管理</button>
+        </div>
+        <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
+            <div style="display: inline-block; position: absolute; left: 0px;">
+                <select id="formulaSelector" style="width: 350px; height: 30px"></select>
+            </div>
+            <div style="display: inline-block; position: absolute; right: 0px;">
+                <input type="button" id="btnAdd" value="添加配方" style="display: none;" />
+                <input type="button" id="btnModify" value="修改配方" style="display: none;" />
+                <input type="button" id="btnDelete" value="删除配方" style="display: none;" />
+            </div>
+        </div>
+        <div>
+            <div id="fooderGrid"></div>
+            <div id="message"></div>
+            <div class="l-loading" id="pageloading"></div>
+        </div>
+    </div>
+</body>
+</html>

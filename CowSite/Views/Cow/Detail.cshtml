@@ -1,0 +1,40 @@
+﻿@model DairyCow.Model.Cow
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>奶牛卡片</title>
+</head>
+<body>
+    <div>
+        耳号:@ViewBag.Cow.EarNum
+    </div>
+    <div>
+        组别:@ViewBag.Cow.GroupName
+    </div>
+    <div>
+        状态:@ViewBag.Cow.Status
+    </div>
+    <div>
+        性别:@ViewBag.Cow.Gender
+    </div>
+    <div>
+        农场编号:@ViewBag.Cow.FarmCode
+    </div>
+    <div>
+        出生日期:@ViewBag.Cow.BirthDate
+    </div>
+    <div>
+        出生重量:@ViewBag.Cow.BirthWeight
+    </div>
+    <div>
+        毛色:@ViewBag.Cow.Color
+    </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿.l-dialog-tc {
+    background-color:#000 !important;    
+}
+.l-dialog-title{
+    color:#fff !important;
+}
+.l-button-submit {
+    width: 80px;
+    float: left;
+    margin-left: 10px;
+    padding-bottom: 2px;
+}

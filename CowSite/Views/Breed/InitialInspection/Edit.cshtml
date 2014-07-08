@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>初检信息录入</title>
+    <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
+    <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadInsemInfo();
+            InitBtnEvent();
+        })
+
+        function loadInsemInfo() {
+            $("#initialInspectInfo").ligerForm({
+                inputWidth: 170, labelWidth: 90, space: 40,
+                fields: [
+                { display: "耳号", name: "EarNum", type: "text", width: 270, validate: { required: true } },
+                { display: "初检日期", name: "OperateDate", type: "date", width: 270, validate: { required: true } },
+                {
+                    display: "初检结果", name: "InspectResult", type: "select", width: 270,
+                    options: { data: [{ text: "初检-", id: "0" }, { text: "初检+", id: "1" }], valueFieldID: "InspectResult" },
+                    validate: { required: true }
+                },
+                { display: "初检人", name: "Operator", type: "text", width: 270, validate: { required: true } },
+                { display: "初检方式", name: "InspectWay", type: "text", width: 270, validate: { required: true } },
+                { display: "配后天数", name: "AfterInsemDays", type: "text", width: 270, validate: { required: true } },
+                { display: "描述", name: "Description", type: "text", width: 270 }
+                ]
+            });
+
+
+            liger.get("initialInspectInfo").getEditor("EarNum").setValue("@ViewBag.EarNum");
+            liger.get("initialInspectInfo").getEditor("OperateDate").setValue("@ViewBag.OperateDate");
+            liger.get("initialInspectInfo").getEditor("InspectResult").setValue("@ViewBag.InspectResult");
+            liger.get("initialInspectInfo").getEditor("Operator").setValue("@ViewBag.Operator");
+            liger.get("initialInspectInfo").getEditor("InspectWay").setValue("@ViewBag.InspectWay");
+            liger.get("initialInspectInfo").getEditor("AfterInsemDays").setValue("@ViewBag.AfterInsemDays");
+            liger.get("initialInspectInfo").getEditor("Description").setValue("@ViewBag.Description");
+
+        }
+
+        function InitBtnEvent() {
+            $('#btnSubmit').ligerButton({
+                width: 60,
+                text: '保存',
+                click: function () {
+                    if (liger.get("initialInspectInfo").getEditor("Operator").getValue() == "") {
+                        alert("初检员信息不能为空");
+                    } else {
+                        //提交表单
+                        document.getElementById('initialInspectInfo').submit();
+                        parent.$.ligerDialog.close();
+                        parent.$(".l-dialog,.l-window-mask").hide();
+                    }
+                },
+                icon: null
+            });
+            $('#btnCancel').ligerButton({
+                width: 60,
+                text: '取消',
+                click: function () {
+                    parent.$.ligerDialog.close();
+                    parent.$(".l-dialog,.l-window-mask").hide();
+                },
+                icon: null
+            });
+            $('#btnPrint').ligerButton({
+                width: 60,
+                text: '打印',
+                click: function () {
+                    window.print();
+                },
+                icon: null
+            });
+        }
+    </script>
+</head>
+<body>
+    <form class="form-inline" method="post" action="~/Breed/InitialInspection/Save/@ViewBag.EarNum" id="initialInspectInfo"></form>
+    <div style="text-align:center;">
+        <input type="button" id="btnSubmit" value="保存" />
+        <input type="button" id="btnCancel" value="取消" />
+        <input type="button" id="btnPrint" value="打印" />
+    </div>
+</body>
+</html>

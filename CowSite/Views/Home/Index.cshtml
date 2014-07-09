@@ -52,7 +52,6 @@
         require.config({
             paths: {
                 'echarts': '../Controls/echarts/build/echarts',
-                'echarts/chart/bar': '../Controls/echarts/build/echarts',
                 'echarts/chart/pie': '../Controls/echarts/build/echarts'
             }
         });        
@@ -68,7 +67,7 @@
                 url: "../Home/GetCowGroupSummary",
                 dataType: "json",
                 cache: false,
-                data: { pastureID: pastureID }
+                timeout: 80000
             }).success(function (cowData) {
                 renderCowGroupSummary(cowData.CowSummary);
                 renderMilkCowSummary(cowData.MilkCowSummary);

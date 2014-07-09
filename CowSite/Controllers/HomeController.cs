@@ -15,11 +15,19 @@ namespace CowSite.Controllers
             return View();
         }
 
+        public JsonResult GetPastureInfo()
+        {
+            return Json(new
+            {
+                ToDoList = UserBLL.Instance.CurrentUser.Pasture
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 牛群结构图
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetCowGroupSummary(int pastureID)
+        public JsonResult GetCowGroupSummary()
         {
             FarmInfo farm = new FarmInfo();
 

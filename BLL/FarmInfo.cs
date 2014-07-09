@@ -1223,6 +1223,66 @@ namespace DairyCow.BLL
             }
         }
 
+        /// <summary>
+        /// 16月龄以上未配青年牛
+        /// </summary>
+        public List<CowInfo> UninseminatedOldThan16MonthNullparityCows
+        {
+            get
+            {
+                List<CowInfo> list = new List<CowInfo>();
+                foreach (CowInfo item in this.NullParityCows)
+                {
+                    if (item.Status =="未配"&& item.AgeMonth>16)
+                    {
+                        list.Add(item);
+                    }
+                }
+                return list;
+            }
+        }
+        /// <summary>
+        /// 16月龄以上未配青年牛数
+        /// </summary>
+        public int CountOfUninseminatedOldThan16MonthNullparityCows
+        {
+            get
+            {
+                return UninseminatedOldThan16MonthNullparityCows.Count;
+            }
+        }
+
+        /// <summary>
+        /// 20月龄以上未孕青年牛
+        /// </summary>
+        public List<CowInfo> UnPregnantOldThan20MonthNullparityCows
+        {
+            get
+            {
+                List<CowInfo> list = new List<CowInfo>();
+                foreach (CowInfo item in this.NullParityCows)
+                {
+                    if (item.Status != "复检+" && item.Status != "初检+" && item.AgeMonth > 20)
+                    {
+                        list.Add(item);
+                    }
+                }
+                return list;
+            }
+        }
+        /// <summary>
+        /// 20月龄以上未孕青年牛数
+        /// </summary>
+        public int CountOfUnPregnantOldThan20MonthNullparityCows
+        {
+            get
+            {
+                return UnPregnantOldThan20MonthNullparityCows.Count;
+            }
+        }
+
+
+
 
         public static int GetSumMaleCalf(int pastureID,DateTime date)
         {

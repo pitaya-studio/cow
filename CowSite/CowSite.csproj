@@ -1130,11 +1130,9 @@
     <Compile Include="Controllers\Medical\RemoveAddMilkController.cs" />
     <Compile Include="Controllers\Medical\RepairHoofController.cs" />
     <Compile Include="Controllers\Milk\IndexController.cs" />
-    <Compile Include="Controllers\Milk\MastitisController.cs" />
     <Compile Include="Controllers\Milk\MilkabilityController.cs" />
     <Compile Include="Controllers\Milk\MilkSaleController.cs" />
     <Compile Include="Controllers\Milk\ParameterController.cs" />
-    <Compile Include="Controllers\Milk\ProcedureController.cs" />
     <Compile Include="Controllers\Platform\FormulaController.cs" />
     <Compile Include="Controllers\Users\IndexController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />

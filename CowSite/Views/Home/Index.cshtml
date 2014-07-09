@@ -33,6 +33,7 @@
                 </ul>
             </div>
         </div>
+        <div class="farmInfo"></div>
         <div style="margin-top: 20px;">
             <div id="chart-cowSummary" style="height:350px; width: 450px; display:inline-block;"></div>
             <div id="chart-milkCowSummary" style="height: 350px; width: 450px; display: inline-block; "></div>
@@ -46,8 +47,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        var pastureID = "@ViewBag.PastureID";
-
         // 路径配置
         require.config({
             paths: {
@@ -57,9 +56,22 @@
         });        
 
         $(function () {
+            loadPastureInfo();
             loadCowGroupSummary();
             loadTask();
         })
+
+        function loadPastureInfo() {
+            $.ajax({
+                type: 'get',
+                url: "../Home/GetCurrentUserInfo",
+                dataType: "json",
+                cache: false,
+                timeout: 80000
+            }).success(function (user) {
+                $('.farmInfo').html(user.CurrentUser.Name + '：欢迎来到【' + user.CurrentUser.Pasture.Name + '】牧场');
+            });
+        }
 
         function loadCowGroupSummary() {
             $.ajax({

@@ -9,32 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{CFDCF28E-A231-47A3-84DE-D097B56A23C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CowSite", "CowSite\CowSite.csproj", "{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{12EFE4A3-A447-4305-B327-1BC4AA49B3A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CowSite", "CowSite\CowSite.csproj", "{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://habo.wicp.net:8181/tfs/1mutong
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = DAL\\DAL.csproj
-		SccProjectName1 = DAL
-		SccLocalPath1 = DAL
-		SccProjectUniqueName2 = BLL\\BLL.csproj
-		SccProjectName2 = BLL
-		SccLocalPath2 = BLL
-		SccProjectUniqueName3 = Model\\Model.csproj
-		SccProjectName3 = Model
-		SccLocalPath3 = Model
-		SccProjectUniqueName4 = CowSite\\CowSite.csproj
-		SccProjectName4 = CowSite
-		SccLocalPath4 = CowSite
-		SccProjectUniqueName5 = Common\\Common.csproj
-		SccProjectName5 = Common
-		SccLocalPath5 = Common
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -52,14 +31,14 @@ Global
 		{CFDCF28E-A231-47A3-84DE-D097B56A23C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFDCF28E-A231-47A3-84DE-D097B56A23C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFDCF28E-A231-47A3-84DE-D097B56A23C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12EFE4A3-A447-4305-B327-1BC4AA49B3A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12EFE4A3-A447-4305-B327-1BC4AA49B3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12EFE4A3-A447-4305-B327-1BC4AA49B3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12EFE4A3-A447-4305-B327-1BC4AA49B3A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1160,11 +1160,9 @@
     <Content Include="Views\Feed\Fodder\Calculate.cshtml" />
     <Content Include="Views\Feed\Empty\Add.cshtml" />
     <Content Include="Views\Feed\Remain\Add.cshtml" />
-    <Content Include="Views\Milk\Procedure\Milking.cshtml" />
     <Content Include="Views\Milk\Hall\Parameters.cshtml" />
     <Content Include="Views\Milk\Milkability\Add.cshtml" />
     <Content Include="Views\Milk\MilkSale\Add.cshtml" />
-    <Content Include="Views\Milk\Mastitis\Add.cshtml" />
     <Content Include="Views\Medical\Index\List.cshtml" />
     <Content Include="Views\Medical\Calving\Add.cshtml" />
     <Content Include="Views\Medical\Abortion\Add.cshtml" />

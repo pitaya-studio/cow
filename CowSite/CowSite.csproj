@@ -1129,6 +1129,7 @@
     <Compile Include="Controllers\Medical\MilkBreastController.cs" />
     <Compile Include="Controllers\Medical\RemoveAddMilkController.cs" />
     <Compile Include="Controllers\Medical\RepairHoofController.cs" />
+    <Compile Include="Controllers\Milk\DailyMilkYieldController.cs" />
     <Compile Include="Controllers\Milk\IndexController.cs" />
     <Compile Include="Controllers\Milk\MilkabilityController.cs" />
     <Compile Include="Controllers\Milk\MilkSaleController.cs" />
@@ -1187,6 +1188,9 @@
     <Content Include="Views\Users\List.cshtml" />
     <Content Include="Views\Users\AddUser.cshtml" />
     <Content Include="Views\Users\UpdatePassword.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Milk\DailyMilkYield\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1194,11 +1198,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Folder Include="Views\Login\" />
-    <Folder Include="Views\Milk\DailyMilkYield\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{9b74b509-7d05-454a-8211-d16dbc2abb0e}</Project>

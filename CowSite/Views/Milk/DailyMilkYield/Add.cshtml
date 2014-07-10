@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>日产奶量</title>
+    <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
+    <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/plugins/ligerForm.js"></script>
+    <script type="text/javascript" src="../../../ligerUI/js/plugins/ligerTextBox.js"></script>
+    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
+    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadDailyMilkYieldInfo();
+            InitBtnEvent();
+        })
+
+        function loadDailyMilkYieldInfo() {
+            $("#milkHallInfo").ligerForm({
+                inputWidth: 160, labelWidth: 120, space: 40,
+                fields: [
+                { display: "产奶日期", name: "1", type: "date", width: 270, validate: { required: true } },
+                { display: "奶罐号", name: "2", type: "text", width: 270 },
+                { display: "理化解码", name: "3", type: "text", width: 270 },
+                { display: "奶车编号", name: "4", type: "text", width: 270 },
+                { display: "车牌号", name: "5", type: "text", width: 270 },
+                { display: "公斤数", name: "6", type: "text", width: 270, validate: { required: true } },
+                { display: "乳脂率", name: "7", type: "text", width: 270 },
+                { display: "乳蛋白", name: "8", type: "text", width: 270 },
+                { display: "干物质", name: "9", type: "text", width: 270 },
+                { display: "非脂固体率", name: "10", type: "text", width: 270 },
+                { display: "乳糖率", name: "11", type: "text", width: 270 },
+                { display: "微生物", name: "12", type: "text", width: 270 },
+                { display: "冰点", name: "13", type: "text", width: 270 },
+                { display: "酸度", name: "14", type: "text", width: 270 },
+                { display: "金额", name: "15", type: "text", width: 270, validate: { required: true } },
+                { display: "乳品厂", name: "16", type: "text", width: 270 },
+                ]
+            });
+            @*liger.get("milkHallInfo").getEditor("Name").setValue("@ViewBag.Name");
+            liger.get("milkHallInfo").getEditor("VacuumPressure").setValue("@ViewBag.VacuumPressure");
+            liger.get("milkHallInfo").getEditor("Pulsation").setValue("@ViewBag.Pulsation");
+            liger.get("milkHallInfo").getEditor("CleanupCount").setValue("@ViewBag.CleanupCount");*@
+
+        }
+
+        function InitBtnEvent() {
+            $('#btnSubmit').ligerButton({
+                width: 60,
+                text: '保存',
+                click: function () {
+                    //提交表单
+                    document.getElementById('milkHallInfo').submit();
+                    parent.$.ligerDialog.close();
+                    parent.$(".l-dialog,.l-window-mask").hide();
+                },
+                icon: null
+            });
+            $('#btnCancel').ligerButton({
+                width: 60,
+                text: '取消',
+                click: function () {
+                    parent.$.ligerDialog.close();
+                    parent.$(".l-dialog,.l-window-mask").hide();
+                },
+                icon: null
+            });
+        }
+    </script>
+</head>
+<body>
+    <form class="form-inline" action="~/Milk/Parameter/Update" method="post" id="milkHallInfo"></form>
+    <div style="text-align:center;">
+        <input type="button" id="btnSubmit" value="保存" />
+        <input type="button" id="btnCancel" value="取消" />
+    </div>
+</body>
+</html>

@@ -53,6 +53,21 @@
                 icon: null
             });
 
+            $('#btnDailyMilkYield').ligerButton({
+                width: 80,
+                text: '日产奶量',
+                disabled: false,
+                click: function () {
+                    $.ligerDialog.open({
+                        title: "日产奶量",
+                        height: 430,
+                        width: 450,
+                        url: "../../Milk/DailyMilkYield/Add"
+                    });
+                },
+                icon: null
+            });
+
             $('#btnMilkability').ligerButton({
                 width: 80,
                 text: '奶量记录',
@@ -107,6 +122,9 @@
         <div class="ml5 mt5 mb5">
             <div class="btn-group">
                 <div id="btnParameter"></div>
+            </div>
+            <div class="btn-group">
+                <div id="btnDailyMilkYield"></div>
             </div>
             <div class="btn-group">
                 <div id="btnMilkability"></div>

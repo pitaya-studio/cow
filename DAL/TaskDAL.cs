@@ -45,13 +45,14 @@ namespace DairyCow.DAL
                                         PastureID
                                         [TaskType], 
                                         OperatorID, 
-                                        ArrivalTime, 
+                                        ArrivalTime as StartTime, 
                                         DeadLine, 
-                                        [Status], 
+                                        [Status] as TaskStatus, 
                                         FinishedTime,
-                                        InputTime
+                                        InputTime,
+                                        RoleID
                                         FROM Task
-                                        WHERE PastureID={0}",pastureID);
+                                        WHERE PastureID={0}", pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
@@ -70,11 +71,12 @@ namespace DairyCow.DAL
                                         PastureID,
                                         [TaskType], 
                                         OperatorID, 
-                                        ArrivalTime, 
+                                        ArrivalTime as StartTime, 
                                         DeadLine, 
-                                        [Status], 
+                                        [Status] as TaskStatus, 
                                         FinishedTime,
-                                        InputTime
+                                        InputTime,
+                                        RoleID
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
                                         and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID,pastureID);

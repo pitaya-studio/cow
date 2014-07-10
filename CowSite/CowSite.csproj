@@ -1196,6 +1196,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Milk\DailyMilkYield\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{9b74b509-7d05-454a-8211-d16dbc2abb0e}</Project>
       <Name>BLL</Name>

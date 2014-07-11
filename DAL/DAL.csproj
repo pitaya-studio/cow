@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Base\BaseDAL.cs" />
     <Compile Include="CalvingDAL.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="CowDAL.cs" />
     <Compile Include="CowGroupDAL.cs" />
     <Compile Include="DBUtil\Command.cs" />

@@ -1,16 +1,12 @@
 ﻿using DairyCow.DAL.Base;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DairyCow.Model;
-
+using System;
+using System.Data;
+using System.Text;
 
 namespace DairyCow.DAL
 {
-    public class TaskDAL:BaseDAL
+    public class TaskDAL : BaseDAL
     {
         /// <summary>
         /// 三天内，和之前所有未完成任务
@@ -45,13 +41,14 @@ namespace DairyCow.DAL
                                         PastureID
                                         [TaskType], 
                                         OperatorID, 
-                                        ArrivalTime, 
+                                        ArrivalTime as StartTime, 
                                         DeadLine, 
-                                        [Status], 
+                                        [Status] as TaskStatus, 
                                         FinishedTime,
-                                        InputTime
+                                        InputTime,
+                                        RoleID
                                         FROM Task
-                                        WHERE PastureID={0}",pastureID);
+                                        WHERE PastureID={0}", pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
@@ -62,29 +59,28 @@ namespace DairyCow.DAL
         /// </summary>
         /// <param name="operatorID">任务操作人ID</param>
         /// <returns>任务table</returns>
-        public DataTable GetRecentUnfinishedTasksByOperator(int operatorID,int pastureID)
+        public DataTable GetRecentUnfinishedTasksByOperator(int operatorID, int pastureID)
         {
             DataTable taskList = null;
 
             string sql = string.Format(@"SELECT ID, 
-                                            PastureID,
-                                            TaskType, 
-                                            OperatorID, 
-                                            ArrivalTime, 
-                                            DeadLine, 
-                                            [Status], 
-                                            FinishedTime,
-                                            InputTime,
-                                            RoleID,
-                                            EarNum
+                                        PastureID,
+                                        [TaskType], 
+                                        OperatorID, 
+                                        ArrivalTime as StartTime, 
+                                        DeadLine, 
+                                        [Status] as TaskStatus, 
+                                        FinishedTime,
+                                        InputTime,
+                                        RoleID
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
-                                            and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID,pastureID);
+                                        and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID, pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
         }
- 
+
         /// <summary>
         /// Insert task
         /// </summary>
@@ -111,7 +107,7 @@ namespace DairyCow.DAL
             {
                 case TaskType.InseminationTask:
                     //建立即完成，配种
-                    typeValue = 0;                    
+                    typeValue = 0;
                     break;
                 case TaskType.InitialInspectionTask:
                     //配种后产生
@@ -150,7 +146,7 @@ namespace DairyCow.DAL
                     typeValue = 999; //unknow task
                     break;
             }
-            if (myTask.TaskType==TaskType.InseminationTask)
+            if (myTask.TaskType == TaskType.InseminationTask)
             {
                 sqlString.Append(@"insert into [Task] 
                           (TaskType,OperatorID,CowEarNum,ArrivalTime,DeadLine,FinishedTime,Status,InputTime,PastureID) 
@@ -178,7 +174,7 @@ namespace DairyCow.DAL
                           + taskStatus + ",'"
                           + myTask.PastureID + "')");
             }
-            
+
 
             return dataProvider1mutong.ExecuteNonQuery(sqlString.ToString(), CommandType.Text);
 
@@ -208,7 +204,7 @@ namespace DairyCow.DAL
             }
             sqlString.Append(@"Update [Task] SET");
             sqlString.Append("[Status] = " + taskStatus + ",");
-      
+
             if (myTask.CompleteTime != null)
             {
                 sqlString.Append("[FinishedTime] = " + myTask.CompleteTime + ",");
@@ -219,12 +215,13 @@ namespace DairyCow.DAL
             }
 
             sqlString.Append(" WHERE [ID] = '" + myTask.ID + "'");
-            
+
 
 
             return dataProvider1mutong.ExecuteNonQuery(sqlString.ToString(), CommandType.Text);
-           
+
         }
+
         /// <summary>
         /// 删除无效初检任务
         /// </summary>
@@ -254,9 +251,8 @@ namespace DairyCow.DAL
         /// <returns></returns>
         public int DeleteBeforeBornTasks(int earNum)
         {
-            string sql = String.Format(@"Delete From [Task] Where (TaskType=3 OR TaskType=4) AND [Status]=0 AND EarNum={0}",earNum);
+            string sql = String.Format(@"Delete From [Task] Where (TaskType=3 OR TaskType=4) AND [Status]=0 AND EarNum={0}", earNum);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
-
     }
 }

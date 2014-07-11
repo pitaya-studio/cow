@@ -11,15 +11,14 @@ namespace CowSite.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
             return View();
         }
 
-        public JsonResult GetPastureInfo()
+        public JsonResult GetCurrentUserInfo()
         {
             return Json(new
             {
-                ToDoList = UserBLL.Instance.CurrentUser.Pasture
+                UserBLL.Instance.CurrentUser
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -67,10 +66,7 @@ namespace CowSite.Controllers
 
             List<DairyTask> lstTask = task.GetRecentUnfinishedTaskList(UserBLL.Instance.CurrentUser.ID, UserBLL.Instance.CurrentUser.Pasture.ID);
 
-            return Json(new
-            {
-                ToDoList = lstTask
-            }, JsonRequestBehavior.AllowGet);
+            return Json(new { Rows = lstTask }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -13,6 +13,10 @@ namespace DairyCow.Model
         /// </summary>
         public TaskType TaskType { get; set; }
         /// <summary>
+        /// 任务类型-显示用
+        /// </summary>
+        public string TaskTypeText { get; set; }
+        /// <summary>
         /// 牧场ID
         /// </summary>
         public int PastureID { get; set; }
@@ -71,7 +75,7 @@ namespace DairyCow.Model
         /// <summary>
         /// 任务应开始时间
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
         /// <summary>
         /// 任务应完成时间
         /// </summary>

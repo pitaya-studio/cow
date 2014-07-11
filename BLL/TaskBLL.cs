@@ -60,9 +60,9 @@ namespace DairyCow.BLL
             if (row!=null)
             {
                 t.ID = Convert.ToInt32(row["ID"]);
-                t.StartTime = Convert.ToDateTime(row["StartTime"]);
+                t.ArrivalTime = Convert.ToDateTime(row["ArrivalTime"]);
                 t.DeadLine = Convert.ToDateTime(row["DeadLine"]);
-                switch (Convert.ToInt32(row["TaskStatus"]))
+                switch (Convert.ToInt32(row["Status"]))
                 {
                     case 0:
                         t.Status = DairyTaskStatus.Initial;
@@ -73,41 +73,53 @@ namespace DairyCow.BLL
                     default:
                         break;
                 }
+                
                 int taskTypeNum=Convert.ToInt32(row["TaskType"]);
                 switch (taskTypeNum)
                 {
                     case 0:
                         t.TaskType = TaskType.InseminationTask;
+                        t.TaskTypeText = "配种";
                         break;
                     case 1:
                         t.TaskType = TaskType.InitialInspectionTask;
+                        t.TaskTypeText = "初检";
                         break;
                     case 2:
                         t.TaskType = TaskType.ReInspectionTask;
+                        t.TaskTypeText = "复检";
                         break;
                     case 3:
                         t.TaskType = TaskType.Day21ToBornTask;
+                        t.TaskTypeText = "";
                         break;
                     case 4:
                         t.TaskType = TaskType.Day7ToBornTask;
+                        t.TaskTypeText = "";
                         break;
                     case 5:
                         t.TaskType = TaskType.Day3AfterBornTask;
+                        t.TaskTypeText = "";
                         break;
                     case 6:
                         t.TaskType = TaskType.Day10AfterBornTask;
+                        t.TaskTypeText = "";
                         break;
                     case 7:
                         t.TaskType = TaskType.Day15AfterBornTask;
+                        t.TaskTypeText = "";
                         break;
                     case 8:
                         t.TaskType = TaskType.ImmuneTask;
+                        t.TaskTypeText = "";
                         break;
                     case 9:
                         t.TaskType = TaskType.QuarantineTask;
+                        t.TaskTypeText = "";
                         break;
                     case 10:
                         t.TaskType = TaskType.GroupingTask;
+                        t.TaskTypeText = "";
                         break;
                     default:
                         break;
@@ -118,7 +130,7 @@ namespace DairyCow.BLL
                 }
                 if (row["OperatorID"] != DBNull.Value)
                 {
-                    t.RoleID = Convert.ToInt32(row["OperatorID"]);
+                    t.OperatorID = Convert.ToInt32(row["OperatorID"]);
                 }
                 if (row["FinishedTime"] != DBNull.Value)
                 {
@@ -127,6 +139,10 @@ namespace DairyCow.BLL
                 if (row["InputTime"] != DBNull.Value)
                 {
                     t.InputTime = Convert.ToDateTime(row["InputTime"]);
+                }
+                if (row["EarNum"] != DBNull.Value)
+                {
+                    t.EarNum = Convert.ToInt32(row["EarNum"]);
                 }
             }
             return t;

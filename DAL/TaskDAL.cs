@@ -67,17 +67,19 @@ namespace DairyCow.DAL
             DataTable taskList = null;
 
             string sql = string.Format(@"SELECT ID, 
-                                        PastureID,
-                                        [TaskType], 
-                                        OperatorID, 
-                                        ArrivalTime, 
-                                        DeadLine, 
-                                        [Status], 
-                                        FinishedTime,
-                                        InputTime
+                                            PastureID,
+                                            TaskType, 
+                                            OperatorID, 
+                                            ArrivalTime, 
+                                            DeadLine, 
+                                            [Status], 
+                                            FinishedTime,
+                                            InputTime,
+                                            RoleID,
+                                            EarNum
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
-                                        and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID,pastureID);
+                                            and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID,pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
@@ -156,7 +158,7 @@ namespace DairyCow.DAL
                                     '" + typeValue + "',"
                           + myTask.OperatorID + ",'"
                           + myTask.EarNum + "',"
-                          + myTask.StartTime + ",'"
+                          + myTask.ArrivalTime + ",'"
                           + myTask.DeadLine + "',"
                           + myTask.CompleteTime + ","
                           + taskStatus + ",'"
@@ -171,7 +173,7 @@ namespace DairyCow.DAL
                                     '" + typeValue + "',"
                           + myTask.OperatorID + ",'"
                           + myTask.EarNum + "',"
-                          + myTask.StartTime + ",'"
+                          + myTask.ArrivalTime + ",'"
                           + myTask.DeadLine + "',"
                           + taskStatus + ",'"
                           + myTask.PastureID + "')");

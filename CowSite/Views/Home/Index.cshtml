@@ -6,13 +6,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>易牧通奶牛云智能管理平台</title>
-    <link rel="shortcut icon" href="images/emutong.ico">
-    <script type="text/javascript" src="../Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="shortcut icon" href="images/emutong.ico">    
     <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Style/base.css">
-    <link rel="stylesheet" type="text/css" href="../Style/Home/Index.css">
+    <link rel="stylesheet" href="../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="../Style/base.css">
+    <link rel="stylesheet" href="../Style/Home/Index.css">
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>    
     <script src="../Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <script src="../ligerUI/js/ligerui.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -42,9 +44,8 @@
             <div id="chart-breedSummary" style="height: 350px; width: 450px; display: inline-block; "></div>
             <div id="chart-paritySummary" style="height: 350px; width: 450px; display: inline-block; "></div>
         </div>
-        <div class="todoList">
-            ToDo List
-        </div>
+        <div id="toDoList" class="ml5 mr5"></div>
+        <div class="l-loading" id="pageloading"></div>
     </div>
     <script type="text/javascript">
         // 路径配置
@@ -53,7 +54,7 @@
                 'echarts': '../Controls/echarts/build/echarts',
                 'echarts/chart/pie': '../Controls/echarts/build/echarts'
             }
-        });        
+        });
 
         $(function () {
             loadPastureInfo();
@@ -159,7 +160,7 @@
                 }
             );
         }
-        
+
         function renderMilkCowSummary(summary) {
             // 使用
             require(
@@ -382,8 +383,22 @@
                 url: "../Home/GetToDoList",
                 dataType: "json",
                 cache: false
-            }).success(function (cowData) {
-                
+            }).success(function (toDoList) {
+                $("#toDoList").ligerGrid({
+                    checkbox: false,
+                    columns: [
+                        { display: '任务ID', name: 'ID', width: 1, hide: true },
+                        { display: '任务类型', name: 'TaskTypeText', align: 'left', minWidth: 60, render: function (item, index) { return '<a href="" target="_blank">' + item.TaskTypeText + '</a>'; } },
+                        { display: '耳号', name: 'EarNum', align: 'left', minWidth: 120 },
+                        { display: '应开始时间', name: 'ArrivalTime', type:'date', align: 'left', width: 75 },
+                        { display: '应完成时间', name: 'DeadLine', type:'date', align: 'left', width: 75 }
+                    ],
+                    pageSize: 10,
+                    width: '100%',
+                    height: '100%',
+                    data: toDoList
+                });
+                $("#pageloading").hide();
             });
         }
 

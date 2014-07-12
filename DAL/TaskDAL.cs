@@ -25,7 +25,8 @@ namespace DairyCow.DAL
                                         [Status] as TaskStatus, 
                                         FinishedTime,
                                         InputTime,
-                                        RoleID
+                                        RoleID,
+                                        EarNum
                                         FROM         Task
                                         where PastureID={0} and [Status]=1 and ArrivalTime<DATEADD(DD,3,GETDATE())");
 
@@ -46,7 +47,8 @@ namespace DairyCow.DAL
                                         [Status] as TaskStatus, 
                                         FinishedTime,
                                         InputTime,
-                                        RoleID
+                                        RoleID,
+                                        EarNum
                                         FROM Task
                                         WHERE PastureID={0}", pastureID);
 
@@ -72,7 +74,8 @@ namespace DairyCow.DAL
                                         [Status] as TaskStatus, 
                                         FinishedTime,
                                         InputTime,
-                                        RoleID
+                                        RoleID,
+                                        EarNum
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
                                         and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID, pastureID);

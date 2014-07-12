@@ -60,9 +60,9 @@ namespace DairyCow.BLL
             if (row!=null)
             {
                 t.ID = Convert.ToInt32(row["ID"]);
-                t.ArrivalTime = Convert.ToDateTime(row["ArrivalTime"]);
+                t.ArrivalTime = Convert.ToDateTime(row["StartTime"]);
                 t.DeadLine = Convert.ToDateTime(row["DeadLine"]);
-                switch (Convert.ToInt32(row["Status"]))
+                switch (Convert.ToInt32(row["TaskStatus"]))
                 {
                     case 0:
                         t.Status = DairyTaskStatus.Initial;

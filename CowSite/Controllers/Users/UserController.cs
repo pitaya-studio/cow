@@ -46,9 +46,11 @@ namespace CowSite.Controllers.Users
             return RedirectToAction("../User/List");
         }
 
-        public ActionResult Delete() 
+        public ActionResult Delete(int id)
         {
-
+            //删除用户
+            int userID = Convert.ToInt32(Request["userID"]);
+            bllUser.DeleteUser(userID);
             return RedirectToAction("../User/List");
         }
 

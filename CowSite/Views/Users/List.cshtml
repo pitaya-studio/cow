@@ -105,7 +105,14 @@
                 text: '删除用户',
                 disabled: false,
                 click: function () {
-                    var editUrl = "../../User/Delete";
+                    $.ajax({
+                        type: 'post',
+                        url: "../../User/Delete",
+                        dataType: "json",
+                        data: { userID: userID }
+                    }).success({
+
+                    });
                 },
                 icon: null
             });

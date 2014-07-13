@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 
 namespace DairyCow.BLL
-{
-     
+{     
     public class TaskBLL
     {
         TaskDAL taskDAL = new TaskDAL();
@@ -79,47 +78,36 @@ namespace DairyCow.BLL
                 {
                     case 0:
                         t.TaskType = TaskType.InseminationTask;
-                        t.TaskTypeText = "配种";
                         break;
                     case 1:
                         t.TaskType = TaskType.InitialInspectionTask;
-                        t.TaskTypeText = "初检";
                         break;
                     case 2:
                         t.TaskType = TaskType.ReInspectionTask;
-                        t.TaskTypeText = "复检";
                         break;
                     case 3:
                         t.TaskType = TaskType.Day21ToBornTask;
-                        t.TaskTypeText = "";
                         break;
                     case 4:
                         t.TaskType = TaskType.Day7ToBornTask;
-                        t.TaskTypeText = "";
                         break;
                     case 5:
                         t.TaskType = TaskType.Day3AfterBornTask;
-                        t.TaskTypeText = "";
                         break;
                     case 6:
                         t.TaskType = TaskType.Day10AfterBornTask;
-                        t.TaskTypeText = "";
                         break;
                     case 7:
                         t.TaskType = TaskType.Day15AfterBornTask;
-                        t.TaskTypeText = "";
                         break;
                     case 8:
                         t.TaskType = TaskType.ImmuneTask;
-                        t.TaskTypeText = "";
                         break;
                     case 9:
                         t.TaskType = TaskType.QuarantineTask;
-                        t.TaskTypeText = "";
                         break;
                     case 10:
                         t.TaskType = TaskType.GroupingTask;
-                        t.TaskTypeText = "";
                         break;
                     default:
                         break;
@@ -207,7 +195,7 @@ namespace DairyCow.BLL
         }
 
         /// <summary>
-        /// 发情配种，输入界面动作
+        /// 发情/配种任务
         /// </summary>
         public void CompleteInsemination()
         {
@@ -218,6 +206,10 @@ namespace DairyCow.BLL
             //删除无效的妊检任务单
             //产生新妊检任务单
         }
+
+        /// <summary>
+        /// 妊检初检任务
+        /// </summary>
         public void CompleteInitialInspection()
         {
             //添加初检记录
@@ -226,6 +218,9 @@ namespace DairyCow.BLL
             //生成新复检任务单
         }
 
+        /// <summary>
+        /// 妊检复检任务
+        /// </summary>
         public void CompleteReInspection()
         {
             //添加初检记录
@@ -234,6 +229,9 @@ namespace DairyCow.BLL
             //生成产前21天任务单
         }
 
+        /// <summary>
+        /// 产前21天任务
+        /// </summary>
         public void CompleteDay21ToBorn()
         {
             //更新任务记录，标记完成
@@ -241,49 +239,90 @@ namespace DairyCow.BLL
             //生成产前7天任务单
         }
 
+        /// <summary>
+        /// 产前7天任务
+        /// </summary>
+        public void CompleteDay7ToBorn()
+        {
+            //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
+            //更新任务记录，标记完成
+        }
+
+        /// <summary>
+        /// 产后3天任务
+        /// </summary>
         public void CompleteDay3AfterBorn()
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
         }
 
+        /// <summary>
+        /// 产后10天任务
+        /// </summary>
         public void CompleteDay10AfterBorn()
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
         }
+
+        /// <summary>
+        /// 产后15天任务单
+        /// </summary>
         public void CompleteDay15AfterBorn()
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
         }
 
+        /// <summary>
+        /// 完成免疫任务
+        /// </summary>
         public void CompleteImmune()
         {
             //更新任务记录，标记完成
         }
 
+        /// <summary>
+        /// 增加免疫记录任务
+        /// </summary>
         public void AddImmuneRecord()
         { 
             //每头牛做增加操作时调用本方法
         }
+
+        /// <summary>
+        /// 完成检疫任务
+        /// </summary>
         public void CompleteQuarantine()
         {
             //更新任务记录，标记完成
         }
 
+        /// <summary>
+        /// 增加检疫记录任务
+        /// </summary>
         public void AddQuarantineRecord()
         {
             //每头牛做增加操作时调用本方法
         }
 
+        /// <summary>
+        /// 分群任务
+        /// </summary>
         public void CompleteGrouping()
         {
             //各种事件触发产生分群要求，产生任务单
             //饲养员按要求操作，回填完成时间
-
         }
 
-
+        /// <summary>
+        /// 犊牛饲喂任务
+        /// </summary>
+        public void CompleteCalf()
+        {
+            //各种事件触发产生分群要求，产生任务单
+            //饲养员按要求操作，回填完成时间
+        }
     }
 }

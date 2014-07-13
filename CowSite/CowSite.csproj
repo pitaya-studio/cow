@@ -1200,6 +1200,18 @@
     <Content Include="Views\Milk\Index.cshtml" />
     <Content Include="Views\Medical\Index.cshtml" />
     <Content Include="Views\FarmAdmin\Index.cshtml" />
+    <Content Include="Views\Task\TaskInsemination.cshtml" />
+    <Content Include="Views\Task\TaskInitialInspection.cshtml" />
+    <Content Include="Views\Task\TaskReInspection.cshtml" />
+    <Content Include="Views\Task\TaskDay21ToBorn.cshtml" />
+    <Content Include="Views\Task\TaskDay7TorBorn.cshtml" />
+    <Content Include="Views\Task\TaskDay3AfterBorn.cshtml" />
+    <Content Include="Views\Task\TaskDay10AfterBorn.cshtml" />
+    <Content Include="Views\Task\TaskDay15AfterBorn.cshtml" />
+    <Content Include="Views\Task\TaskCompleteImmune.cshtml" />
+    <Content Include="Views\Task\TaskCompleteQuarantine.cshtml" />
+    <Content Include="Views\Task\TaskCompleteGrouping.cshtml" />
+    <Content Include="Views\Task\TaskCompleteCalf.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -55,7 +55,66 @@
                     checkbox: false,
                     columns: [
                         { display: '任务ID', name: 'ID', width: 1, hide: true },
-                        { display: '任务类型', name: 'TaskTypeText', align: 'left', minWidth: 60, render: function (item, index) { return '<a href="" target="_blank">' + item.TaskTypeText + '</a>'; } },
+                        {
+                            display: '任务类型', name: 'TaskTypeID', align: 'left', minWidth: 60, render: function (item, index) {
+                                var taskPageUrl = "";
+                                var taskTypeName = "";
+                                switch(item.TaskTypeID)
+                                {
+                                    case 0:
+                                        taskPageUrl = 'TaskInsemination';
+                                        taskTypeName = '发情配种';
+                                        break;
+                                    case 1:
+                                        taskPageUrl = 'TaskInitialInspection';
+                                        taskTypeName = '妊检初检';
+                                        break;
+                                    case 2:
+                                        taskPageUrl = 'TaskReInspection';
+                                        taskTypeName = '妊检复检';
+                                        break;
+                                    case 3:
+                                        taskPageUrl = 'TaskDay21ToBorn';
+                                        taskTypeName = '产前21天';
+                                        break;
+                                    case 4:
+                                        taskPageUrl = 'TaskDay7TorBorn';
+                                        taskTypeName = '产前7天';
+                                        break;
+                                    case 5:
+                                        taskPageUrl = 'TaskDay3AfterBorn';
+                                        taskTypeName = '产后3天';
+                                        break;
+                                    case 6:
+                                        taskPageUrl = 'TaskDay10AfterBorn';
+                                        taskTypeName = '产后10天';
+                                        break;
+                                    case 7:
+                                        taskPageUrl = 'TaskDay15AfterBorn';
+                                        taskTypeName = '产后15天';
+                                        break;
+                                    case 8:
+                                        taskPageUrl = 'TaskCompleteImmune';
+                                        taskTypeName = '免疫';
+                                        break;
+                                    case 9:
+                                        taskPageUrl = 'TaskCompleteQuarantine';
+                                        taskTypeName = '检疫';
+                                        break;
+                                    case 10:
+                                        taskPageUrl = 'TaskCompleteGrouping';
+                                        taskTypeName = '分群';
+                                        break;
+                                    case 11:
+                                        taskPageUrl = 'TaskCompleteCalf';
+                                        taskTypeName = '犊牛饲喂';
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                return '<a href="' + taskPageUrl + '" target="_blank">' + taskTypeName + '</a>';
+                            }
+                        },
                         { display: '耳号', name: 'EarNum', align: 'left', minWidth: 120 },
                         { display: '应开始时间', name: 'ArrivalTime', type: 'date', align: 'left', width: 75 },
                         { display: '应完成时间', name: 'DeadLine', type: 'date', align: 'left', width: 75 }

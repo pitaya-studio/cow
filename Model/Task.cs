@@ -13,6 +13,10 @@ namespace DairyCow.Model
         /// </summary>
         public TaskType TaskType { get; set; }
         /// <summary>
+        /// 任务类型ID
+        /// </summary>
+        public int TaskTypeID { get { return Convert.ToInt32(TaskType); } }
+        /// <summary>
         /// 任务类型-显示用
         /// </summary>
         public string TaskTypeText { get; set; }
@@ -158,8 +162,11 @@ namespace DairyCow.Model
         /// <summary>
         ///分群任务单
         /// </summary>
-        GroupingTask = 10
-
+        GroupingTask = 10,
+        /// <summary>
+        ///犊牛饲喂任务单
+        /// </summary>
+        CalfTask = 11
     }
 
     public enum DairyTaskStatus

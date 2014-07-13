@@ -10,11 +10,12 @@ namespace CowSite.Controllers.Task
 {
     public class TaskDay21ToBornController : Controller
     {
+        TaskBLL bll = new TaskBLL();
+        DairyTask v;
         public JsonResult LoadTask(string taskID)
-        {
-            TaskBLL bll = new TaskBLL();
+        {         
 
-            DairyTask v = bll.GetTaskByID(Convert.ToInt32(taskID));
+            v = bll.GetTaskByID(Convert.ToInt32(taskID));
 
             UserBLL u = new UserBLL();
             User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
@@ -27,8 +28,9 @@ namespace CowSite.Controllers.Task
 
         public JsonResult SaveTask()
         {
-            string op = Request.Form["operatorName"];
+            v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
 
+            bll.CompleteDay21ToBorn(v);
             return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
         }
 	}

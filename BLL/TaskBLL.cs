@@ -295,7 +295,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产前7天任务
         /// </summary>
-        public void CompleteDay7ToBorn()
+        public void CompleteDay7ToBorn(DairyTask t)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
@@ -304,7 +304,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产后3天任务
         /// </summary>
-        public void CompleteDay3AfterBorn()
+        public void CompleteDay3AfterBorn(DairyTask t)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
@@ -313,7 +313,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产后10天任务
         /// </summary>
-        public void CompleteDay10AfterBorn()
+        public void CompleteDay10AfterBorn(DairyTask t)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
@@ -322,7 +322,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产后15天任务单
         /// </summary>
-        public void CompleteDay15AfterBorn()
+        public void CompleteDay15AfterBorn(DairyTask t)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成

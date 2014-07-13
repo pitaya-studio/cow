@@ -31,7 +31,6 @@
                 $("#toDoList").ligerGrid({
                     checkbox: false,
                     columns: [
-                        { display: '任务ID', name: 'ID', width: 1, hide: true },
                         {
                             display: '任务类型', name: 'TaskTypeID', align: 'left', minWidth: 60, render: function (item, index) {
                                 var taskPageUrl = "";
@@ -88,7 +87,8 @@
                                     default:
                                         break;
                                 }
-                                return '<a href="' + taskPageUrl + '" target="_self">' + taskTypeName + '</a>';
+                                
+                                return '<a href="' + taskPageUrl + '?taskID=' + item.ID + '" target="_self">' + taskTypeName + '</a>';
                             }
                         },
                         { display: '耳号', name: 'EarNum', align: 'left', minWidth: 120 },

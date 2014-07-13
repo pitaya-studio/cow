@@ -39,6 +39,7 @@ namespace CowSite.Controllers.Task
             }
             catch (Exception)
             {
+                //todo dehua
             }
             return View("~/Views/Task/Index.cshtml");
         }

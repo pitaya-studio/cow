@@ -230,7 +230,7 @@ namespace DairyCow.BLL
             task.ArrivalTime = insemination.OperateDate;
             task.CompleteTime = insemination.OperateDate;
             task.TaskType = TaskType.InseminationTask;
-            //task.OperatorID=insemination.Operator
+            task.OperatorID = insemination.operatorID;
             task.InputTime = DateTime.Now;
             task.PastureID = cow.FarmCode;
             task.Status = DairyTaskStatus.Completed;
@@ -244,14 +244,16 @@ namespace DairyCow.BLL
 
             //产生新妊检任务单
 
-            DairyTask iTask = new DairyTask();
-            iTask.TaskType = TaskType.InitialInspectionTask;
-            iTask.Status = DairyTaskStatus.Initial;
-            iTask.ArrivalTime = insemination.OperateDate.AddDays(DairyParameterBLL.GetCurrentParameterDictionary(cow.FarmCode)[FarmInfo.PN_DAYSOFINITIALINSPECTION]);
+            DairyTask initialInspectionTask = new DairyTask();
+            initialInspectionTask.TaskType = TaskType.InitialInspectionTask;
+            initialInspectionTask.Status = DairyTaskStatus.Initial;
+            initialInspectionTask.ArrivalTime = insemination.OperateDate.AddDays(DairyParameterBLL.GetCurrentParameterDictionary(cow.FarmCode)[FarmInfo.PN_DAYSOFINITIALINSPECTION]);
             //3 days to complete task
-            iTask.DeadLine = iTask.ArrivalTime.AddDays(3.0);
-            iTask.EarNum = insemination.EarNum;
-            // to-do iTask.OperatorID=cow.
+            initialInspectionTask.DeadLine = initialInspectionTask.ArrivalTime.AddDays(3.0);
+            initialInspectionTask.EarNum = insemination.EarNum;
+            initialInspectionTask.OperatorID = insemination.operatorID;
+            taskDAL.InsertTask(initialInspectionTask);
+
 
             //添加配种记录
             InseminationDAL insemDAL = new InseminationDAL();
@@ -283,7 +285,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产前21天任务
         /// </summary>
-        public void CompleteDay21ToBorn()
+        public void CompleteDay21ToBorn(DairyTask t)
         {
             //更新任务记录，标记完成
             //

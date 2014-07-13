@@ -1,4 +1,5 @@
 ﻿using DairyCow.BLL;
+using DairyCow.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace CowSite.Controllers.Task
         public JsonResult LoadTask(string taskID)
         {
             TaskBLL bll = new TaskBLL();
-            
-            //var v = TaskBLL
 
-            return Json(new { 
-                Instruction = "请观测牛群发情状况，并给发情牛配种。", 
-                EarNum = "11111" 
+            DairyTask v = bll.GetTaskByID(Convert.ToInt32(taskID));
+
+            UserBLL u = new UserBLL();
+            User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
+
+            return Json(new { EarNum=v.EarNum,
+                ArrivalTime=v.ArrivalTime.ToString("yyyy-MM-dd"),
+                Operator = user.Name
             }, JsonRequestBehavior.AllowGet);
         }
 

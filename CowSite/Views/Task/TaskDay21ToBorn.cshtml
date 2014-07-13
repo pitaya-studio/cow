@@ -9,10 +9,53 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>产前21天任务单</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
+    <link rel="stylesheet" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="../../Style/base.css">
+    <link rel="stylesheet" href="../../Style/Home/Index.css">
+    <script src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <script src="../../ligerUI/js/ligerui.min.js"></script>
+    <script type="text/javascript">
+        var taskID = "@ViewBag.TaskID";
+
+        $(function () {
+            loadTask();
+        })
+
+        function loadTask() {
+            $.ajax({
+                type: 'get',
+                url: "../../TaskDay21ToBorn/LoadTask",
+                data: { taskID: taskID },
+                dataType: "json",
+                cache: false
+            }).success(function (taskData) {
+                $('#taskid').text(taskID);
+                $('input[name=earNum]').val(taskData.EarNum);
+                $('input[name=startDate]').val(taskData.ArrivalTime);
+                $('input[name=operatorName]').val(taskData.Operator);
+            });
+        }
+    </script>
 </head>
 <body>
-    <div class="container">
-        产前21天任务单
+    <div class="container">        
+        <div>产前21天任务单</div>
+        <div>
+            <form action="../../TaskInsemination/SaveTask" method="post">
+                <div>任务单ID：<span id="taskid"></span></div>
+                <div>任务单类型：产前21天任务单</div>
+                <div>任务指导：请进行该牛产前21天护理。补充维生素A、D、E，肌肉注射亚硒酸钠。</div>
+                <br />
+                <div>牛耳号：<input name="earNum" /></div>
+                <div>任务开始时间：<input type="date" name="startDate" /></div>
+                <div>操作人员：<input name="operatorName" /></div>
+                <div>任务完成时间：<input type="date" name="endDate" /></div>
+                <button type="submit">提交</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

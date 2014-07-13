@@ -1227,13 +1227,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Calf\" />
-    <Folder Include="Views\TaskCompleteImmune\" />
-    <Folder Include="Views\TaskDay10AfterBorn\" />
-    <Folder Include="Views\TaskDay7ToBorn\" />
-    <Folder Include="Views\TaskInsemination\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />

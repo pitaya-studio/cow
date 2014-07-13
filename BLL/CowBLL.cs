@@ -69,7 +69,7 @@ namespace DairyCow.BLL
                 cowItem.GroupID = Convert.ToInt32(cowRow["GroupID"]);
                 cowItem.GroupName = cowRow["GroupName"].ToString();
                 cowItem.Gender = cowRow["Gender"].ToString();
-                cowItem.FarmCode = cowRow["FarmID"].ToString();
+                cowItem.FarmCode = Convert.ToInt32(cowRow["FarmID"]);
                 cowItem.BirthDate = Convert.ToDateTime(cowRow["BirthDate"]);
                 DateTime dtNow = DateTime.Now;
                 //cowItem.AgeMonth = (dtNow.Year - cowItem.BirthDate.Year) * 12 + (dtNow.Month - cowItem.BirthDate.Month);

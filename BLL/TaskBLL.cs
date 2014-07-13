@@ -46,7 +46,25 @@ namespace DairyCow.BLL
                 list.Add(WrapTaskItem(item));
             }
             return list;
-        }        
+        }  
+      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public DairyTask GetTaskByID(int id)
+        {
+            DataTable tb= taskDAL.GetTaskByID(id);
+            if (tb.Rows.Count==1)
+            {
+                return WrapTaskItem(tb.Rows[0]);
+            }
+            else
+            {
+                throw new Exception("No unique task found!");
+            }
+        }
 
         /// <summary>
         /// 封装任务项
@@ -179,6 +197,14 @@ namespace DairyCow.BLL
         public int RemovePreviousInspectionTasks(int earNum,bool isInitial)
         {
             int i = 0;
+            if (isInitial)
+            {
+                i=taskDAL.DeletePreviousInitialInspectionTask(earNum);
+            }
+            else
+            {
+                i = taskDAL.DeletePreviousReInspectionTask(earNum);
+            }
             return i;
         }
 
@@ -190,21 +216,46 @@ namespace DairyCow.BLL
         /// <returns>删除记录数</returns>
         public int RemovePreviousBeforeBornTasks(int earNum)
         {
-            int i = 0;
-            return i;
+            return taskDAL.DeleteBeforeBornTasks(earNum);
         }
 
         /// <summary>
         /// 发情/配种任务
         /// </summary>
-        public void CompleteInsemination()
+        public void CompleteInsemination(Insemination insemination)
         {
+            CowInfo cow = new CowInfo(insemination.EarNum);
             //添加任务记录，添加即已完成 Todo
-
-            //添加配种记录
+            DairyTask task = new DairyTask();
+            task.ArrivalTime = insemination.OperateDate;
+            task.CompleteTime = insemination.OperateDate;
+            task.TaskType = TaskType.InseminationTask;
+            //task.OperatorID=insemination.Operator
+            task.InputTime = DateTime.Now;
+            task.PastureID = cow.FarmCode;
+            task.Status = DairyTaskStatus.Completed;
+            
 
             //删除无效的妊检任务单
+            RemovePreviousInspectionTasks(insemination.EarNum, true);
+            RemovePreviousInspectionTasks(insemination.EarNum, false);
+
+
+
             //产生新妊检任务单
+
+            DairyTask iTask = new DairyTask();
+            iTask.TaskType = TaskType.InitialInspectionTask;
+            iTask.Status = DairyTaskStatus.Initial;
+            iTask.ArrivalTime = insemination.OperateDate.AddDays(DairyParameterBLL.GetCurrentParameterDictionary(cow.FarmCode)[FarmInfo.PN_DAYSOFINITIALINSPECTION]);
+            //3 days to complete task
+            iTask.DeadLine = iTask.ArrivalTime.AddDays(3.0);
+            iTask.EarNum = insemination.EarNum;
+            // to-do iTask.OperatorID=cow.
+
+            //添加配种记录
+            InseminationDAL insemDAL = new InseminationDAL();
+            insemDAL.InsertInseminationInfo(insemination);
         }
 
         /// <summary>
@@ -284,7 +335,7 @@ namespace DairyCow.BLL
         }
 
         /// <summary>
-        /// 增加免疫记录任务
+        /// 增加免疫记录
         /// </summary>
         public void AddImmuneRecord()
         { 
@@ -300,7 +351,7 @@ namespace DairyCow.BLL
         }
 
         /// <summary>
-        /// 增加检疫记录任务
+        /// 增加检疫记录
         /// </summary>
         public void AddQuarantineRecord()
         {

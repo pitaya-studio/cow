@@ -49,7 +49,7 @@ namespace CowSite.Controllers.Users
         public ActionResult Delete(int id)
         {
             //删除用户
-            int userID = Convert.ToInt32(Request["userID"]);
+            int userID = Convert.ToInt32(Request["UserID"]);
             bllUser.DeleteUser(userID);
             return RedirectToAction("../User/List");
         }

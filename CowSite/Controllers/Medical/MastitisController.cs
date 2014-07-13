@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace CowSite.Controllers.Medical
 {
+    /// <summary>
+    /// 隐乳检测
+    /// </summary>
     public class MastitisController : Controller
     {
         MilkMastitisReportBLL bllMilkMastitisReport = new MilkMastitisReportBLL();

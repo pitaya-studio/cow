@@ -21,6 +21,12 @@ namespace CowSite.Controllers.Feed
             return Json(cowGroupData, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult List()
+        {
+            ViewBag.CowGroupID = Request.QueryString["id"];
+            return View("~/Views/CowGroup/List.cshtml");
+        }
+
         public ActionResult ModifyCowGroup()
         {
             ViewBag.CowGroupID = Request.QueryString["id"];

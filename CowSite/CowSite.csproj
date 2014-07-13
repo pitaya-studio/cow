@@ -1109,6 +1109,7 @@
     <Compile Include="Controllers\Breed\ReInspectionController.cs" />
     <Compile Include="Controllers\Breed\UnforbidInseminationController.cs" />
     <Compile Include="Controllers\CowController.cs" />
+    <Compile Include="Controllers\FarmAdmin\IndexController.cs" />
     <Compile Include="Controllers\Feed\CowGroupController.cs" />
     <Compile Include="Controllers\Feed\EmptyController.cs" />
     <Compile Include="Controllers\Feed\FodderController.cs" />
@@ -1135,6 +1136,7 @@
     <Compile Include="Controllers\Milk\MilkSaleController.cs" />
     <Compile Include="Controllers\Milk\ParameterController.cs" />
     <Compile Include="Controllers\Platform\FormulaController.cs" />
+    <Compile Include="Controllers\Task\IndexController.cs" />
     <Compile Include="Controllers\Users\IndexController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1191,6 +1193,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Milk\DailyMilkYield\Add.cshtml" />
+    <Content Include="Views\Task\Index.cshtml" />
+    <Content Include="Views\Breed\Index.cshtml" />
+    <Content Include="Views\Feed\Index.cshtml" />
+    <Content Include="Views\CowGroup\List.cshtml" />
+    <Content Include="Views\Milk\Index.cshtml" />
+    <Content Include="Views\Medical\Index.cshtml" />
+    <Content Include="Views\FarmAdmin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1198,9 +1207,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Login\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

@@ -11,9 +11,9 @@ namespace CowSite.Controllers.Milk
 
         //
         // GET: /Index/
-        public ActionResult List()
+        public ActionResult Index()
         {
-            return View("~/Views/Milk/Index/List.cshtml");
+            return View("~/Views/Milk/Index.cshtml");
         }
 
         public JsonResult GetMilkHallList()

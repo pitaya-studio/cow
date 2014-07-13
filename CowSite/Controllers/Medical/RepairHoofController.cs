@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace CowSite.Controllers.Medical
 {
+    /// <summary>
+    /// 修蹄
+    /// </summary>
     public class RepairHoofController : Controller
     {
         RepairHoofBLL bllRepairHoof = new RepairHoofBLL();

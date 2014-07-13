@@ -15,8 +15,9 @@
     <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script type="text/javascript">
         $(function () {
-            InitBtnEvent();
-            loadCowList();
+            initSecondMenu();
+            //InitBtnEvent();
+            //loadCowList();
         })
 
         var cowGroupGridManager;
@@ -129,6 +130,14 @@
                 icon: null
             });
         }
+
+        function initSecondMenu() {
+            $('#menu1').click(function () { window.open('../../Breed/Index/Index'); });
+            $('#menu2').click(function () { window.open('../../Breed/Insemination/Edit'); });
+            $('#menu3').click(function () { window.open('../../Breed/ForbidInsemination/Edit'); });
+            $('#menu4').click(function () { window.open('../../Breed/UnForbidInsemination/Edit'); });
+        }
+
     </script>
 </head>
 <body>
@@ -140,7 +149,7 @@
             <div class="btn-group">
                 <ul class="nav nav-pills">
                     <li><a href="../../Home/Index">首页</a></li>
-                    <li><a href="javascript:void(0);">任务</a></li>
+                    <li><a href="../../Task/Index/List">任务</a></li>
                     <li class="active"><a href="javascript:void(0);">繁殖</a></li>
                     <li><a href="../../Feed/Index/List">饲养</a></li>
                     <li><a href="../../Milk/Index/List">奶厅</a></li>
@@ -149,6 +158,12 @@
                     <li><a href="../../Users/Index/List">场长</a></li>
                 </ul>
             </div>
+        </div>
+        <div class="btn-group" style="margin: 10px 0px 10px 0px;">
+            <button id="menu1" type="button" class="btn btn-default">繁殖首页</button>
+            <button id="menu2" type="button" class="btn btn-primary">发情配种</button>
+            <button id="menu3" type="button" class="btn btn-default">禁配</button>
+            <button id="menu4" type="button" class="btn btn-default">解禁</button>
         </div>
         <div class="ml5 mt5 mb5">
             <div class="btn-group">

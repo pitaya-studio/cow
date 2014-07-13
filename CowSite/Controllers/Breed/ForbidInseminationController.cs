@@ -13,9 +13,9 @@ namespace CowSite.Controllers.Breed
         InseminationBLL bllInsemination = new InseminationBLL();
         ForbidInseminationBLL bllForbidInsemination = new ForbidInseminationBLL();
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            ViewBag.EarNum = id;
+            //ViewBag.EarNum = id;
             return View("~/Views/Breed/ForbidInsemination/Edit.cshtml");
         }
 

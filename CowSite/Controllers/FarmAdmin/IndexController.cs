@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CowSite.Controllers.Medical
+namespace CowSite.Controllers.FarmAdmin
 {
     public class IndexController : Controller
     {
@@ -12,7 +12,7 @@ namespace CowSite.Controllers.Medical
         // GET: /Index/
         public ActionResult Index()
         {
-            return View("~/Views/Medical/Index.cshtml");
+            return View("~/Views/FarmAdmin/Index.cshtml");
         }
 	}
 }

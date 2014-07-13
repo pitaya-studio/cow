@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace CowSite.Controllers.Medical
 {
+    /// <summary>
+    /// 去附乳
+    /// </summary>
     public class RemoveAddMilkController : Controller
     {
         RemoveAddMilkBLL bllRemoveAddMilk = new RemoveAddMilkBLL();

@@ -1,10 +1,4 @@
-﻿using CowSite.Base;
-using DairyCow.BLL;
-using DairyCow.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using DairyCow.BLL;
 using System.Web.Mvc;
 
 namespace CowSite.Controllers

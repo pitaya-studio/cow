@@ -6,13 +6,13 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>易牧通奶牛云智能管理平台</title>
-    <link rel="shortcut icon" href="images/emutong.ico">    
+    <link rel="shortcut icon" href="images/emutong.ico">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme1.min.css">
     <link rel="stylesheet" href="../ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" href="../Style/base.css">
     <link rel="stylesheet" href="../Style/Home/Index.css">
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>    
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script src="../Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script src="../ligerUI/js/ligerui.min.js"></script>
 </head>
@@ -25,13 +25,13 @@
             <div class="btn-group">
                 <ul class="nav nav-pills">
                     <li class="active"><a href="javascript:void(0);">首页</a></li>
-                    <li><a href="javascript:void(0);">任务</a></li>
-                    <li><a href="../../Breed/Index/List">繁殖</a></li>
-                    <li><a href="../../Feed/Index/List">饲养</a></li>
-                    <li><a href="../../Milk/Index/List">奶厅</a></li>
-                    <li><a href="../../Medical/Index/List">兽医</a></li>
+                    <li><a href="../../Task/Index/List">任务</a></li>
+                    <li><a href="../../Breed/Index/Index">繁殖</a></li>
+                    <li><a href="../../Feed/Index/Index">饲养</a></li>
+                    <li><a href="../../Milk/Index/Index">奶厅</a></li>
+                    <li><a href="../../Medical/Index/Index">兽医</a></li>
                     <li><a href="../../Platform/Formula/List">平台</a></li>
-                    <li><a href="../../Users/User/List">场长</a></li>
+                    <li><a href="../../Users/Index/List">场长</a></li>
                 </ul>
             </div>
         </div>
@@ -59,7 +59,6 @@
         $(function () {
             loadPastureInfo();
             loadCowGroupSummary();
-            loadTask();
         })
 
         function loadPastureInfo() {
@@ -376,32 +375,6 @@
                 }
             );
         }
-
-        function loadTask() {
-            $.ajax({
-                type: 'get',
-                url: "../Home/GetToDoList",
-                dataType: "json",
-                cache: false
-            }).success(function (toDoList) {
-                $("#toDoList").ligerGrid({
-                    checkbox: false,
-                    columns: [
-                        { display: '任务ID', name: 'ID', width: 1, hide: true },
-                        { display: '任务类型', name: 'TaskTypeText', align: 'left', minWidth: 60, render: function (item, index) { return '<a href="" target="_blank">' + item.TaskTypeText + '</a>'; } },
-                        { display: '耳号', name: 'EarNum', align: 'left', minWidth: 120 },
-                        { display: '应开始时间', name: 'ArrivalTime', type:'date', align: 'left', width: 75 },
-                        { display: '应完成时间', name: 'DeadLine', type:'date', align: 'left', width: 75 }
-                    ],
-                    pageSize: 10,
-                    width: '100%',
-                    height: '100%',
-                    data: toDoList
-                });
-                $("#pageloading").hide();
-            });
-        }
-
     </script>
 </body>
 </html>

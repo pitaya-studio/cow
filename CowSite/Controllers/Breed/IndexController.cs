@@ -9,11 +9,11 @@ namespace CowSite.Controllers.Breed
     {
         CowBLL bllCow = new CowBLL();
 
-        public ActionResult List()
+        public ActionResult Index()
         {
-            return View("~/Views/Breed/Index/List.cshtml");
+            return View("~/Views/Breed/Index.cshtml");
         }
-
+        
         public JsonResult GetCowList()
         {
             List<Cow> lstCow = bllCow.GetCowList();

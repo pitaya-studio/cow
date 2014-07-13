@@ -12,9 +12,9 @@ namespace CowSite.Controllers.Feed
 
         //
         // GET: /Index/
-        public ActionResult List()
+        public ActionResult Index()
         {
-            return View("~/Views/Feed/Index/List.cshtml");
+            return View("~/Views/Feed/Index.cshtml");
         }
 	}
 }

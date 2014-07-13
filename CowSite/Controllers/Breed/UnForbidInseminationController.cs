@@ -10,9 +10,9 @@ namespace CowSite.Controllers.Breed
     {
         InseminationBLL bllInsemination = new InseminationBLL();
         UnForbidInseminationBLL bllUnforbidInsemination = new UnForbidInseminationBLL();
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            ViewBag.EarNum = id;
+            //ViewBag.EarNum = id;
             return View("~/Views/Breed/UnForbidInsemination/Edit.cshtml");
         }
 

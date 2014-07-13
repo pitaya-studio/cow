@@ -4,15 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CowSite.Controllers.Medical
+namespace CowSite.Controllers.Task
 {
     public class IndexController : Controller
     {
         //
         // GET: /Index/
-        public ActionResult Index()
+        public ActionResult List()
         {
-            return View("~/Views/Medical/Index.cshtml");
+            return View("~/Views/Task/Index.cshtml");
         }
 	}
 }

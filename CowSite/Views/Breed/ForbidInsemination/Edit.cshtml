@@ -18,6 +18,7 @@
         $(function () {
             loadInsemInfo();
             InitBtnEvent();
+            initSecondMenu();
         })
 
         function loadInsemInfo() {
@@ -56,13 +57,45 @@
                 icon: null
             });
         }
+
+        function initSecondMenu() {
+            $('#menu1').click(function () { window.open('../../Breed/Index/Index'); });
+            $('#menu2').click(function () { window.open('../../Breed/Insemination/Edit'); });
+            $('#menu3').click(function () { window.open('../../Breed/ForbidInsemination/Edit'); });
+            $('#menu4').click(function () { window.open('../../Breed/UnForbidInsemination/Edit'); });
+        }
     </script>
 </head>
 <body>
-    <form class="form-inline" method="post" action="~/Breed/ForbidInsemination/Forbid/@ViewBag.EarNum" id="ForbidInfo"></form>
-    <div style="text-align:center;">
-        <input type="button" id="btnSubmit" value="保存" />
-        <input type="button" id="btnCancel" value="取消" />
+    <div class="container">
+        <div class="header mt10 mb10">
+            <div class="btn-group">
+                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+            </div>
+            <div class="btn-group">
+                <ul class="nav nav-pills">
+                    <li><a href="../../Home/Index">首页</a></li>
+                    <li><a href="../../Task/Index/List">任务</a></li>
+                    <li class="active"><a href="javascript:void(0);">繁殖</a></li>
+                    <li><a href="../../Feed/Index/List">饲养</a></li>
+                    <li><a href="../../Milk/Index/List">奶厅</a></li>
+                    <li><a href="../../Medical/Index/List">兽医</a></li>
+                    <li><a href="../../Platform/Formula/List">平台</a></li>
+                    <li><a href="../../Users/Index/List">场长</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="btn-group" style="margin: 10px 0px 10px 0px;">
+            <button id="menu1" type="button" class="btn btn-default">繁殖首页</button>
+            <button id="menu2" type="button" class="btn btn-default">发情配种</button>
+            <button id="menu3" type="button" class="btn btn-primary">禁配</button>
+            <button id="menu4" type="button" class="btn btn-default">解禁</button>
+        </div>
+        <form class="form-inline" method="post" action="~/Breed/ForbidInsemination/Forbid/@ViewBag.EarNum" id="ForbidInfo"></form>
+        <div style="text-align:center;">
+            <input type="button" id="btnSubmit" value="保存" />
+            <input type="button" id="btnCancel" value="取消" />
+        </div>
     </div>
 </body>
 </html>

@@ -17,7 +17,7 @@ namespace CowSite
             routes.MapRoute(
                 "Breed", // 路由名称  
                 "Breed/{controller}/{action}/{id}", // 带有参数的 URL  
-                new { controller = "Index", action = "List", id = UrlParameter.Optional }, // 参数默认值 
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值 
                 new string[] { "CowSite.Controllers.Breed" }
             );
 
@@ -25,7 +25,7 @@ namespace CowSite
             routes.MapRoute(
                 "Feed", // 路由名称  
                 "Feed/{controller}/{action}/{id}", // 带有参数的 URL  
-                new { controller = "Index", action = "List", id = UrlParameter.Optional }, // 参数默认值  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
                 new string[] { "CowSite.Controllers.Feed" }
             );
 
@@ -33,7 +33,7 @@ namespace CowSite
             routes.MapRoute(
                 "Milk", // 路由名称  
                 "Milk/{controller}/{action}/{id}", // 带有参数的 URL  
-                new { controller = "Index", action = "List", id = UrlParameter.Optional }, // 参数默认值  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
                 new string[] { "CowSite.Controllers.Milk" }
             );
 
@@ -41,7 +41,7 @@ namespace CowSite
             routes.MapRoute(
                 "Medical", // 路由名称  
                 "Medical/{controller}/{action}/{id}", // 带有参数的 URL  
-                new { controller = "Index", action = "List", id = UrlParameter.Optional }, // 参数默认值  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
                 new string[] { "CowSite.Controllers.Medical" }
             );
 
@@ -49,16 +49,32 @@ namespace CowSite
             routes.MapRoute(
                 "Platform", // 路由名称  
                 "Platform/{controller}/{action}/{id}", // 带有参数的 URL  
-                new { controller = "Index", action = "List", id = UrlParameter.Optional }, // 参数默认值  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
                 new string[] { "CowSite.Controllers.Platform" }
+            );
+
+            // 用户管理部分路由  
+            routes.MapRoute(
+                "Users", // 路由名称  
+                "Users/{controller}/{action}/{id}", // 带有参数的 URL  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
+                new string[] { "CowSite.Controllers.Users" }
+            );
+
+            // 任务部分路由  
+            routes.MapRoute(
+                "Task", // 路由名称  
+                "Task/{controller}/{action}/{id}", // 带有参数的 URL  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
+                new string[] { "CowSite.Controllers.Task" }
             );
 
             // 场长部分路由  
             routes.MapRoute(
-                "Users", // 路由名称  
-                "Users/{controller}/{action}/{id}", // 带有参数的 URL  
-                new { controller = "Index", action = "List", id = UrlParameter.Optional }, // 参数默认值  
-                new string[] { "CowSite.Controllers.Users" }
+                "FarmAdmin", // 路由名称  
+                "FarmAdmin/{controller}/{action}/{id}", // 带有参数的 URL  
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional }, // 参数默认值  
+                new string[] { "CowSite.Controllers.FarmAdmin" }
             );
 
             // 默认路由

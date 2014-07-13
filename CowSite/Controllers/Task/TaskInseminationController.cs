@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using DairyCow.BLL;
+using DairyCow.Model;
+using System;
+using System.Web.Mvc;
 
 namespace CowSite.Controllers.Task
 {
@@ -7,15 +10,36 @@ namespace CowSite.Controllers.Task
     /// </summary>
     public class TaskInseminationController : Controller
     {
-        public JsonResult LoadTask(string taskID)
-        {
-            return Json(new { Instruction = "请观测牛群发情状况，并给发情牛配种。", EarNum = "11111" }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult SaveTask()
         {
-            string op = Request.Form["operatorName"];
-            
+            try
+            {
+                string startDate = Request.Form["startDate"];
+                string endDate = Request.Form["endDate"];
+                string earNum = Request.Form["earNum"];
+                string operatorName = Request.Form["operatorName"];
+                string knownWay = Request.Form["knownWay"];
+                string semenNum = Request.Form["semenNum"];
+                string semenCount = Request.Form["semenCount"];
+                string desc = Request.Form["desc"];
+
+                Insemination i = new Insemination();
+                i.EstrusDate = DateTime.Parse(startDate);
+                i.OperateDate = DateTime.Parse(endDate);
+                i.EarNum = Convert.ToInt32(earNum);
+                i.Operator = operatorName;
+                i.EstrusFindType = Convert.ToInt32(knownWay);
+                i.SemenNum = semenNum;
+                i.InseminationNum = Convert.ToInt32(semenCount);
+                i.Description = desc;
+
+                TaskBLL bll = new TaskBLL();
+                //bll.CompleteInsemination(i);
+
+            }
+            catch (Exception)
+            {
+            }
             return View("~/Views/Task/Index.cshtml");
         }
     }

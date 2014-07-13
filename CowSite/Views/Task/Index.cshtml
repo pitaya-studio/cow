@@ -16,29 +16,6 @@
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
     <script src="../../Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script src="../../ligerUI/js/ligerui.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="header mt10 mb10">
-            <div class="btn-group">
-                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
-            </div>
-            <div class="btn-group">
-                <ul class="nav nav-pills">
-                    <li><a href="../../Home/Index">首页</a></li>
-                    <li class="active"><a href="javascript:void(0);">任务</a></li>
-                    <li><a href="../../Breed/Index/Index">繁殖</a></li>
-                    <li><a href="../../Feed/Index/Index">饲养</a></li>
-                    <li><a href="../../Milk/Index/Index">奶厅</a></li>
-                    <li><a href="../../Medical/Index/Index">兽医</a></li>
-                    <li><a href="../../Platform/Formula/List">平台</a></li>
-                    <li><a href="../../FarmAdmin/Index/Index">场长</a></li>
-                </ul>
-            </div>
-        </div>
-        <div id="toDoList" class="ml5 mr5"></div>
-        <div class="l-loading" id="pageloading"></div>
-    </div>
     <script type="text/javascript">
         $(function () {
             loadTask();
@@ -54,13 +31,11 @@
                 $("#toDoList").ligerGrid({
                     checkbox: false,
                     columns: [
-                        { display: '任务ID', name: 'ID', width: 1, hide: true },
                         {
                             display: '任务类型', name: 'TaskTypeID', align: 'left', minWidth: 60, render: function (item, index) {
                                 var taskPageUrl = "";
                                 var taskTypeName = "";
-                                switch(item.TaskTypeID)
-                                {
+                                switch (item.TaskTypeID) {
                                     case 0:
                                         taskPageUrl = 'TaskInsemination';
                                         taskTypeName = '发情配种';
@@ -112,7 +87,8 @@
                                     default:
                                         break;
                                 }
-                                return '<a href="' + taskPageUrl + '" target="_blank">' + taskTypeName + '</a>';
+                                
+                                return '<a href="' + taskPageUrl + '?taskID=' + item.ID + '" target="_self">' + taskTypeName + '</a>';
                             }
                         },
                         { display: '耳号', name: 'EarNum', align: 'left', minWidth: 120 },
@@ -128,5 +104,30 @@
             });
         }
     </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header mt10 mb10">
+            <div class="btn-group">
+                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+            </div>
+            <div class="btn-group">
+                <ul class="nav nav-pills">
+                    <li><a href="../../Home/Index">首页</a></li>
+                    <li class="active"><a href="javascript:void(0);">任务</a></li>
+                    <li><a href="../../Breed/Index/Index">繁殖</a></li>
+                    <li><a href="../../Feed/Index/Index">饲养</a></li>
+                    <li><a href="../../Milk/Index/Index">奶厅</a></li>
+                    <li><a href="../../Medical/Index/Index">兽医</a></li>
+                    <li><a href="../../Platform/Formula/List">平台</a></li>
+                    <li><a href="../../FarmAdmin/Index/Index">场长</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="toDoList" class="ml5 mr5"></div>
+        <div class="l-loading" id="pageloading"></div>
+    </div>
+    
 </body>
 </html>

@@ -1137,6 +1137,8 @@
     <Compile Include="Controllers\Milk\ParameterController.cs" />
     <Compile Include="Controllers\Platform\FormulaController.cs" />
     <Compile Include="Controllers\Task\IndexController.cs" />
+    <Compile Include="Controllers\Task\TaskCompleteImmuneController.cs" />
+    <Compile Include="Controllers\Task\TaskInseminationController.cs" />
     <Compile Include="Controllers\Users\IndexController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1220,6 +1222,10 @@
     </None>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\TaskCompleteImmune\" />
+    <Folder Include="Views\TaskInsemination\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

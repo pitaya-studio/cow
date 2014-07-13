@@ -10,6 +10,21 @@ namespace DairyCow.BLL
 {
     public class FarmInfo
     {
+        //parameter names
+        public const string PN_DAYSOFDRY = "DaysOfDry";
+        public const string PN_DAYSOFINITIALINSPECTION = "DaysOfInitialInspection";
+        public const string PN_DAYSOFREINSEPECTION = "DaysOfReInspection";
+        public const string PN_MAXUNINSEMINATEDAGEMONTH = "MaxUninseminatedAgeMonth";
+        public const string PN_MAXUNINSEMINATEDAYS = "MaxUninseminatedDays";
+        public const string PN_MAXUNPREGNANTAGEMONTH = "MaxUnpregnantAgeMonth";
+        public const string PN_MAXUNPREGNANTDAYS = "MaxUnpregnantDays";
+        public const string PN_MINAGEDAY = "MinAgeDay";
+        public const string PN_MINBADUDDER = "MinBadUdder";
+        public const string PN_MINNORMALCALVINGDAYS = "MinNormalCalvingDays";
+        public const string PN_MINNULLPARITYAGEMONTH = "MinNullParityAgeMonth";
+        public const string PN_MINNULLPARITYWEIGTH = "MinNullParityWeight";
+        public const string PN_NORMALCALVINGDAYS = "NormalCalvingDays";
+
         private CowBLL cowBll = new CowBLL();
 
         private List<Cow> cowList = new List<Cow>();

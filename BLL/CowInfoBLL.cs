@@ -138,7 +138,7 @@ namespace DairyCow.BLL
             }
             //set;
         }
-        public string FarmCode 
+        public int FarmCode 
         {
             get
             {

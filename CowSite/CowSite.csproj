@@ -1085,6 +1085,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\menu.js" />
     <Content Include="Scripts\settingData.js" />
     <Content Include="Style\base.css" />
     <Content Include="Style\Breeding\Index\List.css" />
@@ -1103,6 +1104,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Breed\CalfController.cs" />
     <Compile Include="Controllers\Breed\ForbidInseminationController.cs" />
     <Compile Include="Controllers\Breed\IndexController.cs" />
     <Compile Include="Controllers\Breed\InitialInspectionController.cs" />
@@ -1138,6 +1140,8 @@
     <Compile Include="Controllers\Platform\FormulaController.cs" />
     <Compile Include="Controllers\Task\IndexController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteImmuneController.cs" />
+    <Compile Include="Controllers\Task\TaskDay21ToBornController.cs" />
+    <Compile Include="Controllers\Task\TaskDay7ToBornController.cs" />
     <Compile Include="Controllers\Task\TaskInseminationController.cs" />
     <Compile Include="Controllers\Users\IndexController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
@@ -1206,7 +1210,7 @@
     <Content Include="Views\Task\TaskInitialInspection.cshtml" />
     <Content Include="Views\Task\TaskReInspection.cshtml" />
     <Content Include="Views\Task\TaskDay21ToBorn.cshtml" />
-    <Content Include="Views\Task\TaskDay7TorBorn.cshtml" />
+    <Content Include="Views\Task\TaskDay7ToBorn.cshtml" />
     <Content Include="Views\Task\TaskDay3AfterBorn.cshtml" />
     <Content Include="Views\Task\TaskDay10AfterBorn.cshtml" />
     <Content Include="Views\Task\TaskDay15AfterBorn.cshtml" />
@@ -1214,6 +1218,7 @@
     <Content Include="Views\Task\TaskCompleteQuarantine.cshtml" />
     <Content Include="Views\Task\TaskCompleteGrouping.cshtml" />
     <Content Include="Views\Task\TaskCompleteCalf.cshtml" />
+    <Content Include="Views\Breed\Calf.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1222,7 +1227,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Calf\" />
     <Folder Include="Views\TaskCompleteImmune\" />
+    <Folder Include="Views\TaskDay7ToBorn\" />
     <Folder Include="Views\TaskInsemination\" />
   </ItemGroup>
   <ItemGroup />

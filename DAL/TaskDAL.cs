@@ -99,8 +99,7 @@ namespace DairyCow.DAL
                                         RoleID,
                                         EarNum
                                         FROM Task
-                                        where OperatorID={0} and PastureID={1}
-                                        and [ID]=0", id);
+                                        where [ID]={0}", id);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;

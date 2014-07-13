@@ -8,8 +8,9 @@ using System.Web.Mvc;
 
 namespace CowSite.Controllers.Task
 {
-    public class TaskDay21ToBornController : Controller
-    {       
+    public class TaskDay7ToBornController : Controller
+    {
+        
         public JsonResult LoadTask(string taskID)
         {
             TaskBLL bll = new TaskBLL();
@@ -19,8 +20,10 @@ namespace CowSite.Controllers.Task
             UserBLL u = new UserBLL();
             User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
 
-            return Json(new { EarNum=v.EarNum,
-                ArrivalTime=v.ArrivalTime.ToString("yyyy-MM-dd"),
+            return Json(new
+            {
+                EarNum = v.EarNum,
+                ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
                 Operator = user.Name
             }, JsonRequestBehavior.AllowGet);
         }
@@ -30,9 +33,10 @@ namespace CowSite.Controllers.Task
             TaskBLL bll = new TaskBLL();
             DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
             v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
-
-            bll.CompleteDay21ToBorn(v);
+            int house = Convert.ToInt32(Request.Form["house"]);
+            int group = Convert.ToInt32(Request.Form["group"]);
+            bll.CompleteDay7ToBorn(v, house, group);
             return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
         }
-	}
+    }
 }

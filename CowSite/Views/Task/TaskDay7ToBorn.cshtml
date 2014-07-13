@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>产前21天任务单</title>
+    <title>产前7天任务单</title>
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
     <link rel="stylesheet" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" href="../../Style/base.css">
@@ -27,7 +27,7 @@
         function loadTask() {
             $.ajax({
                 type: 'get',
-                url: "../../TaskDay21ToBorn/LoadTask",
+                url: "../../TaskDay7ToBorn/LoadTask",
                 data: { taskID: taskID },
                 dataType: "json",
                 cache: false
@@ -42,19 +42,21 @@
     </script>
 </head>
 <body>
-    <div class="container">        
-        <div>产前21天任务单</div>
+    <div class="container">
+        <div>产前7天任务单</div>
         <div>
-            <form action="../../TaskDay21ToBorn/SaveTask/@ViewBag.TaskID" method="post">
+            <form action="../../TaskDay7ToBorn/SaveTask" method="post">
                 <input type="hidden" name="id" />
                 <div>任务单ID：<span id="taskid"></span></div>
-                <div>任务单类型：产前21天任务单</div>
-                <div>任务指导：请进行该牛产前21天护理。补充维生素A、D、E，肌肉注射亚硒酸钠。</div>
+                <div>任务单类型：产前7天任务单</div>
+                <div>任务指导：请进行该牛产前7天护理。进产房，调群。</div>
                 <br />
                 <div>牛耳号：<input name="earNum" /></div>
                 <div>任务开始时间：<input type="date" name="startDate" /></div>
                 <div>操作人员：<input name="operatorName" /></div>
                 <div>任务完成时间：<input type="date" name="endDate" /></div>
+                <div>产房牛舍号：<input name="house" /></div>
+                <div>牛群号：<input name="group" /></div>
                 <button type="submit">提交</button>
             </form>
         </div>

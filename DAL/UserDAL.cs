@@ -34,7 +34,7 @@ namespace DairyCow.DAL
             return dt;
         }
 
-        public DataTable GetRoles ()
+        public DataTable GetRoles()
         {
             DataTable dt = null;
 
@@ -60,7 +60,7 @@ namespace DairyCow.DAL
                             from auth_user
                             where PastureID='{0}'", pastureID);
             }
-            
+
 
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return dt;
@@ -70,8 +70,8 @@ namespace DairyCow.DAL
         {
             string sql = string.Format(@"insert into auth_user(Name,Account,Password,RoleID,PastureID)
                                          values ('{0}','{1}','{2}','{3}','{4}')",
-                                        name, account,password,roleID,pastureID) ;
-            dataProvider1mutong.ExecuteNonQuery(sql,CommandType.Text);
+                                        name, account, password, roleID, pastureID);
+            dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         public void DeleteUser(int id)
@@ -84,6 +84,21 @@ namespace DairyCow.DAL
         {
             string sql = string.Format(@"update auth_user set Password='{0}' where ID='{1}'", password, userID);
             dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        //获得一个默认的兽医
+        public DataTable GetDefaultDoctor()
+        {
+            DataTable userList = null;
+            string sql = string.Format(@"SELECT [ID]
+                                            ,[Name]
+                                            ,[Account]
+                                            ,[Password]
+                                            ,[RoleID]
+                                            ,[PastureID]
+                                        FROM [1mutong].[dbo].[Auth_User] where RoleID = 5");
+            userList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return userList;
         }
     }
 }

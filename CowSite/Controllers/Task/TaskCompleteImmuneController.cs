@@ -16,20 +16,23 @@ namespace CowSite.Controllers.Task
         /// <param name="taskID"></param>
         /// <returns></returns>
         TaskBLL bllTask = new TaskBLL();
+        UserBLL bllUser = new UserBLL();
         public JsonResult LoadTask()
         {
-            var taskData = new { doctor = "ss" };
+            User user = new User();
+            user = bllUser.GetDefaultDoctor();
+            var taskData = new { doctor = user.Role.Name, doctorID = user.Role.ID };
             return Json(taskData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SaveTask(string id)
+        public ActionResult SaveTask()
         {
             Immune immune = new Immune();
             int PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
             string ImmuneDate = Request.Form["immuneDate"];
             string Vaccine = Request.Form["immuneType"];
             string EarNum = Request.Form["earNum"];
-            string DoctorID = id;
+            string DoctorID = Request.Form["doctorID"];
 
             immune.PastureID = Convert.ToInt32(PastureID);
             immune.ImmuneDate = Convert.ToDateTime(ImmuneDate);
@@ -38,7 +41,10 @@ namespace CowSite.Controllers.Task
             immune.DoctorID = Convert.ToInt32(DoctorID);
 
             //增加一头的免疫记录
-            bllTask.AddImmuneRecord();
+            bllTask.AddImmuneRecord(immune);
+            //完成免疫任务
+            bllTask.CompleteImmune();
+
             return View("~/Views/Task/Index.cshtml");
         }
     }

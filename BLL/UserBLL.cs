@@ -68,6 +68,18 @@ namespace DairyCow.BLL
             }
         }
 
+        //获得一个兽医
+        public User GetDefaultDoctor()
+        {
+            User user = new User();
+            DataTable userData = dalUser.GetDefaultDoctor();
+            if (userData != null && userData.Rows.Count == 1)
+            {
+                user = WrapUser(userData.Rows[0]);
+            }
+            return user;
+        }
+
         private List<Role> GetRoles()
         {
             List<Role> roles = new List<Role>();

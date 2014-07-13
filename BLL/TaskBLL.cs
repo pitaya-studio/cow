@@ -5,20 +5,21 @@ using System.Collections.Generic;
 using System.Data;
 
 namespace DairyCow.BLL
-{     
+{
     public class TaskBLL
     {
         TaskDAL taskDAL = new TaskDAL();
+        MedicalDAL dalMedical = new MedicalDAL();
 
         /// <summary>
         /// 获取某人未完成的最近任务
         /// </summary>
         /// <param name="operatorID">任务人ID</param>
         /// <returns>未完成任务List</returns>
-        public List<DairyTask> GetRecentUnfinishedTaskList(int operatorID,int pastureID)
+        public List<DairyTask> GetRecentUnfinishedTaskList(int operatorID, int pastureID)
         {
             List<DairyTask> list = new List<DairyTask>();
-            DataTable tb=taskDAL.GetRecentUnfinishedTasksByOperator(operatorID,pastureID);
+            DataTable tb = taskDAL.GetRecentUnfinishedTasksByOperator(operatorID, pastureID);
             foreach (DataRow item in tb.Rows)
             {
                 list.Add(WrapTaskItem(item));
@@ -46,8 +47,8 @@ namespace DairyCow.BLL
                 list.Add(WrapTaskItem(item));
             }
             return list;
-        }  
-      
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -55,8 +56,8 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public DairyTask GetTaskByID(int id)
         {
-            DataTable tb= taskDAL.GetTaskByID(id);
-            if (tb.Rows.Count==1)
+            DataTable tb = taskDAL.GetTaskByID(id);
+            if (tb.Rows.Count == 1)
             {
                 return WrapTaskItem(tb.Rows[0]);
             }
@@ -74,7 +75,7 @@ namespace DairyCow.BLL
         public DairyTask WrapTaskItem(DataRow row)
         {
             DairyTask t = new DairyTask();
-            if (row!=null)
+            if (row != null)
             {
                 t.ID = Convert.ToInt32(row["ID"]);
                 t.ArrivalTime = Convert.ToDateTime(row["StartTime"]);
@@ -90,8 +91,8 @@ namespace DairyCow.BLL
                     default:
                         break;
                 }
-                
-                int taskTypeNum=Convert.ToInt32(row["TaskType"]);
+
+                int taskTypeNum = Convert.ToInt32(row["TaskType"]);
                 switch (taskTypeNum)
                 {
                     case 0:
@@ -130,9 +131,9 @@ namespace DairyCow.BLL
                     default:
                         break;
                 }
-                if (row["RoleID"]!=DBNull.Value)
+                if (row["RoleID"] != DBNull.Value)
                 {
-                    t.RoleID= Convert.ToInt32(row["RoleID"]);
+                    t.RoleID = Convert.ToInt32(row["RoleID"]);
                 }
                 if (row["OperatorID"] != DBNull.Value)
                 {
@@ -161,11 +162,11 @@ namespace DairyCow.BLL
         /// <param name="myTask">DairyTask</param>
         public bool AddTask(DairyTask myTask)
         {
-            bool isSuccessful=false;
+            bool isSuccessful = false;
             //
-            TaskDAL dal=new TaskDAL();
-            int i=dal.InsertTask(myTask);
-            if (i==1)
+            TaskDAL dal = new TaskDAL();
+            int i = dal.InsertTask(myTask);
+            if (i == 1)
             {
                 isSuccessful = true;
             }
@@ -181,7 +182,7 @@ namespace DairyCow.BLL
             bool isSuccessful = false;
             TaskDAL dal = new TaskDAL();
             int i = dal.UpdateTask(myTask);
-            if (i==1)
+            if (i == 1)
             {
                 isSuccessful = true;
             }
@@ -194,12 +195,12 @@ namespace DairyCow.BLL
         /// <param name="earNum">耳号</param>
         /// <param name="isInitial">初检true,复检false</param>
         /// <returns>删除记录数</returns>
-        public int RemovePreviousInspectionTasks(int earNum,bool isInitial)
+        public int RemovePreviousInspectionTasks(int earNum, bool isInitial)
         {
             int i = 0;
             if (isInitial)
             {
-                i=taskDAL.DeletePreviousInitialInspectionTask(earNum);
+                i = taskDAL.DeletePreviousInitialInspectionTask(earNum);
             }
             else
             {
@@ -234,7 +235,7 @@ namespace DairyCow.BLL
             task.InputTime = DateTime.Now;
             task.PastureID = cow.FarmCode;
             task.Status = DairyTaskStatus.Completed;
-            
+
 
             //删除无效的妊检任务单
             RemovePreviousInspectionTasks(insemination.EarNum, true);
@@ -329,17 +330,19 @@ namespace DairyCow.BLL
         /// <summary>
         /// 完成免疫任务
         /// </summary>
-        public void CompleteImmune()
+        public int CompleteImmune()
         {
             //更新任务记录，标记完成
+            return dalMedical.CompleteImmune();
         }
 
         /// <summary>
         /// 增加免疫记录
         /// </summary>
-        public void AddImmuneRecord()
-        { 
+        public int AddImmuneRecord(Immune immune)
+        {
             //每头牛做增加操作时调用本方法
+            return dalMedical.InsertImmuneRecord(immune.PastureID, immune.ImmuneDate, immune.Vaccine, immune.EarNum, immune.DoctorID);
         }
 
         /// <summary>

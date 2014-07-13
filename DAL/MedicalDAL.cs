@@ -12,9 +12,18 @@ namespace DairyCow.DAL
     /// <summary>
     /// 免疫
     /// </summary>
-    public class MedicalDAL:BaseDAL
+    public class MedicalDAL : BaseDAL
     {
-        public int InsertImmuneRecord(int pastureID,DateTime immuneDate,string vaccine,int earNum,int doctorID)
+        /// <summary>
+        /// 增加免疫记录
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <param name="immuneDate"></param>
+        /// <param name="vaccine"></param>
+        /// <param name="earNum"></param>
+        /// <param name="doctorID"></param>
+        /// <returns></returns>
+        public int InsertImmuneRecord(int pastureID, DateTime immuneDate, string vaccine, int earNum, int doctorID)
         {
             string sql = string.Format(@"Insert INTO Medical_Immune 
                                        (PastureID,
@@ -25,7 +34,15 @@ namespace DairyCow.DAL
                                         pastureID, immuneDate.Date, vaccine, earNum, doctorID);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
-
+        /// <summary>
+        /// 完成免疫任务
+        /// </summary>
+        /// <returns></returns>
+        public int CompleteImmune()
+        {
+            string sql = string.Format(@"Update Task set Status = 1 where TaskType = 8");
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
         public DataTable GetImmuneTable(int pastureID)
         {
             string sql = string.Format(@"Select PastureID,

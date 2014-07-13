@@ -19,6 +19,7 @@
     <script type="text/javascript">
         @*taskID = "@ViewBag.TaskID";*@
         var doctorID = "@ViewBag.DoctorID"
+        alert(doctorID);
         $(function () {
             loadTask();
         })
@@ -32,6 +33,7 @@
                 cache: false
             }).success(function (taskData) {
                 $('#doctor').val(taskData.doctor);
+                $('input[name=doctorID]').val(taskData.doctorID);
             });
         }
     </script>
@@ -40,7 +42,7 @@
     <div class="container">
         <div>免疫任务单</div>
         <div>
-            <form action="../../TaskCompleteImmune/SaveTask/@ViewBag.DoctorID" method="post">
+            <form action="../../TaskCompleteImmune/SaveTask" method="post">
                 <div>任务指导：免疫</div>
                 <div>牛耳号：<input name="earNum" /></div>
                 <div>
@@ -52,9 +54,10 @@
                     </select>
                 </div>
                 <div>
-                    <input type="datetime" name="immuneDate" />
+                    免疫时间：<input type="datetime" name="immuneDate" />
                 </div>
                 <div>
+                    <input type="hidden" name="doctorID" />
                     兽医：<input type="text" id="doctor" />
                 </div>
                 <div>

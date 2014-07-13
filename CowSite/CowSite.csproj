@@ -1141,6 +1141,7 @@
     <Compile Include="Controllers\Task\IndexController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteImmuneController.cs" />
     <Compile Include="Controllers\Task\TaskDay10AfterBornController.cs" />
+    <Compile Include="Controllers\Task\TaskDay15AfterBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay21ToBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay7ToBornController.cs" />
     <Compile Include="Controllers\Task\TaskInseminationController.cs" />
@@ -1229,6 +1230,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Calf\" />
+    <Folder Include="Views\TaskCompleteImmune\" />
+    <Folder Include="Views\TaskDay10AfterBorn\" />
+    <Folder Include="Views\TaskDay15AfterBorn\" />
+    <Folder Include="Views\TaskDay7ToBorn\" />
+    <Folder Include="Views\TaskInsemination\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup />
   <ItemGroup>

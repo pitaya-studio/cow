@@ -1,6 +1,7 @@
 ﻿body {
     font-size: 15px;
 }
+
 .displayBlock{display:block;}
 
 .mt5{margin-top:5px;}
@@ -20,7 +21,6 @@
 .dib{display: inline-block;}
 
 .none{display:none;}
-
 
 .clearfix:after
 {

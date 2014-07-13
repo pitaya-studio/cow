@@ -1085,6 +1085,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\menu.js" />
     <Content Include="Scripts\settingData.js" />
     <Content Include="Style\base.css" />
     <Content Include="Style\Breeding\Index\List.css" />

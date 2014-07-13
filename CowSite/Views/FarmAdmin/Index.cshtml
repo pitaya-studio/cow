@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -15,34 +14,40 @@
     <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script>
         $(function () {
-            $('.submenu').click(function () { window.open($(this).attr('href')); });
+            $('#menu').menu({ mainMenuSelectedID: 'Breed', subMenuSelectedID: 'Breed-Home' });
+            //$('.submenu').click(function () { window.open($(this).attr('href')); });
         })
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="header mt10 mb10">
-            <div class="btn-group">
-                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
-            </div>
-            <div class="btn-group">
-                <ul class="nav nav-pills">
-                    <li><a href="../../Home/Index">首页</a></li>
-                    <li><a href="../../Task/Index/List">任务</a></li>
-                    <li><a href="../../Breed/Index/Index">繁殖</a></li>
-                    <li><a href="../../Feed/Index/Index">饲养</a></li>
-                    <li><a href="../../Milk/Index/Index">奶厅</a></li>
-                    <li><a href="../../Medical/Index/Index">兽医</a></li>
-                    <li><a href="../../Platform/Formula/List">平台</a></li>
-                    <li class="active"><a href="../../FarmAdmin/Index/Index">场长</a></li>
-                </ul>
-            </div>
+        <div id="menu">
+
         </div>
-        <div class="btn-group" style="margin: 10px 0px 10px 0px;">
-            <button type="button" class="btn btn-primary submenu" href="../../User/Index/List">用户管理</button>
+        <div>
+            <div class="header mt10 mb10">
+                <div class="btn-group">
+                    <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+                </div>
+                <div class="btn-group">
+                    <ul class="nav nav-pills">
+                        <li><a href="../../Home/Index">首页</a></li>
+                        <li><a href="../../Task/Index/List">任务</a></li>
+                        <li><a href="../../Breed/Index/Index">繁殖</a></li>
+                        <li><a href="../../Feed/Index/Index">饲养</a></li>
+                        <li><a href="../../Milk/Index/Index">奶厅</a></li>
+                        <li><a href="../../Medical/Index/Index">兽医</a></li>
+                        <li><a href="../../Platform/Formula/List">平台</a></li>
+                        <li class="active"><a href="../../FarmAdmin/Index/Index">场长</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="btn-group" style="margin: 10px 0px 10px 0px;">
+                <button type="button" class="btn btn-default submenu" href="../../User/Index/List">用户管理</button>
+            </div>
         </div>
     </div>
 </body>

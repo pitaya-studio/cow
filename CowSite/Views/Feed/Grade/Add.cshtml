@@ -3,7 +3,6 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -14,12 +13,13 @@
     <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
     <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('.submenu').click(function () { window.open($(this).attr('href')); });
+            $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Grade" });
             loadGradeInfo();
-            InitBtnEvent();
-        })
+            initBtnEvent();
+        });
 
         function loadGradeInfo() {
             $("#gradeInfo").ligerForm({
@@ -35,7 +35,7 @@
             });
         }
 
-        function InitBtnEvent() {
+        function initBtnEvent() {
             $('#btnSubmit').ligerButton({
                 width: 60,
                 text: '保存',
@@ -61,36 +61,13 @@
 </head>
 <body>
     <div class="container">
-        <div class="header mt10 mb10">
-            <div class="btn-group">
-                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+        <div id="menu"></div>
+        <div class="content">
+            <form class="form-inline" action="~/Feed/Grade/Save" method="post" id="gradeInfo"></form>
+            <div style="text-align:left;">
+                <input type="button" id="btnSubmit" value="保存" />
+                <input type="button" id="btnCancel" value="取消" />
             </div>
-            <div class="btn-group">
-                <ul class="nav nav-pills">
-                    <li><a href="../../Home/Index">首页</a></li>
-                    <li><a href="../../Task/Index/List">任务</a></li>
-                    <li><a href="../../Breed/Index/Index">繁殖</a></li>
-                    <li class="active"><a href="javascript:void(0);">饲养</a></li>
-                    <li><a href="../../Milk/Index/List">奶厅</a></li>
-                    <li><a href="../../Medical/Index/List">兽医</a></li>
-                    <li><a href="../../Platform/Formula/List">平台</a></li>
-                    <li><a href="../../Users/Index/List">场长</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="btn-group" style="margin: 10px 0px 10px 0px;">
-            <button type="button" class="btn btn-primary submenu" href="../../Feed/Index/Index">繁殖首页</button>
-            <button type="button" class="btn btn-default submenu" href="../../Feed/CowGroup/List">牛群维护</button>
-            <button type="button" class="btn btn-default submenu" href="">饲料维护</button>
-            <button type="button" class="btn btn-default submenu" href="../../Feed/Grade/Add">体况评分</button>
-            <button type="button" class="btn btn-default submenu" href="">饲料加工</button>
-            <button type="button" class="btn btn-default submenu" href="../../Feed/Empty/Add">空槽记录</button>
-            <button type="button" class="btn btn-default submenu" href="../../Feed/Remain/Add">剩料记录</button>
-        </div>
-        <form class="form-inline" action="~/Feed/Grade/Save" method="post" id="gradeInfo"></form>
-        <div style="text-align:center;">
-            <input type="button" id="btnSubmit" value="保存" />
-            <input type="button" id="btnCancel" value="取消" />
         </div>
     </div>
 </body>

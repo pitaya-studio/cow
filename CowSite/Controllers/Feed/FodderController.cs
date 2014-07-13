@@ -12,8 +12,11 @@ namespace CowSite.Controllers.Feed
     {
         FodderBLL bllFodder = new FodderBLL();
 
-        //
-        // GET: /Fodder/
+        public ActionResult Maintain()
+        {
+            return View("~/Views/Feed/Fodder/Maintain.cshtml");
+        }
+
         public ActionResult Calculate()
         {
             return View("~/Views/Feed/Fodder/Calculate.cshtml");

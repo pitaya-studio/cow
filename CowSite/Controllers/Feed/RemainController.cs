@@ -1,9 +1,6 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CowSite.Controllers.Feed
@@ -12,15 +9,12 @@ namespace CowSite.Controllers.Feed
     {
         RemainRecordBLL bllRemainRecord = new RemainRecordBLL();
         CowGroupBLL bllCowGroup = new CowGroupBLL();
-        //
-        // GET: /Remain/
-        public ActionResult Add(int id)
+        
+        public ActionResult Add()
         {
-            ViewBag.ID = id;
-            CowGroup cowGroup = bllCowGroup.GetCowGroupInfo(id);
-            ViewBag.Name = cowGroup.Name;
             return View("~/Views/Feed/Remain/Add.cshtml");
         }
+
         [HttpPost]
         public ActionResult Save(int id)
         {

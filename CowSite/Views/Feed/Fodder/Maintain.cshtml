@@ -1,11 +1,14 @@
-﻿@{
+﻿
+@{
     Layout = null;
 }
+
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>饲料加工</title>
+    <title>饲料维护</title>
     <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" type="text/css" href="../../Style/base.css">
     <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
@@ -15,7 +18,7 @@
     <script src="~/Scripts/menu.js"></script>
     <script>
         $(function () {
-            $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Formua" });
+            $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Fodder" });
         });
     </script>
 </head>
@@ -23,7 +26,9 @@
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            
+            <div id="cowGroupGrid" class="displayBlock ml5 mr5"></div>
+            <div id="message"></div>
+            <div class="l-loading" id="pageloading"></div>
         </div>
     </div>
 </body>

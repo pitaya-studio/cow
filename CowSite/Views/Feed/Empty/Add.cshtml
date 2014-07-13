@@ -8,17 +8,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>空槽记录</title>
-
     <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
     <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
     <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Empty" });
             loadEmptyRecordInfo();
-            InitBtnEvent();
+            initBtnEvent();
         })
 
         function loadEmptyRecordInfo() {
@@ -33,7 +34,7 @@
             liger.get("emptyRecordInfo").getEditor("Name").setValue("@ViewBag.Name");
         }
 
-        function InitBtnEvent() {
+        function initBtnEvent() {
             $('#btnSubmit').ligerButton({
                 width: 60,
                 text: '保存',
@@ -58,10 +59,15 @@
     </script>
 </head>
 <body>
-    <form class="form-inline" action="~/Feed/Empty/Save/@ViewBag.ID" method="post" id="emptyRecordInfo"></form>
-    <div style="text-align:center;">
-        <input type="button" id="btnSubmit" value="保存" />
-        <input type="button" id="btnCancel" value="取消" />
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <form class="form-inline" action="~/Feed/Empty/Save/@ViewBag.ID" method="post" id="emptyRecordInfo"></form>
+            <div style="text-align:left;">
+                <input type="button" id="btnSubmit" value="保存" />
+                <input type="button" id="btnCancel" value="取消" />
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -3,7 +3,6 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -14,11 +13,13 @@
     <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
     <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Remain" });
             loadRemainRecordInfo();
-            InitBtnEvent();
-        })
+            initBtnEvent();
+        });
 
         function loadRemainRecordInfo() {
             $("#remainRecordInfo").ligerForm({
@@ -31,7 +32,7 @@
             liger.get("remainRecordInfo").getEditor("Name").setValue("@ViewBag.Name");
         }
 
-        function InitBtnEvent() {
+        function initBtnEvent() {
             $('#btnSubmit').ligerButton({
                 width: 60,
                 text: '保存',
@@ -56,10 +57,15 @@
     </script>
 </head>
 <body>
-    <form class="form-inline" action="~/Feed/Remain/Save/@ViewBag.ID" method="post" id="remainRecordInfo"></form>
-    <div style="text-align:center;">
-        <input type="button" id="btnSubmit" value="保存" />
-        <input type="button" id="btnCancel" value="取消" />
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <form class="form-inline" action="~/Feed/Remain/Save/@ViewBag.ID" method="post" id="remainRecordInfo"></form>
+            <div style="text-align:left;">
+                <input type="button" id="btnSubmit" value="保存" />
+                <input type="button" id="btnCancel" value="取消" />
+            </div>
+        </div>
     </div>
 </body>
 </html>

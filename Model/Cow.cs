@@ -40,7 +40,7 @@ namespace DairyCow.Model
         /// <summary>
         /// 牧场ID
         /// </summary>
-        public int FarmCode { get; set; }
+        public string FarmCode { get; set; }
         /// <summary>
         /// 出生日期
         /// </summary>

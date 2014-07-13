@@ -22,7 +22,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskInsemination()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskInsemination.cshtml");
         }
         /// <summary>
@@ -31,7 +30,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskInitialInspection()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskInitialInspection.cshtml");
         }
         /// <summary>
@@ -40,7 +38,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskReInspection()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskReInspection.cshtml");
         }
         /// <summary>
@@ -49,7 +46,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskDay21ToBorn()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskDay21ToBorn.cshtml");
         }
         /// <summary>
@@ -58,7 +54,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskDay7TorBorn()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskDay7TorBorn.cshtml");
         }
         /// <summary>
@@ -67,7 +62,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskDay3AfterBorn()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskDay3AfterBorn.cshtml");
         }
         /// <summary>
@@ -76,7 +70,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskDay10AfterBorn()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskDay10AfterBorn.cshtml");
         }
         /// <summary>
@@ -85,7 +78,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskDay15AfterBorn()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskDay15AfterBorn.cshtml");
         }
         /// <summary>
@@ -94,7 +86,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskCompleteImmune()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskCompleteImmune.cshtml");
         }
         /// <summary>
@@ -103,7 +94,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskCompleteQuarantine()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskCompleteQuarantine.cshtml");
         }
         /// <summary>
@@ -112,7 +102,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskCompleteGrouping()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskCompleteGrouping.cshtml");
         }
         /// <summary>
@@ -121,7 +110,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskCompleteCalf()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskCompleteCalf.cshtml");
         }
 	}

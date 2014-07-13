@@ -33,7 +33,7 @@ namespace DairyCow.DAL
             recentTaskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return recentTaskList;
         }
-       
+
         public DataTable GetAllTasks(int pastureID)
         {
             DataTable taskList = null;
@@ -79,28 +79,6 @@ namespace DairyCow.DAL
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
                                         and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID, pastureID);
-
-            taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
-            return taskList;
-        }
-        public DataTable GetTaskByID(int id)
-        {
-            DataTable taskList = null;
-
-            string sql = string.Format(@"SELECT ID, 
-                                        PastureID,
-                                        [TaskType], 
-                                        OperatorID, 
-                                        ArrivalTime as StartTime, 
-                                        DeadLine, 
-                                        [Status] as TaskStatus, 
-                                        FinishedTime,
-                                        InputTime,
-                                        RoleID,
-                                        EarNum
-                                        FROM Task
-                                        where OperatorID={0} and PastureID={1}
-                                        and [ID]=0", id);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;

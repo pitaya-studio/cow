@@ -1221,11 +1221,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Folder Include="Views\TaskCompleteImmune\" />
     <Folder Include="Views\TaskInsemination\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

@@ -18,29 +18,29 @@
     <script src="../../ligerUI/js/ligerui.min.js"></script>
     <script type="text/javascript">
         @*taskID = "@ViewBag.TaskID";*@
+        var doctorID = "@ViewBag.DoctorID"
+        $(function () {
+            loadTask();
+        })
 
-        //$(function () {
-        //    loadTask();
-        //})
+        function loadTask() {
+            $.ajax({
+                type: 'get',
+                url: "../../TaskCompleteImmune/LoadTask",
 
-        //function loadTask() {
-        //    $.ajax({
-        //        type: 'get',
-        //        url: "../../TaskCompleteImmune/LoadTask",
-        //        data: { taskID: taskID },
-        //        dataType: "json",
-        //        cache: false
-        //    }).success(function (taskData) {
-
-        //    });
-        //}
+                dataType: "json",
+                cache: false
+            }).success(function (taskData) {
+                $('#doctor').val(taskData.doctor);
+            });
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <div>免疫任务单</div>
         <div>
-            <form action="../../TaskCompleteImmune/SaveTask" method="post">
+            <form action="../../TaskCompleteImmune/SaveTask/@ViewBag.DoctorID" method="post">
                 <div>任务指导：免疫</div>
                 <div>牛耳号：<input name="earNum" /></div>
                 <div>
@@ -55,7 +55,7 @@
                     <input type="datetime" name="immuneDate" />
                 </div>
                 <div>
-                    兽医：<input type="text" />
+                    兽医：<input type="text" id="doctor" />
                 </div>
                 <div>
                     <button type="submit">提交</button>

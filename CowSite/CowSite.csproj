@@ -1104,6 +1104,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Breed\CalfController.cs" />
     <Compile Include="Controllers\Breed\ForbidInseminationController.cs" />
     <Compile Include="Controllers\Breed\IndexController.cs" />
     <Compile Include="Controllers\Breed\InitialInspectionController.cs" />
@@ -1216,6 +1217,7 @@
     <Content Include="Views\Task\TaskCompleteQuarantine.cshtml" />
     <Content Include="Views\Task\TaskCompleteGrouping.cshtml" />
     <Content Include="Views\Task\TaskCompleteCalf.cshtml" />
+    <Content Include="Views\Breed\Calf.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1224,6 +1226,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Calf\" />
     <Folder Include="Views\TaskCompleteImmune\" />
     <Folder Include="Views\TaskInsemination\" />
   </ItemGroup>

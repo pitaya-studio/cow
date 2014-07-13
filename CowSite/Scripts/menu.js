@@ -1,41 +1,41 @@
 ﻿(function ($) {
     $.fn.menu = function (options) {
         var menuList = [
-            { ID: "Home", PID: "", Name: "首页", Url: "Home/Index", target: "_blank" },
-            { ID: "Task", PID: "", Name: "任务", Url: "Task/Index/List", target: "_blank" },
-            { ID: "Breed", PID: "", Name: "繁殖", Url: "Breed/Index/Index", target: "_blank" },
-            { ID: "Breed-Home", PID: "Breed", Name: "繁殖首页", Url: "Breed/Index/Index", target: "_blank" },
-            { ID: "Breed-Calf", PID: "Breed", Name: "产犊", Url: "", target: "_blank" },
-            { ID: "Breed-Forbid", PID: "Breed", Name: "禁配", Url: "Breed/ForbidInsemination/Edit", target: "_blank" },
-            { ID: "Breed-UnForbid", PID: "Breed", Name: "解禁", Url: "Breed/UnForbidInsemination/Edit", target: "_blank" },
-            { ID: "Feed", PID: "", Name: "饲养", Url: "Feed/Index/Index", target: "_blank" },
-            { ID: "Feed-Home", PID: "Feed", Name: "饲养首页", Url: "Feed/Index/Index", target: "_blank" },
-            { ID: "Feed-CowGroup", PID: "Feed", Name: "牛群维护", Url: "Feed/CowGroup/List", target: "_blank" },
+            { ID: "Home", PID: "", Name: "首页", Url: "Home/Index", target: "_self" },
+            { ID: "Task", PID: "", Name: "任务", Url: "Task/Index/List", target: "_self" },
+            { ID: "Breed", PID: "", Name: "繁殖", Url: "Breed/Index/Index", target: "_self" },
+            { ID: "Breed-Home", PID: "Breed", Name: "繁殖首页", Url: "Breed/Index/Index", target: "_self" },
+            { ID: "Breed-Calf", PID: "Breed", Name: "产犊", Url: "Breed/Calf/Add", target: "_self" },
+            { ID: "Breed-Forbid", PID: "Breed", Name: "禁配", Url: "Breed/ForbidInsemination/Edit", target: "_self" },
+            { ID: "Breed-UnForbid", PID: "Breed", Name: "解禁", Url: "Breed/UnForbidInsemination/Edit", target: "_self" },
+            { ID: "Feed", PID: "", Name: "饲养", Url: "Feed/Index/Index", target: "_self" },
+            { ID: "Feed-Home", PID: "Feed", Name: "饲养首页", Url: "Feed/Index/Index", target: "_self" },
+            { ID: "Feed-CowGroup", PID: "Feed", Name: "牛群维护", Url: "Feed/CowGroup/List", target: "_self" },
             { ID: "Feed-Fodder", PID: "Feed", Name: "饲料维护", Url: "", target: "_blank" },
-            { ID: "Feed-Grade", PID: "Feed", Name: "体况评分", Url: "Feed/Grade/Add", target: "_blank" },
+            { ID: "Feed-Grade", PID: "Feed", Name: "体况评分", Url: "Feed/Grade/Add", target: "_self" },
             { ID: "Feed-Formua", PID: "Feed", Name: "饲料加工", Url: "", target: "_blank" },
-            { ID: "Feed-Empty", PID: "Feed", Name: "空槽记录", Url: "Feed/Empty/Add", target: "_blank" },
-            { ID: "Feed-Remain", PID: "Feed", Name: "剩料记录", Url: "Feed/Remain/Add", target: "_blank" },
-            { ID: "Milk", PID: "", Name: "奶厅", Url: "Milk/Index/Index", target: "_blank" },
-            { ID: "Milk-Home", PID: "Milk", Name: "奶厅首页", Url: "Milk/Index/Index", target: "_blank" },
-            { ID: "Milk-Parameter", PID: "Milk", Name: "奶厅参数", Url: "Milk/Parameter/Edit", target: "_blank" },
-            { ID: "Milk-DailyMilkYield", PID: "Milk", Name: "日产奶量", Url: "Milk/DailyMilkYield/Add", target: "_blank" },
+            { ID: "Feed-Empty", PID: "Feed", Name: "空槽记录", Url: "Feed/Empty/Add", target: "_self" },
+            { ID: "Feed-Remain", PID: "Feed", Name: "剩料记录", Url: "Feed/Remain/Add", target: "_self" },
+            { ID: "Milk", PID: "", Name: "奶厅", Url: "Milk/Index/Index", target: "_self" },
+            { ID: "Milk-Home", PID: "Milk", Name: "奶厅首页", Url: "Milk/Index/Index", target: "_self" },
+            { ID: "Milk-Parameter", PID: "Milk", Name: "奶厅参数", Url: "Milk/Parameter/Edit", target: "_self" },
+            { ID: "Milk-DailyMilkYield", PID: "Milk", Name: "日产奶量", Url: "Milk/DailyMilkYield/Add", target: "_self" },
             { ID: "Milk-Check", PID: "Milk", Name: "奶量抽查", Url: "", target: "_blank" },
-            { ID: "Medical", PID: "", Name: "兽医", Url: "Medical/Index/Index", target: "_blank" },
-            { ID: "Medical-Home", PID: "Medical", Name: "兽医首页", Url: "Medical/Index/Index", target: "_blank" },
-            { ID: "Medical-Diagnoses", PID: "Medical", Name: "疾病诊治", Url: "Medical/Diagnoses/Add", target: "_blank" },
-            { ID: "Medical-Mastitis", PID: "Medical", Name: "隐乳检测", Url: "Medical/Mastitis/Add", target: "_blank" },
-            { ID: "Medical-RepairHoof", PID: "Medical", Name: "修蹄", Url: "Medical/RepairHoof/Add", target: "_blank" },
-            { ID: "Medical-RemoveAddMilk", PID: "Medical", Name: "去附乳", Url: "Medical/RemoveAddMilk/Add", target: "_blank" },
-            { ID: "Platform", PID: "", Name: "平台", Url: "Platform/Formula/List", target: "_blank" },
-            { ID: "Platform-Farm", PID: "Platform", Name: "牧场管理", Url: "Platform/Formula/List", target: "_blank" },
-            { ID: "Platform-Formula", PID: "Platform", Name: "配方管理", Url: "", target: "_blank" },
-            { ID: "Platform-FormulaAssign", PID: "Platform", Name: "指定配方", Url: "", target: "_blank" },
-            { ID: "Platform-Fodder", PID: "Platform", Name: "饲料管理", Url: "", target: "_blank" },
-            { ID: "FarmAdmin", PID: "", Name: "场长", Url: "FarmAdmin/Index/Index", target: "_blank" },
-            { ID: "FarmAdmin-User", PID: "FarmAdmin", Name: "用户管理", Url: "FarmAdmin/Index/Index", target: "_blank" },
-            { ID: "FarmAdmin-InGroup", PID: "FarmAdmin", Name: "入群", Url: "", target: "_blank" },
-            { ID: "FarmAdmin-OutGroup", PID: "FarmAdmin", Name: "离群", Url: "", target: "_blank" }
+            { ID: "Medical", PID: "", Name: "兽医", Url: "Medical/Index/Index", target: "_self" },
+            { ID: "Medical-Home", PID: "Medical", Name: "兽医首页", Url: "Medical/Index/Index", target: "_self" },
+            { ID: "Medical-Diagnoses", PID: "Medical", Name: "疾病诊治", Url: "Medical/Diagnoses/Add", target: "_self" },
+            { ID: "Medical-Mastitis", PID: "Medical", Name: "隐乳检测", Url: "Medical/Mastitis/Add", target: "_self" },
+            { ID: "Medical-RepairHoof", PID: "Medical", Name: "修蹄", Url: "Medical/RepairHoof/Add", target: "_self" },
+            { ID: "Medical-RemoveAddMilk", PID: "Medical", Name: "去附乳", Url: "Medical/RemoveAddMilk/Add", target: "_self" },
+            { ID: "Platform", PID: "", Name: "平台", Url: "Platform/Formula/List", target: "_self" },
+            { ID: "Platform-Farm", PID: "Platform", Name: "牧场管理", Url: "Platform/Formula/List", target: "_self" },
+            { ID: "Platform-Formula", PID: "Platform", Name: "配方管理", Url: "", target: "_self" },
+            { ID: "Platform-FormulaAssign", PID: "Platform", Name: "指定配方", Url: "", target: "_self" },
+            { ID: "Platform-Fodder", PID: "Platform", Name: "饲料管理", Url: "", target: "_self" },
+            { ID: "FarmAdmin", PID: "", Name: "场长", Url: "FarmAdmin/Index/Index", target: "_self" },
+            { ID: "FarmAdmin-User", PID: "FarmAdmin", Name: "用户管理", Url: "FarmAdmin/Index/Index", target: "_self" },
+            { ID: "FarmAdmin-InGroup", PID: "FarmAdmin", Name: "入群", Url: "", target: "_self" },
+            { ID: "FarmAdmin-OutGroup", PID: "FarmAdmin", Name: "离群", Url: "", target: "_self" }
         ];
 
         //默认值
@@ -85,8 +85,8 @@
                 var subMenuContainer = $('<div class="btn-group subMenuContainer" style="margin: 10px 0px 10px 45px;"></div>').appendTo($elem);
                 $.each(menuList, function () {
                     if (this.PID == '') {
-                        var menuItemLi = $('<li></li>').appendTo(mainMenuUL);                        
-                        var menuItemA = $('<a href="http://' + host + '/' + this.Url + '">' + this.Name + '</a>').appendTo(menuItemLi);
+                        var menuItemLi = $('<li></li>').appendTo(mainMenuUL);
+                        var menuItemA = $('<a href="http://' + host + '/' + this.Url + '" target="' + this.target + '">' + this.Name + '</a>').appendTo(menuItemLi);
                         if (opt.mainMenuSelectedID == this.ID) {
                             menuItemLi.addClass('active');
                             menuItemA.attr('href', 'javascript:void(0);').attr('target', '');

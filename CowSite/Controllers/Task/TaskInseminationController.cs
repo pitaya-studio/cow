@@ -12,11 +12,11 @@ namespace CowSite.Controllers.Task
             return Json(new { Instruction = "请观测牛群发情状况，并给发情牛配种。", EarNum = "11111" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SaveTask()
+        public ActionResult SaveTask()
         {
             string op = Request.Form["operatorName"];
-
-            return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+            
+            return View("~/Views/Task/Index.cshtml");
         }
     }
 }

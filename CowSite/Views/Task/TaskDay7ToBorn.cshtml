@@ -32,6 +32,7 @@
                 dataType: "json",
                 cache: false
             }).success(function (taskData) {
+                $('input[name=id]').val(taskID);
                 $('#taskid').text(taskID);
                 $('input[name=earNum]').val(taskData.EarNum);
                 $('input[name=startDate]').val(taskData.ArrivalTime);
@@ -45,6 +46,7 @@
         <div>产前7天任务单</div>
         <div>
             <form action="../../TaskDay7ToBorn/SaveTask" method="post">
+                <input type="hidden" name="id" />
                 <div>任务单ID：<span id="taskid"></span></div>
                 <div>任务单类型：产前7天任务单</div>
                 <div>任务指导：请进行该牛产前7天护理。进产房，调群。</div>

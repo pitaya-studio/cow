@@ -32,6 +32,7 @@
                 dataType: "json",
                 cache: false
             }).success(function (taskData) {
+                $('input[name=id]').val(taskID);
                 $('#taskid').text(taskID);
                 $('input[name=earNum]').val(taskData.EarNum);
                 $('input[name=startDate]').val(taskData.ArrivalTime);
@@ -44,7 +45,8 @@
     <div class="container">        
         <div>产前21天任务单</div>
         <div>
-            <form action="../../TaskDay21ToBorn/SaveTask" method="post">
+            <form action="../../TaskDay21ToBorn/SaveTask/@ViewBag.TaskID" method="post">
+                <input type="hidden" name="id" />
                 <div>任务单ID：<span id="taskid"></span></div>
                 <div>任务单类型：产前21天任务单</div>
                 <div>任务指导：请进行该牛产前21天护理。补充维生素A、D、E，肌肉注射亚硒酸钠。</div>

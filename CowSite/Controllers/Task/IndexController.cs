@@ -59,7 +59,7 @@ namespace CowSite.Controllers.Task
         public ActionResult TaskDay7TorBorn()
         {
             ViewBag.TaskID = Request.QueryString["taskID"];
-            return View("~/Views/Task/TaskDay7TorBorn.cshtml");
+            return View("~/Views/Task/TaskDay7ToBorn.cshtml");
         }
         /// <summary>
         /// 产后3天任务单

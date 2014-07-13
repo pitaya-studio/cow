@@ -9,12 +9,11 @@ using System.Web.Mvc;
 namespace CowSite.Controllers.Task
 {
     public class TaskDay21ToBornController : Controller
-    {
-        TaskBLL bll = new TaskBLL();
-        DairyTask v;
+    {       
         public JsonResult LoadTask(string taskID)
-        {         
-
+        {
+            TaskBLL bll = new TaskBLL();
+            DairyTask v;
             v = bll.GetTaskByID(Convert.ToInt32(taskID));
 
             UserBLL u = new UserBLL();
@@ -28,6 +27,8 @@ namespace CowSite.Controllers.Task
 
         public JsonResult SaveTask()
         {
+            TaskBLL bll = new TaskBLL();
+            DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
             v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
 
             bll.CompleteDay21ToBorn(v);

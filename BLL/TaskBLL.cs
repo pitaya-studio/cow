@@ -314,7 +314,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产后10天任务
         /// </summary>
-        public void CompleteDay10AfterBorn(DairyTask t)
+        public void CompleteDay10AfterBorn(DairyTask t, int cowHouseId, int cowGroupId)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成

@@ -8,9 +8,8 @@ using System.Web.Mvc;
 
 namespace CowSite.Controllers.Task
 {
-    public class TaskDay7ToBornController : Controller
+    public class TaskDay10AfterBornController : Controller
     {
-
         public JsonResult LoadTask(string taskID)
         {
             TaskBLL bll = new TaskBLL();
@@ -32,14 +31,12 @@ namespace CowSite.Controllers.Task
         {
             try
             {
-
                 TaskBLL bll = new TaskBLL();
                 DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
                 v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);
-                bll.CompleteDay7ToBorn(v, house, group);
-
+                bll.CompleteDay10AfterBorn(v, house, group);
             }
             catch (Exception)
             {

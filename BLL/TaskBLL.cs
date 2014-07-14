@@ -576,6 +576,15 @@ namespace DairyCow.BLL
             task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
             UpdateTask(task);
+
+
+            //更新牛的牛群号，牛舍号
+            CowBLL cowBLL=new CowBLL();
+            Cow myCow = cowBLL.GetCowInfo(task.EarNum);
+            GroupingRecordBLL gBLL = new GroupingRecordBLL();
+            GroupingRecord record = gBLL.GetGroupingRecordByTaskID(task.ID);
+            myCow.GroupID = record.TargetGroupID;
+            myCow.HouseID = record.TargetHouseID;
         }
 
         /// <summary>

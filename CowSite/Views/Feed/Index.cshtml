@@ -7,13 +7,13 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>饲养首页</title>
-    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/menu.js"></script>    
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script>
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Home" });
@@ -23,7 +23,9 @@
 <body>
     <div class="container">
         <div id="menu"></div>
-        <div class="content"></div>
+        <div class="content">
+            饲养首页
+        </div>
     </div>    
 </body>
 </html>

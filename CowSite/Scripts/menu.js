@@ -20,7 +20,7 @@
             { ID: "Milk-Home", PID: "Milk", Name: "奶厅首页", Url: "Milk/Index/Index", target: "_self" },
             { ID: "Milk-Parameter", PID: "Milk", Name: "奶厅参数", Url: "Milk/Parameter/Edit", target: "_self" },
             { ID: "Milk-DailyMilkYield", PID: "Milk", Name: "日产奶量", Url: "Milk/DailyMilkYield/Add", target: "_self" },
-            { ID: "Milk-Check", PID: "Milk", Name: "奶量抽查", Url: "", target: "_blank" },
+            { ID: "Milk-Check", PID: "Milk", Name: "奶量抽查", Url: "Milk/MilkabilityCheck/Add", target: "_blank" },
             { ID: "Medical", PID: "", Name: "兽医", Url: "Medical/Index/Index", target: "_self" },
             { ID: "Medical-Home", PID: "Medical", Name: "兽医首页", Url: "Medical/Index/Index", target: "_self" },
             { ID: "Medical-Diagnoses", PID: "Medical", Name: "疾病诊治", Url: "Medical/Diagnoses/Add", target: "_self" },

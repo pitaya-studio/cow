@@ -3,20 +3,19 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>牛群维护</title>
-    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/json2.js"></script>
-    <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/settingData.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../Style/Feed/Index/ModifyCowGroup.css">
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
+    <script src="~/Scripts/settingData.js"></script>
+    <link rel="stylesheet" href="~/Style/Feed/Index/ModifyCowGroup.css">
 </head>
 <body>
     <form id="cowGroupUpdateForm">
@@ -27,7 +26,7 @@
             </div>
             <div class="form-group">
                 <span>牛群名称：</span><span><input id="cowGroupName" name="Name" type="text" style="width: 350px; height: 30px" /></span>
-            </div>            
+            </div>
             <div class="form-group">
                 <span>牛群类型：</span><span><select id="cowGroupTypeSelector" name="Type"></select></span>
             </div>
@@ -136,7 +135,7 @@
                 type: "post",
                 dataType: "json",
                 data: $(form).serialize(),
-                success: function (result) {                    
+                success: function (result) {
                     parent.$.ligerDialog.close();
                     parent.window.loadCowGroupList();
                     parent.$(".l-dialog,.l-window-mask").hide();

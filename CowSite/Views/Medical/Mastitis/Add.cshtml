@@ -8,17 +8,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>隐形乳房炎检测</title>
-    <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
-    <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Medical", subMenuSelectedID: "Medical-Mastitis" });
             loadMilkMastitisReportInfo();
-            InitBtnEvent();
-        })
+            initBtnEvent();
+        });
 
         function loadMilkMastitisReportInfo() {
             $("#milkMastitisReportInfo").ligerForm({
@@ -60,7 +62,7 @@
             });
         }
 
-        function InitBtnEvent() {
+        function initBtnEvent() {
             $('#btnSubmit').ligerButton({
                 width: 60,
                 text: '保存',
@@ -85,10 +87,15 @@
     </script>
 </head>
 <body>
-    <form class="form-inline" action="~/Medical/Mastitis/Save" method="post" id="milkMastitisReportInfo"></form>
-    <div style="text-align:center;">
-        <input type="button" id="btnSubmit" value="保存" />
-        <input type="button" id="btnCancel" value="取消" />
-    </div>
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <form class="form-inline" action="~/Medical/Mastitis/Save" method="post" id="milkMastitisReportInfo"></form>
+            <div style="text-align:left;">
+                <input type="button" id="btnSubmit" value="保存" />
+                <input type="button" id="btnCancel" value="取消" />
+            </div>
+        </div>
+    </div>    
 </body>
 </html>

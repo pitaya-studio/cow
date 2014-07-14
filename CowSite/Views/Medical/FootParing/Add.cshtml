@@ -8,17 +8,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>修蹄</title>
-    <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
-    <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Medical", subMenuSelectedID: "Medical-RepairHoof" });
             loadRepairHoofInfo();
-            InitBtnEvent();
-        })
+            initBtnEvent();
+        });
 
         function loadRepairHoofInfo() {
             $("#repairHoofInfo").ligerForm({
@@ -49,11 +51,9 @@
                 { display: "时间", name: "OprateDate", type: "date", width: 270, validate: { required: true } }
                 ]
             });
-
-            //liger.get("repairHoofInfo").getEditor("Name").setValue("@ViewBag.Name");
         }
 
-        function InitBtnEvent() {
+        function initBtnEvent() {
             $('#btnSubmit').ligerButton({
                 width: 60,
                 text: '保存',
@@ -78,10 +78,15 @@
     </script>
 </head>
 <body>
-    <form class="form-inline" action="~/Medical/RepairHoof/Save" method="post" id="repairHoofInfo"></form>
-    <div style="text-align:center;">
-        <input type="button" id="btnSubmit" value="保存" />
-        <input type="button" id="btnCancel" value="取消" />
-    </div>
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <form class="form-inline" action="~/Medical/RepairHoof/Save" method="post" id="repairHoofInfo"></form>
+            <div style="text-align:left;">
+                <input type="button" id="btnSubmit" value="保存" />
+                <input type="button" id="btnCancel" value="取消" />
+            </div>
+        </div>
+    </div>    
 </body>
 </html>

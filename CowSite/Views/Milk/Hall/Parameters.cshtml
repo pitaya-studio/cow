@@ -3,24 +3,23 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>奶厅参数</title>
-    <link rel="stylesheet" type="text/css" href="../../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../../Style/base.css">
-    <script type="text/javascript" src="../../../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../../ligerUI/js/ligerui.min.js"></script>
-    <script type="text/javascript" src="../../../ligerUI/js/plugins/ligerForm.js"></script>
-    <script type="text/javascript" src="../../../ligerUI/js/plugins/ligerTextBox.js"></script>
-    <link rel="stylesheet" href="../../../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../../../bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
+    <script>
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Milk", subMenuSelectedID: "Milk-Parameter" });
             loadMilkHallInfo();
-            InitBtnEvent();
-        })
+            initBtnEvent();
+        });
 
         function loadMilkHallInfo() {
             $("#milkHallInfo").ligerForm({
@@ -32,14 +31,9 @@
                 { display: "奶厅备注", name: "Name", type: "textarea", width: 270 }
                 ]
             });
-            @*liger.get("milkHallInfo").getEditor("Name").setValue("@ViewBag.Name");
-            liger.get("milkHallInfo").getEditor("VacuumPressure").setValue("@ViewBag.VacuumPressure");
-            liger.get("milkHallInfo").getEditor("Pulsation").setValue("@ViewBag.Pulsation");
-            liger.get("milkHallInfo").getEditor("CleanupCount").setValue("@ViewBag.CleanupCount");*@
-
         }
 
-        function InitBtnEvent() {
+        function initBtnEvent() {
             $('#btnSubmit').ligerButton({
                 width: 60,
                 text: '保存',
@@ -64,10 +58,15 @@
     </script>
 </head>
 <body>
-    <form class="form-inline" action="~/Milk/Parameter/Update" method="post" id="milkHallInfo"></form>
-    <div style="text-align:center;">
-        <input type="button" id="btnSubmit" value="保存" />
-        <input type="button" id="btnCancel" value="取消" />
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <form class="form-inline" action="~/Milk/Parameter/Update" method="post" id="milkHallInfo"></form>
+            <div style="text-align:left;">
+                <input type="button" id="btnSubmit" value="保存" />
+                <input type="button" id="btnCancel" value="取消" />
+            </div>
+        </div>
     </div>
 </body>
 </html>

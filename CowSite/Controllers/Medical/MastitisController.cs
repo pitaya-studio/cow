@@ -15,19 +15,19 @@ namespace CowSite.Controllers.Medical
     {
         MilkMastitisReportBLL bllMilkMastitisReport = new MilkMastitisReportBLL();
         CowBLL bllCow = new CowBLL();
-        //
-        // GET: /Mastitis/
+
         public ActionResult Add()
         {
             return View("~/Views/Medical/Mastitis/Add.cshtml");
         }
+
         [HttpPost]
         public ActionResult Save()
         {
             MilkMastitisReport milkMastitisReport = new MilkMastitisReport();
             UpdateModel<MilkMastitisReport>(milkMastitisReport);
             Cow cow = bllCow.GetCowInfo(milkMastitisReport.EarNum);
-            if (cow.FarmCode == null)
+            if (cow.FarmCode == 0)
             {
                 //弹框提示此牛不存在
             }

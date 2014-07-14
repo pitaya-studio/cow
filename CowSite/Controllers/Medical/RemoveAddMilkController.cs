@@ -14,8 +14,7 @@ namespace CowSite.Controllers.Medical
     public class RemoveAddMilkController : Controller
     {
         RemoveAddMilkBLL bllRemoveAddMilk = new RemoveAddMilkBLL();
-        //
-        // GET: /RemoveAddMilk/
+
         public ActionResult Add()
         {
             return View("~/Views/Medical/MilkBreast/Add.cshtml");

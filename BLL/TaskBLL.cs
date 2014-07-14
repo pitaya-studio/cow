@@ -128,6 +128,9 @@ namespace DairyCow.BLL
                     case 10:
                         t.TaskType = TaskType.GroupingTask;
                         break;
+                    case 11:
+                        t.TaskType = TaskType.CalfTask;
+                        break;
                     default:
                         break;
                 }
@@ -252,6 +255,7 @@ namespace DairyCow.BLL
             //3 days to complete task
             initialInspectionTask.DeadLine = initialInspectionTask.ArrivalTime.AddDays(3.0);
             initialInspectionTask.EarNum = insemination.EarNum;
+            //To-do 根据牛耳号找配种员
             initialInspectionTask.OperatorID = insemination.operatorID;
             taskDAL.InsertTask(initialInspectionTask);
 
@@ -264,23 +268,66 @@ namespace DairyCow.BLL
         /// <summary>
         /// 妊检初检任务
         /// </summary>
-        public void CompleteInitialInspection()
+        public void CompleteInitialInspection(DairyTask task,InitialInspection initialInspetion)
         {
             //添加初检记录
+            InitialInspectionBLL iBLL = new InitialInspectionBLL();
+            iBLL.InsertInitialInspection(initialInspetion);
+
             //更新任务记录，标记完成
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime=DateTime.Now;
+            task.InputTime=DateTime.Now;
+            UpdateTask(task);
+
             //
             //生成新复检任务单
+            DairyTask reinspectionTask = new DairyTask();
+            reinspectionTask.EarNum = task.EarNum;
+            reinspectionTask.PastureID=task.PastureID;
+            reinspectionTask.OperatorID=task.OperatorID;
+            //tt.RoleID=task.RoleID;
+            reinspectionTask.Status=DairyTaskStatus.Initial;
+            float initialInspectionDays=DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFINITIALINSPECTION];
+            float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
+            reinspectionTask.ArrivalTime = task.ArrivalTime.AddDays(reInspectionDays-initialInspectionDays);
+            reinspectionTask.DeadLine = reinspectionTask.ArrivalTime.AddDays(3.0);
+            reinspectionTask.TaskType = TaskType.ReInspectionTask;
+            AddTask(reinspectionTask);
+            
         }
 
         /// <summary>
         /// 妊检复检任务
         /// </summary>
-        public void CompleteReInspection()
+        public void CompleteReInspection(DairyTask task, ReInspection reInspection)
         {
-            //添加初检记录
+            //添加复检记录
+            ReInspectionBLL rBLL = new ReInspectionBLL();
+            rBLL.InsertReInspection(reInspection);
+
             //更新任务记录，标记完成
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime=DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
+
             //
             //生成产前21天任务单
+            DairyTask day21ToBornTask = new DairyTask();
+            day21ToBornTask.EarNum = task.EarNum;
+            day21ToBornTask.PastureID = task.PastureID;
+            //to-do 分配兽医
+            day21ToBornTask.OperatorID = task.OperatorID;
+            //tt.RoleID=task.RoleID;
+            day21ToBornTask.Status = DairyTaskStatus.Initial;
+            float initialInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFINITIALINSPECTION];
+            float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
+            day21ToBornTask.ArrivalTime = task.ArrivalTime.AddDays(reInspectionDays - initialInspectionDays);
+            day21ToBornTask.DeadLine = day21ToBornTask.ArrivalTime.AddDays(3.0);
+            day21ToBornTask.TaskType = TaskType.Day21ToBornTask;
+            AddTask(day21ToBornTask);
+
         }
 
         /// <summary>
@@ -332,7 +379,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 完成免疫任务
         /// </summary>
-        public int CompleteImmune()
+        public int CompleteImmune(DairyTask task)
         {
             //更新任务记录，标记完成
             return dalMedical.CompleteImmune();
@@ -350,7 +397,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 完成检疫任务
         /// </summary>
-        public void CompleteQuarantine()
+        public void CompleteQuarantine(DairyTask task)
         {
             //更新任务记录，标记完成
         }
@@ -358,7 +405,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 增加检疫记录
         /// </summary>
-        public void AddQuarantineRecord()
+        public void AddQuarantineRecord(Quarantine q)
         {
             //每头牛做增加操作时调用本方法
         }
@@ -366,7 +413,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 分群任务
         /// </summary>
-        public void CompleteGrouping()
+        public void CompleteGrouping(DairyTask task)
         {
             //各种事件触发产生分群要求，产生任务单
             //饲养员按要求操作，回填完成时间
@@ -375,7 +422,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 犊牛饲喂任务
         /// </summary>
-        public void CompleteCalf()
+        public void CompleteCalf(DairyTask task)
         {
             //各种事件触发产生分群要求，产生任务单
             //饲养员按要求操作，回填完成时间

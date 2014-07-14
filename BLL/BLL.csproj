@@ -55,6 +55,7 @@
     <Compile Include="ForbidInseminationBLL.cs" />
     <Compile Include="FormulaBLL.cs" />
     <Compile Include="GradeBLL.cs" />
+    <Compile Include="GroupingRecordBLL.cs" />
     <Compile Include="MedicalBLL.cs" />
     <Compile Include="IndividualProdcutionBLL.cs" />
     <Compile Include="InitialInspectionBLL.cs" />

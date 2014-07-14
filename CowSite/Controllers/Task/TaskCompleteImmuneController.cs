@@ -43,7 +43,10 @@ namespace CowSite.Controllers.Task
             //增加一头的免疫记录
             bllTask.AddImmuneRecord(immune);
             //完成免疫任务
-            bllTask.CompleteImmune();
+            int taskID = 1;//To-do please get taskID 
+            DairyTask task = bllTask.GetTaskByID(taskID);
+            //fill task data, for this CompleteTime,or use Datetime.Now as default
+            bllTask.CompleteImmune(task);
 
             return View("~/Views/Task/Index.cshtml");
         }

@@ -26,6 +26,8 @@ namespace DairyCow.Model
         public int PastureID { get; set; }
 
         public int ID { get; set; }
+
+
         /// <summary>
         /// 任务指导
         /// </summary>
@@ -68,6 +70,9 @@ namespace DairyCow.Model
                         break;
                     case TaskType.GroupingTask:
                         s = "请把牛分入相应群、舍。";
+                        break;
+                    case Model.TaskType.CalfTask:
+                        s = "请按照规程饲喂犊牛。";
                         break;
                     default:
                         s = "";

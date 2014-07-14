@@ -6,20 +6,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>配方维护</title>
-    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../cripts/jquery-tools-min.js"></script>
-    <script type="text/javascript" src="../../Scripts/json2.js"></script>
-    <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         var formulaID = "@ViewBag.FormulaID";
 
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Platform", subMenuSelectedID: "Platform-Formula" });
             loadFormulaList();
-
             $("#formulaSelector").change(function () {
                 formulaID = $('#formulaSelector').val();
                 loadFodderList(formulaID);
@@ -114,48 +113,27 @@
                 icon: null
             });
         }
-
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="header mt10 mb10">
-            <div class="btn-group">
-                <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+        <div id="menu"></div>
+        <div class="content">
+            <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
+                <div style="display: inline-block; position: absolute; left: 0px;">
+                    <select id="formulaSelector" style="width: 350px; height: 30px"></select>
+                </div>
+                <div style="display: inline-block; position: absolute; right: 0px;">
+                    <input type="button" id="btnAdd" value="添加配方" style="display: none;" />
+                    <input type="button" id="btnModify" value="修改配方" style="display: none;" />
+                    <input type="button" id="btnDelete" value="删除配方" style="display: none;" />
+                </div>
             </div>
-            <div class="btn-group">
-                <ul class="nav nav-pills">
-                    <li><a href="../../Home/Index">首页</a></li>
-                    <li><a href="../../Task/Index/List">任务</a></li>
-                    <li><a href="../../Breed/Index/Index">繁殖</a></li>
-                    <li><a href="../../Feed/Index/Index">饲养</a></li>
-                    <li><a href="../../Milk/Index/Index">奶厅</a></li>
-                    <li><a href="../../Medical/Index/Index">兽医</a></li>
-                    <li class="active"><a href="javascript:void(0);">平台</a></li>
-                    <li><a href="../../FarmAdmin/Index/Index">场长</a></li>
-                </ul>
+            <div>
+                <div id="fooderGrid"></div>
+                <div id="message"></div>
+                <div class="l-loading" id="pageloading"></div>
             </div>
-        </div>
-        <div class="btn-group" style="margin: 10px 0px 10px 0px;">
-            <button type="button" class="btn btn-default">牧场管理</button>
-            <button type="button" class="btn btn-primary">配方管理</button>
-            <button type="button" class="btn btn-default">指定配方</button>
-            <button type="button" class="btn btn-default">饲料管理</button>
-        </div>
-        <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
-            <div style="display: inline-block; position: absolute; left: 0px;">
-                <select id="formulaSelector" style="width: 350px; height: 30px"></select>
-            </div>
-            <div style="display: inline-block; position: absolute; right: 0px;">
-                <input type="button" id="btnAdd" value="添加配方" style="display: none;" />
-                <input type="button" id="btnModify" value="修改配方" style="display: none;" />
-                <input type="button" id="btnDelete" value="删除配方" style="display: none;" />
-            </div>
-        </div>
-        <div>
-            <div id="fooderGrid"></div>
-            <div id="message"></div>
-            <div class="l-loading" id="pageloading"></div>
         </div>
     </div>
 </body>

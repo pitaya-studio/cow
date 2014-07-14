@@ -27,15 +27,15 @@
             { ID: "Medical-Mastitis", PID: "Medical", Name: "隐乳检测", Url: "Medical/Mastitis/Add", target: "_self" },
             { ID: "Medical-RepairHoof", PID: "Medical", Name: "修蹄", Url: "Medical/RepairHoof/Add", target: "_self" },
             { ID: "Medical-RemoveAddMilk", PID: "Medical", Name: "去附乳", Url: "Medical/RemoveAddMilk/Add", target: "_self" },
-            { ID: "Platform", PID: "", Name: "平台", Url: "Platform/Formula/List", target: "_self" },
-            { ID: "Platform-Farm", PID: "Platform", Name: "牧场管理", Url: "Platform/Formula/List", target: "_self" },
-            { ID: "Platform-Formula", PID: "Platform", Name: "配方管理", Url: "", target: "_self" },
-            { ID: "Platform-FormulaAssign", PID: "Platform", Name: "指定配方", Url: "", target: "_self" },
-            { ID: "Platform-Fodder", PID: "Platform", Name: "饲料管理", Url: "", target: "_self" },
-            { ID: "FarmAdmin", PID: "", Name: "场长", Url: "FarmAdmin/Index/Index", target: "_self" },
-            { ID: "FarmAdmin-User", PID: "FarmAdmin", Name: "用户管理", Url: "FarmAdmin/Index/Index", target: "_self" },
-            { ID: "FarmAdmin-InGroup", PID: "FarmAdmin", Name: "入群", Url: "", target: "_self" },
-            { ID: "FarmAdmin-OutGroup", PID: "FarmAdmin", Name: "离群", Url: "", target: "_self" }
+            { ID: "Platform", PID: "", Name: "平台", Url: "Platform/Farm/List", target: "_self" },
+            { ID: "Platform-Farm", PID: "Platform", Name: "牧场管理", Url: "Platform/Farm/List", target: "_self" },
+            { ID: "Platform-Formula", PID: "Platform", Name: "配方管理", Url: "Platform/Formula/List", target: "_self" },
+            { ID: "Platform-FormulaAssign", PID: "Platform", Name: "指定配方", Url: "Platform/Formula/Assign", target: "_self" },
+            { ID: "Platform-Fodder", PID: "Platform", Name: "饲料管理", Url: "Platform/Fodder/List", target: "_self" },
+            { ID: "FarmAdmin", PID: "", Name: "场长", Url: "Users/Index/List", target: "_self" },
+            { ID: "FarmAdmin-User", PID: "FarmAdmin", Name: "用户管理", Url: "Users/Index/List", target: "_self" },
+            { ID: "FarmAdmin-InGroup", PID: "FarmAdmin", Name: "入群", Url: "FarmAdmin/InGroup/List", target: "_self" },
+            { ID: "FarmAdmin-OutGroup", PID: "FarmAdmin", Name: "离群", Url: "FarmAdmin/OutGroup/List", target: "_self" }
         ];
 
         //默认值

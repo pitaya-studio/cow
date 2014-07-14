@@ -52,5 +52,10 @@ namespace CowSite.Controllers.Platform
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Assign()
+        {
+            return View("~/Views/Platform/Formula/Assign.cshtml");
+        }
 	}
 }

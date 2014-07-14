@@ -1111,7 +1111,8 @@
     <Compile Include="Controllers\Breed\ReInspectionController.cs" />
     <Compile Include="Controllers\Breed\UnforbidInseminationController.cs" />
     <Compile Include="Controllers\CowController.cs" />
-    <Compile Include="Controllers\FarmAdmin\IndexController.cs" />
+    <Compile Include="Controllers\FarmAdmin\InGroupController.cs" />
+    <Compile Include="Controllers\FarmAdmin\OutGroupController.cs" />
     <Compile Include="Controllers\Feed\CowGroupController.cs" />
     <Compile Include="Controllers\Feed\EmptyController.cs" />
     <Compile Include="Controllers\Feed\FodderController.cs" />
@@ -1132,6 +1133,8 @@
     <Compile Include="Controllers\Milk\IndexController.cs" />
     <Compile Include="Controllers\Milk\MilkabilityCheckController.cs" />
     <Compile Include="Controllers\Milk\ParameterController.cs" />
+    <Compile Include="Controllers\Platform\FarmController.cs" />
+    <Compile Include="Controllers\Platform\FodderController.cs" />
     <Compile Include="Controllers\Platform\FormulaController.cs" />
     <Compile Include="Controllers\Task\IndexController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteImmuneController.cs" />
@@ -1163,7 +1166,6 @@
     <Content Include="Views\Feed\Remain\Add.cshtml" />
     <Content Include="Views\Milk\Hall\Parameters.cshtml" />
     <Content Include="Views\Milk\MilkabilityCheck\Add.cshtml" />
-    <Content Include="Views\Medical\Calving\Add.cshtml" />
     <Content Include="Views\Medical\Diagnoses\Add.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1194,7 +1196,6 @@
     <Content Include="Views\CowGroup\List.cshtml" />
     <Content Include="Views\Milk\Index.cshtml" />
     <Content Include="Views\Medical\Index.cshtml" />
-    <Content Include="Views\FarmAdmin\Index.cshtml" />
     <Content Include="Views\Task\TaskInsemination.cshtml" />
     <Content Include="Views\Task\TaskInitialInspection.cshtml" />
     <Content Include="Views\Task\TaskReInspection.cshtml" />
@@ -1209,6 +1210,11 @@
     <Content Include="Views\Task\TaskCompleteCalf.cshtml" />
     <Content Include="Views\Breed\Calf.cshtml" />
     <Content Include="Views\Feed\Fodder\Maintain.cshtml" />
+    <Content Include="Views\Platform\Farm\List.cshtml" />
+    <Content Include="Views\Platform\Fodder\List.cshtml" />
+    <Content Include="Views\Platform\Formula\Assign.cshtml" />
+    <Content Include="Views\FarmAdmin\InGroup\List.cshtml" />
+    <Content Include="Views\FarmAdmin\OutGroup\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1218,14 +1224,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Views\Calf\" />
-    <Folder Include="Views\TaskCompleteImmune\" />
-    <Folder Include="Views\TaskDay10AfterBorn\" />
-    <Folder Include="Views\TaskDay15AfterBorn\" />
-    <Folder Include="Views\TaskDay7ToBorn\" />
-    <Folder Include="Views\TaskInsemination\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <ItemGroup>

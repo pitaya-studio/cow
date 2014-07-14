@@ -31,5 +31,21 @@ namespace DairyCow.Model
         public string InsemOperatorName { get; set; }
         //牛群描述
         public string Description { get; set; }
+        /// <summary>
+        /// 兽医ID
+        /// </summary>
+        public int DoctorID { get; set; }
+        /// <summary>
+        /// 兽医姓名
+        /// </summary>
+        public string DoctorName { get; set; }
+        /// <summary>
+        /// 饲养员ID
+        /// </summary>
+        public int FeederID { get; set; }
+        /// <summary>
+        /// 饲养员姓名
+        /// </summary>
+        public string FeedName { get; set; }
     }
 }

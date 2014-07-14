@@ -49,6 +49,18 @@ namespace DairyCow.BLL
                 {
                     cowGroupItem.InsemOperatorID = Convert.ToInt32(cowGroupRow["InsemOperatorID"]);
                 }
+
+                if (cowGroupRow["FeedOperatorID"]!=DBNull.Value)
+                {
+                    cowGroupItem.FeederID = Convert.ToInt32(cowGroupRow["FeedOperatorID"]);
+                }
+                UserBLL u=new UserBLL();
+                cowGroupItem.FeedName = u.GetUsers().Find(p => p.ID == cowGroupItem.FeederID).Name;
+                if (cowGroupRow["DoctorID"]!=DBNull.Value)
+                {
+                    cowGroupItem.DoctorID=Convert.ToInt32(cowGroupRow["DoctorID"]);
+                }
+                cowGroupItem.DoctorName = u.GetUsers().Find(p => p.ID == cowGroupItem.DoctorID).Name;
             }
             return cowGroupItem;
         }

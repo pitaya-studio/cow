@@ -26,6 +26,7 @@ namespace DairyCow.DAL
                                         D.Color, 
                                         D.Status, 
                                         D.IsIll,
+                                        D.HouseID,
                                         G.Name AS GroupName
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G
@@ -41,7 +42,7 @@ namespace DairyCow.DAL
         {
             DataTable cowInfo = null;
 
-            string sql = string.Format(@"SELECT D.EarNum, D.DisplayEarNum, D.FarmID, D.GroupID, D.Gender, D.BirthDate,D.IsIll, D.BirthWeight, D.Color, D.Status, G.Name as GroupName 
+            string sql = string.Format(@"SELECT D.EarNum,D.HouseID, D.DisplayEarNum, D.FarmID, D.GroupID, D.Gender, D.BirthDate,D.IsIll, D.BirthWeight, D.Color, D.Status, G.Name as GroupName 
                                         FROM Base_Cow AS D LEFT JOIN [Base_CowGroup] as G ON D.GroupID = G.ID 
                                         WHERE D.EarNum='{0}'", earNum);
 
@@ -69,6 +70,7 @@ namespace DairyCow.DAL
                                         D.Color, 
                                         D.Status,
                                         D.IsIll, 
+                                        D.HouseID,
                                         G.Name AS GroupName
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G
@@ -99,6 +101,7 @@ namespace DairyCow.DAL
                                         D.Color, 
                                         D.Status, 
                                         D.IsIll,
+                                        D.HouseID,
                                         G.Name AS GroupName
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G

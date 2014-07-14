@@ -63,6 +63,10 @@ namespace DairyCow.Model
         /// 花色，黑白，黄等
         /// </summary>
         public string Color { get; set; }
+        /// <summary>
+        /// 牛舍ID
+        /// </summary>
+        public int HouseID { get; set; }
         
         /// <summary>
         /// 牛日龄

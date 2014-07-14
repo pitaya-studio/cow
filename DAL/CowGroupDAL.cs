@@ -20,19 +20,51 @@ namespace DairyCow.DAL
                                             ,[FormulaID]
                                             ,[InsemOperatorID] 
 											,A.Name AS InsemOperatorName
+                                            ,FeedOperatorID
+                                            ,DoctorID
                                         FROM [Base_CowGroup] G 
 										JOIN [Auth_User] A ON A.ID = G.InsemOperatorID");
             cowGroupList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return cowGroupList;
         }
 
-        //更新牛群分配信息
+        /// <summary>
+        /// 更新牛群配种员分配信息
+        /// </summary>
+        /// <param name="cowGroupID">牛群ID</param>
+        /// <param name="insemOperatorID">配种员ID</param>
+        /// <returns></returns>
         public int UpdateCowGroupInsemOperator(int cowGroupID, int insemOperatorID)
         {
-            string sql = string.Format(@"update [Base_CowGroup] set InsemOperatorID = "
-                + insemOperatorID + " where ID = " + cowGroupID);
+            string sql = string.Format(@"update [Base_CowGroup] set InsemOperatorID ={1} where ID ={0}",cowGroupID,insemOperatorID);
             return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
         }
+
+        /// <summary>
+        /// 更新牛群饲养员分配信息
+        /// </summary>
+        /// <param name="cowGroupID">牛群ID</param>
+        /// <param name="feederID">饲养员ID</param>
+        /// <returns></returns>
+        public int UpdateCowFeeder(int cowGroupID, int feederID)
+        {
+            string sql = string.Format(@"update [Base_CowGroup] set FeedOperatorID ={1} where ID ={0}", cowGroupID, feederID);
+            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+
+        }
+
+        /// <summary>
+        /// 更新牛群兽医分配信息
+        /// </summary>
+        /// <param name="cowGroupID">牛群ID</param>
+        /// <param name="doctorID">兽医ID</param>
+        /// <returns></returns>
+        public int UpdateCowGroupDoctor(int cowGroupID, int doctorID)
+        {
+            string sql = string.Format(@"update [Base_CowGroup] set DoctorID ={1} where ID ={0}", cowGroupID, doctorID);
+            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+        }
+
 
         /// <summary>
         /// 更新牛群信息

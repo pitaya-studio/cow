@@ -68,6 +68,15 @@ namespace DairyCow.BLL
                 cowItem.DisplayEarNum = cowRow["DisplayEarNum"].ToString();
                 cowItem.GroupID = Convert.ToInt32(cowRow["GroupID"]);
                 cowItem.GroupName = cowRow["GroupName"].ToString();
+                if (cowRow["HouseID"]!=DBNull.Value)
+                {
+                    cowItem.HouseID = Convert.ToInt32(cowRow["HouseID"]);
+                }
+                else
+                {
+                    cowItem.HouseID = 0; //表示无牛舍？
+                }
+
                 cowItem.Gender = cowRow["Gender"].ToString();
                 cowItem.FarmCode = Convert.ToInt32(cowRow["FarmID"]);
                 cowItem.BirthDate = Convert.ToDateTime(cowRow["BirthDate"]);

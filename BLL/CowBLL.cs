@@ -136,6 +136,55 @@ namespace DairyCow.BLL
             }
         }
 
+        private int GetCowStatusNum(string status)
+        {
+            switch (status)
+            {
+                case "未配":
+                    return 0;
+                case "已配未检":
+                    return 1;
+                case "初检-":
+                    return 2;
+                case "初检+":
+                    return 3 ;
+                case "复检-":
+                    return 4;
+                case "复检+":
+                    return 5 ;
+                case "禁配":
+                    return 6;
+                default:
+                    return 0;
+            }
+
+        }
+        /// <summary>
+        /// 设牛繁殖状态
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public int UpdateCowBreedStatus(int earNum,string status)
+        {
+            return dalCow.UpdateCowBreedStatus(earNum, GetCowStatusNum(status));
+        }
+
+        public int UpdateCowIllStatus(int earNum,bool isIll)
+        {
+            int temp;
+            if (isIll)
+            {
+                temp = dalCow.UpdateCowIllStatus(earNum, 1);
+            }
+            else
+            {
+                temp = dalCow.UpdateCowIllStatus(earNum, 0);
+            }
+            return temp;
+        }
+
+
         /// <summary>
         /// 获取牛群里所有牛
         /// </summary>

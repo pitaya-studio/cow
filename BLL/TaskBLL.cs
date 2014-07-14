@@ -268,6 +268,10 @@ namespace DairyCow.BLL
             //添加配种记录
             InseminationDAL insemDAL = new InseminationDAL();
             insemDAL.InsertInseminationInfo(insemination);
+
+            //更新牛繁殖状态
+            CowBLL cowBLL = new CowBLL();
+            cowBLL.UpdateCowBreedStatus(insemination.EarNum, "已配未检");
         }
 
         /// <summary>
@@ -285,21 +289,37 @@ namespace DairyCow.BLL
             task.InputTime=DateTime.Now;
             UpdateTask(task);
 
-            //
-            //生成新复检任务单
-            DairyTask reinspectionTask = new DairyTask();
-            reinspectionTask.EarNum = task.EarNum;
-            reinspectionTask.PastureID=task.PastureID;
-            //分配配种员
-            reinspectionTask.OperatorID = task.OperatorID;//复检和初检同一人
+            
+            CowBLL cowBLL = new CowBLL();
 
-            reinspectionTask.Status=DairyTaskStatus.Initial;
-            float initialInspectionDays=DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFINITIALINSPECTION];
-            float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
-            reinspectionTask.ArrivalTime = task.ArrivalTime.AddDays(reInspectionDays-initialInspectionDays);
-            reinspectionTask.DeadLine = reinspectionTask.ArrivalTime.AddDays(3.0);
-            reinspectionTask.TaskType = TaskType.ReInspectionTask;
-            AddTask(reinspectionTask);
+            if (initialInspetion.InspectResult==1)
+            {
+                //初检+
+                //生成新复检任务单
+                DairyTask reinspectionTask = new DairyTask();
+                reinspectionTask.EarNum = task.EarNum;
+                reinspectionTask.PastureID = task.PastureID;
+                //分配配种员
+                reinspectionTask.OperatorID = task.OperatorID;//复检和初检同一人
+
+                reinspectionTask.Status = DairyTaskStatus.Initial;
+                float initialInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFINITIALINSPECTION];
+                float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
+                reinspectionTask.ArrivalTime = task.ArrivalTime.AddDays(reInspectionDays - initialInspectionDays);
+                reinspectionTask.DeadLine = reinspectionTask.ArrivalTime.AddDays(3.0);
+                reinspectionTask.TaskType = TaskType.ReInspectionTask;
+                AddTask(reinspectionTask);
+                //更新牛繁殖状态
+                cowBLL.UpdateCowBreedStatus(task.EarNum, "初检+");
+
+            }
+            else
+            {
+                //更新牛繁殖状态
+                cowBLL.UpdateCowBreedStatus(task.EarNum, "初检-");
+            }
+            
+            
             
         }
 
@@ -318,27 +338,44 @@ namespace DairyCow.BLL
             task.InputTime = DateTime.Now;
             UpdateTask(task);
 
-            //
-            //生成产前21天任务单
-            DairyTask day21ToBornTask = new DairyTask();
-            day21ToBornTask.EarNum = task.EarNum;
-            day21ToBornTask.PastureID = task.PastureID;
-            //分配兽医
-            CowGroupBLL g = new CowGroupBLL();
-            CowBLL c = new CowBLL();
-            Cow cc = c.GetCowInfo(task.EarNum);
-            int doctorID = g.GetCowGroupList().Find(p => p.ID == cc.GroupID).DoctorID;
 
-            day21ToBornTask.OperatorID = doctorID;
+            CowBLL cowBLL = new CowBLL();
+
+            if (reInspection.ReInspectResult==1)
+            {
+                //复检+
+                //生成产前21天任务单
+                DairyTask day21ToBornTask = new DairyTask();
+                day21ToBornTask.EarNum = task.EarNum;
+                day21ToBornTask.PastureID = task.PastureID;
+                //分配兽医
+                CowGroupBLL g = new CowGroupBLL();
+                CowBLL c = new CowBLL();
+                Cow cc = c.GetCowInfo(task.EarNum);
+                int doctorID = g.GetCowGroupList().Find(p => p.ID == cc.GroupID).DoctorID;
+
+                day21ToBornTask.OperatorID = doctorID;
 
 
-            day21ToBornTask.Status = DairyTaskStatus.Initial;
-            float normalCalvingDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_NORMALCALVINGDAYS];
-            float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
-            day21ToBornTask.ArrivalTime = task.ArrivalTime.AddDays(-reInspectionDays + normalCalvingDays-14);//NormalCalvingDays是进产房天数
-            day21ToBornTask.DeadLine = day21ToBornTask.ArrivalTime.AddDays(1.0);
-            day21ToBornTask.TaskType = TaskType.Day21ToBornTask;
-            AddTask(day21ToBornTask);
+                day21ToBornTask.Status = DairyTaskStatus.Initial;
+                float normalCalvingDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_NORMALCALVINGDAYS];
+                float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
+                day21ToBornTask.ArrivalTime = task.ArrivalTime.AddDays(-reInspectionDays + normalCalvingDays - 14);//NormalCalvingDays是进产房天数
+                day21ToBornTask.DeadLine = day21ToBornTask.ArrivalTime.AddDays(1.0);
+                day21ToBornTask.TaskType = TaskType.Day21ToBornTask;
+                AddTask(day21ToBornTask);
+                //更新牛繁殖状态
+                cowBLL.UpdateCowBreedStatus(task.EarNum, "复检+");
+
+            }
+            else
+            {
+                //更新牛繁殖状态
+                cowBLL.UpdateCowBreedStatus(task.EarNum, "复检-");
+
+            }
+
+
 
         }
 
@@ -585,6 +622,7 @@ namespace DairyCow.BLL
             GroupingRecord record = gBLL.GetGroupingRecordByTaskID(task.ID);
             myCow.GroupID = record.TargetGroupID;
             myCow.HouseID = record.TargetHouseID;
+            
         }
 
         /// <summary>

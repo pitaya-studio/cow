@@ -17,7 +17,7 @@ namespace DairyCow.Model
         public int InseminationID { get; set; }
         //初检日期
         public DateTime OperateDate { get; set; }
-        //初检结果
+        //初检结果1:+,0:-
         public int InspectResult { get; set; }
         //初检人
         public string Operator { get; set; }

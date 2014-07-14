@@ -114,9 +114,53 @@ namespace DairyCow.DAL
         }
 
 
+        /// <summary>
+        /// 更新牛牛群号，牛舍号
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <param name="groupID"></param>
+        /// <param name="houseID"></param>
+        /// <returns></returns>
+        public int UpdateCow(int earNum, int groupID, int houseID)
+        {
+            string sql = string.Format(@"UPDATE Base_Cow SET
+                                        GroupID={1},
+                                        HouseID={2}
+                                        where EarNum={0} 
+                                        ", earNum, groupID, houseID);
+            return  dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
 
-        
+        /// <summary>
+        /// 设牛繁殖状态
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public int UpdateCowBreedStatus(int earNum,int status)
+        {
+            string sql = string.Format(@"UPDATE Base_Cow SET
+                                        [status]={1},
+                                        where EarNum={0} 
+                                        ", earNum, status);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
+        }
+       
+        /// <summary>
+        /// 设牛生病与否
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <param name="isIll"></param>
+        /// <returns></returns>
+        public int UpdateCowIllStatus(int earNum, int isIll)
+        {
+            string sql = string.Format(@"UPDATE Base_Cow SET
+                                        IsIll={1},
+                                        where EarNum={0} 
+                                        ", earNum, isIll);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
     
 
 

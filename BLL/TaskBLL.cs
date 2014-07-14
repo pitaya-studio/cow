@@ -458,39 +458,78 @@ namespace DairyCow.BLL
         /// <summary>
         /// 产后3天任务
         /// </summary>
-        public void CompleteDay3AfterBorn(DairyTask t)
+        public void CompleteDay3AfterBorn(DairyTask task)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
         }
 
         /// <summary>
         /// 产后10天任务
         /// </summary>
-        public void CompleteDay10AfterBorn(DairyTask t, int cowHouseId, int cowGroupId)
+        public void CompleteDay10AfterBorn(DairyTask task, int cowHouseId, int cowGroupId)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
 
             //牛调群至，初产牛群或高产牛群
+            DairyTask groupingTask = new DairyTask();
+            groupingTask.TaskType = TaskType.GroupingTask;
+            DateTime time = DateTime.Now;
+            groupingTask.ArrivalTime = time;
+            groupingTask.EarNum = task.EarNum;
+            groupingTask.DeadLine = time.AddDays(1.0);
+            AddTask(groupingTask);
+            //取回这条任务
+            DairyTask groupingTaskCopy = GetUnfinishedTasks(UserBLL.Instance.CurrentUser.Pasture.ID).Find(p => p.ArrivalTime == time && p.TaskType == TaskType.GroupingTask);
+            //关联调群记录，任务单找到如何调群
+            GroupingRecord groupingRecord = new GroupingRecord();
+            groupingRecord.EarNum = groupingTaskCopy.EarNum;
+            groupingRecord.TaskID = groupingTaskCopy.ID;
+            CowBLL cowBLL = new CowBLL();
+            Cow myCow = cowBLL.GetCowInfo(groupingTaskCopy.EarNum);
+            groupingRecord.OriginalGroupID = myCow.GroupID;
+            groupingRecord.OriginalHouseID = myCow.HouseID;
+            groupingRecord.TargetGroupID = cowGroupId;
+            groupingRecord.TargetHouseID = cowHouseId;
+            GroupingRecordBLL gBLL = new GroupingRecordBLL();
+            gBLL.InsertGroupingRecord(groupingRecord);
+
         }
 
         /// <summary>
         /// 产后15天任务单
         /// </summary>
-        public void CompleteDay15AfterBorn(DairyTask t)
+        public void CompleteDay15AfterBorn(DairyTask task)
         {
             //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
             //更新任务记录，标记完成
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
         }
 
         /// <summary>
         /// 完成免疫任务
         /// </summary>
-        public int CompleteImmune(DairyTask task)
+        public void CompleteImmune(DairyTask task)
         {
             //更新任务记录，标记完成
-            return dalMedical.CompleteImmune();
+            //return dalMedical.CompleteImmune();
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
+
         }
 
         /// <summary>
@@ -500,6 +539,7 @@ namespace DairyCow.BLL
         {
             //每头牛做增加操作时调用本方法
             return dalMedical.InsertImmuneRecord(immune.PastureID, immune.ImmuneDate, immune.Vaccine, immune.EarNum, immune.DoctorID);
+            
         }
 
         /// <summary>
@@ -508,14 +548,21 @@ namespace DairyCow.BLL
         public void CompleteQuarantine(DairyTask task)
         {
             //更新任务记录，标记完成
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
+
         }
 
         /// <summary>
         /// 增加检疫记录
         /// </summary>
-        public void AddQuarantineRecord(Quarantine q)
+        public int AddQuarantineRecord(Quarantine q)
         {
             //每头牛做增加操作时调用本方法
+            QuarantineBLL qBLL = new QuarantineBLL();
+            return qBLL.InsertQurantine(q);
         }
 
         /// <summary>
@@ -525,6 +572,10 @@ namespace DairyCow.BLL
         {
             //各种事件触发产生分群要求，产生任务单
             //饲养员按要求操作，回填完成时间
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
         }
 
         /// <summary>
@@ -532,8 +583,11 @@ namespace DairyCow.BLL
         /// </summary>
         public void CompleteCalf(DairyTask task)
         {
-            //各种事件触发产生分群要求，产生任务单
-            //饲养员按要求操作，回填完成时间
+            task.Status = DairyTaskStatus.Completed;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
+
         }
     }
 }

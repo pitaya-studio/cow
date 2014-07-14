@@ -116,6 +116,7 @@ namespace DairyCow.DAL
                                             ,[FormulaID]
                                             ,[Type]
                                             ,[InsemOperatorID]
+                                            ,[DoctorID]
                                             ,[Description]
                                         FROM [Base_CowGroup] where ID = {0}", id);
             cowGroup = dataProvider1mutong.FillDataTable(sql, CommandType.Text);

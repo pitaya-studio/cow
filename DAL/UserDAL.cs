@@ -87,7 +87,7 @@ namespace DairyCow.DAL
         }
 
         //获得一个默认的兽医
-        public DataTable GetDefaultDoctor()
+        public DataTable GetDefaultDoctor(int id)
         {
             DataTable userList = null;
             string sql = string.Format(@"SELECT [ID]
@@ -96,7 +96,7 @@ namespace DairyCow.DAL
                                             ,[Password]
                                             ,[RoleID]
                                             ,[PastureID]
-                                        FROM [1mutong].[dbo].[Auth_User] where RoleID = 5");
+                                        FROM [1mutong].[dbo].[Auth_User] where ID = {0}", id);
             userList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return userList;
         }

@@ -17,9 +17,8 @@
     <script src="../../Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script src="../../ligerUI/js/ligerui.min.js"></script>
     <script type="text/javascript">
-        @*taskID = "@ViewBag.TaskID";*@
-        var doctorID = "@ViewBag.DoctorID"
-        alert(doctorID);
+        var taskID = "@ViewBag.TaskID";
+
         $(function () {
             loadTask();
         })
@@ -28,13 +27,14 @@
             $.ajax({
                 type: 'get',
                 url: "../../TaskCompleteImmune/LoadTask",
-
+                data: { taskID: taskID },
                 dataType: "json",
                 cache: false
             }).success(function (taskData) {
                 $('#doctor').val(taskData.doctor);
                 $('input[name=doctorID]').val(taskData.doctorID);
-            }); 
+                $('input[name=earNum]').val(taskData.earNum);
+            });
         }
     </script>
 </head>
@@ -47,10 +47,10 @@
                 <div>牛耳号：<input name="earNum" /></div>
                 <div>
                     免疫类型：<select name="immuneType">
-                        <option value="1">布鲁氏病</option>
-                        <option value="2">肺结核</option>
-                        <option value="3">口蹄疫</option>
-                        <option value="4">驱虫</option>
+                        <option value="布鲁氏病">布鲁氏病</option>
+                        <option value="肺结核">肺结核</option>
+                        <option value="口蹄疫">口蹄疫</option>
+                        <option value="驱虫">驱虫</option>
                     </select>
                 </div>
                 <div>

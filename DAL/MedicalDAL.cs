@@ -30,7 +30,7 @@ namespace DairyCow.DAL
                                        ImmuneDate,
                                        Vaccine,
                                        EarNum,
-                                       DoctorID) Values({0},{1},[2},{3},{4},{5})",
+                                       DoctorID) Values({0},{1},[2},{3},{4})",
                                         pastureID, immuneDate.Date, vaccine, earNum, doctorID);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }

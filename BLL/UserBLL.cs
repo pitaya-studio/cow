@@ -25,12 +25,12 @@ namespace DairyCow.BLL
                     _instance = new Dictionary<int, UserBLL>();
                 }
                 HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get("CurrentUserCookie");
-                if(cookie == null)
+                if (cookie == null)
                 {
                     return new UserBLL();
                 }
                 int userID = Convert.ToInt32(cookie["UserID"]);
-                if(_instance.ContainsKey(userID))
+                if (_instance.ContainsKey(userID))
                 {
                     return _instance[userID];
                 }
@@ -58,7 +58,7 @@ namespace DairyCow.BLL
             if (dt != null && dt.Rows.Count != 0)
             {
                 CurrentUser = WrapUser(dt.Rows[0]);
-                if(! _instance.ContainsKey(CurrentUser.ID))
+                if (!_instance.ContainsKey(CurrentUser.ID))
                 {
                     _instance.Add(CurrentUser.ID, this);
                 }
@@ -69,10 +69,10 @@ namespace DairyCow.BLL
         }
 
         //获得一个兽医
-        public User GetDefaultDoctor()
+        public User GetDefaultDoctor(int id)
         {
             User user = new User();
-            DataTable userData = dalUser.GetDefaultDoctor();
+            DataTable userData = dalUser.GetDefaultDoctor(id);
             if (userData != null && userData.Rows.Count == 1)
             {
                 user = WrapUser(userData.Rows[0]);
@@ -124,7 +124,7 @@ namespace DairyCow.BLL
                 }
             }
             return users;
-        }       
+        }
 
         //获得所有配种员
         public List<User> GetInseminationOperatorList()

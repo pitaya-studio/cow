@@ -1142,6 +1142,7 @@
     <Compile Include="Controllers\Task\TaskDay10AfterBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay15AfterBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay21ToBornController.cs" />
+    <Compile Include="Controllers\Task\TaskDay3AfterBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay7ToBornController.cs" />
     <Compile Include="Controllers\Task\TaskInitialInspectionController.cs" />
     <Compile Include="Controllers\Task\TaskInseminationController.cs" />
@@ -1231,6 +1232,7 @@
     <Folder Include="Views\TaskCompleteQuarantine\" />
     <Folder Include="Views\TaskDay10AfterBorn\" />
     <Folder Include="Views\TaskDay15AfterBorn\" />
+    <Folder Include="Views\TaskDay3AfterBorn\" />
     <Folder Include="Views\TaskDay7ToBorn\" />
     <Folder Include="Views\TaskInitialInspection\" />
     <Folder Include="Views\TaskInsemination\" />

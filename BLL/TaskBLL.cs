@@ -445,6 +445,12 @@ namespace DairyCow.BLL
 
         }
 
+        //在产犊、犊牛入群界面调用本方法
+        /// <summary>
+        /// 产生产后三任务和犊牛任务
+        /// </summary>
+        /// <param name="calving"></param>
+        /// <param name="calfEarNum"></param>
         public void CreateAfterBornTasks(Calving calving,int calfEarNum)
         {
             //分配兽医,饲养员

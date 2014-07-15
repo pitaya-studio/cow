@@ -55,5 +55,23 @@ namespace DairyCow.DAL
             
             return InsertHouse(name,0,pastureID);
         }
+
+        public int UpdateHouseGroup(int id,int groupID)
+        {
+            string sql = string.Format(@"Update [Base_CowHouse] 
+                                       SET [GroupID]={1}
+                                        where [ID]={0}",
+                                    id, groupID);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+
+        public int DeleteHouse(int id)
+        {
+            string sql = string.Format(@"DELETE from [Base_CowHouse] 
+                                        where [ID]={0}",
+                        id);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
     }
 }

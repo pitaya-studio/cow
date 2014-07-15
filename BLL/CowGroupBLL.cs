@@ -142,6 +142,9 @@ namespace DairyCow.BLL
             return dalCowGroup.InsertCowGroup(group.Name, group.PastureID, group.TypeNum, group.Description,group.FormulaID,group.InsemOperatorID,group.FeederID,group.DoctorID);
         }
 
-
+        public int DeleteCowGroup(int groupID)
+        {
+            return dalCowGroup.DeleteCowGroupByID(groupID);
+        }
     }
 }

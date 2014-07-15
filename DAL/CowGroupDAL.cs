@@ -84,11 +84,24 @@ namespace DairyCow.DAL
             temp = dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
             return temp;
         }
-
-        //public int DeleteCowGroupByID(int groupID)
-        //{
-
-        //}
+        /// <summary>
+        /// 删除某群，如该群仍有牛，不可删。
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns>删除的行数</returns>
+        public int DeleteCowGroupByID(int groupID)
+        {
+            int cowNum = GetCowCount(groupID);
+            if (cowNum==0)
+            {
+                string sql=string.Format(@"delete from  [Base_CowGroup]  where ID ={0}", groupID);
+                return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            }
+            else
+            {
+                return 0;
+            }
+        }
 
         /// <summary>
         /// 更新牛群配种员分配信息

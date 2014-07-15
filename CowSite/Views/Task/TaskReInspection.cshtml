@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -9,10 +8,58 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>妊检复检任务单</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
+    <link rel="stylesheet" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="../../Style/base.css">
+    <link rel="stylesheet" href="../../Style/Home/Index.css">
+    <script src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <script src="../../ligerUI/js/ligerui.min.js"></script>
+    <script type="text/javascript">
+        var taskID = "@ViewBag.TaskID";
+
+        $(function () {
+            loadTask();
+        })
+
+        function loadTask() {
+            $.ajax({
+                type: 'get',
+                url: "../../TaskInitialInspection/LoadTask",
+                data: { taskID: taskID },
+                dataType: "json",
+                cache: false
+            }).success(function (taskData) {
+                $('#startDate').val(taskData.startTime);
+                $('#earNum').val(taskData.earNum);
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        妊检复检任务单
+        <div>妊检复检任务单</div>
+        <div>
+            <form action="../../TaskInsemination/SaveTask" method="post">
+                <div>任务单类型: 妊检复检任务单</div>
+                <div>任务指导: 请检测该牛妊检情况。</div>
+                <br />
+                <div>任务开始时间: <input type="date" id="startDate" /></div>
+                <div>任务完成时间: <input type="date" id="endDate" /></div>
+                <br />
+                <div>牛耳号: <input id="earNum" /></div>
+                <div>操作人员：<input name="operatorName" /></div>
+                <div>
+                    怀孕状态：
+                    <select name="pregnantStatus">
+                        <option value="0">初检-</option>
+                        <option value="1">初检+</option>
+                    </select>
+                </div>
+                <button type="submit">提交</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

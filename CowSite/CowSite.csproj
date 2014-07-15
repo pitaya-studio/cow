@@ -1143,7 +1143,9 @@
     <Compile Include="Controllers\Task\TaskDay15AfterBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay21ToBornController.cs" />
     <Compile Include="Controllers\Task\TaskDay7ToBornController.cs" />
+    <Compile Include="Controllers\Task\TaskInitialInspectionController.cs" />
     <Compile Include="Controllers\Task\TaskInseminationController.cs" />
+    <Compile Include="Controllers\Task\TaskReInspectionController.cs" />
     <Compile Include="Controllers\Users\IndexController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1223,9 +1225,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup />
   <ItemGroup>
     <Folder Include="Views\Calf\" />
     <Folder Include="Views\TaskCompleteImmune\" />
@@ -1233,8 +1232,13 @@
     <Folder Include="Views\TaskDay10AfterBorn\" />
     <Folder Include="Views\TaskDay15AfterBorn\" />
     <Folder Include="Views\TaskDay7ToBorn\" />
+    <Folder Include="Views\TaskInitialInspection\" />
     <Folder Include="Views\TaskInsemination\" />
+    <Folder Include="Views\TaskReInspection\" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup />
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />

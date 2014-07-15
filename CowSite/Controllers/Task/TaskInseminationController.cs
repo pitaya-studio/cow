@@ -10,6 +10,7 @@ namespace CowSite.Controllers.Task
     /// </summary>
     public class TaskInseminationController : Controller
     {
+        TaskBLL bllTask = new TaskBLL();
         public ActionResult SaveTask()
         {
             try
@@ -32,9 +33,7 @@ namespace CowSite.Controllers.Task
                 i.SemenNum = semenNum;
                 i.InseminationNum = Convert.ToInt32(semenCount);
                 i.Description = desc;
-
-                TaskBLL bll = new TaskBLL();
-                //bll.CompleteInsemination(i);
+                bllTask.CompleteInsemination(i);
 
             }
             catch (Exception)

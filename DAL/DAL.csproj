@@ -57,6 +57,7 @@
     <Compile Include="FormulaDAL.cs" />
     <Compile Include="GradeDAL.cs" />
     <Compile Include="GroupingRecordDAL.cs" />
+    <Compile Include="HouseDAL.cs" />
     <Compile Include="MedicalDAL.cs" />
     <Compile Include="IndividualProdcutionDAL.cs" />
     <Compile Include="InitialInspectionDAL.cs" />

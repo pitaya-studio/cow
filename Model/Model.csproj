@@ -57,6 +57,7 @@
     <Compile Include="Formula.cs" />
     <Compile Include="Grade.cs" />
     <Compile Include="GroupingRecord.cs" />
+    <Compile Include="House.cs" />
     <Compile Include="Immune.cs" />
     <Compile Include="IndividualProdcution.cs" />
     <Compile Include="InitialInspection.cs" />

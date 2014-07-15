@@ -123,7 +123,11 @@ namespace DairyCow.BLL
             return this.dalCowGroup.UpdateCowGroupInfo(group);
         }
 
-
+        /// <summary>
+        /// 增加一个群，输入基本信息。（不包含配方，配种员，饲养员和兽医）
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
         public int AddCowGroupWithBasicInfo(CowGroup group)
         {
             if (String.IsNullOrEmpty(group.Description))
@@ -132,7 +136,11 @@ namespace DairyCow.BLL
 	        }
             return dalCowGroup.InsertCowGroup(group.Name, group.PastureID, group.TypeNum, group.Description);
         }
-
+        ///<summary>
+        /// 增加一个群，输入完全信息,包含配方，配种员，饲养员和兽医。
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
         public int AddCowGroupWithFullInfo(CowGroup group)
         {
             if (String.IsNullOrEmpty(group.Description))
@@ -141,7 +149,11 @@ namespace DairyCow.BLL
             }
             return dalCowGroup.InsertCowGroup(group.Name, group.PastureID, group.TypeNum, group.Description,group.FormulaID,group.InsemOperatorID,group.FeederID,group.DoctorID);
         }
-
+        /// <summary>
+        /// 删除某个群，必须牛群中不含任何牛。
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns>返回删除行数，未删除返回0.</returns>
         public int DeleteCowGroup(int groupID)
         {
             return dalCowGroup.DeleteCowGroupByID(groupID);

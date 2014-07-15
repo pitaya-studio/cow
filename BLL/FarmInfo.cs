@@ -1,10 +1,7 @@
 ﻿using DairyCow.DAL;
 using DairyCow.Model;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
-using System.Data;
-
 
 namespace DairyCow.BLL
 {
@@ -30,6 +27,7 @@ namespace DairyCow.BLL
         private List<Cow> cowList = new List<Cow>();
 
         private List<CowInfo> cowInfoList = new List<CowInfo>();
+
         /// <summary>
         /// 全群牛
         /// </summary>

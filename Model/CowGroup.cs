@@ -20,7 +20,7 @@ namespace DairyCow.Model
         //牧场名称
         public string PastureName { get; set; }
         // 状态ID
-        public int Type { get; set; }
+        public int TypeNum { get; set; }
         //配方ID
         public int FormulaID { get; set; }
         //配方名称
@@ -46,6 +46,158 @@ namespace DairyCow.Model
         /// <summary>
         /// 饲养员姓名
         /// </summary>
-        public string FeedName { get; set; }
+        public string FeederName { get; set; }
+        /// <summary>
+        /// 牛群类型
+        /// </summary>
+        public CowGroupType GroupType
+        {
+            get
+            {
+                return GetCowGroupType(this.TypeNum);
+            }
+        }
+        public CowGroupType GetCowGroupType(int number)
+        {
+            CowGroupType t;
+            switch (number)
+            {
+                case 0:
+                    t = CowGroupType.CalfCows;
+                    break;
+                case 1:
+                    t = CowGroupType.BredCattleCows;
+                    break;
+                case 2:
+                    t = CowGroupType.NullParityCows;
+                    break;
+                case 3:
+                    t = CowGroupType.JustBornCows;
+                    break;
+                case 4:
+                    t = CowGroupType.LowMilkCows;
+                    break;
+                case 5:
+                    t = CowGroupType.MediumMilkCows;
+                    break;
+                case 6:
+                    t = CowGroupType.HighMilkCows;
+                    break;
+                case 7:
+                    t = CowGroupType.DryMilkCows;
+                    break;
+                case 8:
+                    t = CowGroupType.DeliveryRoomCows;
+                    break;
+                case 9:
+                    t = CowGroupType.IsolatedCows;
+                    break;
+                case 10:
+                    t = CowGroupType.SickCows;
+                    break;
+                default:
+                    t = CowGroupType.IsolatedCows;
+                    break;
+                    
+            }
+            return t;
+        }
+        public int GetCowGroupTypeNum(CowGroupType t)
+        {
+            int temp;
+            switch (t)
+            {
+                case CowGroupType.CalfCows:
+                    temp = 0;
+                    break;
+                case CowGroupType.BredCattleCows:
+                    temp = 1;
+                    break;
+                case CowGroupType.NullParityCows:
+                    temp = 2;
+                    break;
+                case CowGroupType.JustBornCows:
+                    temp = 3;
+                    break;
+                case CowGroupType.LowMilkCows:
+                    temp = 4;
+                    break;
+                case CowGroupType.MediumMilkCows:
+                    temp = 5;
+                    break;
+                case CowGroupType.HighMilkCows:
+                    temp = 6;
+                    break;
+                case CowGroupType.DryMilkCows:
+                    temp = 7;
+                    break;
+                case CowGroupType.DeliveryRoomCows:
+                    temp = 8;
+                    break;
+                case CowGroupType.IsolatedCows:
+                    temp = 9;
+                    break;
+                case CowGroupType.SickCows:
+                    temp = 10;
+                    break;
+                default:
+                    temp = 9;
+                    break;
+            }
+            return temp;
+        }
+
+         
+    }
+    /// <summary>
+    /// 牛群类型
+    /// </summary>
+    public enum CowGroupType
+    {
+        /// <summary>
+        /// 犊牛群
+        /// </summary>
+        CalfCows=0,
+        /// <summary>
+        /// 育成牛群
+        /// </summary>
+        BredCattleCows=1,
+        /// <summary>
+        /// 青年牛群
+        /// </summary>
+        NullParityCows=2,
+        /// <summary>
+        /// 初产牛群
+        /// </summary>
+        JustBornCows=3,
+        /// <summary>
+        /// 低产牛群
+        /// </summary>
+        LowMilkCows=4,
+        /// <summary>
+        /// 中产牛群
+        /// </summary>
+        MediumMilkCows=5,
+        /// <summary>
+        /// 高产牛群
+        /// </summary>
+        HighMilkCows=6,
+        /// <summary>
+        /// 干奶牛群
+        /// </summary>
+        DryMilkCows=7,
+        /// <summary>
+        /// 产房待产牛群
+        /// </summary>
+        DeliveryRoomCows=8,
+        /// <summary>
+        /// 隔离群
+        /// </summary>
+        IsolatedCows=9,
+        /// <summary>
+        /// 病牛群
+        /// </summary>
+        SickCows=10
+
     }
 }

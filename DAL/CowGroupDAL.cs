@@ -10,10 +10,13 @@ namespace DairyCow.DAL
     /// </summary>
     public class CowGroupDAL : BaseDAL
     {
-        //获得所有的牛群配种分配信息
-        public DataTable GetCowGroupList()
+        /// <summary>
+        /// 获得所有的牛群
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetCowGroupTable()
         {
-            DataTable cowGroupList = null;
+            DataTable cowGroupTable = null;
             string sql = string.Format(@"SELECT G.[ID]
                                             ,G.[Name] AS GroupName
                                             ,[PastureID]
@@ -24,34 +27,81 @@ namespace DairyCow.DAL
                                             ,DoctorID
                                         FROM [Base_CowGroup] G 
 										JOIN [Auth_User] A ON A.ID = G.InsemOperatorID");
-            cowGroupList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
-            return cowGroupList;
+            cowGroupTable = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return cowGroupTable;
         }
+        /// <summary>
+        /// 获得牧场所有的牛群
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
+        public DataTable GetCowGroupTable(int pastureID)
+        {
+            DataTable cowGroupTable = null;
+            string sql = string.Format(@"SELECT G.[ID]
+                                            ,G.[Name] AS GroupName
+                                            ,[PastureID]
+                                            ,[FormulaID]
+                                            ,[InsemOperatorID] 
+											,A.Name AS InsemOperatorName
+                                            ,FeedOperatorID
+                                            ,DoctorID
+                                        FROM [Base_CowGroup] G 
+										JOIN [Auth_User] A ON A.ID = G.InsemOperatorID
+                                        WHERE [PastureID]={0} ", pastureID);
+            cowGroupTable = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return cowGroupTable;
+        }
+
+
+        public int InsertCowGroup(string name,int pastureID,int groupType,string description,int formulaID,int insemOperatorID,int feedOperatorID,int doctorID)
+        {
+            int temp;
+            string sql = string.Format(@"INSERT [Base_CowGroup]
+                                          ([Name]
+                                          ,[PastureID]
+                                          ,[Type]
+                                          ,[Description]
+                                          ,[FormulaID]
+                                          ,[InsemOperatorID]
+                                          ,[FeedOperatorID]
+                                          ,[DoctorID]) values('{0}',{1},{2},'{3}',{4},{5},{6},{7}) "
+                                            ,name, pastureID, groupType, description, formulaID, insemOperatorID, feedOperatorID, doctorID);
+            temp = dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            return temp;
+        }
+
+        public int InsertCowGroup(string name, int pastureID, int groupType, string description)
+        {
+            int temp;
+            string sql = string.Format(@"INSERT [Base_CowGroup]
+                                          ([Name]
+                                          ,[PastureID]
+                                          ,[Type]
+                                          ,[Description]
+                                          ) values('{0}',{1},{2},'{3}') "
+                                            , name, pastureID, groupType, description);
+            temp = dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            return temp;
+        }
+
+        //public int DeleteCowGroupByID(int groupID)
+        //{
+
+        //}
 
         /// <summary>
         /// 更新牛群配种员分配信息
         /// </summary>
         /// <param name="cowGroupID">牛群ID</param>
-        /// <param name="insemOperatorID">配种员ID</param>
+        /// <param name="insemOperator">配种员ID</param>
         /// <returns></returns>
         public int UpdateCowGroupInsemOperator(int cowGroupID, int insemOperatorID)
         {
-            string sql = string.Format(@"update [Base_CowGroup] set InsemOperatorID ={1} where ID ={0}",cowGroupID,insemOperatorID);
+            string sql = string.Format(@"update [Base_CowGroup] set InsemOperatorID ={1} where ID ={0}", cowGroupID, insemOperatorID);
             return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
         }
 
-        /// <summary>
-        /// 更新牛群饲养员分配信息
-        /// </summary>
-        /// <param name="cowGroupID">牛群ID</param>
-        /// <param name="feederID">饲养员ID</param>
-        /// <returns></returns>
-        public int UpdateCowFeeder(int cowGroupID, int feederID)
-        {
-            string sql = string.Format(@"update [Base_CowGroup] set FeedOperatorID ={1} where ID ={0}", cowGroupID, feederID);
-            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
-
-        }
 
         /// <summary>
         /// 更新牛群兽医分配信息
@@ -65,6 +115,11 @@ namespace DairyCow.DAL
             return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
         }
 
+        public int UpdateCowGroupFeeder(int cowGroupID, int feederID)
+        {
+            string sql = string.Format(@"update [Base_CowGroup] set FeedOperatorID ={1} where ID ={0}", cowGroupID, feederID);
+            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+        }
 
         /// <summary>
         /// 更新牛群信息
@@ -78,9 +133,31 @@ namespace DairyCow.DAL
                                               ,[FormulaID] = {2}
                                               ,[Type] = {3}
                                               ,[Description] = '{4}'
-                                        WHERE ID = {5}", group.Name, group.PastureID, group.FormulaID, group.Type, group.Description, group.ID);
+                                        WHERE ID = {5}", group.Name, group.PastureID, group.FormulaID, group.TypeNum, group.Description, group.ID);
             return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
         }
+
+        /// <summary>
+        /// 更新牛群信息
+        /// </summary>
+        /// <returns></returns>
+        public int UpdateCowGroupInfo(int groupID,string groupName,int pastureID,int formulaID,int groupType,string description,int feederID,int insemOperatorID,int doctorID)
+        {
+            string sql = string.Format(@"UPDATE [Base_CowGroup]
+                                           SET [Name] = '{0}'
+                                              ,[PastureID] = {1}
+                                              ,[FormulaID] = {2}
+                                              ,[Type] = {3}
+                                              ,[Description] = '{4}'
+                                              ,[FeedOperatorID]={6}
+                                              ,[InsemOperatorID]={7}
+                                              ,[DoctorID]={8}
+                                        WHERE ID = {5}", groupName, pastureID, formulaID, groupType, description, groupID, feederID, insemOperatorID, doctorID);
+            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+        }
+
+
+
 
         public DataTable GetCowGroupInfo()
         {
@@ -98,7 +175,11 @@ namespace DairyCow.DAL
             return cowGroup;
         }
 
-        //根据牛群ID获得配方ID
+        /// <summary>
+        /// 根据牛群ID获得配方ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public int GetFormulaIDByGroupID(int id)
         {
             int formulaID = 0;
@@ -106,8 +187,12 @@ namespace DairyCow.DAL
             formulaID = Convert.ToInt32(dataProvider1mutong.ExecuteScalar(sql, CommandType.Text));
             return formulaID;
         }
-
-        public DataTable GetCowGroupInfo(int id)
+        /// <summary>
+        /// 获取某个牛群
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public DataTable GetCowGroupTableByID(int id)
         {
             DataTable cowGroup = null;
             string sql = string.Format(@"SELECT [ID]
@@ -122,7 +207,11 @@ namespace DairyCow.DAL
             cowGroup = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return cowGroup;
         }
-
+        /// <summary>
+        /// 获取牛群牛数
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
         public int GetCowCount(int groupID)
         {
             DataTable DT = null;
@@ -133,6 +222,11 @@ namespace DairyCow.DAL
             return Convert.ToInt32(DT.Rows[0].ItemArray[0]);
         }
 
+        /// <summary>
+        /// 获取牛舍牛数
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
         public DataTable GetCowCountInHouse(int groupID)
         {
             DataTable DT = null;

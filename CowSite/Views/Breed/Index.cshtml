@@ -17,14 +17,43 @@
     <script>
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Breed", subMenuSelectedID: "Breed-Home" });
+            loadBreedIndicantGrid();
         });
+
+        function loadBreedIndicantGrid() {
+            $.ajax({
+                type: 'get',
+                url: '../../Breed/Index/GetBreedIndicant',
+                dataType: 'json',
+                success: function (data) {
+                    var breedIndicantGridManager = $("#breedIndicantGrid").ligerGrid({
+                        checkbox: false,
+                        columns: [
+                            { display: '经产牛平均初产月龄', name: 'Indicant1', type: 'double', width: 50 },
+                            { display: '头胎牛平均初产月龄', name: 'Indicant2', type: 'double', width: 50 },
+                            { display: '经产牛产后首次发情平均天数(发情间隔)', name: 'Indicant3', type: 'double', width: 50 },
+                            { display: '经产牛未孕牛空怀天数', name: 'Indicant4', type: 'double', width: 50 }
+                        ],
+                        pageSize: 15,
+                        width: '100%',
+                        height: '100%',
+                        isScroll: false,
+                        data: data
+                    });
+                    $("#pageloading").hide();
+                }
+            });            
+        }
+
     </script>
 </head>
 <body>
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            繁殖参数
+            <div id="breedIndicantGrid" class="displayBlock ml5 mr5"></div>
+            <div id="message"></div>
+            <div class="l-loading" id="pageloading"></div>
         </div>
     </div>
 </body>

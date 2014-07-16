@@ -64,7 +64,6 @@ namespace DairyCow.DAL
             return inseminationList;
         }
 
-
         public DataTable GetInseminationTable(int earNum, DateTime lastCalvingDate)
         {
             DataTable inseminationList = null;

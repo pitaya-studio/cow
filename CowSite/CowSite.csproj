@@ -1114,6 +1114,7 @@
     <Compile Include="Controllers\FarmAdmin\InGroupController.cs" />
     <Compile Include="Controllers\FarmAdmin\OutGroupController.cs" />
     <Compile Include="Controllers\Feed\CowGroupController.cs" />
+    <Compile Include="Controllers\Feed\CowHouseController.cs" />
     <Compile Include="Controllers\Feed\EmptyController.cs" />
     <Compile Include="Controllers\Feed\FodderController.cs" />
     <Compile Include="Controllers\Feed\FormulaController.cs" />
@@ -1124,6 +1125,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Breed\InseminationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Medical\AdjustController.cs" />
     <Compile Include="Controllers\Medical\DiagnosesController.cs" />
     <Compile Include="Controllers\Medical\IndexController.cs" />
     <Compile Include="Controllers\Medical\MastitisController.cs" />
@@ -1219,6 +1221,9 @@
     <Content Include="Views\Platform\Formula\Assign.cshtml" />
     <Content Include="Views\FarmAdmin\InGroup\List.cshtml" />
     <Content Include="Views\FarmAdmin\OutGroup\List.cshtml" />
+    <Content Include="Views\Feed\CowHouse\List.cshtml" />
+    <Content Include="Views\CowGroup\Remind.cshtml" />
+    <Content Include="Views\CowGroup\Adjust.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

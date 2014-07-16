@@ -22,7 +22,6 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskInsemination()
         {
-            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskInsemination.cshtml");
         }
         /// <summary>

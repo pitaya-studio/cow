@@ -6,13 +6,14 @@ using System.Web.Mvc;
 
 namespace CowSite.Controllers.Medical
 {
+    /// <summary>
+    /// 繁殖首页处理
+    /// </summary>
     public class IndexController : Controller
     {
-        //
-        // GET: /Index/
         public ActionResult Index()
         {
             return View("~/Views/Medical/Index.cshtml");
-        }
+        }        
 	}
 }

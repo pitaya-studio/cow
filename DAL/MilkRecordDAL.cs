@@ -133,7 +133,7 @@ namespace DairyCow.DAL
                                                     D.Microbe,
                                                     D.Lactose,
                                                     D.IcePoint, 
-                                                    D.Acidity) Values({0},{1},[2}，{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})", 
+                                                    D.Acidity) Values({0},{1},[2}，{3},{4},'{5}','{6}','{7}','{8}','{9}',{10},{11},{12},{13},{14},{15},{16},{17})", 
                                                     pastureID,  milkDate.Date, amount, milkWeight, company, shipCode, decoding, tankerNum, truckNum, fat, protein, dryMatter, nonFatSolid, microbe, lactose, icePoint, acidity);
            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 

@@ -22,7 +22,7 @@ namespace DairyCow.DAL
         public int InsertIndividualProdcution(int earNum,DateTime milkDate,float milkWeight,string round)
         {
             string sql= String.Format(@"Insert INTO IndividualProdcution 
-                                       (EarNum,MilkDate,MilkWeight,Round) Values({0},{1},[2},{3},{4}",
+                                       (EarNum,MilkDate,MilkWeight,Round) Values({0},{1},[2},{3},'{4}'",
                                         earNum, milkDate.Date,milkWeight,round);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }

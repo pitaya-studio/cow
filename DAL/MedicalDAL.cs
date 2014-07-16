@@ -78,7 +78,7 @@ namespace DairyCow.DAL
         public void InsertCare(int earNum, int diseaseId, string prescription, int doctorID)
         {
             string sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date)
-                                         values ('{0}','{1}','{2}','{3}','{4}')",
+                                         values ({0},{1},'{2}','{3}',{4})",
                                         earNum, diseaseId, prescription, doctorID, DateTime.Now.ToShortDateString());
             dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }

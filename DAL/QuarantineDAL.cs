@@ -19,7 +19,7 @@ namespace DairyCow.DAL
                                        QuaratineMethod,
                                        result,
                                        EarNum,
-                                       DoctorID) Values({0},{1},[2},{3},{4},{5},{6},{7})",
+                                       DoctorID) Values({0},{1},'{2}','{3}',{4},{5},{6},{7})",
                                         pastureID, quarantineDate.Date,quarantineType,quarantineMethod, result,earNum, doctorID);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }

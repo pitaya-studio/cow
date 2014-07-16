@@ -59,7 +59,7 @@ namespace DairyCow.DAL
                                         ParameterValue, 
                                         CanBeConfiguredByPasture, 
                                         CanBeConfiguredByAdmin, 
-                                        Description) VALUES({0},{1},{2},{3},{4},{5})"
+                                        Description) VALUES({0},'{1}',{2},{3},{4},'{5}')"
                                         , pastureID, parameterName, parameterValue, 
                                          canBeConfiguredByPasture, 
                                          canBeConfiguredByAdmin, 
@@ -73,7 +73,7 @@ namespace DairyCow.DAL
         {
             string sql = string.Format(@"Update Base_Parameter SET
                                         ParameterValue={2}
-                                        WHERE PastureID={0} AND ParameterName={1} AND CanBeConfiguredByAdmin=1", pastureID, parameterName, parameterValue);
+                                        WHERE PastureID={0} AND ParameterName='{1}' AND CanBeConfiguredByAdmin=1", pastureID, parameterName, parameterValue);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 

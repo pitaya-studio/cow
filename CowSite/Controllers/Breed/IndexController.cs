@@ -1,5 +1,6 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
+using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -65,6 +66,32 @@ namespace CowSite.Controllers.Breed
             };
 
             return Json(breedIndicant, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 繁殖饼图
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetBreedChart()
+        {
+            FarmInfo farm = new FarmInfo();
+
+            // 经产牛繁殖状况
+            ArrayList arrBreedSummary = new ArrayList();
+            arrBreedSummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedMultiParity });
+            arrBreedSummary.Add(new { name = "已配未检牛", value = farm.CountOfInseminatedMultiParity });
+            arrBreedSummary.Add(new { name = "已孕头数", value = farm.CountOfPregnantMultiParity });
+            // 青年牛繁殖状况
+            ArrayList arrParitySummary = new ArrayList();
+            arrParitySummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedNullParity });
+            arrParitySummary.Add(new { name = "已配未检牛", value = farm.CountOfInseminatedNullParity });
+            arrParitySummary.Add(new { name = "已孕头数", value = farm.CountOfPregnantNullParity });
+
+            return Json(new
+            {
+                BreedSummary = arrBreedSummary,
+                ParitySummary = arrParitySummary
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 

@@ -74,7 +74,7 @@ namespace CowSite.Controllers.Breed
         /// <returns></returns>
         public JsonResult GetBreedChart()
         {
-            FarmInfo farm = new FarmInfo();
+            FarmInfo farm = FarmInfo.Instance;
 
             // 经产牛繁殖状况
             ArrayList arrBreedSummary = new ArrayList();

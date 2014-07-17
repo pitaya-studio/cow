@@ -21,7 +21,7 @@ namespace CowSite.Controllers.Breed
         /// <returns></returns>
         public JsonResult GetBreedIndicant()
         {
-            FarmInfo farm = new FarmInfo();
+            FarmInfo farm = FarmInfo.Instance;
 
             List<BreedIndicant> lstBreedIndicant = new List<BreedIndicant>();
             // 牧场繁殖指标
@@ -35,7 +35,7 @@ namespace CowSite.Controllers.Breed
             farmIndicant.Indicant7 = farm.MultiParityCowSuccessPercentageOfFirstInsemination;
             farmIndicant.Indicant8 = farm.NullParityCowSuccessPercentageOfFirstInsemination;
             farmIndicant.Indicant9 = farm.CowSuccessPercentageOfTwiceInsemination;
-            lstBreedIndicant.Add(farmIndicant);
+           lstBreedIndicant.Add(farmIndicant);
             // 牧场繁殖国内参考水平
             BreedIndicant domesticIndicant = new BreedIndicant();
             domesticIndicant.Indicant1 = FarmInfo.REF_AGEMONTH_FIRST_BIRTH_MAX;

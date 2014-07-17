@@ -28,6 +28,20 @@ namespace DairyCow.BLL
 
         private List<CowInfo> cowInfoList = new List<CowInfo>();
 
+        private static FarmInfo _instance;
+
+        public static FarmInfo Instance
+        {
+            get
+            {
+                if (_instance==null)
+                {
+                    _instance = new FarmInfo();
+                }
+                return _instance;
+            }
+        }
+
         /// <summary>
         /// 全群牛
         /// </summary>
@@ -49,6 +63,7 @@ namespace DairyCow.BLL
                 {
                     if (item.CowType=="经产牛")
                     {
+                        
                         multiParityCows.Add(item);
                     }
                 }
@@ -1036,7 +1051,7 @@ namespace DairyCow.BLL
                     int count = MultiParityCows.Count;
                     foreach (CowInfo item in MultiParityCows)
                     {
-                        Insemination insem= CowInfo.GetFirstInsemination(item.EarNum);
+                        Insemination insem= CowInfo.GetFirstInseminationOfCurrentBreedPeriod(item.EarNum);
                         if (insem==null)
                         {
                             count--;
@@ -1047,7 +1062,11 @@ namespace DairyCow.BLL
                         }
                         
                     }
-                    days = days / count;
+                    if (count>0)
+                    {
+                        days = days / count;
+                    }
+                    
                 }
                 return days;
             }
@@ -1199,7 +1218,30 @@ namespace DairyCow.BLL
                 double days = 0.0;
                 foreach (CowInfo item in PregnantMultiParity)
                 {
-                    days = days + CowInfo.GetLatestInsemination(item.EarNum).OperateDate.Subtract(item.GetLatestCalvingDate()).TotalDays;
+                    DateTime t;
+                    //数据正常，已孕牛一定有本轮配种记录
+#if RELEASE
+                    if (item.LatestInseminationOfCurrentBreedPeriod==null)
+	                {
+                        throw new Exception(String.Format(@"耳号为{0}的牛的繁殖数据异常，显示为已孕牛却没有本轮配种记录",item.EarNum));
+	                }
+                    else
+                    {
+                        t=item.LatestInseminationOfCurrentBreedPeriod.OperateDate; 
+                    }
+#elif DEBUG
+                    if (item.LatestInseminationOfCurrentBreedPeriod!=null)
+	                {
+                        t = item.LatestInseminationOfCurrentBreedPeriod.OperateDate;   
+	                }
+                    else
+                    {
+                        t = DateTime.Now;//数据错误，仅供调试显示
+                    }
+
+#endif
+                    days = days + t.Subtract(item.GetLatestCalvingDate()).TotalDays;
+
                 }
                 days = days / CountOfPregnantMultiParity;
                 return days;

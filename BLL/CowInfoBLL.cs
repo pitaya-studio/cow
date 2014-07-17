@@ -287,7 +287,7 @@ namespace DairyCow.BLL
             }
         }
         /// <summary>
-        /// 最近产犊日期，非经产牛返回日期DateTime.MinValue
+        /// 最近产犊日期，非经产牛返回出生日期
         /// </summary>
         public DateTime GetLatestCalvingDate()
         {
@@ -298,22 +298,47 @@ namespace DairyCow.BLL
                 {
                     t = cal.Birthday;
                 }
+                else
+                {
+                    t = this.BirthDate;
+                }
                 return t;
         }
+
+        public Insemination FirstInseminationOfCurrentBreedPeriod
+        {
+            get
+            {
+                return CowInfo.GetFirstInseminationOfCurrentBreedPeriod(this.EarNum);
+            }
+        }
+
+        public Insemination LatestInsemination
+        {
+            get
+            {
+                return CowInfo.GetLatestInsemination(this.EarNum);
+            }
+        }
+
+        public Insemination LatestInseminationOfCurrentBreedPeriod
+        {
+            get
+            {
+                return CowInfo.GetlatestInseminationOfCurrentBreedPeriod(this.EarNum);
+            }
+        }
+
         /// <summary>
         /// 产后第一次配种天数
         /// </summary>
         /// <returns></returns>
         public double GetDaysToFirstInsemination()
         {
-            double d;
-            if (this.Parity>0)
+            double d=0.0;
+            if (this.Parity > 0 && this.FirstInseminationOfCurrentBreedPeriod != null)
             {
-                d = DateTime.Now.Subtract(GetLatestCalvingDate()).TotalDays;
-            }
-            else
-            {
-                d = 0.0;
+                d = this.FirstInseminationOfCurrentBreedPeriod.OperateDate.Subtract(GetLatestCalvingDate()).TotalDays;
             }
             return d;
         }
@@ -388,7 +413,7 @@ namespace DairyCow.BLL
         public static int GetTimesOfInsemination(int earNum)
         {
 
-            return GetInseminationList(earNum).Count;
+            return GetInseminationListOfCurrentBreedPeriod(earNum).Count;
 
         }
         /// <summary>
@@ -396,7 +421,7 @@ namespace DairyCow.BLL
         /// </summary>
         /// <param name="earNum"></param>
         /// <returns></returns>
-        public static List<Insemination> GetInseminationList(int earNum)
+        public static List<Insemination> GetInseminationListOfCurrentBreedPeriod(int earNum)
         {
             InseminationBLL bllInsem=new InseminationBLL();
             DateTime latestCalTime = DateTime.MinValue;
@@ -405,19 +430,25 @@ namespace DairyCow.BLL
             {
                 latestCalTime = cal.Birthday;
             }
+            else
+            {
+                CowBLL cb=new CowBLL();
+                Cow myCow=cb.GetCowInfo(earNum);
+                latestCalTime = myCow.BirthDate;
+            }
             List<Insemination> list = bllInsem.GetInseminationList(earNum, latestCalTime);
             return list;
         }
         /// <summary>
-        /// 去本轮首次配种记录
+        /// 获取本轮首次配种记录，未配返回null
         /// </summary>
         /// <param name="earNum"></param>
         /// <returns></returns>
-        public static Insemination GetFirstInsemination(int earNum)
+        public static Insemination GetFirstInseminationOfCurrentBreedPeriod(int earNum)
         {
             Insemination insem;
             // 取本轮配种记录列表
-            List<Insemination> list = GetInseminationList(earNum);
+            List<Insemination> list = GetInseminationListOfCurrentBreedPeriod(earNum);
             if (list.Count>0)
             {
                 insem = list[0];
@@ -437,6 +468,32 @@ namespace DairyCow.BLL
             return insem;
 
         }
+        public static Insemination GetlatestInseminationOfCurrentBreedPeriod(int earNum)
+        {
+            Insemination insem;
+            // 取本轮配种记录列表
+            List<Insemination> list = GetInseminationListOfCurrentBreedPeriod(earNum);
+            if (list.Count > 0)
+            {
+                insem = list[0];
+                for (int i = 1; i < list.Count; i++)
+                {
+                    if (insem.OperateDate.CompareTo(list[i].OperateDate) < 0)
+                    {
+                        insem = list[i];
+                    }
+                }
+            }
+            else
+            {
+                //本轮无配种记录
+                insem = null;
+            }
+            return insem;
+
+        }
+
+
 
        
 

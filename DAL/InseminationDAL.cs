@@ -68,8 +68,8 @@ namespace DairyCow.DAL
         {
             DataTable inseminationList = null;
             string sql = string.Format(@"select * from [Breed_Insemination] 
-                                            where EarNum = '{0}' 
-                                            and OperateDate > {2}", earNum, lastCalvingDate);
+                                            where EarNum ={0} 
+                                            and OperateDate > {1}", earNum, lastCalvingDate);
             inseminationList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return inseminationList;
         }
@@ -78,7 +78,7 @@ namespace DairyCow.DAL
         {
             string sql = string.Format(@"select * from [1mutong].[dbo].[Breed_Insemination] 
                                             where EarNum = '{0}'
-                                            and InseminationNum = {2}", earNum, inseminationNum);
+                                            and InseminationNum = {1}", earNum, inseminationNum);
             object insemInfo = dataProvider1mutong.ExecuteScalar(sql, CommandType.Text);
             if (insemInfo != null)
             {

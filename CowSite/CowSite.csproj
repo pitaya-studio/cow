@@ -1224,6 +1224,8 @@
     <Content Include="Views\Feed\CowHouse\List.cshtml" />
     <Content Include="Views\CowGroup\Remind.cshtml" />
     <Content Include="Views\CowGroup\Adjust.cshtml" />
+    <Content Include="Views\CowGroup\Assign.cshtml" />
+    <Content Include="Views\Task\Adjust.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

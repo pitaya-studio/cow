@@ -38,6 +38,8 @@
             { ID: "Platform-Fodder", PID: "Platform", Name: "饲料管理", Url: "Platform/Fodder/List", target: "_self" },
             { ID: "FarmAdmin", PID: "", Name: "场长", Url: "Users/Index/List", target: "_self" },
             { ID: "FarmAdmin-User", PID: "FarmAdmin", Name: "用户管理", Url: "Users/Index/List", target: "_self" },
+            { ID: "FarmAdmin-GroupAssign", PID: "FarmAdmin", Name: "牛群分配", Url: "Feed/CowGroup/Assign", target: "_self" },
+            { ID: "FarmAdmin-TaskAdjust", PID: "FarmAdmin", Name: "任务调整", Url: "Task/Index/Adjust", target: "_self" },
             { ID: "FarmAdmin-InGroup", PID: "FarmAdmin", Name: "入群", Url: "FarmAdmin/InGroup/List", target: "_self" },
             { ID: "FarmAdmin-OutGroup", PID: "FarmAdmin", Name: "离群", Url: "FarmAdmin/OutGroup/List", target: "_self" }
         ];

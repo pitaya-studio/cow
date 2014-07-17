@@ -38,6 +38,11 @@ namespace CowSite.Controllers.Feed
             return View("~/Views/CowGroup/Remind.cshtml");
         }
 
+        public ActionResult Assign()
+        {
+            return View("~/Views/CowGroup/Assign.cshtml");
+        }
+
         public JsonResult GetCowGroupItem(string id)
         {
             return Json(this.bllCowGroup.GetCowGroupInfo(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);

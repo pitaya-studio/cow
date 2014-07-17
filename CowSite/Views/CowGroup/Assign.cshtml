@@ -1,14 +1,12 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>康复调群</title>
+    <title>牛群分配</title>
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" href="~/Style/base.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -18,7 +16,7 @@
     <script src="~/Scripts/menu.js"></script>
     <script>
         $(function () {
-            $('#menu').menu({ mainMenuSelectedID: "FarmAdmin", subMenuSelectedID: "FarmAdmin-TaskAdjust" });
+            $('#menu').menu({ mainMenuSelectedID: "Medical", subMenuSelectedID: "Medical-AdjustGroup" });
         });
     </script>
 </head>
@@ -26,7 +24,7 @@
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            康复调群
+            牛群分配: 分配配种员，饲养员，兽医
         </div>
     </div>
 </body>

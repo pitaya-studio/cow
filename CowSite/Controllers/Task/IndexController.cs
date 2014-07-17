@@ -9,6 +9,15 @@ namespace CowSite.Controllers.Task
     public class IndexController : Controller
     {
         /// <summary>
+        /// 任务调整
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Adjust()
+        {
+            return View("~/Views/Task/Adjust.cshtml");
+        }
+
+        /// <summary>
         /// 任务列表页面
         /// </summary>
         /// <returns></returns>

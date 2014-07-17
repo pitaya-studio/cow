@@ -1004,7 +1004,110 @@ namespace DairyCow.BLL
             }
         }
 
-        
+        private bool needGrouping=false;
+        /// <summary>
+        /// 是否需要调群，（运行完ChecGrouping）
+        /// </summary>
+        public bool NeedGrouping
+        {
+            get { return needGrouping; }
+        }
+
+        private string regroupingReason;
+        /// <summary>
+        /// 调群原因，（运行完ChecGrouping）
+        /// </summary>
+        public string RegroupingReason
+        {
+            get { return regroupingReason; }
+        }
+
+        public void CheckGrouping()
+        {
+            CowGroupBLL cowGroupBll = new CowGroupBLL();
+            CowGroup g = cowGroupBll.GetCowGroupList().Find(p => p.ID == this.GroupID && p.PastureID==this.FarmCode);
+            switch (g.GroupType)
+            {
+                case CowGroupType.CalfCows:
+                    if (!this.CowType.Equals("犊牛"))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是犊牛，现在犊牛群。";
+                    }
+                    break;
+                case CowGroupType.BredCattleCows:
+                    if (!this.CowType.Equals("育成牛"))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是育成牛，现在育成牛群。";
+                    }
+                    break;
+                case CowGroupType.NullParityCows:
+                    if (!this.CowType.Equals("青年牛"))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是青年牛牛，现在青年牛牛群。";
+                    }
+                    break;
+                case CowGroupType.JustBornCows:
+                    if ((!this.CowType.Equals("经产牛")) || (!this.MilkType.Equals("泌乳牛")))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是泌乳牛，现在初产牛群。";
+                    }
+                    break;
+                case CowGroupType.LowMilkCows:
+                    if ((!this.CowType.Equals("经产牛"))||(!this.MilkType.Equals("泌乳牛")))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是泌乳牛，现在低产牛群。";
+                    }
+                    break;
+                case CowGroupType.MediumMilkCows:
+                    if ((!this.CowType.Equals("经产牛")) || (!this.MilkType.Equals("泌乳牛")))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是泌乳牛，现在中产牛群。";
+                    }
+                    break;
+                case CowGroupType.HighMilkCows:
+                    if ((!this.CowType.Equals("经产牛")) || (!this.MilkType.Equals("泌乳牛")))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是泌乳牛，现在高产牛群。";
+                    }
+                    break;
+                case CowGroupType.DryMilkCows:
+                    if ((!this.CowType.Equals("经产牛")) || (!this.MilkType.Equals("干奶牛")))
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛不是干奶牛，现在干奶牛群。";
+                    }
+                    break;
+                case CowGroupType.DeliveryRoomCows:
+                    //无检查
+                    break;
+                case CowGroupType.IsolatedCows:
+                    //无检查
+                    break;
+                case CowGroupType.SickCows:
+                    if (!this.IsIll)
+                    {
+                        this.needGrouping = true;
+                        this.regroupingReason = "此牛为正常牛，现在病牛群。";
+                    }
+                    break;
+                default:
+                    if (this.IsIll && g.GroupType!=CowGroupType.SickCows)
+                    {
+                                                this.needGrouping = true;
+                        this.regroupingReason = "此牛为病牛，现在正常牛群。";
+
+                    }
+                    break;
+            }
+            
+        }
 
 
     }

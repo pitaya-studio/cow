@@ -95,6 +95,9 @@ namespace DairyCow.Model
                 case 10:
                     t = CowGroupType.SickCows;
                     break;
+                case 11:
+                    t = CowGroupType.Bulls;
+                    break;
                 default:
                     t = CowGroupType.IsolatedCows;
                     break;
@@ -139,6 +142,9 @@ namespace DairyCow.Model
                     break;
                 case CowGroupType.SickCows:
                     temp = 10;
+                    break;
+                case CowGroupType.Bulls:
+                    temp = 11;
                     break;
                 default:
                     temp = 9;
@@ -197,7 +203,11 @@ namespace DairyCow.Model
         /// <summary>
         /// 病牛群
         /// </summary>
-        SickCows=10
+        SickCows=10,
+        /// <summary>
+        /// 公牛群
+        /// </summary>
+        Bulls=11
 
     }
 }

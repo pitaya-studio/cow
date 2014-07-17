@@ -1399,6 +1399,24 @@ namespace DairyCow.BLL
             return dal.GetPastureCalvingNumber(pastureID, year);
         }
 
+        /// <summary>
+        /// 获取需要调群的牛
+        /// </summary>
+        /// <returns></returns>
+        public List<CowInfo> GetNeedRegroupingCows()
+        {
+            List<CowInfo> list = new List<CowInfo>();
+            foreach (CowInfo item in this.CowInfoList)
+            {
+                item.CheckGrouping();
+                if (item.NeedGrouping)
+                {
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
+
 
     }
 }

@@ -8,7 +8,7 @@
             { ID: "Breed-Insemination", PID: "Breed", Name: "发情配种", Url: "Task/Index/TaskInsemination", target: "_self" },
             { ID: "Breed-Calf", PID: "Breed", Name: "产犊", Url: "Breed/Calf/Add", target: "_self" },
             { ID: "Breed-Forbid", PID: "Breed", Name: "禁配", Url: "Breed/ForbidInsemination/Edit", target: "_self" },
-            { ID: "Breed-UnForbid", PID: "Breed", Name: "解禁", Url: "Breed/UnForbidInsemination/Edit", target: "_self" },
+            { ID: "Breed-UnForbid", PID: "Breed", Name: "解禁", Url: "Breed/UnForbidInsemination/List", target: "_self" },
             { ID: "Feed", PID: "", Name: "饲养", Url: "Feed/Index/Index", target: "_self" },
             { ID: "Feed-Home", PID: "Feed", Name: "饲养首页", Url: "Feed/Index/Index", target: "_self" },
             { ID: "Feed-CowGroup", PID: "Feed", Name: "牛群维护", Url: "Feed/CowGroup/List", target: "_self" },

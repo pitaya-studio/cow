@@ -1188,7 +1188,7 @@
     <Content Include="Views\Medical\FootParing\Add.cshtml" />
     <Content Include="Views\Medical\MilkBreast\Add.cshtml" />
     <Content Include="Views\CowGroup\ModifyCowGroup.cshtml" />
-    <Content Include="Views\Breed\UnForbidInsemination\Edit.cshtml" />
+    <Content Include="Views\Breed\UnForbidInsemination\LIst.cshtml" />
     <Content Include="Views\Platform\Formula\Modify.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
     <Content Include="Views\Users\AddUser.cshtml" />
@@ -1226,6 +1226,7 @@
     <Content Include="Views\CowGroup\Adjust.cshtml" />
     <Content Include="Views\CowGroup\Assign.cshtml" />
     <Content Include="Views\Task\Adjust.cshtml" />
+    <Content Include="Views\Breed\UnForbidInsemination\UnForbid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

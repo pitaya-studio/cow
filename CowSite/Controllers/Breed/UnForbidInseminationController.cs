@@ -11,10 +11,9 @@ namespace CowSite.Controllers.Breed
         InseminationBLL bllInsemination = new InseminationBLL();
         UnForbidInseminationBLL bllUnforbidInsemination = new UnForbidInseminationBLL();
 
-        public ActionResult Edit()
+        public ActionResult List()
         {
-            //ViewBag.EarNum = id;
-            return View("~/Views/Breed/UnForbidInsemination/Edit.cshtml");
+            return View("~/Views/Breed/UnForbidInsemination/List.cshtml");
         }
 
         [HttpPost]
@@ -35,7 +34,7 @@ namespace CowSite.Controllers.Breed
         public JsonResult GetForbidCowList()
         {
             List<Cow> lstCow = bllCow.GetCowList(UserBLL.Instance.CurrentUser.Pasture.ID).FindAll(p => p.Status == "禁配");
-            return Json(lstCow, JsonRequestBehavior.AllowGet);
+            return Json(new { Rows = lstCow }, JsonRequestBehavior.AllowGet);
         }
     }
 }

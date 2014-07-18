@@ -73,6 +73,7 @@
     <Compile Include="RemoveHornBLL.cs" />
     <Compile Include="RepairHoofBLL.cs" />
     <Compile Include="ReportBLL.cs" />
+    <Compile Include="StrayBAL.cs" />
     <Compile Include="TaskBLL.cs" />
     <Compile Include="UnForbidInseminationBLL.cs" />
     <Compile Include="UserBLL.cs" />

@@ -75,6 +75,7 @@
     <Compile Include="RemoveHornDAL.cs" />
     <Compile Include="RepairHoofDAL.cs" />
     <Compile Include="ReportDAL.cs" />
+    <Compile Include="StrayDAL.cs" />
     <Compile Include="TaskDAL.cs" />
     <Compile Include="UnForbidInseminationDAL.cs" />
     <Compile Include="UserDAL.cs" />

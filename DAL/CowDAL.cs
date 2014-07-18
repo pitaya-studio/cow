@@ -31,7 +31,7 @@ namespace DairyCow.DAL
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G
                                         ON D.GroupID = G.ID
-                                        WHERE D.FarmID={0}", pastureID);
+                                        WHERE D.FarmID={0} and IsStray=0", pastureID);
 
             cowList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
@@ -75,7 +75,7 @@ namespace DairyCow.DAL
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G
                                         ON D.GroupID = G.ID
-                                        WHERE D.FarmID={0} and D.GroupID={1}", farmID,groupID);
+                                        WHERE D.FarmID={0} and D.GroupID={1} and IsStray=0", farmID,groupID);
 
             cowList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
@@ -106,7 +106,7 @@ namespace DairyCow.DAL
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G
                                         ON D.GroupID = G.ID
-                                        WHERE D.FarmID={0} and D.Status={1}", farmID, status);
+                                        WHERE D.FarmID={0} and D.Status={1} and IsStray=0", farmID, status);
 
             cowList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
@@ -161,8 +161,20 @@ namespace DairyCow.DAL
                                         ", earNum, isIll);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
-    
-
+        /// <summary>
+        /// 设置牛离群状态
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <param name="isStray"></param>
+        /// <returns></returns>
+        public int UpdateCowStrayStatus(int earNum, int isStray)
+        {
+            string sql = string.Format(@"UPDATE Base_Cow SET
+                                        IsStray={1},
+                                        where EarNum={0} 
+                                        ", earNum, isStray);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
 
     }
 }

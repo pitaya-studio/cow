@@ -53,6 +53,19 @@ namespace DairyCow.Model
                 return TotalMilk / MultiParityNumber;
             }
         }
+
+        /// <summary>
+        /// 出售牛数
+        /// </summary>
+        public int SoldCowNum { get; set; }
+        /// <summary>
+        /// 死亡牛数
+        /// </summary>
+        public int DeadCowNum { get; set; }
+        /// <summary>
+        /// 淘汰牛数
+        /// </summary>
+        public int ElimintedCowNum { get; set; }
     }
 
     public class MonthlyReport
@@ -103,5 +116,17 @@ namespace DairyCow.Model
                 return TotalMilk / MultiParityNumber;
             }
         }
+        /// <summary>
+        /// 出售牛数
+        /// </summary>
+        public int SoldCowNum { get; set; }
+        /// <summary>
+        /// 死亡牛数
+        /// </summary>
+        public int DeadCowNum { get; set; }
+        /// <summary>
+        /// 淘汰牛数
+        /// </summary>
+        public int ElimintedCowNum { get; set; }
     }
 }

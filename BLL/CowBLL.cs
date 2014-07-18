@@ -225,6 +225,11 @@ namespace DairyCow.BLL
             return lstCow;
         }
 
+        public int UpdateCowStrayStatus(int earNum, int isStray)
+        {
+            return dalCow.UpdateCowStrayStatus(earNum, isStray);
+        }
+
 
 
     }

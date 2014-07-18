@@ -45,6 +45,7 @@ namespace DairyCow.BLL
 
             int calvingNum = 0, maleCalf = 0, femaleCalf = 0;
             float saleMilk=0,milkForCalf=0,abnormal=0,badMilk=0,leftMilk=0,amount=0;
+            int soldCow=0, deadCow=0, eliminatedCow=0;
             foreach (DailyReport item in dailyReports)
             {
                 calvingNum = calvingNum + item.CalvingNumber;
@@ -57,6 +58,10 @@ namespace DairyCow.BLL
                 badMilk = badMilk + item.BadMilk;
                 leftMilk = leftMilk + item.LeftMilk;
                 amount = amount + item.Amount;
+
+                soldCow = soldCow + item.SoldCowNum;
+                deadCow = deadCow + item.DeadCowNum;
+                eliminatedCow = eliminatedCow + item.ElimintedCowNum;
             }
             report.CalfNumber = calvingNum;
             report.MaleCalfNumber = maleCalf;
@@ -67,6 +72,12 @@ namespace DairyCow.BLL
             report.MilkForCalf = milkForCalf;
             report.LeftMilk = leftMilk;
             report.Amount = amount;
+
+            //离群
+            report.SoldCowNum = soldCow;
+            report.DeadCowNum = deadCow;
+            report.ElimintedCowNum = eliminatedCow;
+
             return report;
         }
 
@@ -142,6 +153,12 @@ namespace DairyCow.BLL
                 myReport.MilkForCalf = milk.OtherMilkRecord.MilkForCalf;
                 myReport.BadMilk = milk.OtherMilkRecord.BadMilk;
                 myReport.LeftMilk = milk.OtherMilkRecord.LeftMilk;
+
+                //离群
+                StrayBLL sBLL = new StrayBLL();
+                myReport.SoldCowNum = sBLL.GetSoldStrayNumber(pastureID, date.Date);
+                myReport.DeadCowNum = sBLL.GetStrayNumberByStrayType(pastureID, date.Date, 1);
+                myReport.ElimintedCowNum = sBLL.GetStrayNumberByStrayType(pastureID, date.Date, 0);
 
             }
             else

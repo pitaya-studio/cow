@@ -23,5 +23,6 @@ namespace DairyCow.Model
         /// </summary>
         public float Price { get; set; }
         public string Reason { get; set; }
+        public DateTime StrayDate { get; set; }
     }
 }

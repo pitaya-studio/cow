@@ -998,7 +998,7 @@ namespace DairyCow.BLL
                 if (cal != null)
                 {
                     //有产犊，
-                    ageM = cal.Birthday.Subtract(this.BirthDate).TotalDays;
+                    ageM = cal.Birthday.Subtract(this.BirthDate).TotalDays/30.5;
                 }
                 return ageM;
             }

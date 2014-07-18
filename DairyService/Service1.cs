@@ -21,7 +21,7 @@ namespace DairyService
         {
             InitializeComponent();
             dailyReportTimer = new Timer();
-            dailyReportTimer.Interval = 3600000;//一小时
+            dailyReportTimer.Interval = 3600000.0;//一小时
             dailyReportTimer.AutoReset = true;
             dailyReportTimer.Elapsed += dailyReportTimer_Elapsed;
 

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CowSite", "CowSite\CowSite.csproj", "{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DairyService", "DairyService\DairyService.csproj", "{1B4F01AC-FC70-42A0-8B94-4DE15B2ED977}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0CE26A5-CD8D-4F8B-8D49-5528678C2DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4F01AC-FC70-42A0-8B94-4DE15B2ED977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4F01AC-FC70-42A0-8B94-4DE15B2ED977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4F01AC-FC70-42A0-8B94-4DE15B2ED977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4F01AC-FC70-42A0-8B94-4DE15B2ED977}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

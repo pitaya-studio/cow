@@ -9,8 +9,66 @@ using DairyCow.DAL;
 
 namespace DairyCow.BLL
 {
-    public class ReportBLL
+    
+    public class MonthlyReportBLL
     {
+        public int PastureID { get; private set; }
+        public int Year { get; private set; }
+        public int Month { get; private set; }
+        public MonthlyReportBLL(int pastureID,int year,int month)
+        {
+            this.PastureID = pastureID;
+            this.Year = year;
+            this.Month = month;
+        }
+        
+        public MonthlyReport GetMonthlyReport(int pastureID,int year,int month)
+        {
+            MonthlyReport report = new MonthlyReport();
+            DateTime reportDate = (new DateTime(year, month, 1)).AddMonths(1).AddDays(-1);//取本月最后一天
+            DailyReportBLL drBLL = new DailyReportBLL(pastureID);
+            //取该月日报
+            List<DailyReport> dailyReports = drBLL.GetDailyReport(pastureID, new DateTime(year, month, 1), reportDate);
+            var sorted=dailyReports.OrderByDescending(a => a.ReportDate);
+            dailyReports=sorted.ToList();
+            DailyReport latestDailyReport = dailyReports.First();
+
+            //牛群结构按最后一天
+            report.CalfNumber = latestDailyReport.CalfNumber;
+            report.BredCattleNumber = latestDailyReport.BredCattleNumber;
+            report.NullParityNumber = latestDailyReport.NullParityNumber;
+            report.MultiParityNumber = latestDailyReport.MultiParityNumber;
+            report.DryCowNumber = latestDailyReport.DryCowNumber;
+            report.MilkCowNumber = latestDailyReport.MilkCowNumber;
+            report.ReportMonth = month;
+            report.ReportYear = year;
+
+            int calvingNum = 0, maleCalf = 0, femaleCalf = 0;
+            float saleMilk=0,milkForCalf=0,abnormal=0,badMilk=0,leftMilk=0,amount=0;
+            foreach (DailyReport item in dailyReports)
+            {
+                calvingNum = calvingNum + item.CalvingNumber;
+                maleCalf = maleCalf + item.MaleCalfNumber;
+                femaleCalf = femaleCalf + item.FemaleCalfNumber;
+
+                saleMilk = saleMilk + item.SaleMilk;
+                milkForCalf = milkForCalf + item.MilkForCalf;
+                abnormal = abnormal + item.AbnormalSaleMilk;
+                badMilk = badMilk + item.BadMilk;
+                leftMilk = leftMilk + item.LeftMilk;
+                amount = amount + item.Amount;
+            }
+            report.CalfNumber = calvingNum;
+            report.MaleCalfNumber = maleCalf;
+            report.FemaleCalfNumber = femaleCalf;
+
+            report.SaleMilk = saleMilk;
+            report.AbnormalSaleMilk = abnormal;
+            report.MilkForCalf = milkForCalf;
+            report.LeftMilk = leftMilk;
+            report.Amount = amount;
+            return report;
+        }
 
     }
 
@@ -134,6 +192,8 @@ namespace DairyCow.BLL
             report.ReportDate = Convert.ToDateTime(row["ReportDate"]);
             return report;
         }
+
+
     
     }
 }

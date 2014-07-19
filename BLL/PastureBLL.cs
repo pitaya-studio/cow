@@ -10,24 +10,46 @@ namespace DairyCow.BLL
     {
         private PastureDAL dalPasture = new PastureDAL();
 
-        public List<Pasture> GetPasture()
+        public List<Pasture> GetPastures()
         {
             List<Pasture> lstPasture = new List<Pasture>();
 
-            DataTable datPasture = this.dalPasture.GetPasture();
+            DataTable datPasture = this.dalPasture.GetPastureTable();
             if (datPasture != null && datPasture.Rows.Count > 0)
             {
                 foreach (DataRow drPasture in datPasture.Rows)
                 {
-                    lstPasture.Add(new Pasture()
-                    {
-                        ID = Convert.ToInt32(drPasture["ID"].ToString()),
-                        Name = drPasture["Name"].ToString()
-                    });
+                    lstPasture.Add(WrapPastureItem(drPasture));
                 }
             }
 
             return lstPasture;
+        }
+
+        public Pasture WrapPastureItem(DataRow row)
+        {
+            Pasture p = new Pasture();
+            p.ID = Convert.ToInt32(row["ID"].ToString());
+            p.Name = row["Name"].ToString();
+            int temp=Convert.ToInt32(row["IsActive"]);
+            if (temp>0)
+	        {
+		        p.IsActive=true;
+	        }
+            else
+            {
+                p.IsActive=false;
+            }
+            return p;
+        }
+
+        public int AddPasture(string name)
+        {
+            return dalPasture.InsertPasture(name);
+        }
+        public int SetPastureActiveStatus(int id,bool isActive)
+        {
+            return dalPasture.UpdatePastureActiveStatus(id, isActive);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace DairyService
             if (DateTime.Now.Hour==23)
             {
                 PastureBLL pBLL = new PastureBLL();
-                List<Pasture> list = pBLL.GetPasture();
+                List<Pasture> list = pBLL.GetPastures();
                 foreach (Pasture item in list)
                 {
                     DailyReportBLL dBLL = new DailyReportBLL(item.ID);

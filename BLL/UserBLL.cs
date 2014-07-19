@@ -50,7 +50,7 @@ namespace DairyCow.BLL
         {
             Roles = GetRoles();
             PastureBLL pbl = new PastureBLL();
-            Pastures = pbl.GetPasture();
+            Pastures = pbl.GetPastures();
         }
         public void GetCurrentUser(string account, string password)
         {

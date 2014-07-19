@@ -15,7 +15,7 @@ namespace CowSite.Controllers.Feed
 
         public JsonResult GetPasture()
         { 
-            return Json(this.bllPasture.GetPasture(), JsonRequestBehavior.AllowGet);
+            return Json(this.bllPasture.GetPastures(), JsonRequestBehavior.AllowGet);
         }
 	}
 }

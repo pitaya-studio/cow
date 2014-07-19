@@ -10,6 +10,9 @@ namespace DairyCow.Model
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        /// <summary>
+        /// 牧场是否有服务，0：用户不能登录
+        /// </summary>
         public bool IsActive { get; set; }
     }
 }

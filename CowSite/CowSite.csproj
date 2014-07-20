@@ -560,6 +560,12 @@
     <Content Include="Controls\echarts\src\util\shape\symbol.js" />
     <Content Include="Controls\echarts\test\allchart\all.html" />
     <Content Include="Controls\echarts\test\allchart\all.js" />
+    <Content Include="Controls\jQuery.Select2\select2-spinner.gif" />
+    <Content Include="Controls\jQuery.Select2\select2.css" />
+    <Content Include="Controls\jQuery.Select2\select2.js" />
+    <Content Include="Controls\jQuery.Select2\select2.min.js" />
+    <Content Include="Controls\jQuery.Select2\select2.png" />
+    <Content Include="Controls\jQuery.Select2\select2x2.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\CowStatus\chujian.png" />
     <Content Include="Images\CowStatus\duniu.png" />

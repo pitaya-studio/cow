@@ -48,7 +48,7 @@ namespace DairyCow.BLL
             return immune;
         }
         
-        public List<DiseaseType> GetDiseaseTypes()
+        public List<DiseaseType> GetDiseasesType()
         {
             DataTable table = this.medicalDAL.GetDiseaseTypes();
             List<DiseaseType> list = new List<DiseaseType>();

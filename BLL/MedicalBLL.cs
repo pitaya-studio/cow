@@ -47,6 +47,20 @@ namespace DairyCow.BLL
             immune.DoctorID = Convert.ToInt32(row["DoctorID"]);
             return immune;
         }
+        
+        public List<DiseaseType> GetDiseases()
+        {
+            DataTable table = this.medicalDAL.GetDiseaseTypes();
+            List<DiseaseType> list = new List<DiseaseType>();
+            foreach (DataRow row in table.Rows)
+            {
+                DiseaseType d = new DiseaseType();
+                d.Name = row["DiseaseType_Name"].ToString();
+                d.Code = row["DiseaseType_Code"].ToString();
+                list.Add(d);
+            }
+            return list;
+        }
 
         public List<Disease> GetDiseases()
         {

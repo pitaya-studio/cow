@@ -69,6 +69,12 @@ namespace DairyCow.DAL
 
         }
 
+        public DataTable GetDiseaseTypes()
+        {
+            string sql = @"SELECT [DiseaseType_Name],[DiseaseType_Code] FROM [Medical_DiseaseType]";
+            return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+        }
+
         public DataTable GetDiseases()
         {
             string sql = @"SELECT Disease_Id,DiseaseType_Id,DiseaseName,Disease_Code  FROM Medical_DiseaseLibrary";

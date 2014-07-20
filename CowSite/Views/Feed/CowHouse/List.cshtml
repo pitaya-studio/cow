@@ -17,14 +17,49 @@
     <script>
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-CowHouse" });
+            loadCowHouseList();
         });
+
+        var cowHouseGridManager;
+        function loadCowHouseList() {
+            cowHouseGridManager = $("#cowHouseGrid").ligerGrid({
+                checkbox: false,
+                columns: [
+                    { display: '牛舍ID', name: 'ID', type: 'int', hide: true, width: 50 },
+                    { display: '牛舍名称', name: 'Name', align: 'left', width: 150 },
+                    { display: '牛群ID', name: 'GroupID', align: 'left', width: 250, editor: { type: 'text' } },
+                    //{
+                    //    display: '牛群类型', name: 'Type', type: 'int', align: 'left', width: 150,
+                    //    render: function (item) {
+                    //        var typeName = "";
+                    //        $.each(cowGroupTypeData, function () {
+                    //            if (this.ID == item.Type) {
+                    //                typeName = this.Name;
+                    //                return typeName;
+                    //            }
+                    //        });
+                    //        return typeName;
+                    //    }
+                    //},
+                    { display: '牧场ID', name: 'PastureID', align: 'left', width: 150 }
+                ],
+                pageSize: 15,
+                width: '100%',
+                height: '100%',
+                isScroll: false,
+                url: "../../Feed/CowHouse/GetCowHouseInfo"
+            });
+            $("#pageloading").hide();
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            牛舍维护
+            <div id="cowHouseGrid" class="displayBlock ml5 mr5"></div>
+            <div id="message"></div>
+            <div class="l-loading" id="pageloading"></div>
         </div>
     </div>
 </body>

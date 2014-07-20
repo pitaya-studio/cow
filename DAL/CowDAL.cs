@@ -1,4 +1,5 @@
 ﻿using DairyCow.DAL.Base;
+using System;
 using System.Data;
 
 namespace DairyCow.DAL
@@ -49,7 +50,7 @@ namespace DairyCow.DAL
             cowInfo = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
             return cowInfo;
-        }     
+        }
 
         /// <summary>
         /// 获取牧场某群牛
@@ -57,7 +58,7 @@ namespace DairyCow.DAL
         /// <param name="farmID">牧场ID</param>
         /// <param name="groupID">牛群ID</param>
         /// <returns></returns>
-        public DataTable GetCowListByFarmGroup(int farmID,int groupID)
+        public DataTable GetCowListByFarmGroup(int farmID, int groupID)
         {
             DataTable cowList = null;
 
@@ -75,7 +76,7 @@ namespace DairyCow.DAL
                                         FROM Base_Cow AS D
                                         LEFT JOIN [Base_CowGroup] AS G
                                         ON D.GroupID = G.ID
-                                        WHERE D.FarmID={0} and D.GroupID={1} and IsStray=0", farmID,groupID);
+                                        WHERE D.FarmID={0} and D.GroupID={1} and IsStray=0", farmID, groupID);
 
             cowList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
@@ -88,7 +89,7 @@ namespace DairyCow.DAL
         /// <param name="farmID">牧场ID</param>
         /// <param name="status">繁殖状态，0-6</param>
         /// <returns>牛列表</returns>
-        public DataTable GetCowListByFarmStatus(int farmID,int status)
+        public DataTable GetCowListByFarmStatus(int farmID, int status)
         {
             DataTable cowList = null;
 
@@ -128,7 +129,7 @@ namespace DairyCow.DAL
                                         HouseID={2}
                                         where EarNum={0} 
                                         ", earNum, groupID, houseID);
-            return  dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         /// <summary>
@@ -137,7 +138,7 @@ namespace DairyCow.DAL
         /// <param name="earNum"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public int UpdateCowBreedStatus(int earNum,int status)
+        public int UpdateCowBreedStatus(int earNum, int status)
         {
             string sql = string.Format(@"UPDATE Base_Cow SET
                                         [status]={1},
@@ -146,7 +147,7 @@ namespace DairyCow.DAL
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
         }
-       
+
         /// <summary>
         /// 设牛生病与否
         /// </summary>
@@ -174,6 +175,36 @@ namespace DairyCow.DAL
                                         where EarNum={0} 
                                         ", earNum, isStray);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        public int ConvertDislayEarNumToEarNum(string displayEarNum, int farm)
+        {
+            DataTable dt = null;
+
+            string sql = string.Format(@"SELECT EarNum
+                            FROM Base_Cow
+                            WHERE DisplayEarNum = '{0}' AND FarmID = '{1}'", displayEarNum, farm);
+
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            if (dt.Rows.Count == 0)
+                return -1;
+            else
+                return Convert.ToInt32(dt.Rows[0]["EarNum"]);
+        }
+
+        public string ConvertEarNumToDisplayEarNum(int earNum)
+        {
+            DataTable dt = null;
+
+            string sql = string.Format(@"SELECT DisplayEarNum
+                            FROM Base_Cow
+                            WHERE EarNum = '{0}'", earNum);
+
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            if (dt.Rows.Count == 0)
+                return string.Empty;
+            else
+                return dt.Rows[0]["DisplayEarNum"].ToString();
         }
 
     }

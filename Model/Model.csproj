@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calving.cs" />
+    <Compile Include="Care.cs" />
     <Compile Include="Cow.cs" />
     <Compile Include="CowGroup.cs" />
     <Compile Include="CowGroupInfo.cs" />

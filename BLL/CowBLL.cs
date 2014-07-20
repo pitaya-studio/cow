@@ -11,6 +11,18 @@ namespace DairyCow.BLL
     {
         CowDAL dalCow = new CowDAL();
 
+        static public int ConvertDislayEarNumToEarNum(string displayEarNum)
+        {
+            CowDAL dal = new CowDAL();
+            return dal.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+        }
+
+        static public string ConvertEarNumToDisplayEarNum(int earNum)
+        {
+            CowDAL dal = new CowDAL();
+            return dal.ConvertEarNumToDisplayEarNum(earNum);
+        }
+
         /// <summary>
         /// 获取当前用户的牧场Cowlist
         /// </summary>
@@ -68,7 +80,7 @@ namespace DairyCow.BLL
                 cowItem.DisplayEarNum = cowRow["DisplayEarNum"].ToString();
                 cowItem.GroupID = Convert.ToInt32(cowRow["GroupID"]);
                 cowItem.GroupName = cowRow["GroupName"].ToString();
-                if (cowRow["HouseID"]!=DBNull.Value)
+                if (cowRow["HouseID"] != DBNull.Value)
                 {
                     cowItem.HouseID = Convert.ToInt32(cowRow["HouseID"]);
                 }
@@ -82,7 +94,7 @@ namespace DairyCow.BLL
                 cowItem.BirthDate = Convert.ToDateTime(cowRow["BirthDate"]);
                 DateTime dtNow = DateTime.Now;
                 //cowItem.AgeMonth = (dtNow.Year - cowItem.BirthDate.Year) * 12 + (dtNow.Month - cowItem.BirthDate.Month);
-                
+
                 if (cowRow["BirthWeight"] != null && !string.IsNullOrWhiteSpace(cowRow["BirthWeight"].ToString()))
                 {
                     cowItem.BirthWeight = float.Parse(cowRow["BirthWeight"].ToString());
@@ -100,7 +112,7 @@ namespace DairyCow.BLL
                     cowItem.Status = String.Empty;
                 }
                 int ill = Convert.ToInt32(cowRow["IsIll"]);
-                if (ill==0)
+                if (ill == 0)
                 {
                     cowItem.IsIll = false;
                 }
@@ -147,11 +159,11 @@ namespace DairyCow.BLL
                 case "初检-":
                     return 2;
                 case "初检+":
-                    return 3 ;
+                    return 3;
                 case "复检-":
                     return 4;
                 case "复检+":
-                    return 5 ;
+                    return 5;
                 case "禁配":
                     return 6;
                 default:
@@ -165,12 +177,12 @@ namespace DairyCow.BLL
         /// <param name="earNum"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public int UpdateCowBreedStatus(int earNum,string status)
+        public int UpdateCowBreedStatus(int earNum, string status)
         {
             return dalCow.UpdateCowBreedStatus(earNum, GetCowStatusNum(status));
         }
 
-        public int UpdateCowIllStatus(int earNum,bool isIll)
+        public int UpdateCowIllStatus(int earNum, bool isIll)
         {
             int temp;
             if (isIll)

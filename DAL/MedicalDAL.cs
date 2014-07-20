@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DairyCow.DAL.Base;
 using System.Data;
+using DairyCow.Model;
 
 
 namespace DairyCow.DAL
@@ -80,14 +81,13 @@ namespace DairyCow.DAL
             string sql = @"SELECT Disease_Id,DiseaseType_Id,DiseaseName,Disease_Code  FROM Medical_DiseaseLibrary";
             return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
         }
-
-        public void InsertCare(int earNum, int diseaseId, string prescription, int doctorID,
-            string leftfront, string rightfront, string leftback, string rightback)
+        
+        public void InsertCare(Care care)
         {
             string sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date,LeftFront,RightFront,RightBack,LeftBack)
                                          values ({0},{1},'{2}','{3}',{4},{5},{6},{7},{8})",
-                                        earNum, diseaseId, prescription, doctorID, DateTime.Now.ToShortDateString(),
-                                        leftfront, rightfront, leftback, rightback);
+                                        care.EarNum, care.Disease_Id, care.Prescription, care.DoctorID, DateTime.Now.ToShortDateString(),
+                                        care.LeftFront, care.RightFront, care.LeftBack, care.RightBack);
             dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 

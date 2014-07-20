@@ -66,10 +66,17 @@ namespace DairyCow.BLL
             return list;
         }
 
-        public void InsertCare(int earNum, int diseaseId, string prescription)
+        public void InsertCare(int earNum, int diseaseId, string prescription,
+            string leftfront = "", string rightfront = "", string leftback = "", string rightback = "")
         {
-            medicalDAL.InsertCare(earNum, diseaseId, prescription, UserBLL.Instance.CurrentUser.ID);
+            medicalDAL.InsertCare(earNum, diseaseId, prescription, UserBLL.Instance.CurrentUser.ID,
+                leftfront, rightfront, leftback, rightback);
         }
+
+        //public List<> GetCareCowsCount()
+        //{
+
+        //}
 
     }
 }

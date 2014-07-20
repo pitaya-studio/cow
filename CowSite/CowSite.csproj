@@ -1105,11 +1105,11 @@
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Breed\CalfController.cs" />
-    <Compile Include="Controllers\Breed\ForbidInseminationController.cs" />
+    <Compile Include="Controllers\Medical\ForbidInseminationController.cs" />
     <Compile Include="Controllers\Breed\IndexController.cs" />
     <Compile Include="Controllers\Breed\InitialInspectionController.cs" />
     <Compile Include="Controllers\Breed\ReInspectionController.cs" />
-    <Compile Include="Controllers\Breed\UnforbidInseminationController.cs" />
+    <Compile Include="Controllers\Medical\UnforbidInseminationController.cs" />
     <Compile Include="Controllers\CowController.cs" />
     <Compile Include="Controllers\FarmAdmin\InGroupController.cs" />
     <Compile Include="Controllers\FarmAdmin\OutGroupController.cs" />
@@ -1164,7 +1164,7 @@
     <Content Include="Views\Breed\Insemination\View.cshtml" />
     <Content Include="Views\Breed\Insemination\Assign.cshtml" />
     <Content Include="Views\Cow\AssignGroup.cshtml" />
-    <Content Include="Views\Breed\ForbidInsemination\Edit.cshtml" />
+    <Content Include="Views\Medical\ForbidInsemination\Edit.cshtml" />
     <Content Include="Views\Feed\Grade\Add.cshtml" />
     <Content Include="Views\Platform\Formula\List.cshtml" />
     <Content Include="Views\Feed\Fodder\Calculate.cshtml" />
@@ -1188,7 +1188,7 @@
     <Content Include="Views\Medical\FootParing\Add.cshtml" />
     <Content Include="Views\Medical\MilkBreast\Add.cshtml" />
     <Content Include="Views\CowGroup\ModifyCowGroup.cshtml" />
-    <Content Include="Views\Breed\UnForbidInsemination\LIst.cshtml" />
+    <Content Include="Views\Medical\UnForbidInsemination\List.cshtml" />
     <Content Include="Views\Platform\Formula\Modify.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
     <Content Include="Views\Users\AddUser.cshtml" />
@@ -1226,7 +1226,7 @@
     <Content Include="Views\CowGroup\Adjust.cshtml" />
     <Content Include="Views\CowGroup\Assign.cshtml" />
     <Content Include="Views\Task\Adjust.cshtml" />
-    <Content Include="Views\Breed\UnForbidInsemination\UnForbid.cshtml" />
+    <Content Include="Views\Medical\UnForbidInsemination\UnForbid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

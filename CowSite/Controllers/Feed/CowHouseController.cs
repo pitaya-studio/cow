@@ -29,5 +29,33 @@ namespace CowSite.Controllers.Feed
         {
             return View("~/Views/Feed/CowHouse/List.cshtml");
         }
+
+        //增加牛舍
+        public JsonResult Add(string houseName)
+        {
+            House house = new House();
+            house.Name = houseName;
+            house.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+            //增加未分配牛群的牛舍
+            bllHouse.AddUnusedHouse(house);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        //删除牛舍（当此牛舍不存在牛时）
+        public JsonResult Delete(string name, string groupID, string id)
+        {
+            House house = new House();
+            house.ID = Convert.ToInt32(id);
+            house.Name = name;
+            house.GroupID = Convert.ToInt32(groupID);
+            house.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+            //删除牛群
+            bllHouse.DeleteHouse(house);
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Update()
+        {
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
     }
 }

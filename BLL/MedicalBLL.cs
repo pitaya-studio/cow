@@ -55,6 +55,7 @@ namespace DairyCow.BLL
             foreach (DataRow row in table.Rows)
             {
                 DiseaseType d = new DiseaseType();
+                d.ID = Convert.ToInt32(row["DiseaseType_Id"]);
                 d.Name = row["DiseaseType_Name"].ToString();
                 d.Code = row["DiseaseType_Code"].ToString();
                 list.Add(d);
@@ -72,6 +73,7 @@ namespace DairyCow.BLL
                 d.ID = Convert.ToInt32(row["Disease_Id"]);
                 d.Name = row["DiseaseName"].ToString();
                 d.Code = row["Disease_Code"].ToString();
+                d.DiseaseTypeID = Convert.ToInt32(row["DiseaseType_Id"]);
                 list.Add(d);
             }
             return list;

@@ -105,7 +105,7 @@ namespace DairyCow.DAL
                                                     D.BadMilk,
                                                     D.LeftMilk
                                                     FROM Milk_OtherMilk AS D
-                                                    WHERE D.PastureId={0} AND D.MilkDate={1}", pastureID,date.Date);
+                                                    WHERE D.PastureId={0} AND D.MilkDate='{1}'", pastureID,date.Date);
 
 
 
@@ -114,33 +114,62 @@ namespace DairyCow.DAL
             return omTable;
         }
 
-
+        /// <summary>
+        /// 插入售奶记录
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <param name="milkDate"></param>
+        /// <param name="amount"></param>
+        /// <param name="milkWeight"></param>
+        /// <param name="company"></param>
+        /// <param name="shipCode"></param>
+        /// <param name="decoding"></param>
+        /// <param name="tankerNum"></param>
+        /// <param name="truckNum"></param>
+        /// <param name="fat"></param>
+        /// <param name="protein"></param>
+        /// <param name="dryMatter"></param>
+        /// <param name="nonFatSolid"></param>
+        /// <param name="microbe"></param>
+        /// <param name="lactose"></param>
+        /// <param name="icePoint"></param>
+        /// <param name="acidity"></param>
+        /// <returns></returns>
         public int InsertMilkSale(int pastureID, DateTime milkDate,float amount,float milkWeight,string company,string shipCode,string decoding,string tankerNum,string truckNum,float fat,float protein,float dryMatter,float nonFatSolid,float microbe,float lactose,float icePoint,float acidity)
         {
-            string sql = string.Format(@"Insert INTO Milk_Shipping AS D (D.PastureId,
-                                                    D.MilkDate,
-                                                    D.Amount,
-                                                    D.MilkWeight,
-                                                    D.Company,
-                                                    D.ShipCode,
-                                                    D.Decoding,
-                                                    D.TankerNum,
-                                                    D.TruckNum,
-                                                    D.Fat,
-                                                    D.Protein,
-                                                    D.DryMatter,
-                                                    D.NonFatSolid,
-                                                    D.Microbe,
-                                                    D.Lactose,
-                                                    D.IcePoint, 
-                                                    D.Acidity) Values({0},{1},[2}，{3},{4},'{5}','{6}','{7}','{8}','{9}',{10},{11},{12},{13},{14},{15},{16},{17})", 
+            string sql = string.Format(@"Insert INTO Milk_Shipping (PastureId,
+                                                    MilkDate,
+                                                    Amount,
+                                                    MilkWeight,
+                                                    Company,
+                                                    ShipCode,
+                                                    Decoding,
+                                                    TankerNum,
+                                                    TruckNum,
+                                                    Fat,
+                                                    Protein,
+                                                    DryMatter,
+                                                    NonFatSolid,
+                                                    Microbe,
+                                                    Lactose,
+                                                    IcePoint, 
+                                                    Acidity) Values({0},'{1}',{2},{3},'{4}','{5}','{6}','{7}','{8}','{9}',{10},{11},{12},{13},{14},{15},{16})", 
                                                     pastureID,  milkDate.Date, amount, milkWeight, company, shipCode, decoding, tankerNum, truckNum, fat, protein, dryMatter, nonFatSolid, microbe, lactose, icePoint, acidity);
            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
 
         }
 
-
+        /// <summary>
+        /// 插入其它奶售奶记录
+        /// </summary>
+        /// <param name="pastureId"></param>
+        /// <param name="milkDate"></param>
+        /// <param name="milkForCalf"></param>
+        /// <param name="abnormalSaleMilk"></param>
+        /// <param name="badMilk"></param>
+        /// <param name="leftMilk"></param>
+        /// <returns></returns>
         public int InsertOtherMilkRecord(int pastureId,DateTime milkDate,float milkForCalf,float abnormalSaleMilk,float badMilk,float leftMilk)
         {
             string sql = string.Format(@"Insert INTO Milk_OtherMilk 
@@ -149,12 +178,9 @@ namespace DairyCow.DAL
                                        MilkForCalf,
                                        AbnormalSaleMilk,
                                        BadMilk,
-                                       LeftMilk) Values({0},{1},[2}，{3},{4},{5},{6})",
+                                       LeftMilk) Values({0},'{1}',{2},{3},{4},{5})",
                                         pastureId,milkDate.Date, milkForCalf, abnormalSaleMilk, badMilk, leftMilk);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
-
         }
-
-
     }
 }

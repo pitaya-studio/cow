@@ -1218,7 +1218,7 @@ namespace DairyCow.BLL
                 double days = 0.0;
                 foreach (CowInfo item in PregnantMultiParity)
                 {
-                    DateTime t;
+                    DateTime t = DateTime.Now;
                     //数据正常，已孕牛一定有本轮配种记录
 #if RELEASE
                     if (item.LatestInseminationOfCurrentBreedPeriod==null)

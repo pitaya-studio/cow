@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DairyCow.Model
 {
-   
-
-
     public class MilkSale
     {
         /// <summary>
@@ -31,8 +24,6 @@ namespace DairyCow.Model
         /// 售奶公斤数
         /// </summary>
         public float MilkWeight { get; set; }
-
-
         /// <summary>
         /// 公司名
         /// </summary>
@@ -53,7 +44,6 @@ namespace DairyCow.Model
         /// 理化解码
         /// </summary>
         public string Decoding { get; set; }
-
         /// <summary>
         /// 乳脂率
         /// </summary>
@@ -86,8 +76,6 @@ namespace DairyCow.Model
         /// 酸度
         /// </summary>
         public float Acidity { get; set; }
-        
-
     }
 
     public class OtherMilk

@@ -76,13 +76,23 @@ namespace DairyCow.DAL
         }
 
         public void InsertCare(int earNum, int diseaseId, string prescription, int doctorID,
-            string leftfront, string rightfront, string leftback , string rightback )
+            string leftfront, string rightfront, string leftback, string rightback)
         {
             string sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date,LeftFront,RightFront,RightBack,LeftBack)
                                          values ({0},{1},'{2}','{3}',{4},{5},{6},{7},{8})",
                                         earNum, diseaseId, prescription, doctorID, DateTime.Now.ToShortDateString(),
                                         leftfront, rightfront, leftback, rightback);
             dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        public int GetCareCowsCount(int diseaseId, DateTime date)
+        {
+            DataTable dt = null;
+
+            string sql = string.Format(@"select count(*) from Medical_Care where Disease_Id = {0} and [Date]> '{1}'", diseaseId, date.ToString("yyyy/MM/dd"));
+
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return Convert.ToInt32(dt.Rows[0].ItemArray[0]);
         }
     }
 }

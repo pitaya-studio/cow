@@ -70,10 +70,10 @@ namespace DairyCow.BLL
                 leftfront, rightfront, leftback, rightback);
         }
 
-        //public List<> GetCareCowsCount()
-        //{
-
-        //}
+        public int GetCareCowsCount(int diseaseId, DateTime date)
+        {
+            return medicalDAL.GetCareCowsCount(diseaseId, date);
+        }
 
     }
 }

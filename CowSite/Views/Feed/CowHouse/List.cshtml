@@ -102,7 +102,7 @@
                 }
                 $.ajax({
                     type: 'post',
-                    url: "../../CowHouse/Delete",
+                    url: editUrl,
                     dataType: "json",
                     data: { Name: name, GroupID: groupID, ID: id }
                 }).success(function () {
@@ -125,7 +125,7 @@
                 }
                 $.ajax({
                     type: 'post',
-                    url: "../../CowHouse/Delete",
+                    url: editUrl,
                     dataType: "json",
                     data: { Name: name, GroupID: groupID, ID: id }
                 }).success(function () {

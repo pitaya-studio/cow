@@ -90,7 +90,6 @@ namespace DairyCow.BLL
             if (om==null)
             {
                 return dalMilk.InsertOtherMilkRecord(otherMilk.PastureID, otherMilk.MilkDate.Date, otherMilk.MilkForCalf, otherMilk.AbnormalSaleMilk, otherMilk.BadMilk, otherMilk.LeftMilk);
-
             }
             else
             {
@@ -98,6 +97,7 @@ namespace DairyCow.BLL
                 return 0;
             }
         }
+
         /// <summary>
         /// 获取牧场售奶记录
         /// </summary>
@@ -261,30 +261,16 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public OtherMilk GetOtherMilk(int pastureID,DateTime date)
         {
-            OtherMilk other;
+            OtherMilk other = null;
             List<OtherMilk> listOther = GetOtherMilkList(pastureID,date);
             if (listOther.Count == 1)
             {
                 other= listOther[0];
             }
-            else
-            {
-                if (listOther.Count > 1)
-                {
-                    throw new Exception("每天，其他奶的售奶记录只能有一条。请检查牧场" + pastureID.ToString() + " " + date.Date.ToShortDateString() + "的记录");
-                }
-                else
-                {
-                    other = null;
-                }
-
-            }
             return other;
         }
-
-
-
     }
+
     /// <summary>
     /// 牧场日奶量
     /// </summary>

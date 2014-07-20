@@ -15,7 +15,6 @@
             { ID: "Task-InitialInspection", PID: "Task", Name: "妊检初检任务单", Url: "Task/Index/TaskInitialInspection", target: "_self" },
             { ID: "Task-Insemination", PID: "Task", Name: "发情/配种任务单", Url: "Task/Index/TaskInsemination", target: "_self" },
             { ID: "Task-ReInspection", PID: "Task", Name: "妊检复检任务单", Url: "Task/Index/TaskReInspection", target: "_self" },
-
             { ID: "Breed", PID: "", Name: "繁殖", Url: "Breed/Index/Index", target: "_self" },
             { ID: "Breed-Home", PID: "Breed", Name: "繁殖首页", Url: "Breed/Index/Index", target: "_self" },
             { ID: "Breed-Insemination", PID: "Breed", Name: "发情配种", Url: "Task/Index/TaskInsemination", target: "_self" },
@@ -60,7 +59,8 @@
         //默认值
         var defaultVal = {
             mainMenuSelectedID: 'Home',
-            subMenuSelectedID: ''
+            subMenuSelectedID: '',
+            showSubMemu: true
         };
 
         var $args = arguments;
@@ -68,15 +68,13 @@
         var host = window.location.host;
 
         return this.each(function () {
-
             // Public methods
-            // Usage: $('.tree').tree2014('expand', el);
             var methods = {
                 example: function () {
                 }
             }
 
-            //Check for methods
+            // Check for methods
             if (typeof options === 'string') {
                 if ($.isFunction(methods[options])) {
                     // do some check and prepare
@@ -101,7 +99,8 @@
                     ).appendTo(header);
                 var mainMenuContainer = $('<div class="btn-group"></div>').appendTo(header);
                 var mainMenuUL = $('<ul class="nav nav-pills"></ul>').appendTo(mainMenuContainer);
-                var subMenuContainer = $('<div class="btn-group subMenuContainer" style="margin: 10px 0px 10px 45px;"></div>').appendTo($elem);
+                var subMenuWrapper = $('<div class="subMenuWrapper none"></div>').appendTo($elem);
+                var subMenuContainer = $('<div class="btn-group subMenuContainer" style="margin: 10px 0px 10px 45px;"></div>').appendTo(subMenuWrapper);
                 $.each(menuList, function () {
                     if (this.PID == '') {
                         var menuItemLi = $('<li></li>').appendTo(mainMenuUL);
@@ -118,6 +117,10 @@
                         }
                     }
                 });
+
+                if (opt.showSubMemu) {
+                    $('div.subMenuWrapper', $elem).show();
+                }
             }
 
             var bindEvent = function () {

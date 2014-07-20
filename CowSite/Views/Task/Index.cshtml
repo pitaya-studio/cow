@@ -17,9 +17,9 @@
     <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         $(function () {
-            $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "" });
+            $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "", showSubMemu: false });
             loadTask();
-        })
+        });
 
         function loadTask() {
             $.ajax({

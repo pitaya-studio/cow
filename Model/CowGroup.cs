@@ -154,12 +154,64 @@ namespace DairyCow.Model
         }
 
          
+    
+
+    public string GetCowGroupTypeStr(CowGroupType t)
+        {
+            string temp;
+            switch (t)
+            {
+                case CowGroupType.CalfCows:
+                    temp = "犊牛群";
+                    break;
+                case CowGroupType.BredCattleCows:
+                    temp = "育成牛群";
+                    break;
+                case CowGroupType.NullParityCows:
+                    temp = "青年牛群";
+                    break;
+                case CowGroupType.JustBornCows:
+                    temp = "初产牛群";
+                    break;
+                case CowGroupType.LowMilkCows:
+                    temp = "低产牛群";
+                    break;
+                case CowGroupType.MediumMilkCows:
+                    temp = "中产牛群";
+                    break;
+                case CowGroupType.HighMilkCows:
+                    temp = "高产牛群";
+                    break;
+                case CowGroupType.DryMilkCows:
+                    temp = "干奶牛群";
+                    break;
+                case CowGroupType.DeliveryRoomCows:
+                    temp = "产房待产牛群";
+                    break;
+                case CowGroupType.IsolatedCows:
+                    temp = "隔离群";
+                    break;
+                case CowGroupType.SickCows:
+                    temp = "病牛群";
+                    break;
+                case CowGroupType.Bulls:
+                    temp = "公牛群";
+                    break;
+                default:
+                    temp = "隔离群";
+                    break;
+            }
+            return temp;
+        }
+
+         
     }
+
     /// <summary>
     /// 牛群类型
     /// </summary>
     public enum CowGroupType
-    {
+    {        
         /// <summary>
         /// 犊牛群
         /// </summary>

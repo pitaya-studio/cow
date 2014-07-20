@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 
 namespace DairyCow.BLL
@@ -89,6 +90,14 @@ namespace DairyCow.BLL
             }
         }
 
+        public string IllStatus
+        {
+            get
+            {
+                return IsIll ? "生病" : "健康";
+            }
+        }
+
         public int EarNum 
         {
             get
@@ -122,6 +131,17 @@ namespace DairyCow.BLL
             }
             //set; 
         }
+
+        public string GroupTypeStr
+        {
+            get
+            {
+                CowGroupBLL b = new CowGroupBLL();
+                var g = b.GetCowGroupInfo(GroupID);
+                return g.GetCowGroupTypeStr(g.GroupType);
+            }
+        }
+
         public string Status 
         { 
             get
@@ -1025,7 +1045,12 @@ namespace DairyCow.BLL
         public void CheckGrouping()
         {
             CowGroupBLL cowGroupBll = new CowGroupBLL();
-            CowGroup g = cowGroupBll.GetCowGroupList().Find(p => p.ID == this.GroupID && p.PastureID==this.FarmCode);
+            List<CowGroup> groups = cowGroupBll.GetCowGroupList();
+            CowGroup g = groups.FirstOrDefault(p => p.ID == this.GroupID && p.PastureID==this.FarmCode);
+            if(g == null)
+            {
+                return;
+            }
             switch (g.GroupType)
             {
                 case CowGroupType.CalfCows:

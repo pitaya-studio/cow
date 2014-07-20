@@ -21,6 +21,15 @@ namespace CowSite.Controllers.Feed
             return Json(cowGroupData, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetRemindCows()
+        {
+            List<CowInfo> cows;
+            FarmInfo fi = new FarmInfo();
+            cows = fi.GetNeedRegroupingCows();
+
+            return Json(cows, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult List()
         {
             ViewBag.CowGroupID = Request.QueryString["id"];

@@ -53,7 +53,7 @@ namespace DairyCow.BLL
                 }
                 if (cowGroupRow["FormulaID"] != null && !string.IsNullOrWhiteSpace(cowGroupRow["FormulaID"].ToString()))
                 {
-                    cowGroupItem.FormulaID = Convert.ToInt32(cowGroupRow["FodderFormulaID"]);
+                    cowGroupItem.FormulaID = Convert.ToInt32(cowGroupRow["FormulaID"]);
                 }
                 if (cowGroupRow["InsemOperatorID"] != null && !string.IsNullOrWhiteSpace(cowGroupRow["InsemOperatorID"].ToString()))
                 {
@@ -65,12 +65,14 @@ namespace DairyCow.BLL
                     cowGroupItem.FeederID = Convert.ToInt32(cowGroupRow["FeedOperatorID"]);
                 }
                 UserBLL u = new UserBLL();
-                cowGroupItem.FeederName = u.GetUsers().Find(p => p.ID == cowGroupItem.FeederID).Name;
+                var user = u.GetUsers().Find(p => p.ID == cowGroupItem.FeederID);
+                cowGroupItem.FeederName = user == null? null: user.Name;
                 if (cowGroupRow["DoctorID"] != DBNull.Value)
                 {
                     cowGroupItem.DoctorID = Convert.ToInt32(cowGroupRow["DoctorID"]);
                 }
-                cowGroupItem.DoctorName = u.GetUsers().Find(p => p.ID == cowGroupItem.DoctorID).Name;
+                user = u.GetUsers().Find(p => p.ID == cowGroupItem.DoctorID);
+                cowGroupItem.DoctorName = user == null ? null : user.Name;
             }
             return cowGroupItem;
         }

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -9,18 +8,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>产后10天任务单</title>
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
-    <link rel="stylesheet" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" href="../../Style/base.css">
-    <link rel="stylesheet" href="../../Style/Home/Index.css">
-    <script src="../../Scripts/jquery-1.10.2.min.js"></script>
-    <script src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../Controls/echarts/doc/asset/js/esl/esl.js"></script>
-    <script src="../../ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         var taskID = "@ViewBag.TaskID";
 
         $(function () {
+            $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-Day10AfterBorn" });
             loadTask();
         })
 
@@ -42,25 +41,28 @@
     </script>
 </head>
 <body>
-    <div class="container">        
-        <div>产后10天任务单</div>
-        <div>
-            <form action="../../TaskDay10AfterBorn/SaveTask" method="post">
-                <input type="hidden" name="id" />
-                <div>任务单ID：<span id="taskid"></span></div>
-                <div>任务单类型：产后10天任务单</div>
-                <div>任务指导：请进行该牛产后10天护理。</div>
-                <br />
-                <div>牛耳号：<input name="earNum" /></div>
-                <div>任务开始时间：<input type="date" name="startDate" /></div>
-                <div>操作人员：<input name="operatorName" /></div>
-                <div>任务完成时间：<input type="date" name="endDate" /></div>
-                <br />
-                <div>调群在高产群</div>
-                <div>牛群号：<input name="group" /></div>
-                <div>牛舍号：<input name="house" /></div>               
-                <button type="submit">提交</button>
-            </form>
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <div>产后10天任务单</div>
+            <div>
+                <form action="../../TaskDay10AfterBorn/SaveTask" method="post">
+                    <input type="hidden" name="id" />
+                    <div>任务单ID：<span id="taskid"></span></div>
+                    <div>任务单类型：产后10天任务单</div>
+                    <div>任务指导：请进行该牛产后10天护理。</div>
+                    <br />
+                    <div>牛耳号：<input name="earNum" /></div>
+                    <div>任务开始时间：<input type="date" name="startDate" /></div>
+                    <div>操作人员：<input name="operatorName" /></div>
+                    <div>任务完成时间：<input type="date" name="endDate" /></div>
+                    <br />
+                    <div>调群在高产群</div>
+                    <div>牛群号：<input name="group" /></div>
+                    <div>牛舍号：<input name="house" /></div>
+                    <button type="submit">提交</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>

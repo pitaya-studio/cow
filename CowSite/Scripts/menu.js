@@ -3,6 +3,7 @@
         var menuList = [
             { ID: "Home", PID: "", Name: "首页", Url: "Home/Index", target: "_self" },
             { ID: "Task", PID: "", Name: "任务", Url: "Task/Index/List", target: "_self" },
+            { ID: "Task-Day10AfterBorn", PID: "Task", Name: "产后10天任务单", Url: "Task/Index/TaskDay10AfterBorn", target: "_self" },
             { ID: "Breed", PID: "", Name: "繁殖", Url: "Breed/Index/Index", target: "_self" },
             { ID: "Breed-Home", PID: "Breed", Name: "繁殖首页", Url: "Breed/Index/Index", target: "_self" },
             { ID: "Breed-Insemination", PID: "Breed", Name: "发情配种", Url: "Task/Index/TaskInsemination", target: "_self" },

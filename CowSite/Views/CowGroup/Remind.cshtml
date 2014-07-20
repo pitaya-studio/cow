@@ -17,14 +17,42 @@
     <script>
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-GroupRemind" });
+            loadTask();
         });
+
+        function loadTask() {
+            $.ajax({
+                type: 'get',
+                url: "../../Feed/CowGroup/GetRemindCows",
+                dataType: "json",
+                cache: false
+            }).success(function (cows) {
+                $("#cowList").ligerGrid({
+                    checkbox: false,
+                    columns: [
+                        { display: '耳号', name: 'DisplayEarNum', align: 'left', minWidth: 120 },
+                        { display: '类型', name: 'CowType', align: 'left', minWidth: 120 },
+                        { display: '泌乳状态', name: 'MilkType', align: 'left', minWidth: 120 },
+                        { display: '生病状态', name: 'IllStatus', align: 'left', minWidth: 120 },
+                        { display: '牛群类型', name: 'GroupTypeStr', align: 'left', minWidth: 120 },
+                        { display: '调群原因', name: 'RegroupingReason', align: 'left', minWidth: 120 }
+                    ],
+                    pageSize: 10,
+                    width: '100%',
+                    height: '100%',
+                    data: cows
+                });
+                $("#pageloading").hide();
+            });            
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            分群提醒
+            <div id="cowList" class="ml5 mr5"></div>
+            <div class="l-loading" id="pageloading"></div>
         </div>
     </div>
 </body>

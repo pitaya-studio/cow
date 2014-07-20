@@ -22,7 +22,7 @@ namespace CowSite.Controllers.Task
             DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(taskID));
             var taskData = new
             {
-                startTime = task.ArrivalTime,
+                startTime = task.ArrivalTime.ToString("yyyy-MM-dd"),
                 earNum = task.EarNum
             };
             return Json(taskData, JsonRequestBehavior.AllowGet);

@@ -51,6 +51,7 @@
     <Compile Include="CowGroupInfo.cs" />
     <Compile Include="DairyParameter.cs" />
     <Compile Include="Disease.cs" />
+    <Compile Include="DiseaseType.cs" />
     <Compile Include="DryMilk.cs" />
     <Compile Include="EmptyRecord.cs" />
     <Compile Include="Fodder.cs" />

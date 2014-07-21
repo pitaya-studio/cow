@@ -60,14 +60,24 @@ namespace CowSite.Controllers.Feed
             house.GroupID = Convert.ToInt32(groupID);
             house.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
             //删除牛群
-            bllHouse.DeleteHouse(house);
-            return Json(1, JsonRequestBehavior.AllowGet);
+            int i = bllHouse.DeleteHouse(house);
+            if (i == 0)
+            {
+                var message = "牛舍中存在牛群不能删除！";
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var message = "牛舍删除成功！";
+                return Json(message, JsonRequestBehavior.AllowGet);
+            }
+
         }
-        public JsonResult Update(string name, string newGroupID, string id)
+        public JsonResult Update(string name, string GroupID, string id)
         {
             House house = new House();
             house.ID = Convert.ToInt32(id);
-            bllHouse.UpdateHouseGroup(house, Convert.ToInt32(newGroupID));
+            bllHouse.UpdateHouseGroup(house, Convert.ToInt32(GroupID));
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

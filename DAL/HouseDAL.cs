@@ -9,7 +9,7 @@ using DairyCow.DAL.Base;
 
 namespace DairyCow.DAL
 {
-    public class HouseDAL:BaseDAL
+    public class HouseDAL : BaseDAL
     {
         /// <summary>
         /// 获取牧场所有牛舍
@@ -35,12 +35,10 @@ namespace DairyCow.DAL
         /// <param name="groupID"></param>
         /// <param name="pastureID"></param>
         /// <returns></returns>
-        public int InsertHouse(string name,int groupID,int pastureID)
+        public int InsertHouse(string name, int groupID, int pastureID)
         {
-            string sql = string.Format(@"Insert [Base_CowHouse] 
-                                       ([Name]
-                                          ,[GroupID]
-                                          ,[PastureID]) Values('{0}',{1},[2})",
+            string sql = string.Format(@"Insert into [Base_CowHouse]
+                                       ([Name] ,[GroupID] ,[PastureID]) Values('{0}',{1},{2})",
                                         name, groupID, pastureID);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
@@ -52,11 +50,11 @@ namespace DairyCow.DAL
         /// <returns></returns>
         public int InsertHouse(string name, int pastureID)
         {
-            
-            return InsertHouse(name,0,pastureID);
+
+            return InsertHouse(name, 0, pastureID);
         }
 
-        public int UpdateHouseGroup(int id,int groupID)
+        public int UpdateHouseGroup(int id, int groupID)
         {
             string sql = string.Format(@"Update [Base_CowHouse] 
                                        SET [GroupID]={1}

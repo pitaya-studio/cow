@@ -95,6 +95,7 @@
                             data: { HouseName: houseName, GroupID: groupID }
                         }).success(
                             function () {
+                                loadCowHouseList();
                                 alert("牛舍添加成功！");
                             }
                         )
@@ -121,8 +122,9 @@
                         url: editUrl,
                         dataType: "json",
                         data: { Name: name, GroupID: groupID, ID: id }
-                    }).success(function () {
-                        alert("删除牛群成功！");
+                    }).success(function (msg) {
+                        loadCowHouseList();
+                        alert(msg);
                     });
                 }
             });
@@ -132,8 +134,8 @@
                 text: "更改牛舍",
                 disabled: false,
                 click: function () {
-                    var row = cowHouseGridManager.getSelectedRow();
                     var newGroupID = $("#groupID").val();
+                    var row = cowHouseGridManager.getSelectedRow();
                     var editUrl = "../../CowHouse/Update";
                     if (row) {
                         var id = row["ID"];
@@ -149,7 +151,8 @@
                         dataType: "json",
                         data: { Name: name, GroupID: newGroupID, ID: id }
                     }).success(function () {
-
+                        loadCowHouseList();
+                        alert("更改牛舍成功");
                     });
                 }
             });

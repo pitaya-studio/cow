@@ -63,9 +63,11 @@ namespace CowSite.Controllers.Feed
             bllHouse.DeleteHouse(house);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Update(string name, string groupID, string id)
+        public JsonResult Update(string name, string newGroupID, string id)
         {
-            bllHouse.UpdateHouseGroup(Convert.ToInt32(id), Convert.ToInt32(groupID));
+            House house = new House();
+            house.ID = Convert.ToInt32(id);
+            bllHouse.UpdateHouseGroup(house, Convert.ToInt32(newGroupID));
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

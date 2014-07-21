@@ -133,6 +133,7 @@
                 disabled: false,
                 click: function () {
                     var row = cowHouseGridManager.getSelectedRow();
+                    var newGroupID = $("#groupID").val();
                     var editUrl = "../../CowHouse/Update";
                     if (row) {
                         var id = row["ID"];
@@ -146,7 +147,7 @@
                         type: 'post',
                         url: editUrl,
                         dataType: "json",
-                        data: { Name: name, GroupID: groupID, ID: id }
+                        data: { Name: name, GroupID: newGroupID, ID: id }
                     }).success(function () {
 
                     });

@@ -1045,8 +1045,8 @@ namespace DairyCow.BLL
         public void CheckGrouping()
         {
             CowGroupBLL cowGroupBll = new CowGroupBLL();
-            List<CowGroup> groups = cowGroupBll.GetCowGroupList();
-            CowGroup g = groups.FirstOrDefault(p => p.ID == this.GroupID && p.PastureID==this.FarmCode);
+            List<CowGroup> groups = cowGroupBll.GetCowGroupList(this.FarmCode);
+            CowGroup g = groups.FirstOrDefault(p => p.ID == this.GroupID);
             if(g == null)
             {
                 return;

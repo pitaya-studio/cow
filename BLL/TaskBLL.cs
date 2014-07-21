@@ -260,7 +260,7 @@ namespace DairyCow.BLL
             CowGroupBLL g = new CowGroupBLL();
             CowBLL c = new CowBLL();
             Cow cc = c.GetCowInfo(task.EarNum);
-            initialInspectionTask.OperatorID = g.GetCowGroupList().Find(p => p.ID == cc.GroupID).InsemOperatorID;
+            initialInspectionTask.OperatorID = g.GetCowGroupList(task.PastureID).Find(p => p.ID == cc.GroupID).InsemOperatorID;
 
             taskDAL.InsertTask(initialInspectionTask);
 
@@ -457,7 +457,7 @@ namespace DairyCow.BLL
             CowGroupBLL g = new CowGroupBLL();
             CowBLL c = new CowBLL();
             Cow cc = c.GetCowInfo(calving.EarNum);
-            CowGroup gg= g.GetCowGroupList().Find(p => p.ID == cc.GroupID);
+            CowGroup gg= g.GetCowGroupList(cc.FarmCode).Find(p => p.ID == cc.GroupID);
 
 
             //产犊界面，输入产犊信息，调用本方法产生3个产后任务和犊牛饲喂任务
@@ -485,16 +485,16 @@ namespace DairyCow.BLL
             t3.TaskType=TaskType.Day15AfterBornTask;
             this.AddTask(t3);
 
-            //犊牛任务单
-            DairyTask t4 = new DairyTask();
-            t3.EarNum = calfEarNum;
-            t3.ArrivalTime = calving.Birthday.AddDays(3.0);
-            t3.DeadLine = t3.ArrivalTime.AddDays(30.0);
+            ////犊牛任务单,to-do,放到犊牛入群
+            //DairyTask t4 = new DairyTask();
+            //t3.EarNum = calfEarNum;
+            //t3.ArrivalTime = calving.Birthday.AddDays(3.0);
+            //t3.DeadLine = t3.ArrivalTime.AddDays(30.0);
 
-            cc = c.GetCowInfo(calfEarNum);
-            t3.OperatorID = g.GetCowGroupList().Find(p => p.ID == cc.GroupID).FeederID;
-            t3.TaskType=TaskType.CalfTask;
-            this.AddTask(t3);
+            //cc = c.GetCowInfo(calfEarNum);
+            //t3.OperatorID = g.GetCowGroupList(cc.FarmCode).Find(p => p.ID == cc.GroupID).FeederID;
+            //t3.TaskType=TaskType.CalfTask;
+            //this.AddTask(t3);
             return;
         }
 

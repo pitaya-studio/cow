@@ -22,6 +22,18 @@ namespace DairyCow.BLL
             return lstCowGroup;
         }
 
+        public List<CowGroup> GetCowGroupList(int pastureID)
+        {
+            List<CowGroup> lstCowGroup = new List<CowGroup>();
+            DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable(pastureID);
+            foreach (DataRow drCowGroup in datCowGroup.Rows)
+            {
+                CowGroup cowGroupItem = WrapCowGroupItem(drCowGroup);
+                lstCowGroup.Add(cowGroupItem);
+            }
+            return lstCowGroup;
+        }
+
         public int UpdateCowGroupInsemOperator(int cowGroupID, int insemOperatorID)
         {
             return dalCowGroup.UpdateCowGroupInsemOperator(cowGroupID, insemOperatorID);
@@ -42,6 +54,8 @@ namespace DairyCow.BLL
             CowGroup cowGroupItem = new CowGroup();
             if (cowGroupRow != null)
             {
+                UserBLL u = new UserBLL();
+                User user;
                 if (Convert.ToInt32(cowGroupRow["ID"]) != 0)
                 {
                     cowGroupItem.ID = Convert.ToInt32(cowGroupRow["ID"]);
@@ -59,13 +73,14 @@ namespace DairyCow.BLL
                 {
                     cowGroupItem.InsemOperatorID = Convert.ToInt32(cowGroupRow["InsemOperatorID"]);
                 }
-
+                user = u.GetUsers().Find(p => p.ID == cowGroupItem.InsemOperatorID);
+                cowGroupItem.InsemOperatorName = user == null ? null : user.Name;
                 if (cowGroupRow["FeedOperatorID"] != DBNull.Value)
                 {
                     cowGroupItem.FeederID = Convert.ToInt32(cowGroupRow["FeedOperatorID"]);
                 }
-                UserBLL u = new UserBLL();
-                var user = u.GetUsers().Find(p => p.ID == cowGroupItem.FeederID);
+                
+                user = u.GetUsers().Find(p => p.ID == cowGroupItem.FeederID);
                 cowGroupItem.FeederName = user == null? null: user.Name;
                 if (cowGroupRow["DoctorID"] != DBNull.Value)
                 {

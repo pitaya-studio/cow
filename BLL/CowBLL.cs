@@ -10,11 +10,31 @@ namespace DairyCow.BLL
     public class CowBLL
     {
         CowDAL dalCow = new CowDAL();
+        /// <summary>
+        /// 获取牛舍中牛数
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <param name="houseID"></param>
+        /// <returns></returns>
+        public int GetCowNumberInHouse(int pastureID,int houseID)
+        {
+            
+            return GetCowListInHouse( pastureID, houseID).Count;
+        }
+        /// <summary>
+        /// 获取牛舍中牛list
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <param name="houseID"></param>
+        /// <returns></returns>
+        public List<Cow> GetCowListInHouse(int pastureID,int houseID)
+        {
+            return GetCowList(pastureID).FindAll(p => p.HouseID == houseID);
+        }
 
         static public int ConvertDislayEarNumToEarNum(string displayEarNum)
         {
-            CowDAL dal = new CowDAL();
-            return dal.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            return ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
         }
 
         static public string ConvertEarNumToDisplayEarNum(int earNum)
@@ -22,6 +42,13 @@ namespace DairyCow.BLL
             CowDAL dal = new CowDAL();
             return dal.ConvertEarNumToDisplayEarNum(earNum);
         }
+
+        static public int ConvertDislayEarNumToEarNum(string displayEarNum,int pastureID)
+        {
+            CowDAL dal = new CowDAL();
+            return dal.ConvertDislayEarNumToEarNum(displayEarNum, pastureID);
+        }
+
 
         /// <summary>
         /// 获取当前用户的牧场Cowlist

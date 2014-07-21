@@ -23,6 +23,25 @@ namespace DairyCow.BLL
             }
             return list;
         }
+        /// <summary>
+        /// 获取某牛群下所有牛舍
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
+        public List<House> GetHouseListByGroup(int pastureID,int groupID)
+        {
+            return GetHouseList(pastureID).FindAll(p => p.GroupID == groupID);
+        }
+        /// <summary>
+        /// 获取某牛群下所有牛舍
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
+        public List<House> GetHouseListByGroup(CowGroup group)
+        {
+            return GetHouseList(group.PastureID).FindAll(p => p.GroupID == group.ID);
+        }
 
         public List<House> GetUnusedHouseList(int pastureID)
         {
@@ -55,19 +74,36 @@ namespace DairyCow.BLL
         {
             return houseDAL.InsertHouse(unusedHouse.Name, unusedHouse.PastureID);
         }
-
-        public int UpdateHouseGroup(int houseID,int groupID)
+        
+        /// <summary>
+        /// 更新牛舍的牛群，必须牛舍中无牛
+        /// </summary>
+        /// <param name="houseID"></param>
+        /// <param name="groupID">新牛群号，0表示不分配</param>
+        /// <returns></returns>
+        public int UpdateHouseGroup(House house,int newGroupID)
         {
-            return houseDAL.UpdateHouseGroup(houseID, groupID);
+            int temp = 0;
+            if (GetCowNumberInHouse(house)==0)
+            {
+                temp= houseDAL.UpdateHouseGroup(house.ID, newGroupID);
+            }
+            return temp;
+            
+        }
+
+        public int GetCowNumberInHouse(House house)
+        {
+            CowBLL cb = new CowBLL();
+            return cb.GetCowNumberInHouse(house.PastureID, house.ID);
         }
 
         public int DeleteHouse(House house)
         {
             int temp;
             //如果没有牛，也没有分给牛群，就可以删
-            CowBLL cowBLL = new CowBLL();
-            List<Cow> myCowList = cowBLL.GetCowList(house.PastureID);
-            if(house.GroupID==0 && myCowList.FindAll(p=>p.HouseID==house.ID).Count==0)
+            int cowNumber = GetCowNumberInHouse(house);
+            if (house.GroupID == 0 && cowNumber == 0)
             {
                 temp=houseDAL.DeleteHouse(house.ID);
             }

@@ -47,8 +47,8 @@ namespace DairyCow.DAL
                                             ,FeedOperatorID
                                             ,DoctorID
                                         FROM [Base_CowGroup] G 
-										JOIN [Auth_User] A ON A.ID = G.InsemOperatorID
-                                        WHERE [PastureID]={0} ", pastureID);
+										LEFT JOIN [Auth_User] A ON A.ID = G.InsemOperatorID
+                                        WHERE G.[PastureID]={0} ", pastureID);
             cowGroupTable = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return cowGroupTable;
         }

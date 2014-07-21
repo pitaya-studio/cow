@@ -20,6 +20,13 @@ namespace CowSite.Controllers.Feed
             };
             return Json(cowGroupData, JsonRequestBehavior.AllowGet);
         }
+        
+        //用于select绑定
+        public JsonResult GetCowGroupList() 
+        {
+            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupInfo();
+            return Json(lstCowGroup, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult GetRemindCows()
         {

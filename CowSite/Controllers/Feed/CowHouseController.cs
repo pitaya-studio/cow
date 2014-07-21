@@ -14,7 +14,7 @@ namespace CowSite.Controllers.Feed
     public class CowHouseController : Controller
     {
         HouseBLL bllHouse = new HouseBLL();
-
+        CowGroupBLL bllCowGroup = new CowGroupBLL();
         public JsonResult GetCowHouseInfo()
         {
             int pastureID = Convert.ToInt32(UserBLL.Instance.CurrentUser.Pasture.ID);
@@ -25,19 +25,29 @@ namespace CowSite.Controllers.Feed
             };
             return Json(cowHouseData, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult List()
         {
             return View("~/Views/Feed/CowHouse/List.cshtml");
         }
 
         //增加牛舍
-        public JsonResult Add(string houseName)
+        public JsonResult Add(string houseName, string groupID)
         {
             House house = new House();
-            house.Name = houseName;
             house.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
-            //增加未分配牛群的牛舍
-            bllHouse.AddUnusedHouse(house);
+            house.Name = houseName;
+            if (Convert.ToInt32(groupID) != 0)
+            {
+                house.GroupID = Convert.ToInt32(groupID);
+                //增加分配牛群的牛舍
+                bllHouse.AddHouse(house);
+            }
+            else
+            {
+                //增加未分配牛群的牛舍
+                bllHouse.AddUnusedHouse(house);
+            }
             return Json(1, JsonRequestBehavior.AllowGet);
         }
 
@@ -53,8 +63,9 @@ namespace CowSite.Controllers.Feed
             bllHouse.DeleteHouse(house);
             return Json(1, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Update()
+        public JsonResult Update(string name, string groupID, string id)
         {
+            bllHouse.UpdateHouseGroup(Convert.ToInt32(id), Convert.ToInt32(groupID));
             return Json(1, JsonRequestBehavior.AllowGet);
         }
     }

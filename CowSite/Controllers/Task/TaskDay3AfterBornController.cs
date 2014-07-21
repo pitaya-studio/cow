@@ -44,5 +44,19 @@ namespace CowSite.Controllers.Task
             }
             return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetGroups()
+        {
+            CowGroupBLL groupBLL = new CowGroupBLL();
+            List<CowGroup> groups = groupBLL.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            return Json(groups, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetHouses()
+        {
+            HouseBLL hBLL = new HouseBLL();
+            List<House> houses=hBLL.GetHouseList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            return Json(houses, JsonRequestBehavior.AllowGet);
+        }
 	}
 }

@@ -126,7 +126,10 @@ namespace DairyCow.BLL
             return users;
         }
 
-        //获得所有配种员
+        /// <summary>
+        /// 获得所有配种员
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetInseminationOperatorList()
         {
             List<User> lstInseminationOperator = new List<User>();
@@ -140,6 +143,75 @@ namespace DairyCow.BLL
 
             return lstInseminationOperator;
         }
+        /// <summary>
+        /// 获得牧场配种员list
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
+        public List<User> GetInseminationOperatorList(int pastureID)
+        {
+            List<User> lstInseminationOperator = new List<User>();
+
+            DataTable datInseminationOperator = this.dalUser.GetInseminationOperatorTable(pastureID);
+            foreach (DataRow row in datInseminationOperator.Rows)
+            {
+                User user = WrapUser(row);
+                lstInseminationOperator.Add(user);
+            }
+
+            return lstInseminationOperator;
+        }
+        /// <summary>
+        /// 获取牧场饲养员list
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
+        public List<User> GetFeederList(int pastureID)
+        {
+            List<User> feederList = new List<User>();
+
+            DataTable datInseminationOperator = this.dalUser.GetFeederTable(pastureID);
+            foreach (DataRow row in datInseminationOperator.Rows)
+            {
+                User user = WrapUser(row);
+                feederList.Add(user);
+            }
+
+            return feederList;
+        }
+        /// <summary>
+        /// 获取牧场兽医list
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
+        public List<User> GetDoctorList(int pastureID)
+        {
+            List<User> doctorList = new List<User>();
+
+            DataTable datInseminationOperator = this.dalUser.GetDoctorTable(pastureID);
+            foreach (DataRow row in datInseminationOperator.Rows)
+            {
+                User user = WrapUser(row);
+                doctorList.Add(user);
+            }
+
+            return doctorList;
+        }
+
+        public List<User> GetFeederList()
+        {
+            List<User> lstInseminationOperator = new List<User>();
+
+            DataTable datInseminationOperator = this.dalUser.GetInseminationOperatorList();
+            foreach (DataRow row in datInseminationOperator.Rows)
+            {
+                User user = WrapUser(row);
+                lstInseminationOperator.Add(user);
+            }
+
+            return lstInseminationOperator;
+        }
+
 
         public void InsertUser(string name, string account, string password, string roleID, string pastureID)
         {

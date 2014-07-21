@@ -10,16 +10,61 @@ namespace DairyCow.DAL
 {
     public class UserDAL : BaseDAL
     {
-        //获得所有配种员
+        /// <summary>
+        /// 获得所有配种员
+        /// </summary>
+        /// <returns></returns>
         public DataTable GetInseminationOperatorList()
         {
             DataTable inseminationOperatorList = null;
 
             string sql = string.Format(@"select au.ID, au.Name, au.Account, au.Password, au.RoleID, au.PastureID
-                                        from Auth_User au left join Auth_Role ar on aur.RoleID = ar.ID where ar.Name = '配种员'");
+                                        from Auth_User au where au.RoleID = 3");
 
             inseminationOperatorList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return inseminationOperatorList;
+        }
+
+        public DataTable GetInseminationOperatorTable(int pastureID)
+        {
+            DataTable inseminationOperatorList = null;
+
+            string sql = string.Format(@"select au.ID, au.Name, au.Account, au.Password, au.RoleID, au.PastureID
+                                        from Auth_User au where au.RoleID = 3");
+
+            inseminationOperatorList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return inseminationOperatorList;
+        }
+
+        /// <summary>
+        /// 获取牧场饲养员table
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
+        public DataTable GetFeederTable(int pastureID)
+        {
+            DataTable feederList = null;
+
+            string sql = string.Format(@"select au.ID, au.Name, au.Account, au.Password, au.RoleID, au.PastureID
+                                        from Auth_User au  where au.RoleID = 3 and au.PastureID={0}",pastureID);
+
+            feederList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return feederList;
+        }
+        /// <summary>
+        /// 获取牧场兽医table
+        /// </summary>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
+        public DataTable GetDoctorTable(int pastureID)
+        {
+            DataTable doctorList = null;
+
+            string sql = string.Format(@"select au.ID, au.Name, au.Account, au.Password, au.RoleID, au.PastureID
+                                        from Auth_User au  where au.RoleID=5 and au.PastureID={0}", pastureID);
+
+            doctorList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return doctorList;
         }
 
         public DataTable GetCurrentUser(string account, string password)

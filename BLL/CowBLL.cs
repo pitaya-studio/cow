@@ -31,18 +31,31 @@ namespace DairyCow.BLL
         {
             return GetCowList(pastureID).FindAll(p => p.HouseID == houseID);
         }
-
+        /// <summary>
+        /// 转换显示耳号到系统耳号,不存在返回-1
+        /// </summary>
+        /// <param name="displayEarNum"></param>
+        /// <returns></returns>
         static public int ConvertDislayEarNumToEarNum(string displayEarNum)
         {
             return ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
         }
-
+        /// <summary>
+        /// 转换系统耳号到显示耳号,不存在返回String.Empty
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <returns></returns>
         static public string ConvertEarNumToDisplayEarNum(int earNum)
         {
             CowDAL dal = new CowDAL();
             return dal.ConvertEarNumToDisplayEarNum(earNum);
         }
-
+        /// <summary>
+        /// 转换显示耳号到系统耳号,不存在返回-1
+        /// </summary>
+        /// <param name="displayEarNum"></param>
+        /// <param name="pastureID"></param>
+        /// <returns></returns>
         static public int ConvertDislayEarNumToEarNum(string displayEarNum,int pastureID)
         {
             CowDAL dal = new CowDAL();

@@ -25,6 +25,7 @@ namespace DairyCow.BLL
             }
             return list;
         }
+
         public List<Immune> GetQuarantineList(int pastureID, int earNum)
         {
             DataTable table = this.medicalDAL.GetImmuneTable(pastureID, earNum);
@@ -81,6 +82,8 @@ namespace DairyCow.BLL
 
         public void InsertCare(Care care)
         {
+            care.EarNum = CowBLL.ConvertDislayEarNumToEarNum(care.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            care.DoctorID = UserBLL.Instance.CurrentUser.ID;
             medicalDAL.InsertCare(care);
         }
 
@@ -88,6 +91,5 @@ namespace DairyCow.BLL
         {
             return medicalDAL.GetCareCowsCount(diseaseId, date);
         }
-
     }
 }

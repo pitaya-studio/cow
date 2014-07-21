@@ -1,6 +1,5 @@
 ﻿using DairyCow.DAL;
 using DairyCow.Model;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +9,7 @@ namespace DairyCow.BLL
     public class CowBLL
     {
         CowDAL dalCow = new CowDAL();
+
         /// <summary>
         /// 获取牛舍中牛数
         /// </summary>
@@ -21,6 +21,7 @@ namespace DairyCow.BLL
             
             return GetCowListInHouse( pastureID, houseID).Count;
         }
+
         /// <summary>
         /// 获取牛舍中牛list
         /// </summary>
@@ -31,37 +32,29 @@ namespace DairyCow.BLL
         {
             return GetCowList(pastureID).FindAll(p => p.HouseID == houseID);
         }
-        /// <summary>
-        /// 转换显示耳号到系统耳号,不存在返回-1
-        /// </summary>
-        /// <param name="displayEarNum"></param>
-        /// <returns></returns>
-        static public int ConvertDislayEarNumToEarNum(string displayEarNum)
-        {
-            return ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
-        }
+
         /// <summary>
         /// 转换系统耳号到显示耳号,不存在返回String.Empty
         /// </summary>
         /// <param name="earNum"></param>
         /// <returns></returns>
-        static public string ConvertEarNumToDisplayEarNum(int earNum)
+        public static string ConvertEarNumToDisplayEarNum(int earNum)
         {
             CowDAL dal = new CowDAL();
             return dal.ConvertEarNumToDisplayEarNum(earNum);
         }
+
         /// <summary>
         /// 转换显示耳号到系统耳号,不存在返回-1
         /// </summary>
         /// <param name="displayEarNum"></param>
         /// <param name="pastureID"></param>
         /// <returns></returns>
-        static public int ConvertDislayEarNumToEarNum(string displayEarNum,int pastureID)
+        public static int ConvertDislayEarNumToEarNum(string displayEarNum, int pastureID)
         {
             CowDAL dal = new CowDAL();
             return dal.ConvertDislayEarNumToEarNum(displayEarNum, pastureID);
         }
-
 
         /// <summary>
         /// 获取当前用户的牧场Cowlist
@@ -211,6 +204,7 @@ namespace DairyCow.BLL
             }
 
         }
+
         /// <summary>
         /// 设牛繁殖状态
         /// </summary>
@@ -235,7 +229,6 @@ namespace DairyCow.BLL
             }
             return temp;
         }
-
 
         /// <summary>
         /// 获取牛群里所有牛
@@ -281,8 +274,5 @@ namespace DairyCow.BLL
         {
             return dalCow.UpdateCowStrayStatus(earNum, isStray);
         }
-
-
-
     }
 }

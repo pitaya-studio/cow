@@ -4,7 +4,8 @@ namespace DairyCow.Model
 {
     public class Care
     {
-        public string EarNum { get; set; }
+        public int EarNum { get; set; }
+        public string DisplayEarNum { get; set; }
         public int Disease_Id { get; set; }
         public string Prescription { get; set; }
         public int DoctorID { get; set; }

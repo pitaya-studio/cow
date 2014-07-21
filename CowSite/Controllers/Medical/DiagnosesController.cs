@@ -1,4 +1,5 @@
 ﻿using DairyCow.BLL;
+using DairyCow.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace CowSite.Controllers.Medical
     public class DiagnosesController : Controller
     {
         private MedicalBLL bllMedical = new MedicalBLL();
+        private CowBLL bllCow = new CowBLL();
 
         /// <summary>
         /// 取得所有疾病
@@ -32,6 +34,20 @@ namespace CowSite.Controllers.Medical
         public ActionResult Add()
         {
             return View("~/Views/Medical/Diagnoses/Add.cshtml");
+        }
+
+        public JsonResult InsertCare()
+        {
+            Care c = new Care();
+            c.DisplayEarNum = Request.Form["DisplayEarNum"];
+            c.Disease_Id = Convert.ToInt32(Request.Form["diseases"]);
+            c.Prescription = Request.Form["Prescription"];
+            c.LeftFront = Convert.ToInt32(Request.Form["pLeftFront"]);
+            c.RightFront = Convert.ToInt32(Request.Form["pRightFront"]);
+            c.LeftBack = Convert.ToInt32(Request.Form["pLeftBack"]);
+            c.RightBack = Convert.ToInt32(Request.Form["pRightBack"]);
+            bllMedical.InsertCare(c);
+            return Json(new { Result = 1}, JsonRequestBehavior.AllowGet);
         }
 	}
 }

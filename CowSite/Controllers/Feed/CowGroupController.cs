@@ -20,9 +20,9 @@ namespace CowSite.Controllers.Feed
             };
             return Json(cowGroupData, JsonRequestBehavior.AllowGet);
         }
-        
+
         //用于select绑定
-        public JsonResult GetCowGroupList() 
+        public JsonResult GetCowGroupList()
         {
             List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupInfo();
             return Json(lstCowGroup, JsonRequestBehavior.AllowGet);
@@ -42,11 +42,17 @@ namespace CowSite.Controllers.Feed
             ViewBag.CowGroupID = Request.QueryString["id"];
             return View("~/Views/CowGroup/List.cshtml");
         }
-
-        public ActionResult ModifyCowGroup()
+        //弹出修改牛群详细对话框
+        public ActionResult ModifyCowGroup(string id)
         {
-            ViewBag.CowGroupID = Request.QueryString["id"];
+            ViewBag.CowGroupID = Convert.ToInt32(id);
             return View("~/Views/CowGroup/ModifyCowGroup.cshtml");
+        }
+
+        //弹出新增牛群详细对话框
+        public ActionResult AddCowGroup()
+        {
+            return View("~/Views/CowGroup/Add.cshtml");
         }
 
         public ActionResult Remind()
@@ -63,12 +69,27 @@ namespace CowSite.Controllers.Feed
         {
             return Json(this.bllCowGroup.GetCowGroupInfo(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
-
+        //修改牛群
         public JsonResult UpdateCowGroupInfo()
         {
             CowGroup cowGroup = new CowGroup();
             UpdateModel<CowGroup>(cowGroup);
             return Json(this.bllCowGroup.UpdateCowGroupInfo(cowGroup), JsonRequestBehavior.AllowGet);
         }
-	}
+        //删除牛群
+        public JsonResult Delete(string id)
+        {
+            int i = bllCowGroup.DeleteCowGroup(Convert.ToInt32(id));
+            if (i == 0)
+            {
+                var msg = "牛群存在牛不能删除！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var msg = "牛群删除成功！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+        }
+    }
 }

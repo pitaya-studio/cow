@@ -36,19 +36,28 @@ namespace CowSite.Controllers.Feed
         {
             House house = new House();
             house.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
-            house.Name = houseName;
-            if (Convert.ToInt32(groupID) != 0)
+            if (houseName == "")
             {
-                house.GroupID = Convert.ToInt32(groupID);
-                //增加分配牛群的牛舍
-                bllHouse.AddHouse(house);
+                var msg = "请输入牛舍名称！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                //增加未分配牛群的牛舍
-                bllHouse.AddUnusedHouse(house);
+                house.Name = houseName;
+                if (Convert.ToInt32(groupID) != 0)
+                {
+                    house.GroupID = Convert.ToInt32(groupID);
+                    //增加分配牛群的牛舍
+                    bllHouse.AddHouse(house);
+                }
+                else
+                {
+                    //增加未分配牛群的牛舍
+                    bllHouse.AddUnusedHouse(house);
+                }
+                var msg = "牛舍添加成功！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         //删除牛舍（当此牛舍不存在牛时）

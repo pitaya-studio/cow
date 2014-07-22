@@ -42,6 +42,7 @@ namespace CowSite.Controllers.Medical
             c.DisplayEarNum = Request.Form["DisplayEarNum"];
             c.Disease_Id = Convert.ToInt32(Request.Form["diseases"]);
             c.Prescription = Request.Form["Prescription"];
+            c.Date = DateTime.Now;
             c.LeftFront = Convert.ToInt32(Request.Form["pLeftFront"]);
             c.RightFront = Convert.ToInt32(Request.Form["pRightFront"]);
             c.LeftBack = Convert.ToInt32(Request.Form["pLeftBack"]);

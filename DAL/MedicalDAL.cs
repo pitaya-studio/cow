@@ -88,14 +88,14 @@ namespace DairyCow.DAL
             if (isBeastOrFoot)
             {
                 sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date,LeftFront,RightFront,RightBack,LeftBack)
-                                         values ({0},{1},'{2}',{3},{4},{5},{6},{7},{8})",
+                                         values ({0},{1},'{2}',{3},'{4}',{5},{6},{7},{8})",
                                         care.EarNum, care.Disease_Id, care.Prescription, care.DoctorID, DateTime.Now.ToShortDateString(),
                                         care.LeftFront, care.RightFront, care.LeftBack, care.RightBack);
             }
             else
             {
                 sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date)
-                                         values ({0},{1},'{2}',{3},{4})",
+                                         values ({0},{1},'{2}',{3},'{4}')",
                                         care.EarNum, care.Disease_Id, care.Prescription, care.DoctorID, DateTime.Now.ToShortDateString());
             }
             

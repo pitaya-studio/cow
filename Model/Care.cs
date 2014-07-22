@@ -7,6 +7,7 @@ namespace DairyCow.Model
         public int EarNum { get; set; }
         public string DisplayEarNum { get; set; }
         public int Disease_Id { get; set; }
+        public int DiseaseTypeID { get; set; }
         public string Prescription { get; set; }
         public int DoctorID { get; set; }
         public DateTime Date { get; set; }

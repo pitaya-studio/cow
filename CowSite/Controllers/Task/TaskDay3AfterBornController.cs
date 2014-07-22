@@ -15,6 +15,7 @@ namespace CowSite.Controllers.Task
             TaskBLL bll = new TaskBLL();
             DairyTask v;
             v = bll.GetTaskByID(Convert.ToInt32(taskID));
+            string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
 
             UserBLL u = new UserBLL();
             User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
@@ -22,6 +23,7 @@ namespace CowSite.Controllers.Task
             return Json(new
             {
                 EarNum = v.EarNum,
+                DisplayEarNum = displayEarNum,
                 ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
                 Operator = user.Name
             }, JsonRequestBehavior.AllowGet);

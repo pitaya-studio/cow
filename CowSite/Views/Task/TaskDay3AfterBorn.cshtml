@@ -16,8 +16,11 @@
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
     <script type="text/javascript">
         var taskID = "@ViewBag.TaskID";
+        var earNum;
         var houseList;
 
         $(function () {
@@ -57,17 +60,17 @@
             });
         }
         function initHouseSelector() {
-            $("select[name=group]").select({
+            $("select[name=group]").select2({
                 placeholder: "牛群",
                 allowClear: true,
                 minimumResultsForSearch: -1
             }).change(function () {
                 var groupID = $("select[name=group]").val()
                 bindDiseaseSeletor(groupID);
-                $("select[name=house]").select("val", "");
+                $("select[name=house]").select2("val", "");
             });
 
-            $("select[name=house]").select({
+            $("select[name=house]").select2({
                 placeholder: "牛舍",
                 allowClear: true,
                 minimumResultsForSearch: -1
@@ -96,7 +99,8 @@
             }).success(function (taskData) {
                 $('input[name=id]').val(taskID);
                 $('#taskid').text(taskID);
-                $('input[name=earNum]').val(taskData.EarNum);
+                $('#earNum').val(taskData.EarNum);
+                $('input[name=DisplayEarNum]').val(taskData.DislayEarNum);
                 $('input[name=startDate]').val(taskData.ArrivalTime);
                 $('input[name=operatorName]').val(taskData.Operator);
             });
@@ -113,12 +117,29 @@
                     <input type="hidden" name="id" />
                     <div>任务单ID：<span id="taskid"></span></div>
                     <div>任务单类型：产后3天任务单</div>
+
                     <div>任务指导：请进行该牛产后 1-3天护理。产后胎衣情况。胎衣不下，兽医处置。</div>
                     <br />
-                    <div>牛耳号：<input name="earNum" /></div>
-                    <div>任务开始时间：<input type="date" name="startDate" /></div>
-                    <div>操作人员：<input name="operatorName" /></div>
-                    <div>任务完成时间：<input type="date" name="endDate" /></div>
+                    @*<div>牛耳号：<input name="earNum" /></div>*@
+                    <div class="input-group mt10">
+                        <span class="input-group-addon">牛耳号：</span>
+                        <input type="text" class="form-control w200" placeholder="耳号" name="DisplayEarNum">
+                    </div>
+                    @*<div>任务开始时间：<input type="date" name="startDate" /></div>*@
+                    <div class="input-group mt10">
+                        <span class="input-group-addon">任务开始时间：</span>
+                        <input type="text" class="form-control w200" placeholder="任务开始时间" name="startDate">
+                    </div>
+                    @*<div>操作人员：<input name="operatorName" /></div>*@
+                    <div class="input-group mt10">
+                        <span class="input-group-addon">操作人员：</span>
+                        <input type="text" class="form-control w200" placeholder="耳号" name="operatorName">
+                    </div>
+                    @*<div>任务完成时间：<input type="date" name="endDate" /></div>*@
+                    <div class="input-group mt10">
+                        <span class="input-group-addon">任务完成时间：</span>
+                        <input type="text" class="form-control w200" placeholder="任务完成时间" name="endDate">
+                    </div>
                     <br />
                     <div>调群在低产群</div>
                     <div>牛群号：<input name="group" /></div>

@@ -42,10 +42,15 @@ namespace CowSite.Controllers.Medical
             c.DisplayEarNum = Request.Form["DisplayEarNum"];
             c.Disease_Id = Convert.ToInt32(Request.Form["diseases"]);
             c.Prescription = Request.Form["Prescription"];
+            c.Date = DateTime.Now;
             c.LeftFront = Convert.ToInt32(Request.Form["pLeftFront"]);
             c.RightFront = Convert.ToInt32(Request.Form["pRightFront"]);
             c.LeftBack = Convert.ToInt32(Request.Form["pLeftBack"]);
             c.RightBack = Convert.ToInt32(Request.Form["pRightBack"]);
+
+            c.EarNum = CowBLL.ConvertDislayEarNumToEarNum(c.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            c.DoctorID = UserBLL.Instance.CurrentUser.ID;
+
             bllMedical.InsertCare(c);
             return Json(new { Result = 1}, JsonRequestBehavior.AllowGet);
         }

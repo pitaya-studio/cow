@@ -82,12 +82,23 @@ namespace DairyCow.DAL
             return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
         }
         
-        public void InsertCare(Care care)
+        public void InsertCare(Care care,bool isBeastOrFoot)
         {
-            string sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date,LeftFront,RightFront,RightBack,LeftBack)
-                                         values ({0},{1},'{2}',{3},{4},{5},{6},{7},{8})",
+            string sql;
+            if (isBeastOrFoot)
+            {
+                sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date,LeftFront,RightFront,RightBack,LeftBack)
+                                         values ({0},{1},'{2}',{3},'{4}',{5},{6},{7},{8})",
                                         care.EarNum, care.Disease_Id, care.Prescription, care.DoctorID, DateTime.Now.ToShortDateString(),
                                         care.LeftFront, care.RightFront, care.LeftBack, care.RightBack);
+            }
+            else
+            {
+                sql = string.Format(@"insert into Medical_Care(EarNum,Disease_Id,Prescription,DoctorID,Date)
+                                         values ({0},{1},'{2}',{3},'{4}')",
+                                        care.EarNum, care.Disease_Id, care.Prescription, care.DoctorID, DateTime.Now.ToShortDateString());
+            }
+            
             dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 
@@ -95,9 +106,34 @@ namespace DairyCow.DAL
         {
             DataTable dt = null;
 
-            string sql = string.Format(@"select count(*) from Medical_Care where Disease_Id = {0} and [Date]> '{1}'", diseaseId, date.ToString("yyyy/MM/dd"));
+            string sql = string.Format(@"select count(*) from Medical_Care where Disease_Id = {0} and [Date]> '{1}'", diseaseId, date.Date.ToShortDateString());
 
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+        }
+        /// <summary>
+        /// 获取某期间某疾病头次
+        /// </summary>
+        /// <param name="diseaseId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public int GetCareCowsCount(int diseaseId, DateTime startDate,DateTime endDate)
+        {
+            DataTable dt = null;
+
+            string sql = string.Format(@"select count(*) from Medical_Care where Disease_Id = {0} and [Date]>='{1}' and [Date]<='{2}'", diseaseId, startDate.Date.ToShortDateString(), endDate.Date.ToShortDateString());
+
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+        }
+
+        public int GetDiseaseTypeID(int diseaseID)
+        {
+            string sql = string.Format(@"SELECT Disease_Id,DiseaseType_Id,DiseaseName,Disease_Code  FROM Medical_DiseaseLibrary
+                                        where Disease_Id = {0} and [Date]>= '{1}'", diseaseID);
+
+            DataTable dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return Convert.ToInt32(dt.Rows[0].ItemArray[0]);
         }
     }

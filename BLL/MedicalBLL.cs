@@ -70,26 +70,40 @@ namespace DairyCow.BLL
             List<Disease> list = new List<Disease>();
             foreach (DataRow row in table.Rows)
             {
-                Disease d = new Disease();
-                d.ID = Convert.ToInt32(row["Disease_Id"]);
-                d.Name = row["DiseaseName"].ToString();
-                d.Code = row["Disease_Code"].ToString();
-                d.DiseaseTypeID = Convert.ToInt32(row["DiseaseType_Id"]);
-                list.Add(d);
+                list.Add(WrapDiseaseItem(row));
             }
             return list;
         }
 
-        public void InsertCare(Care care)
+        public Disease WrapDiseaseItem(DataRow row)
         {
-            care.EarNum = CowBLL.ConvertDislayEarNumToEarNum(care.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
-            care.DoctorID = UserBLL.Instance.CurrentUser.ID;
-            medicalDAL.InsertCare(care);
+            Disease d = new Disease();
+            d.ID = Convert.ToInt32(row["Disease_Id"]);
+            d.Name = row["DiseaseName"].ToString();
+            d.Code = row["Disease_Code"].ToString();
+            d.DiseaseTypeID = Convert.ToInt32(row["DiseaseType_Id"]);
+            return d;
         }
 
-        public int GetCareCowsCount(int diseaseId, DateTime date)
+        public void InsertCare(Care care)
         {
-            return medicalDAL.GetCareCowsCount(diseaseId, date);
+            Disease d = GetDiseases().Find(p => p.ID == care.Disease_Id);
+            //乳房类：137，蹄类174
+            if (d.DiseaseTypeID==137||d.DiseaseTypeID==174)
+            {
+                medicalDAL.InsertCare(care,true);
+            }
+            else
+            {
+                medicalDAL.InsertCare(care, false);
+            }
+            
+        }
+
+
+        public int GetCareCowsCount(int diseaseId, DateTime startDate,DateTime endDate)
+        {
+            return medicalDAL.GetCareCowsCount(diseaseId, startDate, endDate);
         }
     }
 }

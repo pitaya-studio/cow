@@ -122,7 +122,15 @@
                     alert('请选择正确结束日期，开始日期之后，今天以前！');
                     return;
                 }
-                //to-do
+                $.ajax({
+                    type: 'post',
+                    url: '../../Medical/Index/GetDiseaseCount',
+                    data: $("#careInfo").serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                        $("input[name=count]").val( response.Count);
+                    }
+                });
             });
         }
     </script>
@@ -137,7 +145,7 @@
                         <select class="w200" name="diseasesType"></select>
                     </div>
                     <div class="input-group mt10">
-                        <span class="input-group-addon w100" >疾病  </span>
+                        <span class="input-group-addon w100" >疾病</span>
                         <select class="w200" name="diseases"></select>
                     </div>
                     <div class="input-group mt10">

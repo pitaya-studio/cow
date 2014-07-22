@@ -87,8 +87,6 @@ namespace DairyCow.BLL
 
         public void InsertCare(Care care)
         {
-            care.EarNum = CowBLL.ConvertDislayEarNumToEarNum(care.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
-            care.DoctorID = UserBLL.Instance.CurrentUser.ID;
             Disease d = GetDiseases().Find(p => p.ID == care.Disease_Id);
             //乳房类：137，蹄类174
             if (d.DiseaseTypeID==137||d.DiseaseTypeID==174)
@@ -103,9 +101,9 @@ namespace DairyCow.BLL
         }
 
 
-        public int GetCareCowsCount(int diseaseId, DateTime date)
+        public int GetCareCowsCount(int diseaseId, DateTime startDate,DateTime endDate)
         {
-            return medicalDAL.GetCareCowsCount(diseaseId, date);
+            return medicalDAL.GetCareCowsCount(diseaseId, startDate, endDate);
         }
     }
 }

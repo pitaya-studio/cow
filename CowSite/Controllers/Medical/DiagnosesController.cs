@@ -47,6 +47,10 @@ namespace CowSite.Controllers.Medical
             c.RightFront = Convert.ToInt32(Request.Form["pRightFront"]);
             c.LeftBack = Convert.ToInt32(Request.Form["pLeftBack"]);
             c.RightBack = Convert.ToInt32(Request.Form["pRightBack"]);
+
+            c.EarNum = CowBLL.ConvertDislayEarNumToEarNum(c.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            c.DoctorID = UserBLL.Instance.CurrentUser.ID;
+
             bllMedical.InsertCare(c);
             return Json(new { Result = 1}, JsonRequestBehavior.AllowGet);
         }

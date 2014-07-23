@@ -59,7 +59,7 @@ namespace CowSite.Controllers.Breed
                     ViewBag.SemenType = insemination.SemenType;
                     ViewBag.EstrusFindType = insemination.EstrusFindType;
                     ViewBag.OperateDate = insemination.OperateDate;
-                    ViewBag.Operator = insemination.Operator;
+                    ViewBag.Operator = UserBLL.Instance.CurrentUser.Name; // insemination.OperatorID;
                     ViewBag.Description = insemination.Description;
                     ViewBag.EstrusDate = insemination.EstrusDate;
                     ViewBag.EstrusType = insemination.EstrusType;
@@ -90,7 +90,7 @@ namespace CowSite.Controllers.Breed
                     bool isInsemExist = bllInsemination.IsInsemExist(insemination.EarNum, insemination.InseminationNum);
                     if (isInsemExist == true)
                     {
-                        bllInsemination.UpdateInseminationInfo(insemination);
+                        //bllInsemination.UpdateInseminationInfo(insemination);
                     }
                     else
                     {

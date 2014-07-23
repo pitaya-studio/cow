@@ -266,8 +266,9 @@ namespace DairyCow.BLL
 
 
             //添加配种记录
-            InseminationDAL insemDAL = new InseminationDAL();
-            insemDAL.InsertInseminationInfo(insemination);
+            InseminationBLL insemBLL = new InseminationBLL();
+            //to-do sopy
+            insemBLL.InsertInseminationInfo(insemination);
 
             //更新牛繁殖状态
             CowBLL cowBLL = new CowBLL();

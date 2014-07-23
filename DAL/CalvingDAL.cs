@@ -17,19 +17,18 @@ namespace DairyCow.DAL
 
         public int InsertCalvingRecord(int earNum,DateTime birthday,int birthType,string difficulty,string positionOfFetus,string fatherSemenNum,int operatorID,string comment,int numberOfMale,int numberOfFemale,int inParityCount)
         {
-            string sql = string.Format(@"Insert  Base_Calving AS D
-                                       (D.EarNum,
-                                        D.Birthday,
-                                        D.BirthType,
-                                        D.Difficulty,
-                                        D.PositionOfFetus,
-                                        D.FatherSemenNum,
-                                        D.OperatorID,
-                                        D.Comment,
-                                        D.NumberOfMale,
-                                        D.NumberOfFemale,
-                                        D.InParityCount) Values({0},{1},[2}，'{3}','{4}','{5}',{6},'{7}',{8},{9},{10}",
-                                         earNum, birthday, birthType, difficulty, positionOfFetus, fatherSemenNum, operatorID, comment, numberOfMale, numberOfFemale, inParityCount);
+            string sql = string.Format(@"Insert  Base_Calving 
+                                       (EarNum,
+                                       Birthday,
+                                        BirthType,
+                                        Difficulty,
+                                        PositionOfFetus,
+                                        FatherSemenNum,
+                                        OperatorID,
+                                        Comment,
+                                        NumberOfMale,
+                                        NumberOfFemale,
+                                        InParityCount) Values({0},'{1}',{2},'{3}','{4}','{5}',{6},'{7}',{8},{9},{10})",earNum, birthday.Date.ToShortDateString(), birthType, difficulty, positionOfFetus, fatherSemenNum, operatorID, comment, numberOfMale, numberOfFemale, inParityCount);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 

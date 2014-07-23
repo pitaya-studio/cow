@@ -104,6 +104,17 @@ namespace DairyCow.BLL
             return cow;
         }
 
+        public Cow GetCowInfo(int pastureID,string displayEarNum)
+        {
+            Cow cow = new Cow();
+            DataTable datCow = this.dalCow.GetCowInfo(pastureID, displayEarNum);
+            if (datCow != null && datCow.Rows.Count == 1)
+            {
+                cow = WrapCowItem(datCow.Rows[0]);
+            }
+            return cow;
+        }
+
         private Cow WrapCowItem(DataRow cowRow)
         {
             Cow cowItem = new Cow();
@@ -132,7 +143,15 @@ namespace DairyCow.BLL
                 {
                     cowItem.BirthWeight = float.Parse(cowRow["BirthWeight"].ToString());
                 }
-                cowItem.Color = cowRow["Color"].ToString();
+                if (cowRow["Color"]!= DBNull.Value)
+                {
+                    cowItem.Color = cowRow["Color"].ToString();
+                }
+                else
+                {
+                    cowItem.Color =String.Empty;
+                }
+                
 
 
                 //经产牛和青年牛才有繁殖状态，从繁殖相关事件表可以得出，初始买的牛必须输入
@@ -153,6 +172,25 @@ namespace DairyCow.BLL
                 {
                     cowItem.IsIll = true;
                 }
+
+                if (cowRow["FatherID"] != DBNull.Value)
+                {
+                    cowItem.FatherID = cowRow["FatherID"].ToString();
+                }
+                else
+                {
+                    cowItem.FatherID = String.Empty;
+                }
+                if (cowRow["MotherID"] != DBNull.Value)
+                {
+                    cowItem.FatherID = cowRow["MotherID"].ToString();
+                }
+                else
+                {
+                    cowItem.FatherID = String.Empty;
+                }
+                cowItem.IsStray= Convert.ToInt32(cowRow["IsStray"])==0? false:true;
+                
 
             }
             return cowItem;
@@ -273,6 +311,20 @@ namespace DairyCow.BLL
         public int UpdateCowStrayStatus(int earNum, int isStray)
         {
             return dalCow.UpdateCowStrayStatus(earNum, isStray);
+        }
+
+        /// <summary>
+        /// 插入牛，确保各属性已赋值
+        /// </summary>
+        /// <param name="myCow"></param>
+        /// <returns></returns>
+        public int InsertCow(Cow myCow)
+        {
+            int temp = 0;
+            int statusNum=GetCowStatusNum(myCow.Status);
+            int isill=myCow.IsIll?1:0;
+            temp = dalCow.InsertCow(myCow.DisplayEarNum, myCow.FarmCode, myCow.GroupID, myCow.HouseID, myCow.Gender, myCow.BirthDate, statusNum, isill, myCow.FatherID, myCow.MotherID, myCow.Color);
+            return temp;
         }
     }
 }

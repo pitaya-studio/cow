@@ -28,7 +28,7 @@ namespace CowSite.Controllers.Task
                 i.EstrusDate = DateTime.Parse(startDate);
                 i.OperateDate = DateTime.Parse(endDate);
                 i.EarNum = Convert.ToInt32(earNum);
-                i.Operator = operatorName;
+                //i.Operator = operatorName;
                 i.EstrusFindType = Convert.ToInt32(knownWay);
                 i.SemenNum = semenNum;
                 i.InseminationNum = Convert.ToInt32(semenCount);

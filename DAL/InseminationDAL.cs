@@ -89,78 +89,90 @@ namespace DairyCow.DAL
                 return false;
             }
         }
-        public int InsertInseminationInfo(Insemination insemination)
+        public int InsertInseminationInfo(int earNum,int inseminationNum,string semenNum,int semenType,DateTime estrusDate,int estrusType,int estrusFindType,string estrusFindPerson,DateTime operateDate,string descrition,int operatorID)
         {
-            StringBuilder sql = new StringBuilder();
-            //sql.Append(@"insert into [1mutong].[dbo].[DairyCow_Insemination] values (" + insemination.EarNum + ")");
-            sql.Append(@"insert into [1mutong].[dbo].[Breed_Insemination] values (
-                                    '" + insemination.EarNum + "',"
-                          + insemination.InseminationNum + ",'"
-                          + insemination.SemenNum + "',"
-                          + insemination.SemenType + ",'"
-                          + insemination.EstrusDate + "',"
-                          + insemination.EstrusType + ","
-                          + insemination.EstrusFindType + ",'"
-                          + insemination.EstrusFindPerson + "','"
-                          + insemination.OperateDate + "','"
-                          + insemination.Operator + "','"
-                          + insemination.Description + "')");
+            string sql = String.Format(@"Insert [Breed_Insemination] ([EarNum]
+                                                                      ,[InseminationNum]
+                                                                      ,[SemenNum]
+                                                                      ,[SemenType]
+                                                                      ,[EstrusDate]
+                                                                      ,[EstrusType]
+                                                                      ,[EstrusFindType]
+                                                                      ,[EstrusFindPerson]
+                                                                      ,[OperateDate]
+                                                                      ,[Description]
+                                                                      ,[OperatorID])
+                                                                       values ({0},{1},'{2}',{3},'{4}',{5},{6},'{7}','{8}','{9}',{10})",
+                                     earNum, inseminationNum, semenNum, semenType, estrusDate, estrusType, estrusFindType, estrusFindPerson, operateDate, descrition, operatorID);
+            //StringBuilder sql = new StringBuilder();
+            ////sql.Append(@"insert into [1mutong].[dbo].[DairyCow_Insemination] values (" + insemination.EarNum + ")");
+            //sql.Append(@"insert into [1mutong].[dbo].[Breed_Insemination] values ('" + insemination.EarNum + "',"
+            //              + insemination.InseminationNum + ",'"
+            //              + insemination.SemenNum + "',"
+            //              + insemination.SemenType + ",'"
+            //              + insemination.EstrusDate + "',"
+            //              + insemination.EstrusType + ","
+            //              + insemination.EstrusFindType + ",'"
+            //              + insemination.EstrusFindPerson + "','"
+            //              + insemination.OperateDate + "','"
+            //              + insemination.Operator + "','"
+            //              + insemination.Description + "')");
 
-            UpdateCowStatus(insemination.EarNum, ECowStatus.YiPeiWeiJian);
+            ////UpdateCowStatus(insemination.EarNum, ECowStatus.YiPeiWeiJian);
 
-            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
         /// <summary>
         /// 保存一头牛的配种信息
         /// </summary>
         /// <param name="insem"></param>
-        public int UpdateInseminationInfo(Insemination insem)
-        {
-            StringBuilder sql = new StringBuilder();
-            sql.Append(@"UPDATE [1mutong].[dbo].[Breed_Insemination] set ");
-            if (insem.InseminationNum != null && insem.InseminationNum != 0)
-            {
-                sql.Append("[InseminationNum] = " + insem.InseminationNum + ",");
-            }
-            if (insem.SemenNum != null && insem.SemenNum != "")
-            {
-                sql.Append("[SemenNum] = '" + insem.SemenNum + "',");
-            }
-            if (insem.SemenType != null && insem.SemenType != 0)
-            {
-                sql.Append("[SemenType] = " + insem.SemenType + ",");
-            }
-            if (insem.EstrusFindType != null && insem.EstrusFindType != 0)
-            {
-                sql.Append("[EstrusFindType] = " + insem.EstrusFindType + ",");
-            }
-            if (insem.OperateDate != null && insem.OperateDate.ToString() != "")
-            {
-                sql.Append("[OperateDate] = '" + insem.OperateDate + "',");
-            }
-            if (insem.Operator != null && insem.Operator != "")
-            {
-                sql.Append("[Operator] = '" + insem.Operator + "',");
-            }
-            if (insem.Description != null && insem.Description != "")
-            {
-                sql.Append("[Description] = '" + insem.Description + "',");
-            }
-            if (insem.EstrusDate != null && insem.EstrusDate.ToString() != "")
-            {
-                sql.Append("[EstrusDate] = '" + insem.EstrusDate + "',");
-            }
-            sql.Append("[EstrusType] = " + insem.EstrusType + ",");
-            if (insem.EstrusFindPerson != null && insem.EstrusFindPerson != "")
-            {
-                sql.Append("[EstrusFindPerson] = '" + insem.EstrusFindPerson + "',");
-            }
-            sql.Append(" EarNum = '" + insem.EarNum + "'" + " WHERE EarNum = '" + insem.EarNum + "'");
+        //public int UpdateInseminationInfo(Insemination insem)
+        //{
+        //    StringBuilder sql = new StringBuilder();
+        //    sql.Append(@"UPDATE [1mutong].[dbo].[Breed_Insemination] set ");
+        //    if (insem.InseminationNum != null && insem.InseminationNum != 0)
+        //    {
+        //        sql.Append("[InseminationNum] = " + insem.InseminationNum + ",");
+        //    }
+        //    if (insem.SemenNum != null && insem.SemenNum != "")
+        //    {
+        //        sql.Append("[SemenNum] = '" + insem.SemenNum + "',");
+        //    }
+        //    if (insem.SemenType != null && insem.SemenType != 0)
+        //    {
+        //        sql.Append("[SemenType] = " + insem.SemenType + ",");
+        //    }
+        //    if (insem.EstrusFindType != null && insem.EstrusFindType != 0)
+        //    {
+        //        sql.Append("[EstrusFindType] = " + insem.EstrusFindType + ",");
+        //    }
+        //    if (insem.OperateDate != null && insem.OperateDate.ToString() != "")
+        //    {
+        //        sql.Append("[OperateDate] = '" + insem.OperateDate + "',");
+        //    }
+        //    if (insem.Operator != null && insem.Operator != "")
+        //    {
+        //        sql.Append("[Operator] = '" + insem.Operator + "',");
+        //    }
+        //    if (insem.Description != null && insem.Description != "")
+        //    {
+        //        sql.Append("[Description] = '" + insem.Description + "',");
+        //    }
+        //    if (insem.EstrusDate != null && insem.EstrusDate.ToString() != "")
+        //    {
+        //        sql.Append("[EstrusDate] = '" + insem.EstrusDate + "',");
+        //    }
+        //    sql.Append("[EstrusType] = " + insem.EstrusType + ",");
+        //    if (insem.EstrusFindPerson != null && insem.EstrusFindPerson != "")
+        //    {
+        //        sql.Append("[EstrusFindPerson] = '" + insem.EstrusFindPerson + "',");
+        //    }
+        //    sql.Append(" EarNum = '" + insem.EarNum + "'" + " WHERE EarNum = '" + insem.EarNum + "'");
 
-            UpdateCowStatus(insem.EarNum, ECowStatus.YiPeiWeiJian);
+        //    UpdateCowStatus(insem.EarNum, ECowStatus.YiPeiWeiJian);
 
-            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
-        }
+        //    return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+        //}
         //禁配
         public int ForbidInsemination(int earNum)
         {

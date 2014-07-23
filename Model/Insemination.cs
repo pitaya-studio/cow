@@ -26,7 +26,7 @@ namespace DairyCow.Model
         //配种日期
         public DateTime OperateDate { get; set; }
         //配种员
-        public string Operator { get; set; }
+        //public string Operator { get; set; }
         //配种员ID
         public int operatorID { get; set; }
         //描述

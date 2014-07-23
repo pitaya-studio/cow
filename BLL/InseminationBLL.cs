@@ -88,10 +88,10 @@ namespace DairyCow.BLL
         /// 保存一头牛的配种信息
         /// </summary>
         /// <param name="insem"></param>
-        public int UpdateInseminationInfo(Insemination insem)
-        {
-            return dalInsemination.UpdateInseminationInfo(insem);
-        }
+        //public int UpdateInseminationInfo(Insemination insem)
+        //{
+        //    return dalInsemination.UpdateInseminationInfo(insem);
+        //}
 
         public bool IsInsemExist(int earNum, int inseminationNum)
         {
@@ -122,7 +122,7 @@ namespace DairyCow.BLL
                     inseminationItem.EstrusFindType = Convert.ToInt32(inseminationRow["EstrusFindType"]);
                 }
                 inseminationItem.OperateDate = Convert.ToDateTime(inseminationRow["OperateDate"]);
-                inseminationItem.Operator = inseminationRow["Operator"].ToString();
+                //inseminationItem.Operator = inseminationRow["Operator"].ToString();
                 inseminationItem.Description = inseminationRow["Description"].ToString();
 
                 inseminationItem.EstrusDate = Convert.ToDateTime(inseminationRow["EstrusDate"]);
@@ -134,10 +134,39 @@ namespace DairyCow.BLL
             }
             return inseminationItem;
         }
-
-        public int InsertInseminationInfo(Insemination insemination)
+        /// <summary>
+        /// 插入配种记录
+        /// </summary>
+        /// <param name="ii"></param>
+        /// <returns></returns>
+        public int InsertInseminationInfo(Insemination ii)
         {
-            return dalInsemination.InsertInseminationInfo(insemination);
+            return dalInsemination.InsertInseminationInfo(ii.EarNum,ii.InseminationNum,ii.SemenNum,ii.SemenType,ii.EstrusDate,ii.EstrusType,ii.EstrusFindType,ii.EstrusFindPerson,ii.OperateDate,ii.Description,ii.operatorID);
+        }
+        /// <summary>
+        /// 插入假配种记录，为入群用
+        /// </summary>
+        /// <param name="earNum"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public int InsertFakeInsemination(int earNum,DateTime date)
+        {
+            Insemination i = new Insemination();
+            i.EarNum = earNum;
+            i.OperateDate = date;
+            CowBLL cb=new CowBLL();
+            CowGroupBLL gBLL=new CowGroupBLL();
+            i.operatorID = 0;//gBLL.GetCowGroupInfo(cb.GetCowInfo(earNum).GroupID).InsemOperatorID;
+            i.InseminationNum = 1;
+            i.EstrusFindPerson = "孙悟空";
+            i.EstrusDate = date;
+            i.EstrusFindType = 0;
+            i.Description = "";
+            i.SemenNum = "NA";
+            i.SemenType = 0;
+            i.Description = "";
+            i.EstrusType = 0;
+            return InsertInseminationInfo(i);
         }
 
         /// <summary>

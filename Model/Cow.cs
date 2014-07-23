@@ -79,6 +79,19 @@ namespace DairyCow.Model
             }
         }
         /// <summary>
+        /// 是否离群
+        /// </summary>
+        public bool IsStray { get; set; }
+        /// <summary>
+        /// 父亲冻精号
+        /// </summary>
+        public string FatherID { get; set; }
+        /// <summary>
+        /// 母亲牛耳号（显示耳号）
+        /// </summary>
+        public string MotherID { get; set; }
+
+        /// <summary>
         /// 是否病牛，指必须隔离或不能奶入罐的。
         /// </summary>
         public bool IsIll { get; set; }

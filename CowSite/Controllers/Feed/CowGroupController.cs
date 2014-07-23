@@ -42,12 +42,6 @@ namespace CowSite.Controllers.Feed
             ViewBag.CowGroupID = Request.QueryString["id"];
             return View("~/Views/CowGroup/List.cshtml");
         }
-        //弹出修改牛群详细对话框
-        public ActionResult ModifyCowGroup(string id)
-        {
-            ViewBag.CowGroupID = Convert.ToInt32(id);
-            return View("~/Views/CowGroup/ModifyCowGroup.cshtml");
-        }
 
         //弹出新增牛群详细对话框
         public ActionResult AddCowGroup()
@@ -69,13 +63,6 @@ namespace CowSite.Controllers.Feed
         {
             return Json(this.bllCowGroup.GetCowGroupInfo(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
-        //修改牛群
-        public JsonResult UpdateCowGroupInfo()
-        {
-            CowGroup cowGroup = new CowGroup();
-            UpdateModel<CowGroup>(cowGroup);
-            return Json(this.bllCowGroup.UpdateCowGroupInfo(cowGroup), JsonRequestBehavior.AllowGet);
-        }
         //删除牛群
         public JsonResult Delete(string id)
         {
@@ -90,6 +77,17 @@ namespace CowSite.Controllers.Feed
                 var msg = "牛群删除成功！";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
+        }
+        //增加牛群
+        public JsonResult Add()
+        {
+            CowGroup group = new CowGroup();
+            group.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+            group.Name = Request.Form["Name"];
+            group.TypeNum = Convert.ToInt32(Request.Form["Type"]);
+            group.Description = Request.Form["Description"];
+            bllCowGroup.AddCowGroupWithBasicInfo(group);
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

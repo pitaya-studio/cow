@@ -46,9 +46,6 @@
                             return typeName;
                         }
                     },
-                    //{ display: '配种员', name: 'InsemOperator', align: 'left' },
-                    //{ display: '饲养员', name: 'FeedOperator', align: 'left' },
-                    //{ display: '兽医', name: 'Doctor', align: 'left' }
                     { display: '牛群说明', name: 'Description', align: 'left' },
                     { display: '配方', name: 'FormulaName', align: 'left', width: 150 }
                 ],
@@ -97,24 +94,6 @@
                     });
                 }
             });
-
-            $('#btnModify').show().ligerButton({
-                width: 80,
-                text: "更改牛舍",
-                disabled: false,
-                click: function () {
-                    var row = cowGroupGridManager.getSelectedRow();
-                    var editUrl = "../../CowGroup/ModifyCowGroup";
-                    if (row) {
-                        var id = row["ID"];
-                        editUrl += "/" + id;
-                    } else {
-                        alert("请选择牛群");
-                        return;
-                    }
-                    $.ligerDialog.open({ title: "更改牛群", height: 630, width: 550, url: editUrl });
-                }
-            });
         }
     </script>
 </head>
@@ -130,7 +109,6 @@
                 <div style="display: inline-block; position: absolute; right: 0px;">
                     <input type="button" id="btnAdd" value="新增牛群" style="display: none;" />
                     <input type="button" id="btnDelete" value="删除牛群" style="display: none; " />
-                    <input type="button" id="btnModify" value="修改牛群" style="display: none; " />
                 </div>
             </div>
             <div>

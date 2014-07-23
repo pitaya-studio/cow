@@ -21,52 +21,29 @@
             initForm();
         });
 
-        //function loadCowGroupSelector(typeID) {
-        //    $.each(cowGroupTypeData, function () {
-        //        $('#cowGroupTypeSelector').append('<option value ="' + this.ID + '">' + this.Name + '</option>');
-        //    });
-        //    $('#cowGroupTypeSelector').val(typeID);
-        //}
-
-        //function loadFormulaSelector(formulaID) {
-        //    $.ajax({
-        //        url: "../../../Feed/Formula/GetFormula",
-        //        cache: false,
-        //        success: function (formula) {
-        //            if (formula && formula.length > 0) {
-        //                $.each(formula, function () {
-        //                    $('#formulaSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
-        //                });
-        //                $('#formulaSelector').val(formulaID);
-        //            }
-        //        }
-        //    });
-        //}
-
-        //function loadPastureSelector(pastureID) {
-        //    $.ajax({
-        //        url: "../../../Feed/Pasture/GetPasture",
-        //        cache: false,
-        //        success: function (formula) {
-        //            if (formula && formula.length > 0) {
-        //                $.each(formula, function () {
-        //                    $('#pastureSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
-        //                });
-        //                $('#pastureSelector').val(pastureID);
-        //            }
-        //        }
-        //    });
-        //}
-
         function initForm() {
-            $("form#cowGroupUpdateForm").submit(function (event) {
+            $("form#cowGroupAddForm").submit(function (event) {
                 event.preventDefault();  //prevent the actual form post
-                updateCowGroup(this);
             });
 
             $('#btnSave').ligerButton({
                 width: 80,
                 text: '保存',
+                click: function () {
+                    var name = $("#cowGroupName").val();
+                    var type = $("#cowGroupTypeSelector").val();
+                    if (name == "") {
+                        alert("请输入牛群名称");
+                        return;
+                    }
+                    if (type == "-1") {
+                        alert("请选择牛群类型");
+                        return;
+                    }
+                    document.getElementById('cowGroupAddForm').submit();
+                    parent.$.ligerDialog.close();
+                    parent.$(".l-dialog,.l-window-mask").hide();
+                },
                 disabled: false,
                 icon: null
             });
@@ -81,56 +58,38 @@
                 },
                 icon: null
             });
-        }
 
-        //function updateCowGroup(form) {
-        //    $.ajax({
-        //        url: "../../Feed/CowGroup/UpdateCowGroupInfo",
-        //        type: "post",
-        //        dataType: "json",
-        //        data: $(form).serialize(),
-        //        success: function (result) {
-        //            parent.$.ligerDialog.close();
-        //            parent.window.loadCowGroupList();
-        //            parent.$(".l-dialog,.l-window-mask").hide();
-        //        },
-        //        error: function (result) {
-        //            $.ligerDialog.error(result);
-        //        }
-        //    });
-        //}
+        }
     </script>
 </head>
 <body>
-    <form id="cowGroupAddForm">
+    <form id="cowGroupAddForm" action="../../CowGroup/Add" method="post">
         <div class="container">
             <input id="cowGroupID" name="ID" type="hidden" />
-            <div class="form-group">
-                <span>牧场：</span><span><select id="pastureSelector" name="PastureID"></select></span>
-            </div>
             <div class="form-group">
                 <span>牛群名称：</span><span><input id="cowGroupName" name="Name" type="text" style="width: 350px; height: 30px" /></span>
             </div>
             <div class="form-group">
-                <span>牛群类型：</span><span><select id="cowGroupTypeSelector" name="Type"></select></span>
+                <span>牛群类型：</span><span>
+                    <select id="cowGroupTypeSelector" name="Type">
+                        <option value="-1">请选择牛群类型</option>
+                        <option value="0">犊牛群</option>
+                        <option value="1">育成牛群</option>
+                        <option value="2">青年牛群</option>
+                        <option value="3">初产牛群</option>
+                        <option value="4">低产牛群</option>
+                        <option value="5">中产牛群</option>
+                        <option value="6">高产牛群</option>
+                        <option value="7">干奶牛群</option>
+                        <option value="8">产房待产牛群</option>
+                        <option value="9">隔离群</option>
+                        <option value="10">病牛群</option>
+                        <option value="11">公牛群</option>
+                    </select>
+                </span>
             </div>
             <div class="form-group">
                 <span>牛群说明：</span><span><input id="cowGroupDescription" name="Description" type="text" /></span>
-            </div>
-            <div class="form-group">
-                <span>配方：</span><span><select id="formulaSelector" name="FormulaID"></select></span>
-            </div>
-            <div class="form-group">
-                <span>配种员：</span><span><select id="insemOperatorSelector" name="InsemOperatorID"></select></span>
-            </div>
-            <div class="form-group">
-                <span>饲养员：</span><span><select id="feedOperatorSelector" name="FeedOperatorID"></select></span>
-            </div>
-            <div class="form-group">
-                <span>兽医：</span><span><select id="doctorSelector" name="DoctorID"></select></span>
-            </div>
-            <div class="form-group">
-                <span>描述：</span><span><input id="description" name="Description" /></span>
             </div>
             <div class="form-group">
                 <input id="btnSave" type="submit" value="保存" />
@@ -140,4 +99,3 @@
     </form>
 </body>
 </html>
-

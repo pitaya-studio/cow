@@ -193,7 +193,7 @@ namespace DairyCow.DAL
         public int UpdateCowStrayStatus(int earNum, int isStray)
         {
             string sql = string.Format(@"UPDATE Base_Cow SET
-                                        IsStray={1},
+                                        IsStray={1}
                                         where EarNum={0} 
                                         ", earNum, isStray);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);

@@ -41,7 +41,10 @@ namespace DairyCow.BLL
             return strayDAL.InsertStray(s.EarNum, s.PastureID, s.StrayType, s.IsSold, s.Price, s.Reason,s.StrayDate);
         }
 
-
+        /// <summary>
+        /// 插入离群记录，且标记牛离群
+        /// </summary>
+        /// <param name="s"></param>
         public void StrayCow(Stray s)
         {
             int i=InsertStray(s);

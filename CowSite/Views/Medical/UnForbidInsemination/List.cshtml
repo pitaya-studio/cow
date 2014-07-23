@@ -20,17 +20,8 @@
             loadUnforbinCow();
             initBtnEvent();
         });
-        
-        function initBtnEvent() {
-            $('#btnUnforbid').ligerButton({
-                width: 60,
-                text: '解禁',
-                click: function () {
-                },
-                icon: null
-            });
-        }
 
+        var breedIndicantGridManager;
         function loadUnforbinCow() {
             $.ajax({
                 type: 'get',
@@ -38,19 +29,19 @@
                 dataType: 'json',
                 timeout: 90000,
                 success: function (data) {
-                    var breedIndicantGridManager = $("#forbidCowGrid").ligerGrid({
+                    breedIndicantGridManager = $("#forbidCowGrid").ligerGrid({
                         checkbox: true,
                         columns: [
                             { display: 'ID', name: 'EarNum', type: 'int', width: 1, hide: true },
                             { display: '耳号', name: 'DisplayEarNum', type: 'string', width: 120 },
-                            { display: '牛群', name: 'GroupName', type: 'string'},
+                            { display: '牛群', name: 'GroupName', type: 'string' },
                             { display: '状态', name: 'Status', type: 'string', width: 160 },
                             { display: '性别', name: 'Gender', type: 'string', width: 130 },
                             { display: '月龄', name: 'AgeMonth', type: 'double', width: 100 },
                             { display: '出生体重', name: 'BirthWeight', type: 'float', width: 100 },
                             { display: '花色', name: 'Color', type: 'string', width: 100 }
                         ],
-                        
+
                         isScroll: false,
                         data: data,
                         usePager: false
@@ -59,18 +50,43 @@
                 }
             });
         }
+
+        function initBtnEvent() {
+            $('#btnUnforbid').ligerButton({
+                width: 60,
+                text: '解禁',
+                click: function () {
+                    var row = breedIndicantGridManager.getSelectedRow();
+                    if (row == null) {
+                        alert("请选择行!");
+                        return;
+                    }
+                    var id = row["EarNum"];
+                    $.ajax({
+                        type: 'post',
+                        url: "../../UnForbidInsemination/UnForbid",
+                        dataType: "json",
+                        data: { ID: id }
+                    }).success(function () {
+                        alert("解禁成功！");
+                    });
+                    loadUnforbinCow();
+                },
+                icon: null
+            });
+        }
     </script>
 </head>
 <body>
     <div class="container">
-        <div id="menu"></div>        
+        <div id="menu"></div>
         <div class="content">
             <div style="text-align: right; margin-right: 5px;">
                 <input type="button" value="解禁" id="btnUnforbid" />
             </div>
             <div id="forbidCowGrid" class="displayBlock ml5 mr5"></div>
             <div id="message"></div>
-            <div class="l-loading" id="pageloading"></div>            
+            <div class="l-loading" id="pageloading"></div>
         </div>
     </div>
 </body>

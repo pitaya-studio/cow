@@ -1,5 +1,6 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -16,15 +17,14 @@ namespace CowSite.Controllers.Medical
             return View("~/Views/Medical/UnForbidInsemination/List.cshtml");
         }
 
-        [HttpPost]
-        public ActionResult UnForbid(int id)
+        public JsonResult UnForbid(string id)
         {
-            bllInsemination.UnDoForbidInsemination(id);
-            UnForbidInsemination unForbidInsemination = new UnForbidInsemination();
-            UpdateModel<UnForbidInsemination>(unForbidInsemination);
-            //插入牛的解禁信息
-            bllUnforbidInsemination.InsertUnForbidInseminationInfo(unForbidInsemination);
-            return RedirectToAction("../Index/List");
+            bllInsemination.UnDoForbidInsemination(Convert.ToInt32(id));
+            //UnForbidInsemination unForbidInsemination = new UnForbidInsemination();
+            //UpdateModel<UnForbidInsemination>(unForbidInsemination);
+            ////插入牛的解禁信息
+            //bllUnforbidInsemination.InsertUnForbidInseminationInfo(unForbidInsemination);
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

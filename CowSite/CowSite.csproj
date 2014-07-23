@@ -119,6 +119,10 @@
     <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="Controls\bootstrap.datepicker\bootstrap-datepicker.js" />
     <Content Include="Controls\bootstrap.datepicker\datepicker.css" />
+    <Content Include="Controls\bootstrap.timepicker\css\bootstrap-timepicker.css" />
+    <Content Include="Controls\bootstrap.timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="Controls\bootstrap.timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="Controls\bootstrap.timepicker\js\bootstrap-timepicker.min.js" />
     <Content Include="Controls\echarts\doc\asset\css\bootstrap-responsive.css" />
     <Content Include="Controls\echarts\doc\asset\css\bootstrap.css" />
     <Content Include="Controls\echarts\doc\asset\css\codemirror.css" />

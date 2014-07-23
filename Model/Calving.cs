@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DairyCow.Model
 {
@@ -11,9 +7,8 @@ namespace DairyCow.Model
      /// </summary>
     public class Calving
     {
-        public DateTime Birthday{get;set;}
-        public int EarNum { get; set; }
-        //public int ChildEarNum { get; set; }
+        public DateTime Birthday { get; set; }
+        public int EarNum { get; set; }  //母牛耳号
         public string FatherSememNum { get; set; }
         public int OperatorID { get; set; }
         public string OperatorName { get; set; }
@@ -28,8 +23,8 @@ namespace DairyCow.Model
 
     public enum BirthType
     {
-        Normal=0,
-        PrematureBirth=1,
-        Miscarry=2
+        Normal = 0, //正常
+        PrematureBirth = 1, //早产
+        Miscarry = 2 //流产
     }
 }

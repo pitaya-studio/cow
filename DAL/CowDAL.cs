@@ -205,7 +205,7 @@ namespace DairyCow.DAL
 
             string sql = string.Format(@"SELECT EarNum
                             FROM Base_Cow
-                            WHERE DisplayEarNum = '{0}' AND FarmID = '{1}'", displayEarNum, farm);
+                            WHERE DisplayEarNum = '{0}' AND FarmID = '{1}' and [IsStray]=0", displayEarNum, farm);
 
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             if (dt.Rows.Count == 0)
@@ -220,7 +220,7 @@ namespace DairyCow.DAL
 
             string sql = string.Format(@"SELECT DisplayEarNum
                             FROM Base_Cow
-                            WHERE EarNum = '{0}'", earNum);
+                            WHERE EarNum = '{0}' and [IsStray]=0", earNum);
 
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             if (dt.Rows.Count == 0)

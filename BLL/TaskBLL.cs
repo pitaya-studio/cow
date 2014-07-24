@@ -353,7 +353,7 @@ namespace DairyCow.BLL
                 CowGroupBLL g = new CowGroupBLL();
                 CowBLL c = new CowBLL();
                 Cow cc = c.GetCowInfo(task.EarNum);
-                int doctorID = g.GetCowGroupList().Find(p => p.ID == cc.GroupID).DoctorID;
+                int doctorID = g.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID).Find(p => p.ID == cc.GroupID).DoctorID;
 
                 day21ToBornTask.OperatorID = doctorID;
 

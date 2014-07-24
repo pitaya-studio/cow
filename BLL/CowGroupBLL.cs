@@ -10,17 +10,17 @@ namespace DairyCow.BLL
     {
         CowGroupDAL dalCowGroup = new CowGroupDAL();
 
-        public List<CowGroup> GetCowGroupList()
-        {
-            List<CowGroup> lstCowGroup = new List<CowGroup>();
-            DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
-            foreach (DataRow drCowGroup in datCowGroup.Rows)
-            {
-                CowGroup cowGroupItem = WrapCowGroupItem(drCowGroup);
-                lstCowGroup.Add(cowGroupItem);
-            }
-            return lstCowGroup;
-        }
+        //public List<CowGroup> GetCowGroupList()
+        //{
+        //    List<CowGroup> lstCowGroup = new List<CowGroup>();
+        //    DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
+        //    foreach (DataRow drCowGroup in datCowGroup.Rows)
+        //    {
+        //        CowGroup cowGroupItem = WrapCowGroupItem(drCowGroup);
+        //        lstCowGroup.Add(cowGroupItem);
+        //    }
+        //    return lstCowGroup;
+        //}
 
         public List<CowGroup> GetCowGroupList(int pastureID)
         {
@@ -56,25 +56,23 @@ namespace DairyCow.BLL
             {
                 UserBLL u = new UserBLL();
                 User user;
-                if (Convert.ToInt32(cowGroupRow["ID"]) != 0)
-                {
-                    cowGroupItem.ID = Convert.ToInt32(cowGroupRow["ID"]);
-                }
+               
+                cowGroupItem.ID = Convert.ToInt32(cowGroupRow["ID"]);
                 cowGroupItem.Name = cowGroupRow["GroupName"].ToString();
-                if (cowGroupRow["PastureID"] != null && !string.IsNullOrWhiteSpace(cowGroupRow["PastureID"].ToString()))
-                {
-                    cowGroupItem.PastureID = Convert.ToInt32(cowGroupRow["PastureID"]);
-                }
-                if (cowGroupRow["FormulaID"] != null && !string.IsNullOrWhiteSpace(cowGroupRow["FormulaID"].ToString()))
+
+                cowGroupItem.PastureID = Convert.ToInt32(cowGroupRow["PastureID"]);
+                if (cowGroupRow["FormulaID"] != DBNull.Value)
                 {
                     cowGroupItem.FormulaID = Convert.ToInt32(cowGroupRow["FormulaID"]);
                 }
-                if (cowGroupRow["InsemOperatorID"] != null && !string.IsNullOrWhiteSpace(cowGroupRow["InsemOperatorID"].ToString()))
+                if (cowGroupRow["InsemOperatorID"] != DBNull.Value)
                 {
                     cowGroupItem.InsemOperatorID = Convert.ToInt32(cowGroupRow["InsemOperatorID"]);
                 }
                 user = u.GetUsers().Find(p => p.ID == cowGroupItem.InsemOperatorID);
+
                 cowGroupItem.InsemOperatorName = user == null ? null : user.Name;
+
                 if (cowGroupRow["FeedOperatorID"] != DBNull.Value)
                 {
                     cowGroupItem.FeederID = Convert.ToInt32(cowGroupRow["FeedOperatorID"]);
@@ -96,16 +94,10 @@ namespace DairyCow.BLL
         {
             List<CowGroup> lstCowGroup = new List<CowGroup>();
 
-            DataTable datCowGroup = this.dalCowGroup.GetCowGroupInfo();
+            DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
             foreach (DataRow row in datCowGroup.Rows)
             {
-                CowGroup info = new CowGroup();
-                info.ID = Convert.ToInt32(row["ID"]);
-                info.Name = row["Name"].ToString();
-                info.TypeNum = Convert.ToInt32(row["Type"]);
-                info.FormulaName = row["FormulaName"].ToString();
-                info.PastureName = row["PastureName"].ToString();
-                info.Description = row["Description"].ToString();
+                CowGroup info = WrapCowGroupItem(row);
                 lstCowGroup.Add(info);
             }
 
@@ -124,13 +116,7 @@ namespace DairyCow.BLL
             if (datCowGroup != null && datCowGroup.Rows.Count == 1)
             {
                 DataRow cowGroupRow = datCowGroup.Rows[0];
-                cowGroupItem.ID = Convert.ToInt32(cowGroupRow["ID"]);
-                cowGroupItem.Name = cowGroupRow["Name"].ToString();
-                cowGroupItem.TypeNum = Convert.ToInt32(cowGroupRow["Type"]);
-                cowGroupItem.PastureID = Convert.ToInt32(cowGroupRow["PastureID"]);
-                cowGroupItem.FormulaID = Convert.ToInt32(cowGroupRow["FormulaID"]);
-                cowGroupItem.DoctorID = Convert.ToInt32(cowGroupRow["DoctorID"]);
-                cowGroupItem.Description = cowGroupRow["Description"].ToString();
+                cowGroupItem = WrapCowGroupItem(cowGroupRow);
             }
             return cowGroupItem;
         }

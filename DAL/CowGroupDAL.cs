@@ -171,22 +171,22 @@ namespace DairyCow.DAL
 
 
 
+        //应该统一用一个
+//        public DataTable GetCowGroupInfo()
+//        {
+//            DataTable cowGroup = null;
 
-        public DataTable GetCowGroupInfo()
-        {
-            DataTable cowGroup = null;
+//            string sql = string.Format(@"SELECT G.[ID],G.[NAME],G.[FORMULAID],G.PastureID,G.TYPE,P.NAME AS PastureName,G.FORMULAID,G.Description,F.Name AS FormulaName
+//                                        FROM [DBO].[BASE_COWGROUP] AS G
+//										LEFT JOIN [DBO].[BASE_PASTURE] AS P
+//										ON P.ID = G.PASTUREID
+//										LEFT JOIN [DBO].[FEED_FORMULA] F
+//										ON F.ID = G.FORMULAID");
 
-            string sql = string.Format(@"SELECT G.[ID],G.[NAME],G.[FORMULAID],G.TYPE,P.NAME AS PastureName,G.Description,F.Name AS FormulaName
-                                        FROM [DBO].[BASE_COWGROUP] AS G
-										LEFT JOIN [DBO].[BASE_PASTURE] AS P
-										ON P.ID = G.PASTUREID
-										LEFT JOIN [DBO].[FEED_FORMULA] F
-										ON F.ID = G.FORMULAID");
+//            cowGroup = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
-            cowGroup = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
-
-            return cowGroup;
-        }
+//            return cowGroup;
+//        }
 
         /// <summary>
         /// 根据牛群ID获得配方ID

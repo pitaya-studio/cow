@@ -109,7 +109,7 @@ namespace CowSite.Controllers.Breed
         //获取牛群配种列表
         public JsonResult GetCowGroupList()
         {
-            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList();
+            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
             var cowGroupData = new
             {
                 Rows = lstCowGroup

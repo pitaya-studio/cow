@@ -36,7 +36,7 @@ namespace CowSite.Controllers.Feed
         {
             House house = new House();
             house.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
-            if (houseName == "")
+            if (string.IsNullOrWhiteSpace(houseName))
             {
                 var msg = "请输入牛舍名称！";
                 return Json(msg, JsonRequestBehavior.AllowGet);

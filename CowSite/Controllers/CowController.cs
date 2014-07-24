@@ -24,18 +24,31 @@ namespace CowSite.Controllers
         /// 验证显示耳号是否存在
         /// </summary>
         /// <returns></returns>
-        public JsonResult CheckDisplayEarNum(string dislayEarNum)
+        public JsonResult CheckDisplayEarNum(string displayEarNum)
         {
             bool result = false;
-            if (!string.IsNullOrWhiteSpace(dislayEarNum))
+            if (!string.IsNullOrWhiteSpace(displayEarNum))
             {
-                int nID = CowBLL.ConvertDislayEarNumToEarNum(dislayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+                int nID = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
                 if (nID != -1)
                 {
                     result = true;
                 }
             }
             return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 通过显示耳号取得受孕天数
+        /// </summary>
+        /// <param name="displayEarNum"></param>
+        /// <returns></returns>
+        public JsonResult GetDaysOfPregnant(string displayEarNum)
+        {
+            int earNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            CowInfo cow = new CowInfo(earNum);
+            int daysOfPregnant = cow.DaysOfPregnant;
+            return Json(new { DaysOfPregnant = daysOfPregnant }, JsonRequestBehavior.AllowGet);
         }
     }
 }

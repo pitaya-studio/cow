@@ -8,7 +8,7 @@ $(document).on("blur", "input.js-DisplayEarNum", function () {
         $.ajax({
             type: "post",
             url: "http://" + host + "/Cow/CheckDisplayEarNum",
-            data: { dislayEarNum: displayEarNum },
+            data: { displayEarNum: displayEarNum },
             dataType: "json",
             cache: false,
             success: function (response) {

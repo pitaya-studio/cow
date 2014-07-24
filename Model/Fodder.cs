@@ -52,4 +52,21 @@ namespace DairyCow.Model
         public double Se { get; set; }
        
     }
+    public class PastureFodder
+    {
+        public int FodderID { get; set; }
+        public int PastureID { get; set; }
+        public int SysFodderID { get; set; }
+        public string FodderName { get; set; }
+        public string Description { get; set; }
+        public double Quantity { get; set; }
+        /// <summary>
+        /// 配方用量，来自配方中标准饲料量
+        /// </summary>
+        public double Usage { get; set; }
+        public double Price { get; set; }
+        public bool IsCurrent { get; set; }
+
+    }
+    
 }

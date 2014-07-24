@@ -12,18 +12,136 @@
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Controls/bootstrap.timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.timepicker/js/bootstrap-timepicker.min.js"></script>
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
+    <script src="~/Scripts/common.js"></script>
     <script>
+        var groupList;
+        var currentGroupID;
+        var formulaID;
+        var fodderList;
+
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Formua" });
+            initComponents();
         });
+        function loadGroups() {
+            $.ajax({
+                type: 'get',
+                url: "../../Feed/Fodder/GetGroups",
+                dataType: 'json',
+                cache: false,
+                success: function (group) {
+                    groupList = group;
+                    $("select[name=group]").empty();
+                    $("select[name=group]").append('<option></option>');
+                    if (typeof (group) != 'undefined' && group && group.length > 0) {
+                        $.each(group, function () {
+                            $("select[name=group]").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        });
+                    }
+                }
+            });
+            $("select[name=group]").change(function () {
+                currentGroupID = $("select[name=group]").val();
+                if (typeof (groupList) != 'undefined' && groupList && groupList.length > 0) {
+                    $.each(groupList, function () {
+                        if (this.ID == currentGroupID) {
+                            $("input[name=formulaID]").val(this.FormulaID);
+                            formulaID = this.FormulaID;
+                        }
+                    });
+                }
+                
+                $.ajax({
+                    type: 'get',
+                    url: "../../Feed/Fodder/GetFormulaFodders",
+                    dataType: 'json',
+                    cache: false,
+                    data: {FormulaID:formulaID},
+                    success: function(fodders) {
+                        //fodder table?
+                        fodderList = fodders;
+                    }
+                });
+            });
+
+        }
+        function initComponents() {
+            loadGroups();
+
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            饲料加工
+            <form id="formulaAndFeedInfo">
+                <div class="input-group mt10">
+                    <span class="input-group-addon">牛群</span>
+                    <select class="w200" name="group"></select>
+                </div>
+                <div class="input-group mt10 hidden">
+                    <span class="input-group-addon w100">配方ID</span>
+                    <input type="text" class="form-control w200" placeholder="配方" name="formulaID">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">配方</span>
+                    <input type="text" class="form-control w200" placeholder="配方" name="formula">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">时分秒</span>
+                    <div class="input-group bootstrap-timepicker w200">
+                        <input type="text" class="form-control" placeholder="时分秒" name="BirthTime">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    </div>
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">受孕天数</span>
+                    <input type="text" class="form-control w200" placeholder="受孕天数" name="DisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">产犊类型</span>
+                    <select class="w200" name="BirthType">
+                        <option value="0">正常</option>
+                        <option value="1">早产</option>
+                        <option value="2">流产</option>
+                    </select>
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">产犊难易</span>
+                    <input type="text" class="form-control w200" placeholder="产犊难易" name="DisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">胎位</span>
+                    <input type="text" class="form-control w200" placeholder="胎位" name="DisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">接产员</span>
+                    <input type="text" class="form-control w200" placeholder="接产员" name="DisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">公犊数量</span>
+                    <input type="text" class="form-control w200" placeholder="公犊数量" name="DisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">母犊数量</span>
+                    <input type="text" class="form-control w200" placeholder="母犊数量" name="DisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">备注</span>
+                    <textarea class="form-control h100 w500" placeholder="备注" name="Prescription"></textarea>
+                </div>
+                <div class="mt10">
+                    <button type="button" class="btn btn-primary" id="btnSave">保存</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>

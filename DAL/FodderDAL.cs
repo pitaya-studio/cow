@@ -10,7 +10,7 @@ namespace DairyCow.DAL
         /// </summary>
         /// <param name="pastureID"></param>
         /// <returns></returns>
-        public DataTable GetFodder(int pastureID)
+        public DataTable GetPastureFodderTable(int pastureID)
         {
             DataTable fodderList = null;
 
@@ -28,7 +28,7 @@ namespace DairyCow.DAL
         /// </summary>
         /// <param name="formulaID"></param>
         /// <returns></returns>
-        public DataTable GetFodder(string formulaID)
+        public DataTable GetStandardFodderTable(int formulaID)
         {
             DataTable fodderList = null;
 

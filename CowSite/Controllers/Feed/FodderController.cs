@@ -29,7 +29,7 @@ namespace CowSite.Controllers.Feed
 
         public JsonResult GetFodder(int pastureID)
         {
-            List<Fodder> lstFodder = bllFodder.GetFodder(pastureID);
+            List<Fodder> lstFodder = bllFodder.GetPastureFodders(pastureID);
             var fodderData = new
             {
                 Rows = lstFodder
@@ -39,12 +39,30 @@ namespace CowSite.Controllers.Feed
 
         public JsonResult GetFodderOfFormula(string formulaID)
         {
-            List<Fodder> lstFodder = bllFodder.GetFodder(formulaID);
+            List<Fodder> lstFodder = bllFodder.GetFodderList(Convert.ToInt32(formulaID));
             var fodderData = new
             {
                 Rows = lstFodder
             };
             return Json(fodderData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetGroups()
+        {
+            CowGroupBLL groupBLL = new CowGroupBLL();
+            List<CowGroup> groups = groupBLL.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            return Json(groups, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetFormulaFodders(int formulaID)
+        {
+            FormulaBLL fBLL = new FormulaBLL();
+            if (formulaID!=0)
+            {
+                //fBLL.
+            }
+            
+            return Json(groups, JsonRequestBehavior.AllowGet);
         }
 	}
 }

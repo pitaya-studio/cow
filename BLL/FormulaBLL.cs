@@ -10,60 +10,73 @@ namespace DairyCow.BLL
     public class FormulaBLL
     {
         private FormulaDAL dalFormula = new FormulaDAL();
-        CowGroupDAL group = new CowGroupDAL();
+        CowGroupDAL groupDAL = new CowGroupDAL();
+        private FodderBLL fBLL=new FodderBLL();
 
-        public Dictionary<string, double> ExecFodder(int groupID, int machineNumber)
+        public List<Fodder> GetPastureFodderList(int formulaID, int pastureID)
         {
-            Dictionary<string, double> ret = new Dictionary<string, double>();
-            int cowCount = group.GetCowCount(groupID);
-            DataTable dt = dalFormula.GetFormulaFodder(groupID);
-            foreach (DataRow dr in dt.Rows)
-            {
-                ret.Add(dr["FodderName"].ToString(), Convert.ToDouble(dr["Quantity"]) * cowCount / machineNumber);
-            }
-            return ret;
+            List<Fodder> list = fBLL.GetFodderList(formulaID);
+            List<Fodder> pastureFodderList = new List<Fodder>();
+            foreach (Fodder standardFodder in list)
+	        {
+                Fodder pastureFodder;
+	        }
         }
+
+       
+
+        //public Dictionary<string, double> ExecFodder(int groupID, int machineNumber)
+        //{
+        //    Dictionary<string, double> ret = new Dictionary<string, double>();
+        //    int cowCount = group.GetCowCount(groupID);
+        //    DataTable dt = dalFormula.GetFormulaFodder(groupID);
+        //    foreach (DataRow dr in dt.Rows)
+        //    {
+        //        ret.Add(dr["FodderName"].ToString(), Convert.ToDouble(dr["Quantity"]) * cowCount / machineNumber);
+        //    }
+        //    return ret;
+        //}
 
         //返回值说明： 牛舍为key，value 的 list中按顺序为早中晚的喂的量。
-        public Dictionary<string, List<double>> ExecFeed(int groupID, int feedTimes, bool isSummer)
-        {
-            DataTable dtCowCountInHouse = group.GetCowCountInHouse(groupID);
-            DataTable dtFormularFodder = dalFormula.GetFormulaFodder(groupID);
+        //public Dictionary<string, List<double>> ExecFeed(int groupID, int feedTimes, bool isSummer)
+        //{
+        //    DataTable dtCowCountInHouse = group.GetCowCountInHouse(groupID);
+        //    DataTable dtFormularFodder = dalFormula.GetFormulaFodder(groupID);
             
-            double quantity = 0;
-            foreach(DataRow row in dtFormularFodder.Rows)
-            {
-                quantity += Convert.ToDouble(row["Quantity"]);
-            }
+        //    double quantity = 0;
+        //    foreach(DataRow row in dtFormularFodder.Rows)
+        //    {
+        //        quantity += Convert.ToDouble(row["Quantity"]);
+        //    }
 
-            Dictionary<string, List<double>> houseFeed = new Dictionary<string, List<double>>();
-            foreach(DataRow row in dtCowCountInHouse.Rows)
-            {
-                string houseName = row["Name"].ToString();
-                int count = Convert.ToInt32(row["CowCount"]);
-                List<double> dailyFeed = new List<double>();
-                if(isSummer)
-                {
-                    dailyFeed.Add(quantity * count * 0.35);
-                    dailyFeed.Add(quantity * count * 0.3);
-                    dailyFeed.Add(quantity * count * 0.35);
-                }
-                else
-                {
-                    double oneTime = quantity * count / feedTimes;
-                    for (int i = 0; i < feedTimes; i++)
-                    {
-                        dailyFeed.Add(oneTime);
-                    }
-                }
-                if(!houseFeed.ContainsKey(houseName))
-                {
-                    houseFeed.Add(houseName, dailyFeed);
-                }                
-            }
+        //    Dictionary<string, List<double>> houseFeed = new Dictionary<string, List<double>>();
+        //    foreach(DataRow row in dtCowCountInHouse.Rows)
+        //    {
+        //        string houseName = row["Name"].ToString();
+        //        int count = Convert.ToInt32(row["CowCount"]);
+        //        List<double> dailyFeed = new List<double>();
+        //        if(isSummer)
+        //        {
+        //            dailyFeed.Add(quantity * count * 0.35);
+        //            dailyFeed.Add(quantity * count * 0.3);
+        //            dailyFeed.Add(quantity * count * 0.35);
+        //        }
+        //        else
+        //        {
+        //            double oneTime = quantity * count / feedTimes;
+        //            for (int i = 0; i < feedTimes; i++)
+        //            {
+        //                dailyFeed.Add(oneTime);
+        //            }
+        //        }
+        //        if(!houseFeed.ContainsKey(houseName))
+        //        {
+        //            houseFeed.Add(houseName, dailyFeed);
+        //        }                
+        //    }
 
-            return houseFeed;
-        }
+        //    return houseFeed;
+        //}
 
         public List<Formula> GetFormulaList()
         {
@@ -102,6 +115,7 @@ namespace DairyCow.BLL
 
         private Fodder WrapFodderWithQuantityAndNutritionFact(DataRow row)
         {
+            //字段均不可空
             Fodder formulaItem = new Fodder()
                     {
                         ID = Convert.ToInt32(row["FodderID"]),

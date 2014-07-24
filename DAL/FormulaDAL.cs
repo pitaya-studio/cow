@@ -19,6 +19,32 @@ namespace DairyCow.DAL
             DT = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return DT;
         }
+        /// <summary>
+        /// 获取某配方的饲料表
+        /// </summary>
+        /// <param name="formulaID"></param>
+        /// <returns></returns>
+        public DataTable GetStandardFodderTable(int formulaID)
+        {
+            string sql = String.Format(@"SELECT [FormulaID]
+                                              ,[FodderID]
+                                              ,[Quantity]
+                                          FROM [Feed_FodderFormula] WHERE [FormulaID]={0}",formulaID);
+            return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+        }
+
+        public DataTable GetPastureFodderTable(int standardFodderID)
+        {
+            string sql = String.Format(@"SELECT [PastureID]
+                                          ,[FodderID]
+                                          ,[FodderName]
+                                          ,[SysFodderID]
+                                          ,[Quantity]
+                                          ,[IsCurrent]
+                                          ,[Price]
+                                      FROM [Feed_PastureFodder] WHERE [SysFodderID]={0} AND [IsCurrent]=1", standardFodderID);
+            return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+        }
 
         /// <summary>
         /// 获取配方列表

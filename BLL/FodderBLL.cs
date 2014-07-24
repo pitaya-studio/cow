@@ -101,7 +101,7 @@ namespace DairyCow.BLL
 
         public PastureFodder MapToPastureFodder(Fodder standardFodder, int pastureID)
         {
-            PastureFodder p=GetPastureFodders(pastureID).Find(p => p.PastureID == pastureID && p.SysFodderID == standardFodder.ID);
+            PastureFodder p=GetPastureFodders(pastureID).Find(pp => pp.PastureID == pastureID && pp.SysFodderID == standardFodder.ID);
             return p;
         }
      

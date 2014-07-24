@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DairyCow.DAL;
 
 namespace CowSite.Controllers.Feed
 {
@@ -29,7 +30,7 @@ namespace CowSite.Controllers.Feed
 
         public JsonResult GetFodder(int pastureID)
         {
-            List<Fodder> lstFodder = bllFodder.GetPastureFodders(pastureID);
+            List<PastureFodder> lstFodder = bllFodder.GetPastureFodders(pastureID);
             var fodderData = new
             {
                 Rows = lstFodder
@@ -56,13 +57,16 @@ namespace CowSite.Controllers.Feed
 
         public JsonResult GetFormulaFodders(int formulaID)
         {
-            FormulaBLL fBLL = new FormulaBLL();
+            FodderBLL fBLL = new FodderBLL();
+            List<PastureFodder> list=new List<PastureFodder>();
             if (formulaID!=0)
             {
-                //fBLL.
+                list=fBLL.GetMappedPastureFodders(formulaID, UserBLL.Instance.CurrentUser.Pasture.ID);
+                
             }
             
-            return Json(groups, JsonRequestBehavior.AllowGet);
+            return Json(list, JsonRequestBehavior.AllowGet);
+            
         }
 	}
 }

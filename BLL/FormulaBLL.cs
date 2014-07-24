@@ -13,15 +13,7 @@ namespace DairyCow.BLL
         CowGroupDAL groupDAL = new CowGroupDAL();
         private FodderBLL fBLL=new FodderBLL();
 
-        public List<Fodder> GetPastureFodderList(int formulaID, int pastureID)
-        {
-            List<Fodder> list = fBLL.GetFodderList(formulaID);
-            List<Fodder> pastureFodderList = new List<Fodder>();
-            foreach (Fodder standardFodder in list)
-	        {
-                Fodder pastureFodder;
-	        }
-        }
+        
 
        
 

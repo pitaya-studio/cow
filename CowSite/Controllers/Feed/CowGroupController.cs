@@ -10,10 +10,11 @@ namespace CowSite.Controllers.Feed
     public class CowGroupController : Controller
     {
         CowGroupBLL bllCowGroup = new CowGroupBLL();
+        int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
 
         public JsonResult GetCowGroupInfo()
         {
-            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(pastureID);
             var cowGroupData = new
             {
                 Rows = lstCowGroup
@@ -24,7 +25,7 @@ namespace CowSite.Controllers.Feed
         //用于select绑定
         public JsonResult GetCowGroupList()
         {
-            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(pastureID);
             return Json(lstCowGroup, JsonRequestBehavior.AllowGet);
         }
 

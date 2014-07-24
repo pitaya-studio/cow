@@ -214,6 +214,7 @@ namespace DairyCow.DAL
                                             ,[FormulaID]
                                             ,[Type]
                                             ,[InsemOperatorID]
+                                            ,[FeedOperatorID]
                                             ,[DoctorID]
                                             ,[Description]
                                         FROM [Base_CowGroup] where ID = {0}", id);

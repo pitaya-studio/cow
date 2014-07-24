@@ -9,7 +9,7 @@ using DairyCow.DAL.Base;
 
 namespace DairyCow.DAL
 {
-    public class IndividualProdcutionDAL:BaseDAL
+    public class IndividualProdcutionDAL : BaseDAL
     {
         /// <summary>
         /// 插入单牛单班次产奶记录
@@ -19,11 +19,11 @@ namespace DairyCow.DAL
         /// <param name="milkWeight"></param>
         /// <param name="round"></param>
         /// <returns></returns>
-        public int InsertIndividualProdcution(int earNum,DateTime milkDate,float milkWeight,string round)
+        public int InsertIndividualProdcution(int earNum, DateTime milkDate, float milkWeight, string round)
         {
-            string sql= String.Format(@"Insert INTO IndividualProdcution 
-                                       (EarNum,MilkDate,MilkWeight,Round) Values({0},{1},[2},{3},'{4}'",
-                                        earNum, milkDate.Date,milkWeight,round);
+            string sql = String.Format(@"Insert INTO Milk_IndividualProduction 
+                                       (EarNum,MilkDate,Weight,Round) Values({0},'{1}',{2},'{3}')",
+                                        earNum, milkDate.Date, milkWeight, round);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
         /// <summary>
@@ -33,7 +33,7 @@ namespace DairyCow.DAL
         /// <param name="startDate">开始时间</param>
         /// <param name="endDate">结束时间</param>
         /// <returns></returns>
-        public DataTable GetIndividualProductionTotalTable(int earNum,DateTime startDate,DateTime endDate)
+        public DataTable GetIndividualProductionTotalTable(int earNum, DateTime startDate, DateTime endDate)
         {
             string sql = string.Format(@"SELECT     EarNum, MilkDate, SUM(Weight) AS TotalMilk
                                         FROM         dbo.Milk_IndividualProduction

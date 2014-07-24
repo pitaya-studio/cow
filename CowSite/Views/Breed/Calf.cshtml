@@ -72,6 +72,38 @@
                         }
                     });
             });
+
+            $('#btnSave').click(function () {
+                var cowEarNum = $('input[name=EarNum]').val();
+                if (cowEarNum == '') {
+                    alert('请填写母牛耳号！');
+                    return;
+                }
+
+                var birthday = $('input[name=Birthday]').val();
+                if (birthday == '') {
+                    alert('请填写产犊日期！');
+                    return;
+                }
+
+                var birthTime = $('input[name=BirthTime]').val();
+                if (birthTime == '') {
+                    alert('请填写时分秒！');
+                    return;
+                }
+
+                $.ajax({
+                    type: 'post',
+                    url: '../../Breed/Calf/InsertCalving',
+                    data: $("#calfInfo").serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.Result = 1) {
+                            alert('保存产犊记录成功！');
+                        }
+                    }
+                });
+            });
         }
 
         function renderDaysOfPregnant(displayEarNum) {

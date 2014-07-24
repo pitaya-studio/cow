@@ -17,14 +17,28 @@ namespace CowSite.Controllers.Milk
         }
         public JsonResult AddMilkAbility(string earNum, string date, string ability, string round)
         {
-            IndividualProdcution production = new IndividualProdcution();
-            production.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
-            production.MilkDate = Convert.ToDateTime(date);
-            production.MilkWeight = float.Parse(ability);
-            production.Round = round;
+            if (string.IsNullOrWhiteSpace(date))
+            {
+                var msg = "请选择日期！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            else if (string.IsNullOrWhiteSpace(ability))
+            {
+                var msg = "请输入奶量！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                IndividualProdcution production = new IndividualProdcution();
+                production.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+                production.MilkDate = Convert.ToDateTime(date);
+                production.MilkWeight = float.Parse(ability);
+                production.Round = round;
 
-            bllIndividual.InsertIndividualProdcution(production);
-            return Json(1, JsonRequestBehavior.AllowGet);
+                bllIndividual.InsertIndividualProdcution(production);
+                var msg = "奶量添加成功！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -52,8 +52,8 @@
                         dataType: "json",
                         data: { EarNum: earNum, Date: date, Ability: ability, Round: round }
                     }).success(
-                            function () {
-                                alert("奶量抽查成功！");
+                            function (msg) {
+                                alert(msg);
                             }
                     );
                 }

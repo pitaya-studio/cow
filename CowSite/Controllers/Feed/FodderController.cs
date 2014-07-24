@@ -55,6 +55,7 @@ namespace CowSite.Controllers.Feed
             return Json(groups, JsonRequestBehavior.AllowGet);
         }
 
+
         public JsonResult GetFormulaFodders(int formulaID)
         {
             FodderBLL fBLL = new FodderBLL();
@@ -62,11 +63,61 @@ namespace CowSite.Controllers.Feed
             if (formulaID!=0)
             {
                 list=fBLL.GetMappedPastureFodders(formulaID, UserBLL.Instance.CurrentUser.Pasture.ID);
-                
             }
             
             return Json(list, JsonRequestBehavior.AllowGet);
             
+        }
+
+        public JsonResult CheckFormulaFodders(int formulaID)
+        {
+            FodderBLL fBLL = new FodderBLL();
+            FormulaBLL formulaBLL = new FormulaBLL();
+            string formulaName; 
+            List<PastureFodder> list = new List<PastureFodder>();
+            List<Fodder> sList=new List<Fodder>();
+            string msg;
+            int result;
+            if (formulaID != 0)
+            {
+                list = fBLL.GetMappedPastureFodders(formulaID, UserBLL.Instance.CurrentUser.Pasture.ID);
+                sList = fBLL.GetFodderList(formulaID);
+                formulaName = formulaBLL.GetFormulaList().Find(p => p.ID == formulaID).Name;
+                if (sList.Count == list.Count)
+                {
+                    //饲料匹配
+                    msg = "配方Ready!";
+                    result = 0;
+                    
+                }
+                else
+                {
+                    msg = "本配方存在未匹配的标准饲料。";
+                    result = 1;
+                    
+                }
+            }
+            else
+            {
+                msg = "未找到配方。请联系运营方指定配方。";
+                result = 2;
+                formulaName = "";
+            }
+            
+            CheckFodderResult r = new CheckFodderResult()
+            {
+                Msg = msg,
+                Result = result,
+                FormulaName = formulaName
+            };
+            return Json(r, JsonRequestBehavior.AllowGet);
+
+        }
+        public struct CheckFodderResult
+        {
+            public string Msg;
+            public int Result;
+            public string FormulaName;
         }
 	}
 }

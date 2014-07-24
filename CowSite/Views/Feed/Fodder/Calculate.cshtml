@@ -57,18 +57,37 @@
                         }
                     });
                 }
-                
                 $.ajax({
                     type: 'get',
-                    url: "../../Feed/Fodder/GetFormulaFodders",
+                    url: "../../Feed/Fodder/CheckFormulaFodders",
                     dataType: 'json',
                     cache: false,
-                    data: {FormulaID:formulaID},
-                    success: function(fodders) {
+                    data: { FormulaID: formulaID },
+                    success: function (result) {
                         //pasture fodder table?
-                        fodderList = fodders;
+                        if (result.Result == 0) {
+                            $("input[name=formula]").val(result.FormulaName);
+                            alert(result.Msg);
+                            $.ajax({
+                                type: 'get',
+                                url: "../../Feed/Fodder/GetFormulaFodders",
+                                dataType: 'json',
+                                cache: false,
+                                data: { FormulaID: formulaID },
+                                success: function (fodders) {
+                                    //pasture fodder table?
+                                    fodderList = fodders;
+                                }
+                            });
+                            
+                        }
+                        else {
+                            var msg = result.Msg;
+                            alert(msg);
+                        }
                     }
                 });
+                
             });
 
         }

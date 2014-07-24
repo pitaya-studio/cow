@@ -60,6 +60,48 @@ namespace DairyCow.BLL
                 fodderItem.Quantity = Convert.ToInt32(fodderRow["Quantity"]);
             }
             return fodderItem;
-        }        
+        }   
+     
+        public int InsertFodder(Fodder f)
+        {
+            int temp = 0;
+            temp = dalFodder.InsertStandardFodder(f.Name,
+                                                    f.Description,
+                                                    f.RefPrice,
+                                                    f.DM,
+                                                    f.NND,
+                                                    f.Ca,
+                                                    f.P,
+                                                    f.CP,
+                                                    f.CF,
+                                                    f.Fat,
+                                                    f.NFE,
+                                                    f.ASH,
+                                                    f.NDF,
+                                                    f.ADF,
+                                                    f.NPP,
+                                                    f.Arg,
+                                                    f.His,
+                                                    f.Ile,
+                                                    f.Leu,
+                                                    f.Lys,
+                                                    f.Met,
+                                                    f.Cys,
+                                                    f.Phe,
+                                                    f.Tyr,
+                                                    f.Thr,
+                                                    f.Trp,
+                                                    f.Val,
+                                                    f.Na,
+                                                    f.Cl,
+                                                    f.Mg,
+                                                    f.K,
+                                                    f.Fe,
+                                                    f.Cu,
+                                                    f.Mn,
+                                                    f.Zn,
+                                                    f.Se);
+            return temp;
+        }
     }
 }

@@ -9,9 +9,9 @@ namespace DairyCow.Model
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int FodderID { get; set; }
-        public string FodderName { get; set; }
-        public double FodderQuantity { get; set; }
-        public List<Fodder> Fodder { get; set; }
+        //public int FodderID { get; set; }
+        //public string FodderName { get; set; }
+        //public double FodderQuantity { get; set; }
+        public List<Fodder> FodderList { get; set; }
     }
 }

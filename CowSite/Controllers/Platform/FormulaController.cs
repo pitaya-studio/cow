@@ -36,7 +36,7 @@ namespace CowSite.Controllers.Platform
             {
                 FormulaID = formula.ID,
                 FormulaName = formula.Name,
-                Rows = formula.Fodder
+                Rows = formula.FodderList
             };
             return Json(cowGroupData, JsonRequestBehavior.AllowGet);
         }

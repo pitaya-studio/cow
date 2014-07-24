@@ -89,27 +89,60 @@ namespace DairyCow.BLL
                 List<Fodder> lstFormula = new List<Fodder>();
                 foreach (DataRow darFormula in datFormula.Rows)
                 {
-                    Fodder formulaItem = new Fodder()
-                    {
-                        ID = Convert.ToInt32(darFormula["FodderID"]),
-                        Name = darFormula["FodderName"].ToString(),
-                        Quantity = Convert.ToDouble(darFormula["Quantity"]),
-                        DryMatter = Convert.ToDouble(darFormula["DryMatter"]),
-                        NND = Convert.ToDouble(darFormula["NND"]),
-                        Calcium = Convert.ToDouble(darFormula["Calcium"]),
-                        Phosphorus = Convert.ToDouble(darFormula["Phosphorus"]),
-                        Protein = Convert.ToDouble(darFormula["Protein"]),
-                        RefPrice = Convert.ToDouble(darFormula["RefPrice"])
-                    };
-                    lstFormula.Add(formulaItem);
+                    lstFormula.Add(WrapFodderWithQuantityAndNutritionFact(darFormula));
                 }
 
                 formula.ID = Convert.ToInt32(datFormula.Rows[0]["FormulaID"]);
                 formula.Name = datFormula.Rows[0]["FormulaName"].ToString();
-                formula.Fodder = lstFormula;
+                formula.FodderList = lstFormula;
             }
 
             return formula;
+        }
+
+        private Fodder WrapFodderWithQuantityAndNutritionFact(DataRow row)
+        {
+            Fodder formulaItem = new Fodder()
+                    {
+                        ID = Convert.ToInt32(row["FodderID"]),
+                        Name = row["FodderName"].ToString(),
+                        Quantity = Convert.ToDouble(row["Quantity"]),
+                        DM = Convert.ToDouble(row["DryMatter"]),
+                        NND = Convert.ToDouble(row["NND"]),
+                        Ca = Convert.ToDouble(row["Calcium"]),
+                        P = Convert.ToDouble(row["Phosphorus"]),
+                        CP = Convert.ToDouble(row["Protein"]),
+                        Fat = Convert.ToDouble(row["Fat"]),
+                        RefPrice = Convert.ToDouble(row["RefPrice"]),
+                        CF = Convert.ToDouble(row["CF"]),
+                        NFE = Convert.ToDouble(row["NFE"]),
+                        ASH = Convert.ToDouble(row["ASH"]),
+                        NDF = Convert.ToDouble(row["NDF"]),
+                        ADF = Convert.ToDouble(row["ADF"]),
+                        Arg = Convert.ToDouble(row["Arg"]),
+                        His = Convert.ToDouble(row["His"]),
+                        Ile = Convert.ToDouble(row["Ile"]),
+                        Leu = Convert.ToDouble(row["Leu"]),
+                        Lys = Convert.ToDouble(row["Lys"]),
+                        Met = Convert.ToDouble(row["Met"]),
+                        Cys = Convert.ToDouble(row["Cys"]),
+                        Phe = Convert.ToDouble(row["Phe"]),
+                        Tyr = Convert.ToDouble(row["Tyr"]),
+                        Thr = Convert.ToDouble(row["Thr"]),
+                        Trp = Convert.ToDouble(row["Trp"]),
+                        Val = Convert.ToDouble(row["Val"]),
+                        Na = Convert.ToDouble(row["Na"]),
+                        Cl = Convert.ToDouble(row["Cl"]),
+                        Mg = Convert.ToDouble(row["Mg"]),
+                        K = Convert.ToDouble(row["K"]),
+                        Fe = Convert.ToDouble(row["Fe"]),
+                        Cu = Convert.ToDouble(row["Cu"]),
+                        Mn = Convert.ToDouble(row["Mn"]),
+                        Zn = Convert.ToDouble(row["Zn"]),
+                        Se = Convert.ToDouble(row["Se"]),
+                       
+                    };
+            return formulaItem;
         }
 
         public Formula WrapFormula(DataRow formulaRow)

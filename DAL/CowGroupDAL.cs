@@ -209,7 +209,7 @@ namespace DairyCow.DAL
         {
             DataTable cowGroup = null;
             string sql = string.Format(@"SELECT [ID]
-                                            ,[Name]
+                                            ,[Name] AS GroupName
                                             ,[PastureID]
                                             ,[FormulaID]
                                             ,[Type]

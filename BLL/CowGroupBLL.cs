@@ -90,19 +90,19 @@ namespace DairyCow.BLL
             return cowGroupItem;
         }
 
-        public List<CowGroup> GetCowGroupInfo()
-        {
-            List<CowGroup> lstCowGroup = new List<CowGroup>();
+        //public List<CowGroup> GetCowGroupInfo()
+        //{
+        //    List<CowGroup> lstCowGroup = new List<CowGroup>();
 
-            DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
-            foreach (DataRow row in datCowGroup.Rows)
-            {
-                CowGroup info = WrapCowGroupItem(row);
-                lstCowGroup.Add(info);
-            }
+        //    DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
+        //    foreach (DataRow row in datCowGroup.Rows)
+        //    {
+        //        CowGroup info = WrapCowGroupItem(row);
+        //        lstCowGroup.Add(info);
+        //    }
 
-            return lstCowGroup;
-        }
+        //    return lstCowGroup;
+        //}
 
         public int GetFormulaIDByGroupID(int id)
         {

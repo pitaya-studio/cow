@@ -1225,6 +1225,7 @@
     <Content Include="Views\Task\Adjust.cshtml" />
     <Content Include="Views\Medical\UnForbidInsemination\UnForbid.cshtml" />
     <Content Include="Views\CowGroup\Add.cshtml" />
+    <Content Include="Views\Medical\Recover\Recover.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

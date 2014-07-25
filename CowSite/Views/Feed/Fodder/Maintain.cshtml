@@ -15,18 +15,124 @@
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
     <script>
+        var formulaID = "@ViewBag.FormulaID";
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Fodder" });
+            loadFormulaList();
+            $("#formulaSelector").change(function () {
+                formulaID = $('#formulaSelector').val();
+                loadFodderList(formulaID);
+            });
         });
+
+        function loadFormulaList() {
+            $.ajax({
+                type: 'get',
+                url: "../../Platform/Formula/GetFormulaList",
+                cache: false,
+                dataType: "json"
+            }).success(function (formula) {
+                if (formula) {
+                    $("#formulaSelector").empty();
+                    $.each(formula, function () {
+                        $('#formulaSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                    });
+
+                    if (formulaID) {
+                        $.each(formula, function () {
+                            if (this.ID = formulaID) {
+                                $('#formulaName').val(this.Name);
+                                return;
+                            }
+                        });
+                    }
+                    else {
+                        formulaID = formula[0].ID;
+                        $('#formulaName').val(formula[0].Name);
+                    }
+                    loadFodderList(formulaID);
+                }
+            });
+        }
+
+        function loadFodderList(formulaID) {
+            $.ajax({
+                type: 'get',
+                url: "../../Platform/Formula/GetFormulaInfoList",
+                cache: false,
+                data: { formulaID: formulaID },
+                dataType: "json"
+            }).success(function (formulaInfo) {
+                if (formulaInfo) {
+                    var fooderGridManager = $("#fodderGrid").ligerGrid({
+                        columns: [
+                            { display: '饲料ID', name: 'ID', width: 1, hide: true },
+                            { display: '饲料名称', name: 'Name', align: 'left' },
+                            { display: "量", name: "Quantity", width: 100, type: 'int', editor: { type: 'int' } },
+                            { display: '营养成分A', name: 'DryMatter', align: 'left', width: 100 },
+                            { display: '营养成分B', name: 'NND', align: 'left', width: 100 },
+                            { display: '营养成分C', name: 'Calcium', align: 'left', width: 100 },
+                            { display: '营养成分D', name: 'Phosphorus', align: 'left', width: 100 },
+                            { display: '营养成分E', name: 'Protein', align: 'left', width: 100 },
+                            { display: '营养成分C2', name: 'RefPrice', align: 'left', width: 100 }
+                        ],
+                        pageSize: 15,
+                        width: '100%',
+                        isScroll: false,
+                        data: formulaInfo,
+                        enabledEdit: false,
+                        clickToEdit: false,
+                        pager: false
+                    });
+                    $("#pageloading").hide();
+                    initButton();
+                }
+            });
+        }
+
+        function initButton() {
+            $('#btnAdd').show().ligerButton({
+                width: 80,
+                text: '添加配方',
+                disabled: false,
+                click: function () {
+                    var editUrl = "../../Platform/Formula/Modify";
+                    $.ligerDialog.open({ title: "添加配方", height: 630, width: 550, url: editUrl });
+                },
+                icon: null
+            });
+
+            $('#btnModify').show().ligerButton({
+                width: 80,
+                text: '修改配方',
+                disabled: false,
+                click: function () {
+                    var editUrl = "../../Platform/Formula/Modify?FormulaID=" + $('#formulaSelector').val();
+                    $.ligerDialog.open({ title: "添加配方", height: 630, width: 550, url: editUrl });
+                },
+                icon: null
+            });
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            <div id="cowGroupGrid" class="displayBlock ml5 mr5"></div>
-            <div id="message"></div>
-            <div class="l-loading" id="pageloading"></div>
+            <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
+                <div style="display: inline-block; position: absolute; left: 0px;">
+                    <select id="formulaSelector" style="width: 350px; height: 30px"></select>
+                </div>
+                <div style="display: inline-block; position: absolute; right: 0px;">
+                    <input type="button" id="btnAdd" value="添加牧场饲料" style="display: none;" />
+                    <input type="button" id="btnDelete" value="删除牧场饲料" style="display: none;" />
+                </div>
+            </div>
+            <div>
+                <div id="fodderGrid"></div>
+                <div id="message"></div>
+                <div class="l-loading" id="pageloading"></div>
+            </div>
         </div>
     </div>
 </body>

@@ -163,7 +163,7 @@ namespace DairyCow.DAL
         public int UpdateCowBreedStatus(int earNum, int status)
         {
             string sql = string.Format(@"UPDATE Base_Cow SET
-                                        [status]={1},
+                                        [status]='{1}'
                                         where EarNum={0} 
                                         ", earNum, status);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
@@ -179,7 +179,7 @@ namespace DairyCow.DAL
         public int UpdateCowIllStatus(int earNum, int isIll)
         {
             string sql = string.Format(@"UPDATE Base_Cow SET
-                                        IsIll={1},
+                                        IsIll={1}
                                         where EarNum={0} 
                                         ", earNum, isIll);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);

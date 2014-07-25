@@ -22,7 +22,11 @@ namespace CowSite.Controllers.Medical
         {
             CowBLL cBLL = new CowBLL();
             List<Cow> list = cBLL.GetCowList().FindAll(p=>p.IsIll);
-            return Json(list, JsonRequestBehavior.AllowGet);
+            var cowData = new
+            {
+                Rows = list
+            };
+            return Json(cowData, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult RecoverCows(string cowID)
@@ -34,11 +38,11 @@ namespace CowSite.Controllers.Medical
             if (temp==1)
             {
                 //success
-                return Json(new {Result=1},JsonRequestBehavior.AllowGet);
+                return Json(new {msg="牛状态成功改为健康。"},JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new {Result=0},JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "牛状态未改变。" }, JsonRequestBehavior.AllowGet);
             }
 
         }

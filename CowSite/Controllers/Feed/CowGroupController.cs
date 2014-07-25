@@ -29,6 +29,10 @@ namespace CowSite.Controllers.Feed
             return Json(lstCowGroup, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 分群提示
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetRemindCows()
         {
             List<CowInfo> cows;

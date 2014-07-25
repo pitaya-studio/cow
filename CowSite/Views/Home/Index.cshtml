@@ -8,13 +8,11 @@
     <title>易牧通奶牛云智能管理平台</title>
     <link rel="shortcut icon" href="images/emutong.ico">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme1.min.css">
-    <link rel="stylesheet" href="../ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" href="../Style/base.css">
     <link rel="stylesheet" href="../Style/Home/Index.css">
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script src="../Controls/echarts/doc/asset/js/esl/esl.js"></script>
-    <script src="../ligerUI/js/ligerui.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
 </head>
 <body>
@@ -37,6 +35,7 @@
         require.config({
             paths: {
                 'echarts': '../Controls/echarts/build/echarts',
+                'echarts/chart/bar': '../Controls/echarts/build/echarts',
                 'echarts/chart/pie': '../Controls/echarts/build/echarts'
             }
         });

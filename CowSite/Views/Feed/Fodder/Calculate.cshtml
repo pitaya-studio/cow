@@ -28,8 +28,10 @@
         var fodderList;
         var houseList;
         var isFormulaReady = false;
-        var processList=[];
-        var feedList=[];
+        var processes = {}, feeds = {};
+        //var processGridManager, feedGridManager;
+        //var processList = {};
+        //var feedList = {};
 
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Formua" });
@@ -95,6 +97,7 @@
                                     success: function (houses) {
                                         //house table?
                                         houseList = houses;
+                                        //alert(houseList.length.toString());
                                     }
                                 });
                                 //
@@ -119,13 +122,12 @@
         function initComponents() {
             loadGroups();
             initBtnGo();
-            //loadProcessList();
-            //loadFeedList();
+ 
         }
 
 
         function loadProcessList() {
-            var fooderGridManager = $("#processGrid").ligerGrid({
+            var processGridManager = $("#processGrid").ligerGrid({
                 columns: [
                     { display: '班次', name: 'Round', width:100 },
                     { display: '饲料', name: 'Name', align: 'left', width: 250 },
@@ -135,7 +137,7 @@
                 width: '90%',
                 height: '100%',
                 isScroll: false,
-                data: processList,
+                data: processes,
                 title: '加工单',
                 showTitle: true,
                 enabledEdit: false,
@@ -147,7 +149,7 @@
             
         }
         function loadFeedList() {
-            var fooderGridManager = $("#feedGrid").ligerGrid({
+            var feedGridManager = $("#feedGrid").ligerGrid({
                 columns: [
                     { display: '班次', name: 'Round', width: 100 },
                     { display: '牛舍', name: 'HouseName', align: 'left', width: 250 },
@@ -157,7 +159,7 @@
                 width: '90%',
                 height: '100%',
                 isScroll: false,
-                data: feedList,
+                data: feeds,
                 title:'饲喂单',
                 showTitle:true,
                 enabledEdit: false,
@@ -170,26 +172,31 @@
         }
 
         function initBtnGo() {
+            
             $("#btnGo").click(function () {
                 if (isFormulaReady) {
+                    //processGridManager.
                     var mNum = $("input[name=machineNum]").val();
                     var totalQuantity = 0.0;
                     for (var i = 0; i < fodderList.length;i++) {
                         totalQuantity = totalQuantity + fodderList[i].Usage;
                     }
                     if (mNum != "") {
+                        var machine = parseInt(mNum, 10);
                         var isSummer = $("select[name=isSummer]").val();
                         var round = $("select[name=roundOfDay]").val();
+                        var processList = [];
+                        var feedList = [];
                         //alert("round + isSummer: " + Number(round).toString() + "    " + Number(isSummer).toString());
                         switch (round) {
                             case '1':
                                 var quantity;
                                 for (var i = 0; i < fodderList.length;i++) {
-                                    quantity = fodderList[i].Usage * currentGroup.CowNumber / mNum;
-                                    processList[i] = { Round: '1', Name: fodderList[i].FodderName, Quantity: fodderList[i].Usage };
+                                    quantity = fodderList[i].Usage * currentGroup.CowNumber / machine;
+                                    processList[i] = { Round: '1', Name: fodderList[i].FodderName, Quantity: quantity };
                                     //alert(processList[i].Round + processList[i].Name + Number(processList[i].Quantity).toString());
                                 }
-                                alert(fodderList.length);
+                                //alert(fodderList.length);
                                 for (var i = 0; i < houseList.length; i++) {
                                     quantity=houseList[i].CowNumber*totalQuantity ;
                                     feedList[i] = { Round: '1', HouseName: houseList[i].Name, Quantity: quantity };
@@ -199,8 +206,8 @@
                             case '2':
                                 var quantity;
                                 for (var i = 0; i < fodderList.length;i++) {
-                                    quantity = fodderList[i].Usage * currentGroup.CowNumber / 2.0 / mNum;
-                                    processList[i] = { Round: '早、晚班', Name: fodderList[i].FodderName, Quantity: fodderList[i].Usage, };
+                                    quantity = fodderList[i].Usage * currentGroup.CowNumber / 2.0 / machine;
+                                    processList[i] = { Round: '早、晚班', Name: fodderList[i].FodderName, Quantity: quantity };
                                     //alert(processList[i].Round + processList[i].Name + Number(processList[i].Quantity).toString());
                                 }
                                 for (var i = 0; i < houseList.length; i++) {
@@ -213,11 +220,11 @@
                                 var quantity;
                                 if (isSummer==1) {
                                     for (var i = 0; i < fodderList.length; i++) {
-                                        quantity = fodderList[i].Usage * currentGroup.CowNumber * 0.35 / mNum;
-                                        processList[i] = { Round: '早、晚班', Name: fodderList[i].FodderName, Quantity: fodderList[i].Usage};
+                                        quantity = fodderList[i].Usage * currentGroup.CowNumber * 0.35 / machine;
+                                        processList[i] = { Round: '早、晚班', Name: fodderList[i].FodderName, Quantity: quantity };
                                         //alert(processList[i].Round + processList[i].Name + Number(processList[i].Quantity).toString());
-                                        quantity = fodderList[i].Usage * currentGroup.CowCount * 0.3 / mNum;
-                                        processList[i + fodderList.length] = { Round: '中班', Name: fodderList[i].FodderName, Quantity: fodderList[i].Usage};
+                                        quantity = fodderList[i].Usage * currentGroup.CowCount * 0.3 / machine;
+                                        processList[i + fodderList.length] = { Round: '中班', Name: fodderList[i].FodderName, Quantity: quantity };
 
                                     }
                                     for (var i = 0; i < houseList.length; i++) {
@@ -230,12 +237,12 @@
                                 }
                                 else {
                                     for (var i = 0; i < fodderList.length; i++) {
-                                        quantity = fodderList[i].Usage * currentGroup.CowNumber / 3.0 / mNum;
-                                        processList[i] = { Round: '早中晚班', Name: fodderList[i].FodderName, Quantity: fodderList[i].Usage };
+                                        quantity = fodderList[i].Usage * currentGroup.CowNumber / 3.0 / machine;
+                                        processList[i] = { Round: '早中晚班', Name: fodderList[i].FodderName, Quantity: quantity };
                                         //alert(processList[i].Round + processList[i].Name + Number(processList[i].Quantity).toString());
                                     }
                                     for (var i = 0; i < houseList.length; i++) {
-                                        quantity = houseList[i].CowNumber * totalQuantity / 3;
+                                        quantity = houseList[i].CowNumber * totalQuantity / 3.0;
                                         feedList[i] = { Round: '早中晚班', HouseName: houseList[i].Name, Quantity: quantity };
                                         //alert(feedList[i].Round + feedList[i].HouseName + Number(feedList[i].Quantity).toString());
                                     }
@@ -246,6 +253,9 @@
                                 alert("case error");
                                 break;
                         }
+                        processes.Rows = processList ;
+                        feeds.Rows = feedList;
+
                         loadProcessList();
                         loadFeedList();
 

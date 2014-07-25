@@ -102,6 +102,8 @@ namespace DairyCow.BLL
         public PastureFodder MapToPastureFodder(Fodder standardFodder, int pastureID)
         {
             PastureFodder p=GetPastureFodders(pastureID).Find(pp => pp.PastureID == pastureID && pp.SysFodderID == standardFodder.ID);
+            //牧场饲料的量是Usage，从配方的quantity得到
+            p.Usage = standardFodder.Quantity;
             return p;
         }
      

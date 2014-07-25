@@ -55,6 +55,12 @@ namespace CowSite.Controllers.Feed
             return Json(groups, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetHouses(int groupID)
+        {
+            HouseBLL hBLL = new HouseBLL();
+            List<House> houses = hBLL.GetHouseListByGroup(UserBLL.Instance.CurrentUser.Pasture.ID, groupID);
+            return Json(houses, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult GetFormulaFodders(int formulaID)
         {

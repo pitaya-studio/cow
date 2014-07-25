@@ -62,6 +62,7 @@ namespace DairyCow.BLL
             {
                 h.GroupID = 0;
             }
+            h.CowNumber = GetCowNumberInHouse(h);
             return h;
         }
 

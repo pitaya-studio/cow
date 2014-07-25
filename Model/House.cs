@@ -15,5 +15,9 @@ namespace DairyCow.Model
         /// </summary>
         public int GroupID { get; set; }
         public int PastureID { get; set; }
+        /// <summary>
+        /// 牛舍中牛数
+        /// </summary>
+        public int CowNumber { get; set; }
     }
 }

@@ -86,6 +86,8 @@ namespace DairyCow.BLL
                 }
                 user = u.GetUsers().Find(p => p.ID == cowGroupItem.DoctorID);
                 cowGroupItem.DoctorName = user == null ? null : user.Name;
+
+                cowGroupItem.CowNumber = GetCowCount(cowGroupItem.ID);
             }
             return cowGroupItem;
         }
@@ -160,6 +162,15 @@ namespace DairyCow.BLL
         public int DeleteCowGroup(int groupID)
         {
             return dalCowGroup.DeleteCowGroupByID(groupID);
+        }
+        /// <summary>
+        /// 获取牛群牛数
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
+        public int GetCowCount(int groupID)
+        {
+            return dalCowGroup.GetCowCount(groupID);
         }
     }
 }

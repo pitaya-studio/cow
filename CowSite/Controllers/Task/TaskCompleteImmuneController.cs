@@ -19,10 +19,8 @@ namespace CowSite.Controllers.Task
         UserBLL bllUser = new UserBLL();
         CowBLL bllCow = new CowBLL();
         CowGroupBLL bllCowGroup = new CowGroupBLL();
-        int id = 0; //任务ID
         public JsonResult LoadTask(string taskID)
         {
-            this.id = Convert.ToInt32(taskID);
             TaskBLL bllTask = new TaskBLL();
             DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(taskID));
 
@@ -36,12 +34,12 @@ namespace CowSite.Controllers.Task
             {
                 doctor = user.Role.Name,
                 doctorID = doctorID,
-                earNum = task.EarNum
+                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum)
             };
             return Json(taskData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SaveTask()
+        public ActionResult SaveTask(string id)
         {
             try
             {
@@ -50,20 +48,20 @@ namespace CowSite.Controllers.Task
                 int PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
                 string ImmuneDate = Request.Form["immuneDate"];
                 string Vaccine = Request.Form["immuneType"];
-                string EarNum = Request.Form["earNum"];
+                string EarNum = Request.Form["DisplayEarNum"];
                 string DoctorID = Request.Form["doctorID"];
 
                 immune.PastureID = Convert.ToInt32(PastureID);
                 immune.ImmuneDate = DateTime.Parse(ImmuneDate);
                 immune.Vaccine = Vaccine;
-                immune.EarNum = Convert.ToInt32(EarNum);
+                immune.EarNum = CowBLL.ConvertDislayEarNumToEarNum(EarNum, PastureID);
                 immune.DoctorID = Convert.ToInt32(DoctorID);
 
                 //增加一头的免疫记录
                 bllTask.AddImmuneRecord(immune);
 
                 //完成免疫任务
-                DairyTask task = bllTask.GetTaskByID(id);//To-do please get taskID 
+                DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));//To-do please get taskID 
                 //task.CompleteTime = DateTime.Now;//fill task data, for this CompleteTime,or use Datetime.Now as default
 
                 bllTask.CompleteImmune(task);

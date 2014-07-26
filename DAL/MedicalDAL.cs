@@ -31,7 +31,7 @@ namespace DairyCow.DAL
                                        ImmuneDate,
                                        Vaccine,
                                        EarNum,
-                                       DoctorID) Values({0},{1},[2},{3},{4})",
+                                       DoctorID) Values({0},'{1}','{2}',{3},{4})",
                                         pastureID, immuneDate.Date, vaccine, earNum, doctorID);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
@@ -81,8 +81,8 @@ namespace DairyCow.DAL
             string sql = @"SELECT Disease_Id,DiseaseType_Id,DiseaseName,Disease_Code  FROM Medical_DiseaseLibrary";
             return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
         }
-        
-        public void InsertCare(Care care,bool isBeastOrFoot)
+
+        public void InsertCare(Care care, bool isBeastOrFoot)
         {
             string sql;
             if (isBeastOrFoot)
@@ -98,7 +98,7 @@ namespace DairyCow.DAL
                                          values ({0},{1},'{2}',{3},'{4}')",
                                         care.EarNum, care.Disease_Id, care.Prescription, care.DoctorID, DateTime.Now.ToShortDateString());
             }
-            
+
             dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 
@@ -118,7 +118,7 @@ namespace DairyCow.DAL
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public int GetCareCowsCount(int diseaseId, DateTime startDate,DateTime endDate)
+        public int GetCareCowsCount(int diseaseId, DateTime startDate, DateTime endDate)
         {
             DataTable dt = null;
 

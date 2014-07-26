@@ -22,10 +22,13 @@
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
     <link rel="stylesheet" href="~/Style/base.css">
     <script type="text/javascript">
+        var taskID = "@ViewBag.TaskID";
+
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-Insemination", showSubMemu: false });
             initDateSelector();
             loadOperator();
+            loadTask();
         });
 
         function loadOperator() {
@@ -62,37 +65,19 @@
             });
         }
 
-        //function InitButton() {
-        //    $("#btnSave").show().ligerButton({
-        //        width: 80,
-        //        text: "提交",
-        //        disable: false,
-        //        click: function () {
-        //            var displayEarNum = $("#earNum").val();
-        //            var startDate = $('input[name=start]').val();
-        //            var endDate = $('input[name=end]').val();
-        //            var operatorID = $("#OperatorID").val();
-        //            var knownWay = $("input[name=knownWay]").val();
-        //            var semenNum = $('#semenNum').val();
-        //            var semenCount = $('#semenCount').val();
-        //            var desc = $('#desc').val();
-        //            $.ajax({
-        //                type: 'post',
-        //                url: "../../TaskInsemination/SaveTask",
-        //                dataType: "json",
-        //                data: {
-        //                    DisplayEarNum: displayEarNum, StartDate: startDate, EndDate: endDate,
-        //                    OperatorID: operatorID, KnowWay: knownWay, SemenNum: semenNum,
-        //                    SemenCount: semenCount, Description: desc
-        //                }
-        //            }).success(
-        //                    function () {
-        //                        alert("提交成功！");
-        //                    }
-        //            );
-        //        }
-        //    });
-        //}
+        function loadTask() {
+            $.ajax({
+                type: 'get',
+                url: "../../TaskInsemination/LoadTask",
+                data: { taskID: taskID },
+                dataType: "json",
+                cache: false
+            }).success(function (taskData) {
+                $('#startDate').val(taskData.startTime);
+                $('#earNum').val(taskData.earNum);
+            });
+        }
+
     </script>
 </head>
 <body>
@@ -101,7 +86,7 @@
         <div class="content">
             <div>发情/配种任务单</div>
             <div>
-                <form action="../../TaskInsemination/SaveTask" method="post">
+                <form action="../../TaskInsemination/SaveTask/@ViewBag.TaskID" method="post">
                     <div>任务单类型: 发情配种任务单</div>
                     <div>任务指导: 请观测牛群发情状况，并给发情牛配种。</div>
                     <br />

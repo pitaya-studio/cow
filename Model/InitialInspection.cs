@@ -20,7 +20,7 @@ namespace DairyCow.Model
         //初检结果1:+,0:-
         public int InspectResult { get; set; }
         //初检人
-        public string Operator { get; set; }
+        public int Operator { get; set; }
         //初检协助人
         public string HelpOperator { get; set; }
         //初检方式

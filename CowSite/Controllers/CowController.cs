@@ -13,11 +13,10 @@ namespace CowSite.Controllers
             return View();
         }
 
-        public ActionResult Detail()
+        public JsonResult GetCowInfo(string displayEarNum)
         {
-            Cow cowItem = bllCow.GetCowInfo(System.Convert.ToInt32(Request.QueryString["earNum"]));
-            ViewBag.Cow = cowItem;
-            return View();
+            Cow cowItem = bllCow.GetCowInfo(UserBLL.Instance.CurrentUser.Pasture.ID, displayEarNum);
+            return Json(new { Cow = cowItem }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

@@ -47,6 +47,7 @@ namespace DairyCow.BLL
         {
             return dalPasture.InsertPasture(name);
         }
+
         public int SetPastureActiveStatus(int id,bool isActive)
         {
             return dalPasture.UpdatePastureActiveStatus(id, isActive);

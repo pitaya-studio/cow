@@ -8,8 +8,7 @@ namespace DairyCow.DAL
         public DataTable GetPastureTable()
         {
             string sql = string.Format(@"SELECT ID,Name,IsActive FROM [BASE_PASTURE]");
-            return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
-            
+            return dataProvider1mutong.FillDataTable(sql, CommandType.Text);            
         }
 
         public int InsertPasture(string name)
@@ -21,6 +20,7 @@ namespace DairyCow.DAL
         public int UpdatePastureActiveStatus(int id,bool isActive)
         {
             string sql;
+
             if (isActive)
             {
                 sql = string.Format(@"update [BASE_PASTURE] SET IsActive=1 WHERE ID={0} ", id);
@@ -29,8 +29,8 @@ namespace DairyCow.DAL
             {
                 sql = string.Format(@"update [BASE_PASTURE] SET IsActive=0 WHERE ID={0} ", id);
             }
-            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
     }
 }

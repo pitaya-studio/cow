@@ -32,7 +32,7 @@ namespace CowSite.Controllers
             // 牛群整体结构
             ArrayList arrCowSummary = new ArrayList();
             arrCowSummary.Add(new { name = "经产牛", value = farm.CountOfMultiParity });
-            arrCowSummary.Add(new { name = "青年牛", value =farm.CountOfNullParity });
+            arrCowSummary.Add(new { name = "青年牛", value = farm.CountOfNullParity });
             arrCowSummary.Add(new { name = "育成牛", value = farm.CountOfBredCattle });
             arrCowSummary.Add(new { name = "犊牛", value = farm.CountOfCalf });
             // 牛群泌乳状态

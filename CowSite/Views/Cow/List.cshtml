@@ -9,10 +9,28 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>奶牛列表</title>
+    <link rel="shortcut icon" href="images/emutong.ico">
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/Home/Index.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <script src="~/Scripts/menu.js"></script>
+    <script>
+        var cowType = "@ViewBag.CowType";
+        $(function () {
+            $('.CowListTitle').html(cowType + "列表");
+            //$('#menu').menu({ mainMenuSelectedID: "Breed", subMenuSelectedID: "Breed-Home" });
+        });
+    </script>
 </head>
 <body>
-    <div> 
-        奶牛列表
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <div class="CowListTitle"></div>
+        </div>
     </div>
 </body>
 </html>

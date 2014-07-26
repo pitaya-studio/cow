@@ -13,6 +13,12 @@ namespace CowSite.Controllers
             return View();
         }
 
+        public ActionResult CowList()
+        {
+            ViewBag.CowType = Request.QueryString["cowType"];
+            return View("~/Views/Cow/List.cshtml");
+        }
+
         public JsonResult GetCowInfo(string displayEarNum)
         {
             Cow cowItem = bllCow.GetCowInfo(UserBLL.Instance.CurrentUser.Pasture.ID, displayEarNum);

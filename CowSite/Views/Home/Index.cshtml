@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>易牧通奶牛云智能管理平台</title>
     <link rel="shortcut icon" href="images/emutong.ico">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme1.min.css">
-    <link rel="stylesheet" href="../Style/base.css">
-    <link rel="stylesheet" href="../Style/Home/Index.css">
-    <script src="../Scripts/jquery-1.10.2.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
-    <script src="../Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/Home/Index.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script src="~/Scripts/menu.js"></script>
 </head>
 <body>
@@ -129,8 +129,7 @@
                                 },
                                 data: summary
                             }
-                        ],
-                        valueConnector: '-'
+                        ]
                     };
 
                     // 为echarts对象加载数据
@@ -138,7 +137,7 @@
 
                     var ecConfig = require('echarts/config');
                     myChart.on(ecConfig.EVENT.CLICK, function (param) {
-                        alert(param.name + '-' + param.value + '，列表页面开发中。');
+                        window.open("../Cow/CowList?cowType=" + param.name);
                     });
                 }
             );
@@ -201,8 +200,7 @@
                                     }
                                 },
                             }
-                        ],
-                        valueConnector: '-'
+                        ]
                     };
 
                     // 为echarts对象加载数据
@@ -210,7 +208,7 @@
 
                     var ecConfig = require('echarts/config');
                     myChart.on(ecConfig.EVENT.CLICK, function (param) {
-                        alert(param.name + '-' + param.value + '，列表页面开发中。');
+                        window.open("../Cow/CowList?cowType=" + param.name);
                     });
                 }
             );
@@ -273,8 +271,7 @@
                                     }
                                 },
                             }
-                        ],
-                        valueConnector: '-'
+                        ]
                     };
 
                     // 为echarts对象加载数据
@@ -282,7 +279,7 @@
 
                     var ecConfig = require('echarts/config');
                     myChart.on(ecConfig.EVENT.CLICK, function (param) {
-                        alert(param.name + '-' + param.value + '，列表页面开发中。');
+                        window.open("../Cow/CowList?cowType=" + param.name);
                     });
                 }
             );
@@ -345,8 +342,7 @@
                                     }
                                 }
                             }
-                        ],
-                        valueConnector: '-'
+                        ]
                     };
 
                     // 为echarts对象加载数据
@@ -354,7 +350,7 @@
 
                     var ecConfig = require('echarts/config');
                     myChart.on(ecConfig.EVENT.CLICK, function (param) {
-                        alert(param.name + '-' + param.value + '，列表页面开发中。');
+                        window.open("../Cow/CowList?cowType=" + param.name);
                     });
                 }
             );

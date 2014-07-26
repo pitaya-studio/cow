@@ -31,22 +31,34 @@
                 },
                 {
                     display: "左前乳", name: "LeftFront", type: "select", width: 270,
-                    options: { data: [{ text: "正常", id: "0" }, { text: "不正常", id: "1" }], valueFieldID: "LeftFront" },
+                    options: {
+                        data: [{ text: "-", id: "0" }, { text: "+", id: "1" }, { text: "++", id: "2" },
+                            { text: "+++", id: "3" }, { text: "++++", id: "4" }], valueFieldID: "LeftFront"
+                    },
                     validate: { required: true }
                 },
                 {
                     display: "右前乳", name: "RightFront", type: "select", width: 270,
-                    options: { data: [{ text: "正常", id: "0" }, { text: "不正常", id: "1" }], valueFieldID: "RightFront" },
+                    options: {
+                        data: [{ text: "-", id: "0" }, { text: "+", id: "1" }, { text: "++", id: "2" },
+                                { text: "+++", id: "3" }, { text: "++++", id: "4" }], valueFieldID: "RightFront"
+                    },
                     validate: { required: true }
                 },
                 {
                     display: "左后乳", name: "LeftBack", type: "select", width: 270,
-                    options: { data: [{ text: "正常", id: "0" }, { text: "不正常", id: "1" }], valueFieldID: "LeftBack" },
+                    options: {
+                        data: [{ text: "-", id: "0" }, { text: "+", id: "1" }, { text: "++", id: "2" },
+                                { text: "+++", id: "3" }, { text: "++++", id: "4" }], valueFieldID: "LeftBack"
+                    },
                     validate: { required: true }
                 },
                 {
                     display: "右后乳", name: "RightBack", type: "select", width: 270,
-                    options: { data: [{ text: "正常", id: "0" }, { text: "不正常", id: "1" }], valueFieldID: "RightBack" },
+                    options: {
+                        data: [{ text: "-", id: "0" }, { text: "+", id: "1" }, { text: "++", id: "2" },
+                                { text: "+++", id: "3" }, { text: "++++", id: "4" }], valueFieldID: "RightBack"
+                    },
                     validate: { required: true }
                 },
                 {
@@ -96,6 +108,6 @@
                 <input type="button" id="btnCancel" value="取消" />
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 </html>

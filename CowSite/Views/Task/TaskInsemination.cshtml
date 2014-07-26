@@ -37,7 +37,7 @@
                 success: function (user) {
                     if (user) {
                         $("#OperatorID").empty();
-                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择禁配人" + '</option>');
+                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择配种员" + '</option>');
                         $.each(user, function () {
                             $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
                         });

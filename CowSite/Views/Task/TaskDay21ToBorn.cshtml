@@ -24,14 +24,34 @@
     <script type="text/javascript">
         var taskID = "@ViewBag.TaskID";
 
-        $(function () {
+        $(function ()
+        {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-Day21ToBorn", showSubMemu: false });
-            initDateSelector();
-            loadOperator();
+            
             loadTask();
-        });
+        });        
 
-        function loadOperator() {
+        function loadTask()
+        {
+            $.ajax({
+                type: 'get',
+                url: "../../TaskDay21ToBorn/LoadTask",
+                data: { taskID: taskID },
+                dataType: "json",
+                cache: false,
+                success: function (taskData) {
+                    $('input[name=id]').val(taskID);
+                    $('#taskid').text(taskID);
+                    $('input[name=DisplayEarNum]').val(taskData.DisplayEarNum);
+
+                    initDateSelector(taskData.ArrivalTime);
+                    loadOperator(taskData.Operator);
+                }
+            });
+        }
+
+        function loadOperator(op)
+        {
             $.ajax({
                 type: 'get',
                 url: '../../Users/User/GetUserItems',
@@ -43,19 +63,24 @@
                         $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择操作人员" + '</option>');
                         $.each(user, function () {
                             $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
-                        });
+                        })
+                        $('select[name=operatorName]').val(op);
+                        ;
                     }
                 }
             });
         }
 
-        function initDateSelector() {
+        function initDateSelector(start) 
+        {
             $('input[name=start]').datepicker({
                 language: 'zh-CN',
                 autoclose: 1,
                 todayHighlight: 1,
-                format: "yyyy-mm-dd"
+                format: "yyyy-mm-dd",
             });
+
+            $('input[name=start]').val(start);
 
             $('input[name=end]').datepicker({
                 language: 'zh-CN',
@@ -65,22 +90,6 @@
             });
         }
 
-        function loadTask() {
-            $.ajax({
-                type: 'get',
-                url: "../../TaskDay21ToBorn/LoadTask",
-                data: { taskID: taskID },
-                dataType: "json",
-                cache: false
-            }).success(function (taskData) {
-                $('input[name=id]').val(taskID);
-                $('#taskid').text(taskID);
-                $('input[name=DisplayEarNum]').val(taskData.DisplayEarNum);
-                $('input[name=startDate]').val(taskData.ArrivalTime);
-                $('input[name=operatorName]').val(taskData.Operator);
-            });           
-
-        }
     </script>
 </head>
 <body>

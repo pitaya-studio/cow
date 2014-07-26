@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace CowSite.Controllers.Task
 {
     public class TaskDay21ToBornController : Controller
-    {       
+    {
         public JsonResult LoadTask(string taskID)
         {
             TaskBLL bll = new TaskBLL();
@@ -17,25 +17,33 @@ namespace CowSite.Controllers.Task
             v = bll.GetTaskByID(Convert.ToInt32(taskID));
             string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
 
-            UserBLL u = new UserBLL();
-            User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
+            UserBLL u = new UserBLL();            
 
-            return Json(new { 
-                EarNum=v.EarNum,
+            return Json(new
+            {
+                EarNum = v.EarNum,
                 DisplayEarNum = displayEarNum,
-                ArrivalTime=v.ArrivalTime.ToString("yyyy-MM-dd"),
-                Operator = user.Name
+                ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
+                Operator = v.OperatorID
             }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SaveTask()
         {
-            TaskBLL bll = new TaskBLL();
-            DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-            v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
-
-            bll.CompleteDay21ToBorn(v);
-            return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+            try
+            {
+                TaskBLL bll = new TaskBLL();
+                DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
+                v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
+                v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
+                bll.CompleteDay21ToBorn(v);
+                return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                //todo show error msg
+                return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+            }
         }
-	}
+    }
 }

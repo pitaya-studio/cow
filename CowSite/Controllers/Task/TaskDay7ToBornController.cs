@@ -17,9 +17,7 @@ namespace CowSite.Controllers.Task
             DairyTask v;
             v = bll.GetTaskByID(Convert.ToInt32(taskID));
             string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
-
-            UserBLL u = new UserBLL();
-          
+                              
             return Json(new
             {
                 EarNum = v.EarNum,

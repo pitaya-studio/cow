@@ -27,6 +27,12 @@ namespace CowSite.Controllers.Users
             };
             return Json(userData, JsonRequestBehavior.AllowGet);
         }
+        //用于select
+        public JsonResult GetUserItems()
+        {
+            List<User> userList = bllUser.GetUsers();
+            return Json(userList, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Save()
         {

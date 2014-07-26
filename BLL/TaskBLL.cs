@@ -30,6 +30,20 @@ namespace DairyCow.BLL
         public List<DairyTask> GetAllTasks(int pastureID)
         {
             List<DairyTask> list = new List<DairyTask>();
+
+            if(UserBLL.Instance.CurrentUser.Role.CanBreed)
+            {
+                DairyTask task = new DairyTask();
+                task.EarNum = -1;
+                task.TaskType = TaskType.InseminationTask;
+                task.Status = DairyTaskStatus.Initial;
+                task.ArrivalTime = DateTime.Now;
+                task.RoleID = UserBLL.Instance.CurrentUser.Role.ID;
+                task.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+                task.OperatorID = Convert.ToInt32(UserBLL.Instance.CurrentUser.ID);
+                list.Add(task);
+            }
+
             DataTable tb = taskDAL.GetAllTasks(pastureID);
             foreach (DataRow item in tb.Rows)
             {
@@ -154,6 +168,10 @@ namespace DairyCow.BLL
                 {
                     t.EarNum = Convert.ToInt32(row["EarNum"]);
                 }
+                if (row["PastureID"] != DBNull.Value)
+                {
+                    t.PastureID = Convert.ToInt32(row["PastureID"]);
+                }
             }
             return t;
         }
@@ -231,9 +249,8 @@ namespace DairyCow.BLL
             CowInfo cow = new CowInfo(insemination.EarNum);
             //添加任务记录，添加即已完成 Todo
             task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
-            UpdateTask(task);
+            taskDAL.InsertTask(task);
 
             //删除无效的妊检任务单
             RemovePreviousInspectionTasks(insemination.EarNum, true);
@@ -256,7 +273,8 @@ namespace DairyCow.BLL
             CowBLL c = new CowBLL();
             Cow cc = c.GetCowInfo(task.EarNum);
             initialInspectionTask.OperatorID = g.GetCowGroupList(task.PastureID).Find(p => p.ID == cc.GroupID).InsemOperatorID;
-
+            initialInspectionTask.RoleID = task.RoleID;
+            initialInspectionTask.PastureID = task.PastureID;
             taskDAL.InsertTask(initialInspectionTask);
 
 

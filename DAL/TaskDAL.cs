@@ -173,29 +173,31 @@ namespace DairyCow.DAL
             if (myTask.TaskType == TaskType.InseminationTask)
             {
                 sqlString.Append(@"insert into [Task] 
-                          (TaskType,OperatorID,CowEarNum,ArrivalTime,DeadLine,FinishedTime,Status,InputTime,PastureID) 
+                          (TaskType,OperatorID,EarNum,ArrivalTime,DeadLine,FinishedTime,[Status],InputTime,RoleID,PastureID) 
                                                     values (
                                     '" + typeValue + "',"
                           + myTask.OperatorID + ",'"
-                          + myTask.EarNum + "',"
-                          + myTask.ArrivalTime + ",'"
-                          + myTask.DeadLine + "',"
-                          + myTask.CompleteTime + ","
+                          + myTask.EarNum + "','"
+                          + myTask.ArrivalTime + "','"
+                          + myTask.DeadLine + "','"
+                          + myTask.CompleteTime + "',"
                           + taskStatus + ",'"
                           + myTask.InputTime + "','"
+                          + myTask.RoleID + "','"
                           + myTask.PastureID + "')");
             }
             else
             {
                 sqlString.Append(@"insert into [Task] 
-                          (TaskType,OperatorID,CowEarNum,ArrivalTime,DeadLine,Status,PastureID) 
+                          (TaskType,OperatorID,EarNum,ArrivalTime,DeadLine,[Status],RoleID,PastureID) 
                                                     values (
                                     '" + typeValue + "',"
                           + myTask.OperatorID + ",'"
-                          + myTask.EarNum + "',"
-                          + myTask.ArrivalTime + ",'"
+                          + myTask.EarNum + "','"
+                          + myTask.ArrivalTime + "','"
                           + myTask.DeadLine + "',"
                           + taskStatus + ",'"
+                          + myTask.RoleID + "','"
                           + myTask.PastureID + "')");
             }
 

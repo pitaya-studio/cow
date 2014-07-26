@@ -22,16 +22,25 @@
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
     <link rel="stylesheet" href="~/Style/base.css">
     <script type="text/javascript">
-        var taskID = "@ViewBag.TaskID";
-
+      
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-Insemination", showSubMemu: false });
-            initDateSelector();
-            loadOperator();
-            //loadTask();
+            loadTask();           
         });
 
-        function loadOperator() {
+        function loadTask() {
+            $.ajax({
+                type: 'get',
+                url: "../../TaskInsemination/LoadTask",
+                dataType: "json",
+                cache: false
+            }).success(function (taskData) {                
+                initDateSelector(taskData.startTime);
+                loadOperator(taskData.op);
+            });
+        }
+
+        function loadOperator(op) {
             $.ajax({
                 type: 'get',
                 url: '../../Users/User/GetUserItems',
@@ -40,43 +49,32 @@
                 success: function (user) {
                     if (user) {
                         $("#OperatorID").empty();
-                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择配种员" + '</option>');
+                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择操作人员" + '</option>');
                         $.each(user, function () {
                             $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
-                        });
+                        })
+                        $('select[name=operatorName]').val(op);
+                        ;
                     }
                 }
             });
         }
 
-        function initDateSelector() {
+        function initDateSelector(sta) {
             $('input[name=start]').datepicker({
                 language: 'zh-CN',
                 autoclose: 1,
                 todayHighlight: 1,
                 format: "yyyy-mm-dd"
             });
-
+            $('input[name=start]').val(sta);
             $('input[name=end]').datepicker({
                 language: 'zh-CN',
                 autoclose: 1,
                 todayHighlight: 1,
                 format: "yyyy-mm-dd"
             });
-        }
-
-        function loadTask() {
-            $.ajax({
-                type: 'get',
-                url: "../../TaskInsemination/LoadTask",
-                data: { taskID: taskID },
-                dataType: "json",
-                cache: false
-            }).success(function (taskData) {
-                $('#startDate').val(taskData.startTime);
-                $('#earNum').val(taskData.earNum);
-            });
-        }
+        }       
 
     </script>
 </head>
@@ -86,7 +84,7 @@
         <div class="content">
             <div>发情/配种任务单</div>
             <div>
-                <form action="../../TaskInsemination/SaveTask/@ViewBag.TaskID" method="post">
+                <form action="../../TaskInsemination/SaveTask/" method="post">
                     <div>任务单类型: 发情配种任务单</div>
                     <div>任务指导: 请观测牛群发情状况，并给发情牛配种。</div>
                     <br />

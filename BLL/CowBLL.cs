@@ -40,6 +40,10 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static string ConvertEarNumToDisplayEarNum(int earNum)
         {
+            if(earNum == -1)
+            {
+                return string.Empty;
+            }
             CowDAL dal = new CowDAL();
             return dal.ConvertEarNumToDisplayEarNum(earNum);
         }
@@ -52,6 +56,10 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static int ConvertDislayEarNumToEarNum(string displayEarNum, int pastureID)
         {
+            if(string.IsNullOrEmpty(displayEarNum))
+            {
+                return -1;
+            }
             CowDAL dal = new CowDAL();
             return dal.ConvertDislayEarNumToEarNum(displayEarNum, pastureID);
         }

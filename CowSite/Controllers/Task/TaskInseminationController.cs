@@ -13,13 +13,12 @@ namespace CowSite.Controllers.Task
         TaskBLL bllTask = new TaskBLL();
         InseminationBLL bllInsemination = new InseminationBLL();
 
-        public JsonResult LoadTask(string taskID)
-        {
-            DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(taskID));
+        public JsonResult LoadTask()
+        {            
             var taskData = new
             {
-                startTime = task.ArrivalTime.ToString("yyyy-MM-dd"),
-                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum)
+                op = UserBLL.Instance.CurrentUser.ID,
+                startTime = DateTime.Now.ToString("yyyy-MM-dd")
             };
             return Json(taskData, JsonRequestBehavior.AllowGet);
         }
@@ -44,7 +43,16 @@ namespace CowSite.Controllers.Task
             i.InseminationNum = Convert.ToInt32(semenCount);
             i.Description = desc;
 
-            DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
+            DairyTask task = new DairyTask();
+            task.TaskType = TaskType.InseminationTask;
+            task.EarNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum,UserBLL.Instance.CurrentUser.Pasture.ID);
+            task.ArrivalTime = DateTime.Parse(startDate);
+            task.CompleteTime = DateTime.Parse(endDate);
+            task.DeadLine = DateTime.Parse(endDate);
+            task.RoleID = UserBLL.Instance.CurrentUser.Role.ID;
+            task.PastureID =UserBLL.Instance.CurrentUser.Pasture.ID;
+            task.OperatorID = Convert.ToInt32(operatorID);           
+
             bllTask.CompleteInsemination(task, i);
 
             return View("~/Views/Task/Index.cshtml");

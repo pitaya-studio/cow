@@ -52,7 +52,7 @@ namespace DairyCow.BLL
             {
                 p.CanBeConfiguredByAdmin = false;
             }
-            p.Description = row[""].ToString();
+            p.Description = row["Description"].ToString();
             return p;
         }
         /// <summary>

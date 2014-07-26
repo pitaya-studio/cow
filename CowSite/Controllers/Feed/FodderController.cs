@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DairyCow.DAL;
+using DairyCow.Model;
+using DairyCow.BLL;
 
 namespace CowSite.Controllers.Feed
 {
@@ -16,6 +18,74 @@ namespace CowSite.Controllers.Feed
         public ActionResult Maintain()
         {
             return View("~/Views/Feed/Fodder/Maintain.cshtml");
+        }
+
+        public JsonResult GetPastureFoldders()
+        {
+            List<PastureFodder> fodderList = new List<PastureFodder>();
+            FodderBLL fBLL = new FodderBLL();
+            fodderList = fBLL.GetPastureFodders(UserBLL.Instance.CurrentUser.Pasture.ID);
+            var fodders = new
+            {
+                Rows = fodderList
+            };
+            return Json(fodders, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSysFodders()
+        {
+            List<Fodder> sysFodderList = new List<Fodder>();
+            FodderBLL fBLL = new FodderBLL();
+            sysFodderList = fBLL.GetAllSysFodderList();
+            return Json(sysFodderList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AddPastureFodder(string fodderName, string quantity, string  price, string sysFodderID)
+        {
+            string Msg;
+            PastureFodder p = new PastureFodder();
+            p.FodderName = fodderName;
+            p.IsCurrent = true;
+            double result;
+            if ( Double.TryParse(quantity, out result))
+            {
+                p.Quantity = result;
+
+                if (Double.TryParse(price,out result))
+                {
+                    p.Price = result;
+                    int rr;
+                    if (Int32.TryParse(sysFodderID,out rr))
+                    {
+                        p.SysFodderID = rr;
+                        p.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+
+                        FodderBLL fBLL = new FodderBLL();
+                        int temp = fBLL.InsertPastureFodder(p);
+                        Msg = temp == 1 ? "成功添加牧场饲料！" : "未添加成功！";
+                    }
+                    else
+                    {
+                        Msg = "标准饲料选择错！";
+                    }
+                }
+                else
+                {
+                    Msg = "价格输入错！";
+                }
+            }
+            else
+            {
+                Msg = "饲料数量输入错！";
+            }
+            return Json(new { Msg = Msg }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DeletePastureFodder(string fodderID)
+        {
+            FodderBLL fBLL = new FodderBLL();
+            int temp = fBLL.DeletePastureFodder(Int32.Parse(fodderID));
+            string s=temp==1?"成功删除饲料！":"未删除。";
+            return Json(new { Msg = s }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Calculate()

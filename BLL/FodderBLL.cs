@@ -83,6 +83,7 @@ namespace DairyCow.BLL
                 f.Quantity = Convert.ToDouble(fodderRow["Quantity"]);
                 f.Price = Convert.ToDouble(fodderRow["Price"]);
                 f.PastureID = Convert.ToInt32(fodderRow["PastureID"]);
+                f.SysFodderName = fodderRow["SysFodderName"].ToString();
             }
             return f;
         }
@@ -97,6 +98,40 @@ namespace DairyCow.BLL
                 fodderItem.Quantity = Convert.ToInt32(fodderRow["Quantity"]);
             }
             return fodderItem;
+        }
+
+        /// <summary>
+        /// 获取所有标准饲料（不包含营养信息）
+        /// </summary>
+        /// <returns></returns>
+        public List<Fodder> GetAllSysFodderList()
+        {
+            DataTable table = dalFodder.GetStandardFodderTable();
+            List<Fodder> list = new List<Fodder>();
+            foreach (DataRow item in table.Rows)
+            {
+                Fodder fodderItem = new Fodder();
+                fodderItem.ID = Convert.ToInt32(item["ID"]);
+                fodderItem.Name = item["Name"].ToString();
+                fodderItem.Description = item["Description"].ToString();
+                list.Add(fodderItem);
+            }
+            
+            return list;
+        }
+        /// <summary>
+        /// 插入牧场饲料，保证f.PastureID, f.FodderName, f.SysFodderID, f.Quantity, f.IsCurrent, f.Price非空
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        public int InsertPastureFodder(PastureFodder f)
+        {
+            return dalFodder.InsertPastureFodder(f.PastureID, f.FodderName, f.SysFodderID, f.Quantity, f.IsCurrent, f.Price);
+        }
+
+        public int DeletePastureFodder(int fodderID)
+        {
+            return dalFodder.DeletePastureFodder(fodderID);
         }
 
         public PastureFodder MapToPastureFodder(Fodder standardFodder, int pastureID)

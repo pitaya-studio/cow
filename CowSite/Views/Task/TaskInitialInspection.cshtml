@@ -26,44 +26,9 @@
 
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-InitialInspection", showSubMemu: false });
-            initDateSelector();
-            loadOperator();
+            
             loadTask();
         });
-
-        function initDateSelector() {
-            $('input[name=start]').datepicker({
-                language: 'zh-CN',
-                autoclose: 1,
-                todayHighlight: 1,
-                format: "yyyy-mm-dd"
-            });
-
-            $('input[name=end]').datepicker({
-                language: 'zh-CN',
-                autoclose: 1,
-                todayHighlight: 1,
-                format: "yyyy-mm-dd"
-            });
-        }
-
-        function loadOperator() {
-            $.ajax({
-                type: 'get',
-                url: '../../Users/User/GetUserItems',
-                dataType: 'json',
-                cache: false,
-                success: function (user) {
-                    if (user) {
-                        $("#OperatorID").empty();
-                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择初检员" + '</option>');
-                        $.each(user, function () {
-                            $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
-                        });
-                    }
-                }
-            });
-        }
 
         function loadTask() {
             $.ajax({
@@ -73,8 +38,45 @@
                 dataType: "json",
                 cache: false
             }).success(function (taskData) {
-                $('#startDate').val(taskData.startTime);
                 $('#earNum').val(taskData.earNum);
+                initDateSelector(taskData.startTime);
+                loadOperator(taskData.op);
+            });
+        }
+
+        function initDateSelector(sta) {
+            $('input[name=start]').datepicker({
+                language: 'zh-CN',
+                autoclose: 1,
+                todayHighlight: 1,
+                format: "yyyy-mm-dd"
+            });
+            $('input[name=start]').val(sta);
+            $('input[name=end]').datepicker({
+                language: 'zh-CN',
+                autoclose: 1,
+                todayHighlight: 1,
+                format: "yyyy-mm-dd"
+            });
+        }
+
+        function loadOperator(op) {
+            $.ajax({
+                type: 'get',
+                url: '../../Users/User/GetUserItems',
+                dataType: 'json',
+                cache: false,
+                success: function (user) {
+                    if (user) {
+                        $("#OperatorID").empty();
+                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择操作人员" + '</option>');
+                        $.each(user, function () {
+                            $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        })
+                        $('select[name=operatorName]').val(op);
+                        ;
+                    }
+                }
             });
         }
     </script>

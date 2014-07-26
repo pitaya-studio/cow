@@ -21,7 +21,8 @@ namespace CowSite.Controllers.Task
             var taskData = new
             {
                 startTime = task.ArrivalTime.ToString("yyyy-MM-dd"),
-                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum)
+                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum),
+                op = task.OperatorID
             };
             return Json(taskData, JsonRequestBehavior.AllowGet);
         }

@@ -35,18 +35,19 @@
                 type: 'get',
                 url: '../../Breed/Index/GetBreedIndicant',
                 dataType: 'json',
-                timeout: 90000,
+                timeout: 90000000,
                 success: function (data) {
                     var breedIndicantGridManager = $("#breedIndicantGrid").ligerGrid({
                         checkbox: false,
                         columns: [
-                            { display: '经产牛平均初产月龄', name: 'Indicant1', type: 'double', width: 120 },
-                            { display: '头胎牛平均初产月龄', name: 'Indicant2', type: 'double', width: 120 },
-                            { display: '经产牛产后首次发情平均天数(发情间隔)', name: 'Indicant3', type: 'double', width: 160 },
-                            { display: '经产牛未孕牛空怀天数', name: 'Indicant4', type: 'double', width: 130 },
-                            { display: '经产牛配准天数', name: 'Indicant5', type: 'double', width: 100 },
-                            { display: '经产牛胎间距', name: 'Indicant6', type: 'double', width: 100 },
-                            { display: '经产牛首次配种妊娠率', name: 'Indicant7', type: 'double', width: 120 },
+                            { display: '指标', name: 'IndicantScope', type: 'string', width: 100 },
+                            { display: '平均初产月龄', name: 'Indicant1', type: 'double', width: 100 },
+                            { display: '平均初产月龄', name: 'Indicant2', type: 'double', width: 100 },
+                            { display: '发情间隔', name: 'Indicant3', type: 'double', width: 100 },
+                            { display: '未孕牛空怀天数', name: 'Indicant4', type: 'double', width: 130 },
+                            { display: '配准天数', name: 'Indicant5', type: 'double', width: 100 },
+                            { display: '胎间距', name: 'Indicant6', type: 'double', width: 100 },
+                            { display: '首次配种妊娠率', name: 'Indicant7', type: 'double', width: 120 },
                             { display: '青年牛首次配种妊娠率', name: 'Indicant8', type: 'double', width: 120 },
                             { display: '总配次<3的配种妊娠率', name: 'Indicant9', type: 'double', width: 120 }
                         ],

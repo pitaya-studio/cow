@@ -22,7 +22,10 @@ namespace CowSite.Controllers.Feed
             return Json(cowGroupData, JsonRequestBehavior.AllowGet);
         }
 
-        //用于select绑定
+        /// <summary>
+        /// 用于select绑定
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetCowGroupList()
         {
             List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(pastureID);
@@ -35,11 +38,9 @@ namespace CowSite.Controllers.Feed
         /// <returns></returns>
         public JsonResult GetRemindCows()
         {
-            List<CowInfo> cows;
             FarmInfo fi = new FarmInfo();
-            cows = fi.GetNeedRegroupingCows();
-
-            return Json(cows, JsonRequestBehavior.AllowGet);
+            List<CowInfo>  cows = fi.GetNeedRegroupingCows();
+            return Json(new { Rows = cows }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult List()
@@ -48,7 +49,10 @@ namespace CowSite.Controllers.Feed
             return View("~/Views/CowGroup/List.cshtml");
         }
 
-        //弹出新增牛群详细对话框
+        /// <summary>
+        /// 弹出新增牛群详细对话框
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddCowGroup()
         {
             return View("~/Views/CowGroup/Add.cshtml");
@@ -68,7 +72,12 @@ namespace CowSite.Controllers.Feed
         {
             return Json(this.bllCowGroup.GetCowGroupInfo(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
-        //删除牛群
+
+        /// <summary>
+        /// 删除牛群
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult Delete(string id)
         {
             int i = bllCowGroup.DeleteCowGroup(Convert.ToInt32(id));
@@ -83,7 +92,11 @@ namespace CowSite.Controllers.Feed
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
-        //增加牛群
+
+        /// <summary>
+        /// 增加牛群
+        /// </summary>
+        /// <returns></returns>
         public JsonResult Add()
         {
             CowGroup group = new CowGroup();

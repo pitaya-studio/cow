@@ -1,5 +1,4 @@
-﻿using CowSite.Base;
-using DairyCow.BLL;
+﻿using DairyCow.BLL;
 using DairyCow.Model;
 using System.Collections;
 using System.Collections.Generic;

@@ -1416,7 +1416,5 @@ namespace DairyCow.BLL
             }
             return list;
         }
-
-
     }
 }

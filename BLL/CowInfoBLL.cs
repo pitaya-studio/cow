@@ -19,7 +19,7 @@ namespace DairyCow.BLL
         //private string cowType;
         private static CowDAL dalCow = new CowDAL();
         private static CalvingDAL calvingDAL = new CalvingDAL();
-        private static InseminationDAL insemDAL=new InseminationDAL();
+        private static InseminationDAL insemDAL = new InseminationDAL();
         private static DryMilkDAL dryMilkDAL = new DryMilkDAL();
 
 
@@ -33,7 +33,7 @@ namespace DairyCow.BLL
         {
             get
             {
-                if (this.Parity>0)
+                if (this.Parity > 0)
                 {
                     return calvingList[0];
                 }
@@ -50,7 +50,7 @@ namespace DairyCow.BLL
         {
             get
             {
-                if (dryMilkList.Count>0)
+                if (dryMilkList.Count > 0)
                 {
                     return dryMilkList[0];
                 }
@@ -63,7 +63,7 @@ namespace DairyCow.BLL
 
         public CowInfo(int earNum)
         {
-            CowBLL cb=new CowBLL();
+            CowBLL cb = new CowBLL();
             this.earNum = earNum;
             myCow = cb.GetCowInfo(earNum);
             this.calvingList = CowInfo.GetCowCalvingRecords(earNum);
@@ -98,7 +98,7 @@ namespace DairyCow.BLL
             }
         }
 
-        public int EarNum 
+        public int EarNum
         {
             get
             {
@@ -106,7 +106,7 @@ namespace DairyCow.BLL
             }
             //set;
         }
-        public string DisplayEarNum 
+        public string DisplayEarNum
         {
             get
             {
@@ -114,8 +114,8 @@ namespace DairyCow.BLL
             }
             //set; 
         }
-        public int GroupID 
-        { 
+        public int GroupID
+        {
             get
             {
                 return myCow.GroupID;
@@ -126,7 +126,7 @@ namespace DairyCow.BLL
         public string GroupName
         {
             get
-            { 
+            {
                 return myCow.GroupName;
             }
             //set; 
@@ -142,15 +142,15 @@ namespace DairyCow.BLL
             }
         }
 
-        public string Status 
-        { 
+        public string Status
+        {
             get
             {
                 return myCow.Status;
             }
             //set; 
         }
-        public string Gender 
+        public string Gender
         {
             get
             {
@@ -158,7 +158,7 @@ namespace DairyCow.BLL
             }
             //set;
         }
-        public int FarmCode 
+        public int FarmCode
         {
             get
             {
@@ -166,7 +166,7 @@ namespace DairyCow.BLL
             }
             //set;
         }
-        public DateTime BirthDate 
+        public DateTime BirthDate
         {
             get
             {
@@ -174,14 +174,14 @@ namespace DairyCow.BLL
             }
             //set; 
         }
-        public double AgeMonth 
+        public double AgeMonth
         {
             get
             {
                 return myCow.AgeMonth;
             }
         }
-        public float BirthWeight 
+        public float BirthWeight
         {
             get
             {
@@ -189,7 +189,7 @@ namespace DairyCow.BLL
             }
             //set; 
         }
-        public string Color 
+        public string Color
         {
             get
             {
@@ -245,7 +245,7 @@ namespace DairyCow.BLL
         {
             get
             {
-                Dictionary<string,float> myDictionary= DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
+                Dictionary<string, float> myDictionary = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
                 if (this.CowType == "青年牛" || GetTimesOfInsemination(this.earNum) == 0 || myCow.AgeMonth > myDictionary["MaxUninseminatedAgeMonth"])
                 {
                     return true;
@@ -276,23 +276,24 @@ namespace DairyCow.BLL
 
         public string MilkType
         {
-            get 
-            { 
-                return this.GetCowMilkType(); 
+            get
+            {
+                return this.GetCowMilkType();
             }
-           
+
         }
 
-       
 
-       
+
+
 
         /// <summary>
         /// 泌乳天数
         /// </summary>
         public int DaysInMilk
-        { 
-            get{
+        {
+            get
+            {
                 return GetCowDaysInMilk(this.earNum);
             }
         }
@@ -311,18 +312,18 @@ namespace DairyCow.BLL
         /// </summary>
         public DateTime GetLatestCalvingDate()
         {
-           
-                DateTime t = DateTime.MinValue;
-                Calving cal = GetLatestCalving(this.earNum);
-                if (cal !=null)
-                {
-                    t = cal.Birthday;
-                }
-                else
-                {
-                    t = this.BirthDate;
-                }
-                return t;
+
+            DateTime t = DateTime.MinValue;
+            Calving cal = GetLatestCalving(this.earNum);
+            if (cal != null)
+            {
+                t = cal.Birthday;
+            }
+            else
+            {
+                t = this.BirthDate;
+            }
+            return t;
         }
 
         public Insemination FirstInseminationOfCurrentBreedPeriod
@@ -355,7 +356,7 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public double GetDaysToFirstInsemination()
         {
-            double d=0.0;
+            double d = 0.0;
             if (this.Parity > 0 && this.FirstInseminationOfCurrentBreedPeriod != null)
             {
                 d = this.FirstInseminationOfCurrentBreedPeriod.OperateDate.Subtract(GetLatestCalvingDate()).TotalDays;
@@ -380,13 +381,13 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static double GetAverageParityInterval(int earNum)
         {
-            double interval = 0.0,total=0.0;
+            double interval = 0.0, total = 0.0;
             List<Calving> calvingList = GetCowCalvingRecords(earNum);
             //calvingList.Sort()
             int count = calvingList.Count;
-            if (count>1)
+            if (count > 1)
             {
-                for (int i = 0; i < count-1; i++)
+                for (int i = 0; i < count - 1; i++)
                 {
                     total = total + Math.Abs(calvingList[i].Birthday.Subtract(calvingList[i + 1].Birthday).TotalDays);
                 }
@@ -403,7 +404,7 @@ namespace DairyCow.BLL
             get
             {
                 //依赖于牛状态不错，否则还需要看产犊表
-                if (myCow.Status == "初检+" | myCow.Status == "复检+" )
+                if (myCow.Status == "初检+" | myCow.Status == "复检+")
                 {
                     TimeSpan t = DateTime.Now.Subtract(GetLatestInsemination(this.earNum).OperateDate);
                     return Convert.ToInt32(t.TotalDays);
@@ -443,17 +444,17 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static List<Insemination> GetInseminationListOfCurrentBreedPeriod(int earNum)
         {
-            InseminationBLL bllInsem=new InseminationBLL();
+            InseminationBLL bllInsem = new InseminationBLL();
             DateTime latestCalTime = DateTime.MinValue;
-            Calving cal= GetLatestCalving(earNum);
-            if (cal!=null)
+            Calving cal = GetLatestCalving(earNum);
+            if (cal != null)
             {
                 latestCalTime = cal.Birthday;
             }
             else
             {
-                CowBLL cb=new CowBLL();
-                Cow myCow=cb.GetCowInfo(earNum);
+                CowBLL cb = new CowBLL();
+                Cow myCow = cb.GetCowInfo(earNum);
                 latestCalTime = myCow.BirthDate;
             }
             List<Insemination> list = bllInsem.GetInseminationList(earNum, latestCalTime);
@@ -469,12 +470,12 @@ namespace DairyCow.BLL
             Insemination insem;
             // 取本轮配种记录列表
             List<Insemination> list = GetInseminationListOfCurrentBreedPeriod(earNum);
-            if (list.Count>0)
+            if (list.Count > 0)
             {
                 insem = list[0];
                 for (int i = 1; i < list.Count; i++)
                 {
-                    if (insem.OperateDate.CompareTo(list[i].OperateDate)>0)
+                    if (insem.OperateDate.CompareTo(list[i].OperateDate) > 0)
                     {
                         insem = list[i];
                     }
@@ -515,18 +516,18 @@ namespace DairyCow.BLL
 
 
 
-       
+
 
         /// <summary>
         /// 牛类型，公牛，犊牛，育成牛，青年牛，经产牛
         /// </summary>
         public string CowType
         {
-            get 
+            get
             {
                 return GetCowType(this);
             }
-            
+
         }
 
         /// <summary>
@@ -566,7 +567,7 @@ namespace DairyCow.BLL
                         {
                             cowType = "青年牛";
                         }
-                        
+
                     }
                 }
             }
@@ -583,11 +584,11 @@ namespace DairyCow.BLL
             {
                 return parity;
             }
-         }
+        }
 
-        
 
-    
+
+
 
 
 
@@ -606,21 +607,21 @@ namespace DairyCow.BLL
             if (cal == null)
             {
                 //未产过犊
-                dayInMilk=0;
+                dayInMilk = 0;
             }
             else
             {
                 TimeSpan span = new TimeSpan();
-                if (dry==null)
+                if (dry == null)
                 {
                     //没有干奶，从产犊到现在
-                    
+
                     span = DateTime.Now.Date.Subtract(dry.DryDate.Date);
                     dayInMilk = Convert.ToInt32(span.TotalDays);
                 }
                 else
                 {
-                    if (cal.Birthday.CompareTo(dry.DryDate)<0)
+                    if (cal.Birthday.CompareTo(dry.DryDate) < 0)
                     {
                         //干奶在产犊后
                         span = dry.DryDate.Date.Subtract(cal.Birthday.Date);
@@ -660,14 +661,14 @@ namespace DairyCow.BLL
                 if (dry == null)
                 {
                     //没有干奶，从产犊到现在
-                    dayInDry =0;
+                    dayInDry = 0;
                 }
                 else
                 {
                     if (cal.Birthday.CompareTo(dry.DryDate) < 0)
                     {
                         //干奶在产犊后
-                        span =DateTime.Now.Subtract(dry.DryDate);
+                        span = DateTime.Now.Subtract(dry.DryDate);
                         dayInDry = Convert.ToInt32(span.TotalDays);
                     }
                     else
@@ -693,7 +694,7 @@ namespace DairyCow.BLL
             {
                 if (dry == null)
                 {
-                    milkType="泌乳牛";
+                    milkType = "泌乳牛";
                 }
                 else
                 {
@@ -757,7 +758,7 @@ namespace DairyCow.BLL
 
             InseminationBLL insem1 = new InseminationBLL();
             return insem1.GetLatestInsemination(earNum);
-            
+
         }
 
 
@@ -771,10 +772,10 @@ namespace DairyCow.BLL
         public static List<Calving> GetCowCalvingRecords(int earNum)
         {
             List<Calving> calvingRecords = new List<DairyCow.Model.Calving>();
-            DataTable calvingTable = calvingDAL.GetCowCalvingRecords(earNum,true);
+            DataTable calvingTable = calvingDAL.GetCowCalvingRecords(earNum, true);
             //按顺序插入
-            int count=calvingTable.Rows.Count;
-            
+            int count = calvingTable.Rows.Count;
+
             if (count > 0)
             {
                 for (int i = 0; i < count; i++)
@@ -782,7 +783,7 @@ namespace DairyCow.BLL
                     calvingRecords.Add(WrapCalvingItem(calvingTable.Rows[i]));
                 }
             }
-            
+
             return calvingRecords;
         }
         /// <summary>
@@ -791,7 +792,7 @@ namespace DairyCow.BLL
         /// <param name="earNum">牛耳号</param>
         /// <param name="inParityCountOnly">只取算入胎次的记录，true=是，false=所有记录</param>
         /// <returns></returns>
-        public static List<Calving> GetCowCalvingRecords(int earNum,bool inParityCountOnly)
+        public static List<Calving> GetCowCalvingRecords(int earNum, bool inParityCountOnly)
         {
             List<Calving> calvingRecords = new List<DairyCow.Model.Calving>();
             DataTable calvingTable = calvingDAL.GetCowCalvingRecords(earNum, inParityCountOnly);
@@ -809,17 +810,17 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static int InsertCalvingRecord(Calving c)
         {
-            int birthType=0,inParityCount=0;
-            switch(c.BirthType) 
+            int birthType = 0, inParityCount = 0;
+            switch (c.BirthType)
             {
                 case BirthType.Normal:
-                    birthType=0;
+                    birthType = 0;
                     break;
                 case BirthType.Miscarry:
-                    birthType=2;
+                    birthType = 2;
                     break;
                 case BirthType.PrematureBirth:
-                    birthType=1;
+                    birthType = 1;
                     break;
                 default:
                     break;
@@ -839,8 +840,8 @@ namespace DairyCow.BLL
         /// <returns>产犊记录</returns>
         public static Calving WrapCalvingItem(DataRow calvingRow)
         {
-            Calving myCalving=new Calving();
-            if (calvingRow!=null)
+            Calving myCalving = new Calving();
+            if (calvingRow != null)
             {
                 myCalving.EarNum = Convert.ToInt32(calvingRow["EarNum"]);
                 //cal.ChildEarNum = Convert.ToInt32(calvingRow["ChildEarNum"]);
@@ -865,7 +866,7 @@ namespace DairyCow.BLL
                 }
                 myCalving.NumberOfMale = Convert.ToInt32(calvingRow["NumberOfMale"]);
                 myCalving.NumberOfFemale = Convert.ToInt32(calvingRow["NumberOfFemale"]);
-                if (calvingRow["Difficulty"]!=DBNull.Value)
+                if (calvingRow["Difficulty"] != DBNull.Value)
                 {
                     myCalving.Difficulty = calvingRow["Difficulty"].ToString();
                 }
@@ -873,7 +874,7 @@ namespace DairyCow.BLL
                 {
                     myCalving.Difficulty = String.Empty;
                 }
-                if (calvingRow["PositionOfFetus"]!= DBNull.Value)
+                if (calvingRow["PositionOfFetus"] != DBNull.Value)
                 {
                     myCalving.PositionOfFetus = calvingRow["PositionOfFetus"].ToString();
                 }
@@ -894,7 +895,7 @@ namespace DairyCow.BLL
                     default:
                         break;
                 }
-                if (calvingRow["Comment"]!=DBNull.Value)
+                if (calvingRow["Comment"] != DBNull.Value)
                 {
                     myCalving.Comment = calvingRow["Comment"].ToString();
                 }
@@ -914,7 +915,7 @@ namespace DairyCow.BLL
         public static DryMilk WrapDryMilkItem(DataRow row)
         {
             DryMilk dry = new DryMilk();
-            if (row!=null)
+            if (row != null)
             {
                 dry.EarNum = Convert.ToInt32(row["EarNum"]);
                 dry.DryDate = Convert.ToDateTime(row["DryDate"]);
@@ -959,7 +960,7 @@ namespace DairyCow.BLL
                 dry = WrapDryMilkItem(table.Rows[0]);
                 return dry;
             }
-            
+
         }
 
         /// <summary>
@@ -982,7 +983,7 @@ namespace DairyCow.BLL
                 cal = calvingList[0];
                 return cal;
             }
-           
+
         }
 
         /// <summary>
@@ -1001,7 +1002,7 @@ namespace DairyCow.BLL
             }
             else
             {
-                cal = calvingList[calvingList.Count-1];
+                cal = calvingList[calvingList.Count - 1];
                 return cal;
             }
 
@@ -1018,13 +1019,13 @@ namespace DairyCow.BLL
                 if (cal != null)
                 {
                     //有产犊，
-                    ageM = cal.Birthday.Subtract(this.BirthDate).TotalDays/30.5;
+                    ageM = cal.Birthday.Subtract(this.BirthDate).TotalDays / 30.5;
                 }
                 return ageM;
             }
         }
 
-        private bool needGrouping=false;
+        private bool needGrouping = false;
         /// <summary>
         /// 是否需要调群，（运行完ChecGrouping）
         /// </summary>
@@ -1047,7 +1048,7 @@ namespace DairyCow.BLL
             CowGroupBLL cowGroupBll = new CowGroupBLL();
             List<CowGroup> groups = cowGroupBll.GetCowGroupList(this.FarmCode);
             CowGroup g = groups.FirstOrDefault(p => p.ID == this.GroupID);
-            if(g == null)
+            if (g == null)
             {
                 return;
             }
@@ -1082,7 +1083,7 @@ namespace DairyCow.BLL
                     }
                     break;
                 case CowGroupType.LowMilkCows:
-                    if ((!this.CowType.Equals("经产牛"))||(!this.MilkType.Equals("泌乳牛")))
+                    if ((!this.CowType.Equals("经产牛")) || (!this.MilkType.Equals("泌乳牛")))
                     {
                         this.needGrouping = true;
                         this.regroupingReason = "此牛不是泌乳牛，现在低产牛群。";
@@ -1123,17 +1124,13 @@ namespace DairyCow.BLL
                     }
                     break;
                 default:
-                    if (this.IsIll && g.GroupType!=CowGroupType.SickCows)
+                    if (this.IsIll && g.GroupType != CowGroupType.SickCows)
                     {
-                                                this.needGrouping = true;
+                        this.needGrouping = true;
                         this.regroupingReason = "此牛为病牛，现在正常牛群。";
-
                     }
                     break;
             }
-            
         }
-
-
     }
 }

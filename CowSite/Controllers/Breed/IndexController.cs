@@ -1,5 +1,6 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -26,18 +27,20 @@ namespace CowSite.Controllers.Breed
             List<BreedIndicant> lstBreedIndicant = new List<BreedIndicant>();
             // 牧场繁殖指标
             BreedIndicant farmIndicant = new BreedIndicant();
-            farmIndicant.Indicant1 = farm.AverageAgeMonthOfFirstBirth;
-            farmIndicant.Indicant2 = farm.AverageAgeMonthOfFirstBirthOfParity1;
-            farmIndicant.Indicant3 = farm.AverageInseminationDaysAfterBirth;
-            farmIndicant.Indicant4 = farm.DaysOfUnpregnant;
-            farmIndicant.Indicant5 = farm.DaysFromBirthToSuccessfulInsemination;
-            farmIndicant.Indicant6 = farm.AverageParityInterval;
-            farmIndicant.Indicant7 = farm.MultiParityCowSuccessPercentageOfFirstInsemination;
-            farmIndicant.Indicant8 = farm.NullParityCowSuccessPercentageOfFirstInsemination;
-            farmIndicant.Indicant9 = farm.CowSuccessPercentageOfTwiceInsemination;
+            farmIndicant.IndicantScope = "牧场";
+            farmIndicant.Indicant1 = Math.Round(farm.AverageAgeMonthOfFirstBirth, 2);
+            farmIndicant.Indicant2 = Math.Round(farm.AverageAgeMonthOfFirstBirthOfParity1, 2);
+            farmIndicant.Indicant3 = Math.Round(farm.AverageInseminationDaysAfterBirth, 2);
+            farmIndicant.Indicant4 = Math.Round(farm.DaysOfUnpregnant, 2);
+            farmIndicant.Indicant5 = Math.Round(farm.DaysFromBirthToSuccessfulInsemination, 2);
+            farmIndicant.Indicant6 = Math.Round(farm.AverageParityInterval, 2);
+            farmIndicant.Indicant7 = Math.Round(farm.MultiParityCowSuccessPercentageOfFirstInsemination, 2);
+            farmIndicant.Indicant8 = Math.Round(farm.NullParityCowSuccessPercentageOfFirstInsemination, 2);
+            farmIndicant.Indicant9 = Math.Round(farm.CowSuccessPercentageOfTwiceInsemination, 2);
            lstBreedIndicant.Add(farmIndicant);
             // 牧场繁殖国内参考水平
             BreedIndicant domesticIndicant = new BreedIndicant();
+            domesticIndicant.IndicantScope = "国内参考水平";
             domesticIndicant.Indicant1 = FarmInfo.REF_AGEMONTH_FIRST_BIRTH_MAX;
             domesticIndicant.Indicant2 = FarmInfo.REF_AGEMONTH_FIRST_BIRTH_MAX;
             domesticIndicant.Indicant3 = FarmInfo.REF_DAYS_FROM_BIRTH_TO_FIRST_HEAT;
@@ -48,8 +51,9 @@ namespace CowSite.Controllers.Breed
             domesticIndicant.Indicant8 = FarmInfo.REF_NULLIPARITY_COW_SUCCESS_PERCENTAGE_OF_FIRST_INSEMINATION;
             domesticIndicant.Indicant9 = FarmInfo.REF_ALL_COW_SUCCESS_PERCENTAGE_OF_TWICE_INSEMINATION;
             lstBreedIndicant.Add(domesticIndicant);
-            // 牧场繁殖国外参考水平
+            // 牧场繁殖国际参考水平
             BreedIndicant abroadtIndicant = new BreedIndicant();
+            abroadtIndicant.IndicantScope = "国际参考水平";
             abroadtIndicant.Indicant1 = 0;
             abroadtIndicant.Indicant2 = 0;
             abroadtIndicant.Indicant3 = 0;
@@ -97,6 +101,7 @@ namespace CowSite.Controllers.Breed
 
     public class BreedIndicant
     {
+        public string IndicantScope { get; set; }
         public double Indicant1 { get; set; } //经产牛平均初产月龄
         public double Indicant2 { get; set; } //头胎牛平均初产月龄
         public double Indicant3 { get; set; } //经产牛产后首次发情平均天数(发情间隔)

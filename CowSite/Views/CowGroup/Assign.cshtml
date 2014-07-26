@@ -116,10 +116,10 @@
                         data: { cowGroupID: cowGroupID, insemID: insemID, feederID: feederID, doctorID: doctorID },
                         success: function (result) {
                             if (result.Count == 3) {
-                                alert("成功！");
+                                alert("分配配种员，兽医，饲养员成功！");
                             }
                             else {
-                                alert("失败！");
+                                alert("分配配种员，兽医，饲养员失败！");
                             }
                             loadCowGroupList();
                             initGrid();
@@ -181,11 +181,6 @@
                 <div class="input-group mt10">
                     <span class="input-group-addon w200">兽医</span>
                     <select class="w200" name="doctor"></select>
-                </div>
-                <div>
-                    <div id="processGrid"></div>
-                    <div id="message"></div>
-                    <div class="l-loading" id="pageloading"></div>
                 </div>
                 <div class="mt10">
                     <button type="button" class="btn btn-primary" id="btnAssign">分配</button>

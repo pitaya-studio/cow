@@ -63,9 +63,16 @@ namespace DairyCow.DAL
         /// 获取配方详细列表
         /// </summary>
         /// <returns></returns>
-        public DataTable GetFormulaInfoList(string formulaID)
+        public DataTable GetFormulaInfoByID(string formulaID)
         {
             string sql = string.Format(@"SELECT * FROM View_Recipe where FormulaID = {0}", formulaID);
+            DataTable formulaList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return formulaList;
+        }
+
+        public DataTable GetFormulaOnlyByID(string formulaID)
+        {
+            string sql = string.Format(@"SELECT * FROM [Feed_Formula] where ID = {0}", formulaID);
             DataTable formulaList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return formulaList;
         }

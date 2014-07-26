@@ -84,11 +84,11 @@ namespace DairyCow.BLL
             return lstFormula;
         }
 
-        public Formula GetFormulaInfoList(string formulaID)
+        public Formula GetFormulaByIDWithFodders(string formulaID)
         {
             Formula formula = new Formula();
 
-            DataTable datFormula = this.dalFormula.GetFormulaInfoList(formulaID);
+            DataTable datFormula = this.dalFormula.GetFormulaInfoByID(formulaID);
             if (datFormula != null && datFormula.Rows.Count > 0)
             {
                 List<Fodder> lstFormula = new List<Fodder>();
@@ -100,6 +100,20 @@ namespace DairyCow.BLL
                 formula.ID = Convert.ToInt32(datFormula.Rows[0]["FormulaID"]);
                 formula.Name = datFormula.Rows[0]["FormulaName"].ToString();
                 formula.FodderList = lstFormula;
+            }
+
+            return formula;
+        }
+
+        public Formula GetFormulaByID(int formulaID)
+        {
+            Formula formula = new Formula();
+
+            DataTable datFormula = this.dalFormula.GetFormulaOnlyByID(formulaID.ToString());
+            if (datFormula != null && datFormula.Rows.Count > 0)
+            {
+                formula.ID = Convert.ToInt32(datFormula.Rows[0]["ID"]);
+                formula.Name = datFormula.Rows[0]["Name"].ToString();
             }
 
             return formula;

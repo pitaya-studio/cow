@@ -10,17 +10,17 @@ namespace DairyCow.BLL
     {
         CowGroupDAL dalCowGroup = new CowGroupDAL();
 
-        //public List<CowGroup> GetCowGroupList()
-        //{
-        //    List<CowGroup> lstCowGroup = new List<CowGroup>();
-        //    DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
-        //    foreach (DataRow drCowGroup in datCowGroup.Rows)
-        //    {
-        //        CowGroup cowGroupItem = WrapCowGroupItem(drCowGroup);
-        //        lstCowGroup.Add(cowGroupItem);
-        //    }
-        //    return lstCowGroup;
-        //}
+        public List<CowGroup> GetCowGroupList()
+        {
+            List<CowGroup> lstCowGroup = new List<CowGroup>();
+            DataTable datCowGroup = this.dalCowGroup.GetCowGroupTable();
+            foreach (DataRow drCowGroup in datCowGroup.Rows)
+            {
+                CowGroup cowGroupItem = WrapCowGroupItem(drCowGroup);
+                lstCowGroup.Add(cowGroupItem);
+            }
+            return lstCowGroup;
+        }
 
         public List<CowGroup> GetCowGroupList(int pastureID)
         {
@@ -47,6 +47,11 @@ namespace DairyCow.BLL
         public int UpdateCowGroupDoctor(int cowGroupID,int doctorID)
         {
             return dalCowGroup.UpdateCowGroupDoctor(cowGroupID,doctorID);
+        }
+
+        public int UpdateCowGroupFormula(int cowGroupID, int formulaID)
+        {
+            return dalCowGroup.UpdateCowGroupFormula(cowGroupID, formulaID);
         }
 
         private CowGroup WrapCowGroupItem(DataRow cowGroupRow)
@@ -90,6 +95,8 @@ namespace DairyCow.BLL
                 cowGroupItem.DoctorName = user == null ? null : user.Name;
 
                 cowGroupItem.CowNumber = GetCowCount(cowGroupItem.ID);
+                FormulaBLL fbBLL = new FormulaBLL();
+                cowGroupItem.FormulaName = fbBLL.GetFormulaByID(cowGroupItem.FormulaID).Name;
             }
             return cowGroupItem;
         }

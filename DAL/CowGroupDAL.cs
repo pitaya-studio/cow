@@ -138,6 +138,13 @@ namespace DairyCow.DAL
             return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
         }
 
+
+        public int UpdateCowGroupFormula(int cowGroupID, int formulaID)
+        {
+            string sql = string.Format(@"update [Base_CowGroup] set FormulaID ={1} where ID ={0}", cowGroupID, formulaID);
+            return dataProvider1mutong.ExecuteNonQuery(sql.ToString(), CommandType.Text);
+        }
+
         /// <summary>
         /// 更新牛群信息
         /// </summary>

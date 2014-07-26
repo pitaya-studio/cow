@@ -19,14 +19,144 @@
     <script>
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Platform", subMenuSelectedID: "Platform-FormulaAssign" });
+            initSelectors();
+            loadCowGroupList();
+            initBtn();
         })
+
+
+        var cowGroupGridManager;
+        var cowGroups;
+        var formulaID;
+        function loadCowGroupList() {
+            var areAll = $("select[name=groupSelect]").val();
+            $.ajax({
+                type: 'get',
+                url: "../../Platform/Formula/GetCowGroupInfo",
+                dataType: 'json',
+                cache: false,
+                data: { areAll: areAll },
+                success: function (cowGroupData) {
+                    cowGroups = cowGroupData;
+                    initGrid();
+                    //alert(houseList.length.toString());
+                }
+            });
+        }
+
+        function initSelectors() {
+            $.ajax({
+                type: 'get',
+                url: "../../Platform/Formula/GetFormulas",
+                dataType: 'json',
+                cache: false,
+                //data: { GroupID: currentGroupID },
+                success: function (list) {
+                    doctors = list;
+                    $('select[name=formula]').empty();
+                    if (typeof (doctors) != 'undefined' && doctors && doctors.length > 0) {
+                        $.each(doctors, function () {
+                            $("select[name=formula]").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        });
+                    }
+                }
+            });
+
+            $('select[name=groupSelect]').change(function () {
+                loadCowGroupList();
+            })
+
+        }
+
+        function initBtn() {
+            $("#btnAssign").click(function () {
+                var row = cowGroupGridManager.getSelectedRow();
+                if (row) {
+                    $('input[name=cowGroup]').val(row["Name"]);
+                    var cowGroupID = row["ID"];
+                    
+                    var formulaID = $('select[name=formula]').val();
+                    
+                    $.ajax({
+                        type: 'get',
+                        url: "../../Platform/Formula/UpdateFormula",
+                        dataType: 'json',
+                        cache: false,
+                        data: { cowGroupID: cowGroupID, formulaID: formulaID },
+                        success: function (result) {
+                            if (result.Count == 1) {
+                                alert("指定配方成功！");
+                            }
+                            else {
+                                alert("指定配方失败！");
+                            }
+                            loadCowGroupList();
+                            initGrid();
+                        }
+                    });
+                }
+                else {
+                    alert("请先选中牛群。");
+                }
+            });
+        }
+
+
+        function initGrid() {
+
+            cowGroupGridManager = $("#cowGroupGrid").ligerGrid({
+                checkbox: false,
+                columns: [
+                    { display: '牛群ID', name: 'ID', type: 'int', hide: true, width: 50 },
+                    { display: '牧场', name: 'PastureName', align: 'left', hide: true, width: 150 },
+                    { display: '牛群', name: 'Name', align: 'left', width: 250, editor: { type: 'text' } },
+                    { display: '牛群类型', name: 'CowGroupTypeString', type: 'text', align: 'left', width: 150 },
+                    { display: '牛群说明', name: 'Description', align: 'left', width: 200 },
+                    { display: '配方ID', name: 'FormulaID', type: 'int', width: 50 },
+                    { display: '配方', name: 'FormulaName', width: 100 },
+                ],
+                title: "牛群配方信息",
+                showTitle: true,
+                pageSize: 15,
+                width: '100%',
+                height: 'auto',
+                isScroll: false,
+                data: cowGroups
+            });
+            $("#pageloading").hide();
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            指定配方
+            <form id="cowGroupInfo">
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200 hidden">牛群</span>
+                    <input type="text" class="form-control w200 disabled" placeholder="牛群" contenteditable="false" name="cowGroup">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">配方</span>
+                    <select class="w200" name="formula"></select>
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">选择牛群</span>
+                    <select class="w200" name="groupSelect">
+                        <option value="0">仅未指定配方牛群</option>
+                        <option value="1">全部牛群</option>
+                    </select>
+                    
+                </div>
+                 <div class="mt10">
+                    <button type="button" class="btn btn-primary" id="btnAssign">指定配方</button>
+                </div>
+                <div>
+                    <div id="cowGroupGrid" class="displayBlock ml5 mr5"></div>
+                    <div id="message"></div>
+                    <div class="l-loading" id="pageloading"></div>
+                </div>
+            </form>
         </div>
     </div>
 </body>

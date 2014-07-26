@@ -29,25 +29,32 @@ namespace CowSite.Controllers.Task
 
         public ActionResult SaveTask(string id)
         {
-            string startDate = Request.Form["start"];
-            string endDate = Request.Form["end"];
-            string earNum = Request.Form["DisplayEarNum"];
-            string operatorID = Request.Form["operatorName"];
-            string pregnantStatus = Request.Form["pregnantStatus"];
+            try
+            {
+                string startDate = Request.Form["start"];
+                string endDate = Request.Form["end"];
+                string earNum = Request.Form["DisplayEarNum"];
+                string operatorID = Request.Form["operatorName"];
+                string pregnantStatus = Request.Form["pregnantStatus"];
 
-            InitialInspection i = new InitialInspection();
+                InitialInspection i = new InitialInspection();
 
-            i.OperateDate = DateTime.Parse(endDate);
-            i.InspectResult = Convert.ToInt32(pregnantStatus);
-            i.Operator = Convert.ToInt32(operatorID);
-            i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+                i.OperateDate = DateTime.Parse(endDate);
+                i.InspectResult = Convert.ToInt32(pregnantStatus);
+                i.Operator = Convert.ToInt32(operatorID);
+                i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
 
-            DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
+                DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
 
-            //完成初检任务，同时增加初检信息
-            bllTask.CompleteInitialInspection(task, i);
+                //完成初检任务，同时增加初检信息
+                bllTask.CompleteInitialInspection(task, i);
 
-            return View("~/Views/Task/Index.cshtml");
+                return View("~/Views/Task/Index.cshtml");
+            }
+            catch (Exception)
+            {
+                return View("~/Views/Task/TaskError.cshtml");
+            }
         }
     }
 }

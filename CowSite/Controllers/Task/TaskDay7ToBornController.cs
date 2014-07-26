@@ -27,11 +27,10 @@ namespace CowSite.Controllers.Task
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SaveTask()
+        public ActionResult SaveTask()
         {
             try
             {
-
                 TaskBLL bll = new TaskBLL();
                 DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
                 v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
@@ -40,13 +39,12 @@ namespace CowSite.Controllers.Task
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);
                 bll.CompleteDay7ToBorn(v, house, group);
-
+                return View("~/Views/Task/Index.cshtml");
             }
             catch (Exception)
             {
-                //todo dehua
+                return View("~/Views/Task/TaskError.cshtml");
             }
-            return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
         }
     }
 }

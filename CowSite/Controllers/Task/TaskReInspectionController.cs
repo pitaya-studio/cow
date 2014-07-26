@@ -30,25 +30,33 @@ namespace CowSite.Controllers.Task
 
         public ActionResult SaveTask()
         {
-            string startDate = Request.Form["startDate"];
-            string endDate = Request.Form["endDate"];
-            string earNum = Request.Form["earNum"];
-            string operatorName = Request.Form["operatorName"];
-            string pregnantStatus = Request.Form["pregnantStatus"];
+            try
+            {
+                string startDate = Request.Form["startDate"];
+                string endDate = Request.Form["endDate"];
+                string earNum = Request.Form["earNum"];
+                string operatorName = Request.Form["operatorName"];
+                string pregnantStatus = Request.Form["pregnantStatus"];
 
-            ReInspection i = new ReInspection();
+                ReInspection i = new ReInspection();
 
-            i.OperateDate = DateTime.Parse(endDate);
-            i.ReInspectResult = Convert.ToInt32(pregnantStatus);
-            i.Operator = operatorName;
-            i.EarNum = Convert.ToInt32(earNum);
+                i.OperateDate = DateTime.Parse(endDate);
+                i.ReInspectResult = Convert.ToInt32(pregnantStatus);
+                i.Operator = operatorName;
+                i.EarNum = Convert.ToInt32(earNum);
 
-            DairyTask task = bllTask.GetTaskByID(id);
+                DairyTask task = bllTask.GetTaskByID(id);
 
-            //完成初检任务，同时增加初检信息
-            bllTask.CompleteReInspection(task, i);
+                //完成初检任务，同时增加初检信息
+                bllTask.CompleteReInspection(task, i);
 
-            return View("~/Views/Task/Index.cshtml");
+                return View("~/Views/Task/Index.cshtml");
+
+            }
+            catch (Exception)
+            {
+                return View("~/Views/Task/TaskError.cshtml");
+            }
         }
     }
 }

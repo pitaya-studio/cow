@@ -26,16 +26,23 @@ namespace CowSite.Controllers.Task
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SaveTask()
+        public ActionResult SaveTask()
         {
-            TaskBLL bll = new TaskBLL();
-            DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-            v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
-            v.CompleteTime = DateTime.Parse(Request.Form["end"]);
-            v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
+            try
+            {
+                TaskBLL bll = new TaskBLL();
+                DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
+                v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
+                v.CompleteTime = DateTime.Parse(Request.Form["end"]);
+                v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
 
-            bll.CompleteDay15AfterBorn(v);
-            return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+                bll.CompleteDay15AfterBorn(v);
+                return View("~/Views/Task/Index.cshtml");
+            }
+            catch (Exception)
+            {
+                return View("~/Views/Task/TaskError.cshtml");
+            }
         }
     }
 

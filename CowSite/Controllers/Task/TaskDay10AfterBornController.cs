@@ -26,7 +26,7 @@ namespace CowSite.Controllers.Task
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SaveTask()
+        public ActionResult SaveTask()
         {
             try
             {
@@ -38,12 +38,12 @@ namespace CowSite.Controllers.Task
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);
                 bll.CompleteDay10AfterBorn(v, house, group);
+                return View("~/Views/Task/Index.cshtml");
             }
             catch (Exception)
             {
-                //todo dehua
+                return View("~/Views/Task/TaskError.cshtml");
             }
-            return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -65,12 +65,12 @@ namespace CowSite.Controllers.Task
                 //task.CompleteTime = DateTime.Now;//fill task data, for this CompleteTime,or use Datetime.Now as default
 
                 bllTask.CompleteImmune(task);
+                return View("~/Views/Task/Index.cshtml");
             }
             catch (Exception e)
             {
-
-            }
-            return View("~/Views/Task/Index.cshtml");
+                return View("~/Views/Task/TaskError.cshtml");
+            }           
         }
     }
 }

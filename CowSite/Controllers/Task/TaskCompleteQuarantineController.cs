@@ -43,31 +43,38 @@ namespace CowSite.Controllers.Task
 
         public ActionResult SaveTask()
         {
-            Quarantine quarantine = new Quarantine();
-            int PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
-            string QuarantineType = Request.Form["quarantineType"];
-            string QuarantineDate = Request.Form["quarantineDate"];
-            string QuarantineMethod = Request.Form["quarantineMethod"];
-            string DoctorID = Request.Form["doctorID"];
-            string Result = Request.Form["result"];
-            string EarNum = Request.Form["earNum"];
+            try
+            {
+                Quarantine quarantine = new Quarantine();
+                int PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+                string QuarantineType = Request.Form["quarantineType"];
+                string QuarantineDate = Request.Form["quarantineDate"];
+                string QuarantineMethod = Request.Form["quarantineMethod"];
+                string DoctorID = Request.Form["doctorID"];
+                string Result = Request.Form["result"];
+                string EarNum = Request.Form["earNum"];
 
-            quarantine.PastureID = PastureID;
-            quarantine.QuarantineType = QuarantineType;
-            quarantine.QuarantineDate = Convert.ToDateTime(QuarantineDate);
-            quarantine.QuarantineMethod = QuarantineMethod;
-            quarantine.DoctorID = Convert.ToInt32(DoctorID);
-            quarantine.Result = Convert.ToInt32(Result);
-            quarantine.EarNum = Convert.ToInt32(EarNum);
+                quarantine.PastureID = PastureID;
+                quarantine.QuarantineType = QuarantineType;
+                quarantine.QuarantineDate = Convert.ToDateTime(QuarantineDate);
+                quarantine.QuarantineMethod = QuarantineMethod;
+                quarantine.DoctorID = Convert.ToInt32(DoctorID);
+                quarantine.Result = Convert.ToInt32(Result);
+                quarantine.EarNum = Convert.ToInt32(EarNum);
 
-            //增加检疫记录
-            bllTask.AddQuarantineRecord(quarantine);
+                //增加检疫记录
+                bllTask.AddQuarantineRecord(quarantine);
 
-            //更新检疫记录
-            DairyTask task = bllTask.GetTaskByID(id);//To-do please get taskID 
-            bllTask.CompleteQuarantine(task);
+                //更新检疫记录
+                DairyTask task = bllTask.GetTaskByID(id);//To-do please get taskID 
+                bllTask.CompleteQuarantine(task);
 
-            return View("~/Views/Task/Index.cshtml");
+                return View("~/Views/Task/Index.cshtml");
+            }
+            catch (Exception)
+            {
+                return View("~/Views/Task/TaskError.cshtml");
+            }
         }
     }
 }

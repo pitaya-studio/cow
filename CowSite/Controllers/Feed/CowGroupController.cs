@@ -64,6 +64,40 @@ namespace CowSite.Controllers.Feed
             return View("~/Views/CowGroup/Assign.cshtml");
         }
 
+        //assign 相关 json
+        public JsonResult GetPastureInsemOperators()
+        {
+            UserBLL uBLL = new UserBLL();
+            List<User> list = uBLL.GetInseminationOperatorList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPastureDoctors()
+        {
+            UserBLL uBLL = new UserBLL();
+            List<User> list = uBLL.GetDoctorList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPastureFeeders()
+        {
+            UserBLL uBLL = new UserBLL();
+            List<User> list = uBLL.GetFeederList(UserBLL.Instance.CurrentUser.Pasture.ID);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateOperators(string cowGroupID,string insemID, string feederID, string doctorID)
+        {
+            CowGroupBLL cBLL = new CowGroupBLL();
+            int gID=Int32.Parse(cowGroupID);
+            int inID=Int32.Parse(insemID);
+            int fID=Int32.Parse(feederID);
+            int dID=Int32.Parse(doctorID);
+            int i1 = cBLL.UpdateCowGroupInsemOperator(gID, inID);
+            int i2 = cBLL.UpdateCowGroupFeeder(gID, fID);
+            int i3 = cBLL.UpdateCowGroupDoctor(gID, dID);
+            var result = new { Count = i1 + i2 + i3 };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetCowGroupItem(string id)
         {
             return Json(this.bllCowGroup.GetCowGroupInfo(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);

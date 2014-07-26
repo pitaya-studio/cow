@@ -20,8 +20,10 @@ namespace DairyCow.DAL
             string sql = string.Format(@"SELECT G.[ID]
                                             ,G.[Name] AS GroupName
                                             ,G.[PastureID]
-                                            ,[FormulaID]
-                                            ,[InsemOperatorID] 
+                                            ,G.[Type]
+                                            ,G.[FormulaID]
+                                            ,G.[InsemOperatorID] 
+                                            ,G.[Description] 
 											,A.Name AS InsemOperatorName
                                             ,FeedOperatorID
                                             ,DoctorID
@@ -41,6 +43,8 @@ namespace DairyCow.DAL
             string sql = string.Format(@"SELECT G.[ID]
                                             ,G.[Name] AS GroupName
                                             ,G.[PastureID]
+                                            ,G.[Type]
+                                            ,G.[Description] 
                                             ,[FormulaID]
                                             ,[InsemOperatorID] 
 											,A.Name AS InsemOperatorName
@@ -212,6 +216,7 @@ namespace DairyCow.DAL
                                             ,[Name] AS GroupName
                                             ,[PastureID]
                                             ,[FormulaID]
+                                            ,[Description] 
                                             ,[Type]
                                             ,[InsemOperatorID]
                                             ,[FeedOperatorID]

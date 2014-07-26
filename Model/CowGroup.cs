@@ -57,6 +57,14 @@ namespace DairyCow.Model
                 return GetCowGroupType(this.TypeNum);
             }
         }
+
+        public string CowGroupTypeString
+        {
+            get
+            {
+                return GetCowGroupTypeStr(this.GroupType);
+            }
+        }
         /// <summary>
         /// 牛群中牛数
         /// </summary>

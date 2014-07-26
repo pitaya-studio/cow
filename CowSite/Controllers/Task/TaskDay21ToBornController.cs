@@ -28,7 +28,7 @@ namespace CowSite.Controllers.Task
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SaveTask()
+        public ActionResult SaveTask()
         {
             try
             {
@@ -38,12 +38,12 @@ namespace CowSite.Controllers.Task
                 v.CompleteTime = DateTime.Parse(Request.Form["end"]);
                 v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
                 bll.CompleteDay21ToBorn(v);
-                return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+                return View("~/Views/Task/Index.cshtml");
             }
             catch (Exception)
             {
                 //todo show error msg
-                return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
+                return View("~/Views/Task/TaskError.cshtml");
             }
         }
     }

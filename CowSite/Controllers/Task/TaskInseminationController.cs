@@ -11,28 +11,31 @@ namespace CowSite.Controllers.Task
     public class TaskInseminationController : Controller
     {
         TaskBLL bllTask = new TaskBLL();
+        InseminationBLL bllInsemination = new InseminationBLL();
         public ActionResult SaveTask()
         {
             try
             {
-                string startDate = Request.Form["startDate"];
-                string endDate = Request.Form["endDate"];
-                string earNum = Request.Form["earNum"];
-                string operatorName = Request.Form["operatorName"];
+                string displayEarNum = Request.Form["DisplayEarNum"];
+                string startDate = Request.Form["start"];
+                string endDate = Request.Form["end"];
+                string operatorID = Request.Form["operatorName"];
                 string knownWay = Request.Form["knownWay"];
-                string semenNum = Request.Form["semenNum"];
-                string semenCount = Request.Form["semenCount"];
-                string desc = Request.Form["desc"];
+                string semenNum = Request.Form["semNum"];
+                string semenCount = Request.Form["semCount"];
+                string desc = Request.Form["description"];
 
                 Insemination i = new Insemination();
                 i.EstrusDate = DateTime.Parse(startDate);
                 i.OperateDate = DateTime.Parse(endDate);
-                i.EarNum = Convert.ToInt32(earNum);
-                //i.Operator = operatorName;
+                i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+                i.operatorID = Convert.ToInt32(operatorID);
                 i.EstrusFindType = Convert.ToInt32(knownWay);
                 i.SemenNum = semenNum;
                 i.InseminationNum = Convert.ToInt32(semenCount);
                 i.Description = desc;
+
+                bllInsemination.InsertInseminationInfo(i);
                 bllTask.CompleteInsemination(i);
 
             }

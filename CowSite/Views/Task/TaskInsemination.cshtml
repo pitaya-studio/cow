@@ -9,16 +9,90 @@
     <meta name="viewport" content="width=device-width" />
     <title>发情/配种任务单</title>
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" href="~/Style/base.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-tools-min.js"></script>
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/menu.js"></script>  
-    <script type="text/javascript">       
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="~/Style/base.css">
+    <script type="text/javascript">
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-Insemination", showSubMemu: false });
-        })
+            initDateSelector();
+            loadOperator();
+        });
+
+        function loadOperator() {
+            $.ajax({
+                type: 'get',
+                url: '../../Users/User/GetUserItems',
+                dataType: 'json',
+                cache: false,
+                success: function (user) {
+                    if (user) {
+                        $("#OperatorID").empty();
+                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择禁配人" + '</option>');
+                        $.each(user, function () {
+                            $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        });
+                    }
+                }
+            });
+        }
+
+        function initDateSelector() {
+            $('input[name=start]').datepicker({
+                language: 'zh-CN',
+                autoclose: 1,
+                todayHighlight: 1,
+                format: "yyyy-mm-dd"
+            });
+
+            $('input[name=end]').datepicker({
+                language: 'zh-CN',
+                autoclose: 1,
+                todayHighlight: 1,
+                format: "yyyy-mm-dd"
+            });
+        }
+
+        //function InitButton() {
+        //    $("#btnSave").show().ligerButton({
+        //        width: 80,
+        //        text: "提交",
+        //        disable: false,
+        //        click: function () {
+        //            var displayEarNum = $("#earNum").val();
+        //            var startDate = $('input[name=start]').val();
+        //            var endDate = $('input[name=end]').val();
+        //            var operatorID = $("#OperatorID").val();
+        //            var knownWay = $("input[name=knownWay]").val();
+        //            var semenNum = $('#semenNum').val();
+        //            var semenCount = $('#semenCount').val();
+        //            var desc = $('#desc').val();
+        //            $.ajax({
+        //                type: 'post',
+        //                url: "../../TaskInsemination/SaveTask",
+        //                dataType: "json",
+        //                data: {
+        //                    DisplayEarNum: displayEarNum, StartDate: startDate, EndDate: endDate,
+        //                    OperatorID: operatorID, KnowWay: knownWay, SemenNum: semenNum,
+        //                    SemenCount: semenCount, Description: desc
+        //                }
+        //            }).success(
+        //                    function () {
+        //                        alert("提交成功！");
+        //                    }
+        //            );
+        //        }
+        //    });
+        //}
     </script>
 </head>
 <body>
@@ -31,23 +105,45 @@
                     <div>任务单类型: 发情配种任务单</div>
                     <div>任务指导: 请观测牛群发情状况，并给发情牛配种。</div>
                     <br />
-                    <div>任务开始时间: <input type="date" id="startDate" /></div>
-                    <div>任务完成时间: <input type="date" id="endDate" /></div>
-                    <br />
-                    <div>牛耳号: <input id="earNum"></input></div>
-                    <div>操作人员：<input name="operatorName" /></div>
-                    <div>
-                        发情发现方式：
-                        <select name="knownWay">
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">牛耳号:</span>
+                        <input type="text" class="form-control w200 js-DisplayEarNum" placeholder="耳号" id="earNum" name="DisplayEarNum" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">任务开始时间:</span>
+                        <input type="text" class="form-control w200" id="startDate" name="start" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">任务完成时间: </span>
+                        <input type="text" class="form-control w200" id="endDate" name="end" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">操作人员：</span>
+                        <select name="operatorName" class="form-control w200" id="OperatorID"></select>
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">发情发现方式：</span>
+                        <select name="knownWay" class="form-control w200">
                             <option value="0">计步器</option>
                             <option value="1">发请贴</option>
                             <option value="2">观测</option>
                         </select>
                     </div>
-                    <div>冻精编号: <input id="semenNum"></input></div>
-                    <div>冻精支数: <input id="semenCount"></input></div>
-                    <div>说明备注: <input id="desc"></input></div>
-                    <button type="submit">提交</button>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">冻精编号:</span>
+                        <input type="text" class="form-control w200" id="semenNum" name="semNum" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">冻精支数:</span>
+                        <input type="text" class="form-control w200" id="semenCount" name="semCount" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">说明备注:</span>
+                        <textarea id="desc" name="description" class="form-control h100 w400" placeholder="说明备注"></textarea>
+                    </div>
+                    <div class="mt10">
+                        <input type="submit" class="btn btn-primary" id="btnSave" value="提交" />
+                    </div>
                 </form>
             </div>
         </div>

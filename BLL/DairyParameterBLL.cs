@@ -86,5 +86,11 @@ namespace DairyCow.BLL
             }
             return i;
         }
+
+        public static void CopyPlatformParameters(int pastureID)
+        {
+            DairyParameterDAL dal = new DairyParameterDAL();
+            dal.CopyParameters(pastureID);
+        }
     }
 }

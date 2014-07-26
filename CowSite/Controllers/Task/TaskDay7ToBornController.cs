@@ -36,7 +36,8 @@ namespace CowSite.Controllers.Task
 
                 TaskBLL bll = new TaskBLL();
                 DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-                v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
+                v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
+                v.CompleteTime = DateTime.Parse(Request.Form["end"]);
                 v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);

@@ -16,16 +16,13 @@ namespace CowSite.Controllers.Task
             DairyTask v;
             v = bll.GetTaskByID(Convert.ToInt32(taskID));
             string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
-
-            UserBLL u = new UserBLL();
-            User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
-
+                        
             return Json(new
             {
                 EarNum = v.EarNum,
                 DisplayEarNum = displayEarNum,
                 ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
-                Operator = user.Name
+                Operator = v.OperatorID
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -35,7 +32,9 @@ namespace CowSite.Controllers.Task
             {
                 TaskBLL bll = new TaskBLL();
                 DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-                v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
+                v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
+                v.CompleteTime = DateTime.Parse(Request.Form["end"]);
+                v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);
                 bll.CompleteDay3AfterBorn(v, house, group);
@@ -45,20 +44,6 @@ namespace CowSite.Controllers.Task
                 //todo dehua
             }
             return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetGroups()
-        {
-            CowGroupBLL groupBLL = new CowGroupBLL();
-            List<CowGroup> groups = groupBLL.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
-            return Json(groups, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetHouses()
-        {
-            HouseBLL hBLL = new HouseBLL();
-            List<House> houses=hBLL.GetHouseList(UserBLL.Instance.CurrentUser.Pasture.ID);
-            return Json(houses, JsonRequestBehavior.AllowGet);
         }
 	}
 }

@@ -34,7 +34,8 @@ namespace CowSite.Controllers.Task
             {
                 TaskBLL bll = new TaskBLL();
                 DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-                v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
+                v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
+                v.CompleteTime = DateTime.Parse(Request.Form["end"]);
                 v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
                 bll.CompleteDay21ToBorn(v);
                 return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);

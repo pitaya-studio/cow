@@ -68,7 +68,7 @@ namespace DairyCow.BLL
                 {
                     initialInspectionItem.InspectResult = Convert.ToInt32(inspectionRow["InspectResult"]);
                 }
-                initialInspectionItem.Operator = inspectionRow["Operator"].ToString();
+                initialInspectionItem.Operator = Convert.ToInt32(inspectionRow["Operator"]);
                 initialInspectionItem.HelpOperator = inspectionRow["HelpOperator"].ToString();
                 if (inspectionRow["InspectWay"] != null && !string.IsNullOrWhiteSpace(inspectionRow["InspectWay"].ToString()))
                 {

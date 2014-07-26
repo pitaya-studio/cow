@@ -66,6 +66,14 @@ namespace DairyCow.Model
         public double Usage { get; set; }
         public double Price { get; set; }
         public bool IsCurrent { get; set; }
+        public string Status
+        {
+            get
+            {
+                return IsCurrent ? "在用" : "停用";
+            }
+        }
+        public string SysFodderName { get; set; }
 
     }
     

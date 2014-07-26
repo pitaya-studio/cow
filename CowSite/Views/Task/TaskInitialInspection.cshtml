@@ -9,19 +9,61 @@
     <meta name="viewport" content="width=device-width" />
     <title>妊检初检任务单</title>
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" href="~/Style/base.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-tools-min.js"></script>
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="~/Style/base.css">
     <script type="text/javascript">
         var taskID = "@ViewBag.TaskID";
 
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-InitialInspection", showSubMemu: false });
+            initDateSelector();
+            loadOperator();
             loadTask();
-        })
+        });
+
+        function initDateSelector() {
+            $('input[name=start]').datepicker({
+                language: 'zh-CN',
+                autoclose: 1,
+                todayHighlight: 1,
+                format: "yyyy-mm-dd"
+            });
+
+            $('input[name=end]').datepicker({
+                language: 'zh-CN',
+                autoclose: 1,
+                todayHighlight: 1,
+                format: "yyyy-mm-dd"
+            });
+        }
+
+        function loadOperator() {
+            $.ajax({
+                type: 'get',
+                url: '../../Users/User/GetUserItems',
+                dataType: 'json',
+                cache: false,
+                success: function (user) {
+                    if (user) {
+                        $("#OperatorID").empty();
+                        $("#OperatorID").append('<option value="0" selected = "selected">' + "请选择初检员" + '</option>');
+                        $.each(user, function () {
+                            $("#OperatorID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        });
+                    }
+                }
+            });
+        }
 
         function loadTask() {
             $.ajax({
@@ -43,23 +85,37 @@
         <div class="content">
             <div>妊检初检任务单</div>
             <div>
-                <form action="../../TaskInsemination/SaveTask" method="post">
+                <form action="../../TaskInitialInspection/SaveTask/@ViewBag.TaskID" method="post">
                     <div>任务单类型: 妊检初检任务单</div>
                     <div>任务指导: 请检测该牛妊检情况。</div>
                     <br />
-                    <div>任务开始时间: <input type="date" id="startDate" /></div>
-                    <div>任务完成时间: <input type="date" id="endDate" /></div>
-                    <br />
-                    <div>牛耳号: <input id="earNum" /></div>
-                    <div>操作人员：<input name="operatorName" /></div>
-                    <div>
-                        怀孕状态：
-                        <select name="pregnantStatus">
+
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">牛耳号:</span>
+                        <input id="earNum" type="text" class="form-control w200 js-DisplayEarNum" name="DisplayEarNum" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">任务开始时间:</span>
+                        <input type="date" id="startDate" name="start" class="form-control w200" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">任务完成时间:</span>
+                        <input type="date" id="endDate" name="end" class="form-control w200" />
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">操作人员：</span>
+                        <select name="operatorName" class="form-control w200" id="OperatorID"></select>
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w200">怀孕状态：</span>
+                        <select name="pregnantStatus" class="form-control w200" id="status">
                             <option value="0">初检-</option>
                             <option value="1">初检+</option>
                         </select>
                     </div>
-                    <button type="submit">提交</button>
+                    <div class="mt10">
+                        <input type="submit" class="btn btn-primary" id="btnSave" value="提交" />
+                    </div>
                 </form>
             </div>
         </div>

@@ -31,6 +31,7 @@ namespace CowSite.Controllers.Task
         /// <returns></returns>
         public ActionResult TaskInsemination()
         {
+            ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskInsemination.cshtml");
         }
         /// <summary>
@@ -132,5 +133,5 @@ namespace CowSite.Controllers.Task
             ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskCompleteCalf.cshtml");
         }
-	}
+    }
 }

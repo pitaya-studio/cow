@@ -21,7 +21,7 @@
             loadCowGroupList();
             initButton();
         });
-
+        var cowGroups;
         var cowGroupGridManager;
         function loadCowGroupList() {
             cowGroupGridManager = $("#cowGroupGrid").ligerGrid({
@@ -33,23 +33,13 @@
                         display: '牛群', name: 'Name', align: 'left', width: 250,
                         editor: { type: 'text' }
                     },
-                    {
-                        display: '牛群类型', name: 'Type', type: 'int', align: 'left', width: 150,
-                        render: function (item) {
-                            var typeName = "";
-                            $.each(cowGroupTypeData, function () {
-                                if (this.ID == item.Type) {
-                                    typeName = this.Name;
-                                    return typeName;
-                                }
-                            });
-                            return typeName;
-                        }
-                    },
+                    {display: '牛群类型', name: 'Type', 
+                        align: 'left', width: 150},
                     { display: '牛群说明', name: 'Description', align: 'left' },
                     { display: '配方', name: 'FormulaName', align: 'left', width: 150 }
                 ],
                 pageSize: 15,
+                data:cowGroups,
                 width: '100%',
                 height: '100%',
                 isScroll: false,

@@ -33,7 +33,7 @@ namespace DairyCow.DAL
             recentTaskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return recentTaskList;
         }
-       
+
         public DataTable GetAllTasks(int pastureID)
         {
             DataTable taskList = null;
@@ -227,18 +227,17 @@ namespace DairyCow.DAL
                     break;
             }
             sqlString.Append(@"Update [Task] SET");
-            sqlString.Append("[Status] = " + taskStatus + ",");
 
             if (myTask.CompleteTime != null)
             {
-                sqlString.Append("[FinishedTime] = " + myTask.CompleteTime + ",");
+                sqlString.Append(" [FinishedTime] = '" + myTask.CompleteTime + "',");
             }
             if (myTask.InputTime != null)
             {
-                sqlString.Append("[InputTime] = " + myTask.InputTime + ",");
+                sqlString.Append("[InputTime] = '" + myTask.InputTime + "',");
             }
-
-            sqlString.Append(" WHERE [ID] = '" + myTask.ID + "'");
+            sqlString.Append(" [Status] = " + taskStatus);
+            sqlString.Append(" WHERE [ID] = " + myTask.ID);
 
 
 

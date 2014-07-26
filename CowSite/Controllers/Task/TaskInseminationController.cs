@@ -11,35 +11,42 @@ namespace CowSite.Controllers.Task
     public class TaskInseminationController : Controller
     {
         TaskBLL bllTask = new TaskBLL();
-        public ActionResult SaveTask()
+        InseminationBLL bllInsemination = new InseminationBLL();
+
+        public JsonResult LoadTask(string taskID)
         {
-            try
+            DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(taskID));
+            var taskData = new
             {
-                string startDate = Request.Form["startDate"];
-                string endDate = Request.Form["endDate"];
-                string earNum = Request.Form["earNum"];
-                string operatorName = Request.Form["operatorName"];
-                string knownWay = Request.Form["knownWay"];
-                string semenNum = Request.Form["semenNum"];
-                string semenCount = Request.Form["semenCount"];
-                string desc = Request.Form["desc"];
+                startTime = task.ArrivalTime.ToString("yyyy-MM-dd"),
+                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum)
+            };
+            return Json(taskData, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveTask(string id)
+        {
+            string displayEarNum = Request.Form["DisplayEarNum"];
+            string startDate = Request.Form["start"];
+            string endDate = Request.Form["end"];
+            string operatorID = Request.Form["operatorName"];
+            string knownWay = Request.Form["knownWay"];
+            string semenNum = Request.Form["semNum"];
+            string semenCount = Request.Form["semCount"];
+            string desc = Request.Form["description"];
 
-                Insemination i = new Insemination();
-                i.EstrusDate = DateTime.Parse(startDate);
-                i.OperateDate = DateTime.Parse(endDate);
-                i.EarNum = Convert.ToInt32(earNum);
-                //i.Operator = operatorName;
-                i.EstrusFindType = Convert.ToInt32(knownWay);
-                i.SemenNum = semenNum;
-                i.InseminationNum = Convert.ToInt32(semenCount);
-                i.Description = desc;
-                bllTask.CompleteInsemination(i);
+            Insemination i = new Insemination();
+            i.EstrusDate = DateTime.Parse(startDate);
+            i.OperateDate = DateTime.Parse(endDate);
+            i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            i.operatorID = Convert.ToInt32(operatorID);
+            i.EstrusFindType = Convert.ToInt32(knownWay);
+            i.SemenNum = semenNum;
+            i.InseminationNum = Convert.ToInt32(semenCount);
+            i.Description = desc;
 
-            }
-            catch (Exception)
-            {
-                //todo dehua
-            }
+            DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
+            bllTask.CompleteInsemination(task, i);
+
             return View("~/Views/Task/Index.cshtml");
         }
     }

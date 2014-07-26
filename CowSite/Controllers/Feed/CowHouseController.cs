@@ -15,6 +15,7 @@ namespace CowSite.Controllers.Feed
     {
         HouseBLL bllHouse = new HouseBLL();
         CowGroupBLL bllCowGroup = new CowGroupBLL();
+        int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
         public JsonResult GetCowHouseInfo()
         {
             int pastureID = Convert.ToInt32(UserBLL.Instance.CurrentUser.Pasture.ID);
@@ -29,6 +30,13 @@ namespace CowSite.Controllers.Feed
         public ActionResult List()
         {
             return View("~/Views/Feed/CowHouse/List.cshtml");
+        }
+
+        //用于select绑定
+        public JsonResult GetCowHouseList()
+        {
+            List<House> lstHouse = bllHouse.GetHouseList(pastureID);
+            return Json(lstHouse, JsonRequestBehavior.AllowGet);
         }
 
         //增加牛舍

@@ -15,15 +15,14 @@ namespace CowSite.Controllers.Task
             TaskBLL bll = new TaskBLL();
             DairyTask v;
             v = bll.GetTaskByID(Convert.ToInt32(taskID));
-
-            UserBLL u = new UserBLL();
-            User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
+            string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
 
             return Json(new
             {
                 EarNum = v.EarNum,
+                DisplayEarNum = displayEarNum,
                 ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
-                Operator = user.Name
+                Operator = v.OperatorID
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -33,7 +32,9 @@ namespace CowSite.Controllers.Task
             {
                 TaskBLL bll = new TaskBLL();
                 DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-                v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
+                v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
+                v.CompleteTime = DateTime.Parse(Request.Form["end"]);
+                v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]); 
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);
                 bll.CompleteDay10AfterBorn(v, house, group);

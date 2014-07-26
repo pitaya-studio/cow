@@ -226,19 +226,14 @@ namespace DairyCow.BLL
         /// <summary>
         /// 发情/配种任务
         /// </summary>
-        public void CompleteInsemination(Insemination insemination)
+        public void CompleteInsemination(DairyTask task, Insemination insemination)
         {
             CowInfo cow = new CowInfo(insemination.EarNum);
             //添加任务记录，添加即已完成 Todo
-            DairyTask task = new DairyTask();
-            task.ArrivalTime = insemination.OperateDate;
-            task.CompleteTime = insemination.OperateDate;
-            task.TaskType = TaskType.InseminationTask;
-            task.OperatorID = insemination.operatorID;
-            task.InputTime = DateTime.Now;
-            task.PastureID = cow.FarmCode;
             task.Status = DairyTaskStatus.Completed;
-
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
+            UpdateTask(task);
 
             //删除无效的妊检任务单
             RemovePreviousInspectionTasks(insemination.EarNum, true);
@@ -278,7 +273,7 @@ namespace DairyCow.BLL
         /// <summary>
         /// 妊检初检任务
         /// </summary>
-        public void CompleteInitialInspection(DairyTask task,InitialInspection initialInspetion)
+        public void CompleteInitialInspection(DairyTask task, InitialInspection initialInspetion)
         {
             //添加初检记录
             InitialInspectionBLL iBLL = new InitialInspectionBLL();
@@ -286,14 +281,14 @@ namespace DairyCow.BLL
 
             //更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime=DateTime.Now;
-            task.InputTime=DateTime.Now;
+            task.CompleteTime = DateTime.Now;
+            task.InputTime = DateTime.Now;
             UpdateTask(task);
 
-            
+
             CowBLL cowBLL = new CowBLL();
 
-            if (initialInspetion.InspectResult==1)
+            if (initialInspetion.InspectResult == 1)
             {
                 //初检+
                 //生成新复检任务单
@@ -319,9 +314,9 @@ namespace DairyCow.BLL
                 //更新牛繁殖状态
                 cowBLL.UpdateCowBreedStatus(task.EarNum, "初检-");
             }
-            
-            
-            
+
+
+
         }
 
         /// <summary>
@@ -335,14 +330,14 @@ namespace DairyCow.BLL
 
             //更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime=DateTime.Now;
+            task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
             UpdateTask(task);
 
 
             CowBLL cowBLL = new CowBLL();
 
-            if (reInspection.ReInspectResult==1)
+            if (reInspection.ReInspectResult == 1)
             {
                 //复检+
                 //生成产前21天任务单
@@ -424,7 +419,7 @@ namespace DairyCow.BLL
             //产生调群任务，进产房
             DairyTask groupingTask = new DairyTask();
             groupingTask.TaskType = TaskType.GroupingTask;
-            DateTime time=DateTime.Now;
+            DateTime time = DateTime.Now;
             groupingTask.ArrivalTime = time;
             groupingTask.EarNum = task.EarNum;
             groupingTask.DeadLine = time.AddDays(1.0);
@@ -435,8 +430,8 @@ namespace DairyCow.BLL
             GroupingRecord groupingRecord = new GroupingRecord();
             groupingRecord.EarNum = groupingTaskCopy.EarNum;
             groupingRecord.TaskID = groupingTaskCopy.ID;
-            CowBLL cowBLL=new CowBLL();
-            Cow myCow=cowBLL.GetCowInfo(groupingTaskCopy.EarNum);
+            CowBLL cowBLL = new CowBLL();
+            Cow myCow = cowBLL.GetCowInfo(groupingTaskCopy.EarNum);
             groupingRecord.OriginalGroupID = myCow.GroupID;
             groupingRecord.OriginalHouseID = myCow.HouseID;
             groupingRecord.TargetGroupID = cowGroupId;
@@ -452,13 +447,13 @@ namespace DairyCow.BLL
         /// </summary>
         /// <param name="calving"></param>
         /// <param name="calfEarNum"></param>
-        public void CreateAfterBornTasks(Calving calving,int calfEarNum)
+        public void CreateAfterBornTasks(Calving calving, int calfEarNum)
         {
             //分配兽医,饲养员
             CowGroupBLL g = new CowGroupBLL();
             CowBLL c = new CowBLL();
             Cow cc = c.GetCowInfo(calving.EarNum);
-            CowGroup gg= g.GetCowGroupList(cc.FarmCode).Find(p => p.ID == cc.GroupID);
+            CowGroup gg = g.GetCowGroupList(cc.FarmCode).Find(p => p.ID == cc.GroupID);
 
 
             //产犊界面，输入产犊信息，调用本方法产生3个产后任务和犊牛饲喂任务
@@ -466,24 +461,24 @@ namespace DairyCow.BLL
             t1.EarNum = calving.EarNum;
             t1.ArrivalTime = calving.Birthday.AddDays(3.0);
             t1.DeadLine = t1.ArrivalTime.AddDays(1.0);
-            t1.OperatorID=gg.DoctorID;
-            t1.TaskType=TaskType.Day3AfterBornTask;
+            t1.OperatorID = gg.DoctorID;
+            t1.TaskType = TaskType.Day3AfterBornTask;
             this.AddTask(t1);
 
             DairyTask t2 = new DairyTask();
             t2.EarNum = calving.EarNum;
             t2.ArrivalTime = calving.Birthday.AddDays(10.0);
             t2.DeadLine = t2.ArrivalTime.AddDays(1.0);
-            t2.OperatorID=gg.DoctorID;
-            t2.TaskType=TaskType.Day10AfterBornTask;
+            t2.OperatorID = gg.DoctorID;
+            t2.TaskType = TaskType.Day10AfterBornTask;
             this.AddTask(t2);
 
             DairyTask t3 = new DairyTask();
             t3.EarNum = calving.EarNum;
             t3.ArrivalTime = calving.Birthday.AddDays(15.0);
             t3.DeadLine = t3.ArrivalTime.AddDays(1.0);
-            t3.OperatorID=gg.DoctorID;
-            t3.TaskType=TaskType.Day15AfterBornTask;
+            t3.OperatorID = gg.DoctorID;
+            t3.TaskType = TaskType.Day15AfterBornTask;
             this.AddTask(t3);
 
             ////犊牛任务单,to-do,放到犊牛入群
@@ -583,7 +578,7 @@ namespace DairyCow.BLL
         {
             //每头牛做增加操作时调用本方法
             return dalMedical.InsertImmuneRecord(immune.PastureID, immune.ImmuneDate, immune.Vaccine, immune.EarNum, immune.DoctorID);
-            
+
         }
 
         /// <summary>
@@ -623,13 +618,13 @@ namespace DairyCow.BLL
 
 
             //更新牛的牛群号，牛舍号
-            CowBLL cowBLL=new CowBLL();
+            CowBLL cowBLL = new CowBLL();
             Cow myCow = cowBLL.GetCowInfo(task.EarNum);
             GroupingRecordBLL gBLL = new GroupingRecordBLL();
             GroupingRecord record = gBLL.GetGroupingRecordByTaskID(task.ID);
             myCow.GroupID = record.TargetGroupID;
             myCow.HouseID = record.TargetHouseID;
-            
+
         }
 
         /// <summary>

@@ -10,34 +10,33 @@ namespace CowSite.Controllers.Task
 {
     public class TaskDay15AfterBornController : Controller
     {
-        public class TaskDay21ToBornController : Controller
+        public JsonResult LoadTask(string taskID)
         {
-            public JsonResult LoadTask(string taskID)
+            TaskBLL bll = new TaskBLL();
+            DairyTask v;
+            v = bll.GetTaskByID(Convert.ToInt32(taskID));
+            string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
+
+            return Json(new
             {
-                TaskBLL bll = new TaskBLL();
-                DairyTask v;
-                v = bll.GetTaskByID(Convert.ToInt32(taskID));
+                EarNum = v.EarNum,
+                DisplayEarNum = displayEarNum,
+                ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
+                Operator = v.OperatorID
+            }, JsonRequestBehavior.AllowGet);
+        }
 
-                UserBLL u = new UserBLL();
-                User user = u.GetUsers().Find(p => p.ID == v.OperatorID);
+        public JsonResult SaveTask()
+        {
+            TaskBLL bll = new TaskBLL();
+            DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
+            v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
+            v.CompleteTime = DateTime.Parse(Request.Form["end"]);
+            v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
 
-                return Json(new
-                {
-                    EarNum = v.EarNum,
-                    ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
-                    Operator = user.Name
-                }, JsonRequestBehavior.AllowGet);
-            }
-
-            public JsonResult SaveTask()
-            {
-                TaskBLL bll = new TaskBLL();
-                DairyTask v = bll.GetTaskByID(Convert.ToInt32(Request.Form["id"]));
-                v.CompleteTime = DateTime.Parse(Request.Form["endDate"]);
-
-                bll.CompleteDay15AfterBorn(v);
-                return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
-            }
+            bll.CompleteDay15AfterBorn(v);
+            return Json(new { status = 0 }, JsonRequestBehavior.AllowGet);
         }
     }
+
 }

@@ -22,7 +22,7 @@ namespace CowSite.Controllers.Breed
         /// <returns></returns>
         public JsonResult GetBreedIndicant()
         {
-            FarmInfo farm = FarmInfo.Instance;
+            FarmInfo farm = new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
 
             List<BreedIndicant> lstBreedIndicant = new List<BreedIndicant>();
             // 牧场繁殖指标
@@ -78,7 +78,7 @@ namespace CowSite.Controllers.Breed
         /// <returns></returns>
         public JsonResult GetBreedChart()
         {
-            FarmInfo farm = FarmInfo.Instance;
+            FarmInfo farm = new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
 
             // 经产牛繁殖状况
             ArrayList arrBreedSummary = new ArrayList();

@@ -22,7 +22,7 @@ namespace CowSite.Controllers
 
         public JsonResult GetCowList(string cowType)
         {
-            FarmInfo farm = FarmInfo.Instance;
+            FarmInfo farm = new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
 
             List<CowInfo> cowList = new List<CowInfo>();
 

@@ -19,5 +19,9 @@ namespace DairyCow.Model
         /// 牛舍中牛数
         /// </summary>
         public int CowNumber { get; set; }
+
+        public string GroupName { get; set; }
+
+        public string GroupType { get; set; }
     }
 }

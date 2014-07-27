@@ -12,14 +12,16 @@ namespace DairyCow.BLL
     public class HouseBLL
     {
         private HouseDAL houseDAL = new HouseDAL();
+        private CowGroupBLL groupbll = new CowGroupBLL();
 
         public List<House> GetHouseList(int pastureID)
         {
             List<House> list = new List<House>();
             DataTable table = houseDAL.GetHouseTable(pastureID);
+            var groups = groupbll.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID);
             foreach (DataRow item in table.Rows)
             {
-                list.Add(WrapHouseItem(item));
+                list.Add(WrapHouseItem(item, groups));
             }
             return list;
         }
@@ -29,7 +31,7 @@ namespace DairyCow.BLL
         /// <param name="pastureID"></param>
         /// <param name="groupID"></param>
         /// <returns></returns>
-        public List<House> GetHouseListByGroup(int pastureID,int groupID)
+        public List<House> GetHouseListByGroup(int pastureID, int groupID)
         {
             return GetHouseList(pastureID).FindAll(p => p.GroupID == groupID);
         }
@@ -48,13 +50,13 @@ namespace DairyCow.BLL
             return GetHouseList(pastureID).FindAll(p => p.GroupID == 0);
         }
 
-        public House WrapHouseItem(DataRow row)
+        private House WrapHouseItem(DataRow row, List<CowGroup> groups)
         {
             House h = new House();
             h.ID = Convert.ToInt32(row["ID"]);
             h.PastureID = Convert.ToInt32(row["PastureID"]);
             h.Name = row["Name"].ToString();
-            if (row["GroupID"]!= DBNull.Value)
+            if (row["GroupID"] != DBNull.Value)
             {
                 h.GroupID = Convert.ToInt32(row["GroupID"]);
             }
@@ -63,6 +65,13 @@ namespace DairyCow.BLL
                 h.GroupID = 0;
             }
             h.CowNumber = GetCowNumberInHouse(h);
+
+            var group = groups.FirstOrDefault(g => g.ID == h.GroupID);
+            if (group != null)
+            {
+                h.GroupName = group.Name;
+                h.GroupType = group.GetCowGroupTypeStr(group.GroupType);
+            }
             return h;
         }
 
@@ -75,22 +84,22 @@ namespace DairyCow.BLL
         {
             return houseDAL.InsertHouse(unusedHouse.Name, unusedHouse.PastureID);
         }
-        
+
         /// <summary>
         /// 更新牛舍的牛群，必须牛舍中无牛
         /// </summary>
         /// <param name="houseID"></param>
         /// <param name="groupID">新牛群号，0表示不分配</param>
         /// <returns></returns>
-        public int UpdateHouseGroup(House house,int newGroupID)
+        public int UpdateHouseGroup(House house, int newGroupID)
         {
             int temp = 0;
-            if (GetCowNumberInHouse(house)==0)
+            if (GetCowNumberInHouse(house) == 0)
             {
-                temp= houseDAL.UpdateHouseGroup(house.ID, newGroupID);
+                temp = houseDAL.UpdateHouseGroup(house.ID, newGroupID);
             }
             return temp;
-            
+
         }
 
         public int GetCowNumberInHouse(House house)
@@ -106,7 +115,7 @@ namespace DairyCow.BLL
             int cowNumber = GetCowNumberInHouse(house);
             if (house.GroupID == 0 && cowNumber == 0)
             {
-                temp=houseDAL.DeleteHouse(house.ID);
+                temp = houseDAL.DeleteHouse(house.ID);
             }
             else
             {

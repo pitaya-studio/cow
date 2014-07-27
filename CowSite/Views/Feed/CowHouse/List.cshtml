@@ -28,21 +28,8 @@
                 columns: [
                     { display: '牛舍ID', name: 'ID', type: 'int', hide: true, width: 50 },
                     { display: '牛舍名称', name: 'Name', align: 'left', width: 250 },
-                    { display: '牛群ID', name: 'GroupID', align: 'left', width: 250, editor: { type: 'text' } },
-                    //{
-                    //    display: '牛群类型', name: 'Type', type: 'int', align: 'left', width: 150,
-                    //    render: function (item) {
-                    //        var typeName = "";
-                    //        $.each(cowGroupTypeData, function () {
-                    //            if (this.ID == item.Type) {
-                    //                typeName = this.Name;
-                    //                return typeName;
-                    //            }
-                    //        });
-                    //        return typeName;
-                    //    }
-                    //},
-                    { display: '牧场ID', name: 'PastureID', align: 'left', width: 150 }
+                    { display: '牛群', name: 'GroupName', align: 'left', width: 250 },
+                    { display: '牛群类型', name: 'GroupType', align: 'left', width: 250 }
                 ],
                 pageSize: 15,
                 width: '100%',
@@ -64,7 +51,7 @@
                 function (cowGroup) {
                     if (cowGroup) {
                         $("#groupID").empty();
-                        $("#groupID").append('<option value="0" selected = "selected">' + "请选择牛群" + '</option>');
+                        $("#groupID").append('<option value="0" selected = "selected">' + "（空）" + '</option>');
                         $.each(cowGroup, function () {
                             $("#groupID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
                         });
@@ -165,11 +152,11 @@
             <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
                 <div style="display: inline-block; position: absolute; left: 0px;">
                     牛舍名称：<input type="text" id="houseName" />
-                    <select id="groupID" style="width: 150px; height: 25px"></select>
+                    <input type="button" id="btnAdd" value="新增牛舍" style="display: none;" />
+                    <input type="button" id="btnDelete" value="删除牛舍" style="display: none; " />                    
                 </div>
                 <div style="display: inline-block; position: absolute; right: 0px;">
-                    <input type="button" id="btnAdd" value="新增牛舍" style="display: none;" />
-                    <input type="button" id="btnDelete" value="删除牛舍" style="display: none; " />
+                    请选择牛群：<select id="groupID" style="width: 150px; height: 25px"></select>
                     <input type="button" id="btnModify" value="修改牛舍" style="display: none; " />
                 </div>
             </div>

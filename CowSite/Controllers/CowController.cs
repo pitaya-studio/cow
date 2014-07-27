@@ -46,6 +46,24 @@ namespace CowSite.Controllers
                 case "干奶牛":
                     cowList = farm.DryMilkCows;
                     break;
+                case "经产牛未配牛":
+                    cowList = farm.UninseminatedMultiParity;
+                    break;
+                case "经产牛已配未检牛":
+                    cowList = farm.InseminatedMultiParity;
+                    break;
+                case "经产牛已孕牛":
+                    cowList = farm.PregnantMultiParity;
+                    break;
+                case "青年牛未配牛":
+                    cowList = farm.UninseminatedNullParity;
+                    break;
+                case "青年牛已配未检牛":
+                    cowList = farm.InseminatedNullParity;
+                    break;
+                case "青年牛已孕牛":
+                    cowList = farm.PregnantNullParity;
+                    break;
                 default:
                     break;
             }

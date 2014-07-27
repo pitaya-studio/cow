@@ -27,8 +27,9 @@
         var cowType = "@ViewBag.CowType";
 
         $(function () {
+            document.title = cowType + "列表";
             $('.cowListTitle').html(cowType + "列表");
-            loadCowList(cowType);
+            loadCowList(cowType);            
         });
 
         function loadCowList(cowType) {
@@ -42,7 +43,7 @@
                     $(".cowList").ligerGrid({
                         checkbox: false,
                         columns: [
-                            { display: '显示耳号', name: 'DisplayEarNum', type: 'string', width: 100 },
+                            { display: '耳号', name: 'DisplayEarNum', type: 'string', width: 100 },
                             { display: '群', name: 'GroupName', type: 'double', width: 100 },
                             { display: '性别', name: 'Gender', type: 'double', width: 100 },
                             { display: '月龄', name: 'AgeMonth', type: 'double', width: 100 },

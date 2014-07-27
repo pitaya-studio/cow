@@ -52,5 +52,20 @@ namespace DairyCow.BLL
         {
             return dalPasture.UpdatePastureActiveStatus(id, isActive);
         }
+
+        
+
+        public Pasture GetPasture(string name)
+        {
+            List<Pasture> list = GetPastures().FindAll(p => p.Name.Equals(name));
+            if (list.Count==1)
+            {
+                return list[0];
+            }
+            else
+            {
+                throw new Exception("叫这个名字的牧场有：" + list.Count.ToString() + "个。");
+            }
+        }
     }
 }

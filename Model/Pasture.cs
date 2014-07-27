@@ -14,5 +14,13 @@ namespace DairyCow.Model
         /// 牧场是否有服务，0：用户不能登录
         /// </summary>
         public bool IsActive { get; set; }
+
+        public string Status
+        {
+            get
+            {
+                return IsActive ? "正常运营" : "暂停运营";
+            }
+        }
     }
 }

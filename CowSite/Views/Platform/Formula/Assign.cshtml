@@ -15,6 +15,12 @@
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Controls/bootstrap.timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.timepicker/js/bootstrap-timepicker.min.js"></script>
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
     <script>
         $(function () {
@@ -132,8 +138,8 @@
         <div id="menu"></div>
         <div class="content">
             <form id="cowGroupInfo">
-                <div class="input-group mt10">
-                    <span class="input-group-addon w200 hidden">牛群</span>
+                <div class="input-group mt10 hidden">
+                    <span class="input-group-addon w200 ">牛群</span>
                     <input type="text" class="form-control w200 disabled" placeholder="牛群" contenteditable="false" name="cowGroup">
                 </div>
                 <div class="input-group mt10">
@@ -141,7 +147,7 @@
                     <select class="w200" name="formula"></select>
                 </div>
                 <div class="input-group mt10">
-                    <span class="input-group-addon w200">选择牛群</span>
+                    <span class="input-group-addon w200">选择牛群类型</span>
                     <select class="w200" name="groupSelect">
                         <option value="0">仅未指定配方牛群</option>
                         <option value="1">全部牛群</option>

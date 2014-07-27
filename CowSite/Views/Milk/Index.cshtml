@@ -22,13 +22,10 @@
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
     <script>
         $(function () {
-            $('#menu').menu({ mainMenuSelectedID: "Milk", subMenuSelectedID: "Milk-Home" });
-            queryReportData();
+            $('#menu').menu({ mainMenuSelectedID: "Milk", subMenuSelectedID: "Milk-Home" });            
             initDateSelector();
-        });
-        var milkData;
-
-        
+            initBtn();
+        });         
 
         function initDateSelector() {
             $('input[name=startDate]').datepicker({
@@ -37,6 +34,7 @@
                 todayHighlight: 1,
                 format: "yyyy-mm-dd"
             });
+
             $('input[name=endDate]').datepicker({
                 language: 'zh-CN',
                 autoclose: 1,
@@ -44,10 +42,8 @@
                 format: "yyyy-mm-dd"
             });
         }
-
-
-
-        function queryReportData() {
+        
+        function initBtn() {
             $('#btnQuery').click(function () {
                 $("#pageloading").show();
                 var startD = $('input[name=startDate]').val();
@@ -66,15 +62,14 @@
                     data: { startDate: startD, endDate: endD },
                     dataType: 'json',
                     success: function (reportData) {
-                        milkData=reportData;
-                        initGrid();
+                        var milkData = reportData;
+                        initGrid(milkData);
                     }
                 });
             });
         }
 
-        function initGrid() {
-            
+        function initGrid(milkData) {            
             cowGroupGridManager = $("#milkGrid").ligerGrid({
                 checkbox: false,
                 columns: [

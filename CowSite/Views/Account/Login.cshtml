@@ -22,7 +22,14 @@
                     data: { userID: 'user1' },
                     dataType: "json"
                 }).success(function (formulaInfo) {
-                    window.location.href = "../Home/Index";
+                    if (formulaInfo == 1)
+                    {
+                        window.location.href = "../Home/Index";
+                    }
+                    else
+                    {
+                        alert("登陆失败，请确认用户名密码。");
+                    }
                 });                
             })
         })
@@ -40,16 +47,23 @@
     </header>
     <section id="banner">
         <div class="inner">
-            <p> <strong>登录易牧通系统</strong></p>
-            <div>
-                <input type="text" value="用户名" class="logininput">
-                <input type="text" value="密码" class="logininput">
-            </div>
-            <footer>
-                <div>
-                    <input id="btnLogin" type="button" value="登录" class="btn">
+            <form >
+                <p> <strong>登录易牧通系统</strong></p>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">用户名：</span>
+                    <input type="text" class="logininput" name="name">
                 </div>
-            </footer>
+                <br />
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">密码：</span>
+                    <input type="password" class="logininput" name="password">
+                </div>
+                <footer>
+                    <div>
+                        <input id="btnLogin" type="button" value="登录" class="btn">
+                    </div>
+                </footer>
+            </form>
         </div>
     </section>
     <div class="container">

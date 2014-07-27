@@ -15,14 +15,12 @@ namespace CowSite.Controllers.Task
         /// </summary>
         /// <param name="taskID"></param>
         /// <returns></returns>
-        int id = 0; //耳号
         UserBLL bllUser = new UserBLL();
         TaskBLL bllTask = new TaskBLL();
         CowBLL bllCow = new CowBLL();
         CowGroupBLL bllCowGroup = new CowGroupBLL();
         public JsonResult LoadTask(string taskID)
         {
-            this.id = Convert.ToInt32(taskID);
             TaskBLL bllTask = new TaskBLL();
             DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(taskID));
 
@@ -36,12 +34,12 @@ namespace CowSite.Controllers.Task
             {
                 doctor = user.Role.Name,
                 doctorID = user.Role.ID,
-                earNum = task.EarNum
+                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum)
             };
             return Json(taskData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SaveTask()
+        public ActionResult SaveTask(string id)
         {
             try
             {
@@ -52,7 +50,7 @@ namespace CowSite.Controllers.Task
                 string QuarantineMethod = Request.Form["quarantineMethod"];
                 string DoctorID = Request.Form["doctorID"];
                 string Result = Request.Form["result"];
-                string EarNum = Request.Form["earNum"];
+                string EarNum = Request.Form["DisplayEarNum"];
 
                 quarantine.PastureID = PastureID;
                 quarantine.QuarantineType = QuarantineType;
@@ -60,13 +58,13 @@ namespace CowSite.Controllers.Task
                 quarantine.QuarantineMethod = QuarantineMethod;
                 quarantine.DoctorID = Convert.ToInt32(DoctorID);
                 quarantine.Result = Convert.ToInt32(Result);
-                quarantine.EarNum = Convert.ToInt32(EarNum);
+                quarantine.EarNum = CowBLL.ConvertDislayEarNumToEarNum(EarNum, PastureID);
 
                 //增加检疫记录
                 bllTask.AddQuarantineRecord(quarantine);
 
                 //更新检疫记录
-                DairyTask task = bllTask.GetTaskByID(id);//To-do please get taskID 
+                DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));//To-do please get taskID 
                 bllTask.CompleteQuarantine(task);
 
                 return View("~/Views/Task/Index.cshtml");

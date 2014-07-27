@@ -10,11 +10,11 @@ namespace CowSite.Controllers
         public JsonResult Login(string user, string password)
         {            
 #if DEBUG
-            UserBLL.Instance.GetCurrentUser("farmadmin", "123");
-            return Json(1, JsonRequestBehavior.AllowGet);
+            UserBLL.Instance.GetCurrentUser("farmadmin", "123");            
 #else
 
-            UserBLL.Instance.GetCurrentUser(user, password);
+            UserBLL.Instance.GetCurrentUser(user, password);           
+#endif
             if (UserBLL.Instance.CurrentUser == null)
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
@@ -23,39 +23,38 @@ namespace CowSite.Controllers
             {
                 List<string> menus = new List<string>();
                 Role role = UserBLL.Instance.CurrentUser.Role;
-                if(role.IsAdmin)
+                if (role.IsAdmin)
                 {
                     menus.Add("Platform");
                 }
                 else
                 {
                     menus.Add("Home");
-                    menus.Add("Task");                    
+                    menus.Add("Task");
                 }
-                if(role.CanBreed)
+                if (role.CanBreed)
                 {
                     menus.Add("Breed");
                 }
-                if(role.CanFeed)
+                if (role.CanFeed)
                 {
                     menus.Add("Feed");
                 }
-                if(role.CanMilk)
+                if (role.CanMilk)
                 {
                     menus.Add("Milk");
                 }
-                if(role.CanMedical)
+                if (role.CanMedical)
                 {
                     menus.Add("Medical");
                 }
-                if(role.IsDirector)
+                if (role.IsDirector)
                 {
                     menus.Add("FarmAdmin");
                 }
                 role.Menus = menus;
                 return Json(1, JsonRequestBehavior.AllowGet);
             }            
-#endif
         }
 	}
 }

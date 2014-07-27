@@ -21,7 +21,7 @@ namespace DairyCow.DAL
                                        MultiParityNumber,
                                         NullParityNumber,
                                         BredCattleNumber,
-                                       CalfNumber) Values({0},{1},[2}，{3},{4},{5},{6},{7},{8})",
+                                       CalfNumber) Values({0},'{1}',[2}，{3},{4},{5},{6},{7},{8})",
                                          pastureID, reportDate.Date, milkCowNumber, dryCowNumber, multiParityNumber, nullParityNumber, bredCattleNumber, calfNumber);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
@@ -37,7 +37,7 @@ namespace DairyCow.DAL
                                         NullParityNumber,
                                         BredCattleNumber,
                                        CalfNumber from Report_DailyReport
-                                        where PastureId={0} and ReportDate={1}",
+                                        where PastureId={0} and ReportDate='{1}'",
                                          pastureID, date.Date);
             return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
         }
@@ -67,7 +67,7 @@ namespace DairyCow.DAL
                                         NullParityNumber,
                                         BredCattleNumber,
                                        CalfNumber from Report_DailyReport
-                                        where PastureId={0} and ReportDate>{1} and  ReportDate<{2} ",
+                                        where PastureId={0} and ReportDate>'{1}' and  ReportDate<'{2}' ",
                                          pastureID,startDate,endDate);
             return dataProvider1mutong.FillDataTable(sql, CommandType.Text);
         }

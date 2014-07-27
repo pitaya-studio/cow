@@ -2,13 +2,15 @@
 using DairyCow.Model;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System;
 
 namespace CowSite.Controllers.Milk
 {
     public class IndexController : Controller
     {
         MilkHallBLL bllMilkHall = new MilkHallBLL();
-
+        DailyReportBLL reportBLL = new DailyReportBLL(UserBLL.Instance.CurrentUser.Pasture.ID);
+        MilkRecordBLL milkBLL = new MilkRecordBLL();
         //
         // GET: /Index/
         public ActionResult Index()
@@ -24,6 +26,19 @@ namespace CowSite.Controllers.Milk
                 Rows = lstMilkHall
             };
             return Json(milkHallData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMilkData(string startDate,string endDate)
+        {
+            DateTime sDate=DateTime.Parse(startDate);
+            DateTime eDate=DateTime.Parse(endDate);
+            //List<DailyReport> reportList=reportBLL.GetDailyReport(UserBLL.Instance.CurrentUser.Pasture.ID,sDate,eDate);
+            List<MilkRecord> list = milkBLL.GetMilkRecords(UserBLL.Instance.CurrentUser.Pasture.ID, sDate, eDate);
+            var reportData = new
+            {
+                Rows = list
+            };
+            return Json(reportData, JsonRequestBehavior.AllowGet);
         }
     }
 }

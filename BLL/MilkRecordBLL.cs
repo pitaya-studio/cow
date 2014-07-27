@@ -13,6 +13,17 @@ namespace DairyCow.BLL
     {
         private MilkRecordDAL dalMilk = new MilkRecordDAL();
 
+        public List<MilkRecord> GetMilkRecords(int pastureID, DateTime startDate, DateTime endDate)
+        {
+            List<MilkRecord> list = new List<MilkRecord>();
+            for (DateTime date = startDate.Date; date.Subtract(endDate).TotalHours < 0.0; date = date.AddDays(1.0))
+            {
+                MilkRecord m = new MilkRecord(pastureID, date.Date);
+                list.Add(m);
+            }
+            return list;
+        }
+
         /// <summary>
         /// 插入售奶记录，未输入指标按0.0或者空字符串
         /// </summary>
@@ -284,6 +295,75 @@ namespace DairyCow.BLL
             this.MilkSales = milkBLL.GetMilkSaleList(pastureID, this.MilkDate);
             this.OtherMilkRecord = milkBLL.GetOtherMilk(pastureID, this.MilkDate);
         }
+        public string MilkDateStr
+        {
+            get
+            {
+                return MilkDate.ToShortDateString();
+            }
+        }
+        public float MilkForCalf
+        {
+            get
+            {
+                if (OtherMilkRecord==null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return OtherMilkRecord.MilkForCalf;
+                }
+                
+            }
+        }
+        public float AbnormalMilk
+        {
+            get
+            {
+                if (OtherMilkRecord == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return OtherMilkRecord.AbnormalSaleMilk;
+                }
+                
+            }
+        }
+        public float BadMilk
+        {
+            get
+            {
+                if (OtherMilkRecord == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return OtherMilkRecord.BadMilk;
+                }
+                
+            }
+        }
+        public float LeftMilk
+        {
+            get
+            {
+                if (OtherMilkRecord == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return OtherMilkRecord.LeftMilk;
+                }
+                
+            }
+        }
+
+        
         /// <summary>
         /// 牧场ID
         /// </summary>
@@ -308,7 +388,7 @@ namespace DairyCow.BLL
                 {
                     weight = weight + item.MilkWeight;
                 }
-                weight = weight + OtherMilkRecord.AbnormalSaleMilk + OtherMilkRecord.BadMilk + OtherMilkRecord.MilkForCalf + OtherMilkRecord.LeftMilk;
+                weight = weight + AbnormalMilk + BadMilk + MilkForCalf + LeftMilk;
                 return weight;
             }
         }

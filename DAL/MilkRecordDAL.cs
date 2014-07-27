@@ -63,7 +63,7 @@ namespace DairyCow.DAL
                                                     D.IcePoint, 
                                                     D.Acidity
                                                     FROM Milk_Shipping AS D
-                                                    WHERE D.PastureId={0} AND　D.MilkDate={1}", pastureID,date.Date);
+                                                    WHERE D.PastureId={0} AND D.MilkDate='{1}'", pastureID,date.Date.ToShortDateString());
 
 
 
@@ -105,7 +105,7 @@ namespace DairyCow.DAL
                                                     D.BadMilk,
                                                     D.LeftMilk
                                                     FROM Milk_OtherMilk AS D
-                                                    WHERE D.PastureId={0} AND D.MilkDate='{1}'", pastureID,date.Date);
+                                                    WHERE D.PastureId={0} AND D.MilkDate='{1}'", pastureID,date.Date.ToShortDateString());
 
 
 
@@ -154,7 +154,7 @@ namespace DairyCow.DAL
                                                     Lactose,
                                                     IcePoint, 
                                                     Acidity) Values({0},'{1}',{2},{3},'{4}','{5}','{6}','{7}','{8}','{9}',{10},{11},{12},{13},{14},{15},{16})", 
-                                                    pastureID,  milkDate.Date, amount, milkWeight, company, shipCode, decoding, tankerNum, truckNum, fat, protein, dryMatter, nonFatSolid, microbe, lactose, icePoint, acidity);
+                                                    pastureID,  milkDate.Date.ToShortDateString(), amount, milkWeight, company, shipCode, decoding, tankerNum, truckNum, fat, protein, dryMatter, nonFatSolid, microbe, lactose, icePoint, acidity);
            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
 
@@ -179,7 +179,7 @@ namespace DairyCow.DAL
                                        AbnormalSaleMilk,
                                        BadMilk,
                                        LeftMilk) Values({0},'{1}',{2},{3},{4},{5})",
-                                        pastureId,milkDate.Date, milkForCalf, abnormalSaleMilk, badMilk, leftMilk);
+                                        pastureId,milkDate.Date.ToShortDateString(), milkForCalf, abnormalSaleMilk, badMilk, leftMilk);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
     }

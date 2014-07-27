@@ -17,5 +17,7 @@ namespace DairyCow.Model
         public bool CanMilk { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsDirector { get; set; }
+
+        public List<string> Menus { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace CowSite.Controllers.Feed
             {
 
             }
-            return RedirectToAction("../Index/Index");
+            return RedirectToAction("../../Feed/CowGroup/List");
         }
     }
 }

@@ -9,10 +9,8 @@ namespace CowSite.Controllers.Milk
     public class IndexController : Controller
     {
         MilkHallBLL bllMilkHall = new MilkHallBLL();
-        //DailyReportBLL reportBLL = new DailyReportBLL(UserBLL.Instance.CurrentUser.Pasture.ID);
         MilkRecordBLL milkBLL = new MilkRecordBLL();
-        //
-        // GET: /Index/
+
         public ActionResult Index()
         {
             return View("~/Views/Milk/Index.cshtml");

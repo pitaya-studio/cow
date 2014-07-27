@@ -612,10 +612,10 @@ namespace DairyCow.BLL
             else
             {
                 TimeSpan span = new TimeSpan();
-                if (dry != null)
+                if (dry == null)
                 {
                     //没有干奶，从产犊到现在
-                    span = DateTime.Now.Date.Subtract(dry.DryDate.Date);
+                    span = DateTime.Now.Date.Subtract(cal.Birthday.Date);
                     dayInMilk = Convert.ToInt32(span.TotalDays);
                 }
                 else
@@ -1042,10 +1042,8 @@ namespace DairyCow.BLL
             get { return regroupingReason; }
         }
 
-        public void CheckGrouping()
-        {
-            CowGroupBLL cowGroupBll = new CowGroupBLL();
-            List<CowGroup> groups = cowGroupBll.GetCowGroupList(this.FarmCode);
+        public void CheckGrouping(List<CowGroup> groups)
+        {           
             CowGroup g = groups.FirstOrDefault(p => p.ID == this.GroupID);
             if (g == null)
             {

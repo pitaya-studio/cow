@@ -38,8 +38,8 @@ namespace CowSite.Controllers.Feed
         /// <returns></returns>
         public JsonResult GetRemindCows()
         {
-            FarmInfo fi = new FarmInfo();
-            List<CowInfo>  cows = fi.GetNeedRegroupingCows();
+            FarmInfo fi = new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
+            List<CowInfo>  cows = fi.GetNeedRegroupingCows(UserBLL.Instance.CurrentUser.Pasture.ID);
             return Json(new { Rows = cows }, JsonRequestBehavior.AllowGet);
         }
 

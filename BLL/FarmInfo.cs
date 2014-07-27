@@ -1403,12 +1403,15 @@ namespace DairyCow.BLL
         /// 获取需要调群的牛
         /// </summary>
         /// <returns></returns>
-        public List<CowInfo> GetNeedRegroupingCows()
+        public List<CowInfo> GetNeedRegroupingCows(int pastrure)
         {
+            CowGroupBLL cowGroupBll = new CowGroupBLL();
+            List<CowGroup> groups = cowGroupBll.GetCowGroupList(pastrure);
+
             List<CowInfo> list = new List<CowInfo>();
             foreach (CowInfo item in this.CowInfoList)
             {
-                item.CheckGrouping();
+                item.CheckGrouping(groups);
                 if (item.NeedGrouping)
                 {
                     list.Add(item);

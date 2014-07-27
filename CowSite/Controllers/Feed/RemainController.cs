@@ -9,22 +9,28 @@ namespace CowSite.Controllers.Feed
     {
         RemainRecordBLL bllRemainRecord = new RemainRecordBLL();
         CowGroupBLL bllCowGroup = new CowGroupBLL();
-        
+
         public ActionResult Add()
         {
             return View("~/Views/Feed/Remain/Add.cshtml");
         }
 
         [HttpPost]
-        public ActionResult Save(int id)
+        public ActionResult Save()
         {
             try
             {
+                string cowGroupID = Request.Form["cowGroupName"];
+                string remainQuantity = Request.Form["reQuantity"];
+
                 RemainRecord remainRecord = new RemainRecord();
-                UpdateModel<RemainRecord>(remainRecord);
+                remainRecord.CowGroupID = Convert.ToInt32(cowGroupID);
+                remainRecord.FormulaID = bllCowGroup.GetFormulaIDByGroupID(Convert.ToInt32(cowGroupID));//需要根据牛群ID获得配方ID
+                remainRecord.RecordUserID = UserBLL.Instance.CurrentUser.ID;
                 remainRecord.RecordTime = DateTime.Now;
-                remainRecord.CowGroupID = id;
-                remainRecord.FormulaID = bllCowGroup.GetFormulaIDByGroupID(id);//需要根据牛群ID获得配方ID
+                float s;
+                float.TryParse(remainQuantity, out s);
+                remainRecord.RemainQuantity = s;
 
                 bllRemainRecord.InsertRemainRecordInfo(remainRecord);
             }
@@ -32,7 +38,7 @@ namespace CowSite.Controllers.Feed
             {
 
             }
-            return RedirectToAction("../Index/List");
+            return RedirectToAction("../Index/Index");
         }
     }
 }

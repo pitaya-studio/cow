@@ -9,51 +9,39 @@
     <meta name="viewport" content="width=device-width" />
     <title>空槽记录</title>
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" href="~/Style/base.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-tools-min.js"></script>
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
+    <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="~/Style/base.css">
     <script type="text/javascript">
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-Empty" });
-            loadEmptyRecordInfo();
-            initBtnEvent();
+            loadCowGroup();
         })
 
-        function loadEmptyRecordInfo() {
-            $("#emptyRecordInfo").ligerForm({
-                inputWidth: 170, labelWidth: 90, space: 40,
-                fields: [
-                { display: "牛群名称", name: "Name", type: "text", width: 270, validate: { required: true } },
-                { display: "空料时间", name: "EmptyHour", type: "text", width: 270, validate: { required: true } }
-                ]
-            });
-
-            liger.get("emptyRecordInfo").getEditor("Name").setValue("@ViewBag.Name");
-        }
-
-        function initBtnEvent() {
-            $('#btnSubmit').ligerButton({
-                width: 60,
-                text: '保存',
-                click: function () {
-                    //提交表单
-                    document.getElementById('emptyRecordInfo').submit();
-                    parent.$.ligerDialog.close();
-                    parent.$(".l-dialog,.l-window-mask").hide();
-                },
-                icon: null
-            });
-            $('#btnCancel').ligerButton({
-                width: 60,
-                text: '取消',
-                click: function () {
-                    parent.$.ligerDialog.close();
-                    parent.$(".l-dialog,.l-window-mask").hide();
-                },
-                icon: null
+        function loadCowGroup() {
+            $.ajax({
+                type: 'get',
+                url: '../../Feed/CowGroup/GetCowGroupList',
+                dataType: 'json',
+                cache: false,
+                success: function (cowGroup) {
+                    if (cowGroup) {
+                        $("#cowGroupID").empty();
+                        $("#cowGroupID").append('<option value="0" selected = "selected">' + "请选择牛群" + '</option>');
+                        $.each(cowGroup, function () {
+                            $("#cowGroupID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        });
+                    }
+                }
             });
         }
     </script>
@@ -62,11 +50,19 @@
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            <form class="form-inline" action="~/Feed/Empty/Save/@ViewBag.ID" method="post" id="emptyRecordInfo"></form>
-            <div style="text-align:left;">
-                <input type="button" id="btnSubmit" value="保存" />
-                <input type="button" id="btnCancel" value="取消" />
-            </div>
+            <form action="~/Feed/Empty/Save" method="post" id="emptyRecordInfo">
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">牛群：</span>
+                    <select name="cowGroupName" class="form-control w200" id="cowGroupID"></select>
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">空料时间:</span>
+                    <input type="text" id="emptyHour" name="emHour" class="form-control w200" />
+                </div>
+                <div class="mt10">
+                    <input type="submit" id="btnSubmit" class="btn btn-primary" value="保存" />
+                </div>
+            </form>
         </div>
     </div>
 </body>

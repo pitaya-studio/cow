@@ -52,12 +52,11 @@ namespace CowSite.Controllers.Users
             return RedirectToAction("../User/List");
         }
 
-        public ActionResult Delete(int id)
+        public JsonResult Delete(string userID)
         {
-            //删除用户
-            int userID = Convert.ToInt32(Request["UserID"]);
-            bllUser.DeleteUser(userID);
-            return RedirectToAction("../User/List");
+            //删除用户            
+            bllUser.DeleteUser(Convert.ToInt32(userID));
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult UpdatePassword()

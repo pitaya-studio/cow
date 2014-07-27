@@ -15,75 +15,30 @@
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
-        var userID = "@ViewBag.UserID";
 
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "FarmAdmin", subMenuSelectedID: "FarmAdmin-User" });
-            loadFodderList();
-            $("#userSelector").change(function () {
-                userID = $('#userSelector').val();
-                loadFodderList(userID);
-            });
+            loadUserList();
+            initButton();
         });
 
-        function loadFormulaList() {
-            $.ajax({
-                type: 'get',
-                url: "../../Users/User/GetUserList",
-                cache: false,
-                dataType: "json"
-            }).success(function (user) {
-                if (user) {
-                    $("#userSelector").empty();
-                    $.each(user, function () {
-                        $('#userSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
-                    });
 
-                    if (userID) {
-                        $.each(user, function () {
-                            if (this.ID = userID) {
-                                $('#userName').val(this.Name);
-                                return;
-                            }
-                        });
-                    }
-                    else {
-                        userID = user[0].ID;
-                        $('#userName').val(user[0].Name);
-                    }
-                    loadFodderList(userID);
-                }
+        var fooderGridManager;
+        function loadUserList() {
+            fooderGridManager = $("#fooderGrid").ligerGrid({
+                columns: [
+                    { display: '用户ID', name: 'ID', width: 1, hide: true },
+                    { display: '账号', name: 'Account', align: 'left' },
+                    { display: "用户名", name: "Name", width: 100, type: 'int', editor: { type: 'int' } },
+                    { display: "角色", name: "RoleName", width: 100, type: 'int', editor: { type: 'int' } }
+                ],
+                pageSize: 15,
+                width: '100%',
+                height: '100%',
+                isScroll: false,
+                url: "../../Users/User/GetUserList"
             });
-        }
-
-        function loadFodderList(userID) {
-            $.ajax({
-                type: 'get',
-                url: "../../Users/User/GetUserList",
-                cache: false,
-                data: { userID: userID },
-                dataType: "json"
-            }).success(function (userInfo) {
-                if (userInfo) {
-                    var fooderGridManager = $("#fooderGrid").ligerGrid({
-                        columns: [
-                            { display: '用户ID', name: 'ID', width: 1, hide: true },
-                            { display: '账号', name: 'Account', align: 'left' },
-                            { display: "用户名", name: "Name", width: 100, type: 'int', editor: { type: 'int' } },
-                            { display: "角色", name: "RoleName", width: 100, type: 'int', editor: { type: 'int' } }
-                        ],
-                        pageSize: 15,
-                        width: '100%',
-                        isScroll: false,
-                        data: userInfo,
-                        enabledEdit: false,
-                        clickToEdit: false,
-                        pager: false
-                    });
-                    $("#pageloading").hide();
-                    initButton();
-                }
-            });
+            $("#pageloading").hide();
         }
 
         function initButton() {
@@ -103,14 +58,23 @@
                 text: '删除用户',
                 disabled: false,
                 click: function () {
+                    var userRow = fooderGridManager.getSelectedRow();
+                    var userID;
+                    if (userRow == null) {
+                        alert("请选择行！");
+                        return;
+                    } else {
+                        userID = userRow["ID"];
+                    }
                     $.ajax({
                         type: 'post',
                         url: "../../User/Delete",
                         dataType: "json",
                         data: { UserID: userID }
-                    }).success({
-
+                    }).success(function () {
+                        alert("删除成功！");
                     });
+                    loadUserList();
                 },
                 icon: null
             });
@@ -133,9 +97,6 @@
         <div id="menu"></div>
         <div class="content">
             <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
-                <div style="display: inline-block; position: absolute; left: 0px;">
-                    <select id="userSelector" style="width: 350px; height: 30px"></select>
-                </div>
                 <div style="display: inline-block; position: absolute; right: 0px;">
                     <input type="button" id="btnAdd" value="新增用户" style="display: none;" />
                     <input type="button" id="btnDelete" value="删除用户" style="display: none;" />

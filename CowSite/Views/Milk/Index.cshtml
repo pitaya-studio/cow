@@ -49,6 +49,7 @@
 
         function queryReportData() {
             $('#btnQuery').click(function () {
+                $("#pageloading").show();
                 var startD = $('input[name=startDate]').val();
                 if (startD == '' || Date.parse(startD) > Date.now) {
                     alert('请选择开始日期，今天以前！');
@@ -59,7 +60,6 @@
                     alert('请选择正确结束日期，开始日期之后，今天以前！');
                     return;
                 }
-                alert(startD + "  HHHH" + endD);
                 $.ajax({
                     type: 'post',
                     url: '../../Milk/Index/GetMilkData',
@@ -74,7 +74,7 @@
         }
 
         function initGrid() {
-
+            
             cowGroupGridManager = $("#milkGrid").ligerGrid({
                 checkbox: false,
                 columns: [

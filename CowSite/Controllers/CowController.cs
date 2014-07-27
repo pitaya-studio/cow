@@ -1,5 +1,6 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace CowSite.Controllers
@@ -17,6 +18,39 @@ namespace CowSite.Controllers
         {
             ViewBag.CowType = Request.QueryString["cowType"];
             return View("~/Views/Cow/List.cshtml");
+        }
+
+        public JsonResult GetCowList(string cowType)
+        {
+            FarmInfo farm = FarmInfo.Instance;
+
+            List<CowInfo> cowList = new List<CowInfo>();
+
+            switch (cowType)
+            {
+                case "经产牛":
+                    cowList = farm.MultiParityCows;
+                    break;
+                case "青年牛":
+                    cowList = farm.NullParityCows;
+                    break;
+                case "育成牛":
+                    cowList = farm.BredCattleCows;
+                    break;
+                case "犊牛":
+                    cowList = farm.Calfs;
+                    break;
+                case "泌乳牛":
+                    cowList = farm.MilkCows;
+                    break;
+                case "干奶牛":
+                    cowList = farm.DryMilkCows;
+                    break;
+                default:
+                    break;
+            }
+
+            return Json(new { Rows = cowList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCowInfo(string displayEarNum)

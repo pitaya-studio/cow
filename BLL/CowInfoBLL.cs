@@ -612,10 +612,9 @@ namespace DairyCow.BLL
             else
             {
                 TimeSpan span = new TimeSpan();
-                if (dry == null)
+                if (dry != null)
                 {
                     //没有干奶，从产犊到现在
-
                     span = DateTime.Now.Date.Subtract(dry.DryDate.Date);
                     dayInMilk = Convert.ToInt32(span.TotalDays);
                 }

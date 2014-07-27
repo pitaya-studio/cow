@@ -15,26 +15,25 @@ namespace CowSite.Controllers.Task
     {
         ReInspectionBLL bllReInspection = new ReInspectionBLL();
         TaskBLL bllTask = new TaskBLL();
-        int id = 0;
         public JsonResult LoadTask(string taskID)
         {
-            this.id = Convert.ToInt32(taskID);
             DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(taskID));
             var taskData = new
             {
                 startTime = task.ArrivalTime.ToString("yyyy-MM-dd"),
-                earNum = task.EarNum
+                earNum = CowBLL.ConvertEarNumToDisplayEarNum(task.EarNum),
+                op = task.OperatorID
             };
             return Json(taskData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SaveTask()
+        public ActionResult SaveTask(string id)
         {
             try
             {
-                string startDate = Request.Form["startDate"];
-                string endDate = Request.Form["endDate"];
-                string earNum = Request.Form["earNum"];
+                string startDate = Request.Form["start"];
+                string endDate = Request.Form["end"];
+                string earNum = Request.Form["DisplayEarNum"];
                 string operatorName = Request.Form["operatorName"];
                 string pregnantStatus = Request.Form["pregnantStatus"];
 
@@ -42,10 +41,10 @@ namespace CowSite.Controllers.Task
 
                 i.OperateDate = DateTime.Parse(endDate);
                 i.ReInspectResult = Convert.ToInt32(pregnantStatus);
-                i.Operator = operatorName;
-                i.EarNum = Convert.ToInt32(earNum);
+                i.Operator = Convert.ToInt32(operatorName);
+                i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
 
-                DairyTask task = bllTask.GetTaskByID(id);
+                DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
 
                 //完成初检任务，同时增加初检信息
                 bllTask.CompleteReInspection(task, i);

@@ -20,7 +20,7 @@ namespace DairyCow.Model
         //复检结果
         public int ReInspectResult { get; set; }
         //复检人
-        public string Operator { get; set; }
+        public int Operator { get; set; }
         //复检协助人
         public string HelpOperator { get; set; }
         //配后天数

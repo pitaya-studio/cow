@@ -100,9 +100,9 @@ namespace DairyCow.DAL
             {
                 sql.Append("[InspectResult] = " + reInspection.ReInspectResult + ",");
             }
-            if (reInspection.Operator != null && reInspection.Operator != "")
+            if (reInspection.Operator != 0)
             {
-                sql.Append("[Operator] = '" + reInspection.Operator + "',");
+                sql.Append("[Operator] = " + reInspection.Operator + ",");
             }
             if (reInspection.HelpOperator != null && reInspection.HelpOperator != "")
             {
@@ -131,11 +131,11 @@ namespace DairyCow.DAL
             StringBuilder sql = new StringBuilder();
             //sql.Append(@"insert into [1mutong].[dbo].[DairyCow_Insemination] values (" + insemination.EarNum + ")");
             sql.Append(@"insert into [1mutong].[dbo].[Breed_ReInspection] values (
-                                    " + reInspection.InseminationID + ",'"
-                          + reInspection.EarNum + "','"
+                                    " + reInspection.InseminationID + ","
+                          + reInspection.EarNum + ",'"
                           + reInspection.OperateDate + "',"
-                          + reInspection.ReInspectResult + ",'"
-                          + reInspection.Operator + "','"
+                          + reInspection.ReInspectResult + ","
+                          + reInspection.Operator + ",'"
                           + reInspection.HelpOperator + "',"
                           + reInspection.AfterInsemDays + ","
                           + reInspection.AfterInitInspectDays + ",'"

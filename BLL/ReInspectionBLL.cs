@@ -59,13 +59,13 @@ namespace DairyCow.BLL
                 {
                     reInspectionItem.InseminationID = Convert.ToInt32(reInspectionRow["InseminationID"]);
                 }
-                reInspectionItem.EarNum =  Convert.ToInt32(reInspectionRow["EarNum"]);
+                reInspectionItem.EarNum = Convert.ToInt32(reInspectionRow["EarNum"]);
                 reInspectionItem.OperateDate = Convert.ToDateTime(reInspectionRow["OperateDate"]);
                 if (reInspectionRow["ReInspectResult"] != null && !string.IsNullOrWhiteSpace(reInspectionRow["ReInspectResult"].ToString()))
                 {
                     reInspectionItem.ReInspectResult = Convert.ToInt32(reInspectionRow["ReInspectResult"]);
                 }
-                reInspectionItem.Operator = reInspectionRow["Operator"].ToString();
+                reInspectionItem.Operator = Convert.ToInt32(reInspectionRow["Operator"]);
                 reInspectionItem.HelpOperator = reInspectionRow["HelpOperator"].ToString();
                 if (reInspectionRow["AfterInsemDays"] != null && !string.IsNullOrWhiteSpace(reInspectionRow["AfterInsemDays"].ToString()))
                 {

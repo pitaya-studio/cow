@@ -72,5 +72,11 @@ namespace CowSite.Controllers
 
             return Json(new { Rows = lstTask }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetMenuID()
+        {
+            List<string> lstMenuID = UserBLL.Instance.CurrentUser.Role.Menus;
+            return Json(lstMenuID, JsonRequestBehavior.AllowGet);
+        }
     }
 }

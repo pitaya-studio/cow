@@ -17,7 +17,7 @@ namespace CowSite.Controllers
 #endif
             if (UserBLL.Instance.CurrentUser == null)
             {
-                return Json(0, JsonRequestBehavior.AllowGet);
+                return Json(new { Login = 0 }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -53,7 +53,7 @@ namespace CowSite.Controllers
                     menus.Add("FarmAdmin");
                 }
                 role.Menus = menus;
-                return Json(1, JsonRequestBehavior.AllowGet);
+                return Json(new { login = 1, menu = menus }, JsonRequestBehavior.AllowGet);
             }            
         }
 	}

@@ -23,10 +23,33 @@
                     cache: false,
                     data: { user: usr, password: pas },
                     dataType: "json"
-                }).success(function (formulaInfo) {
-                    if (formulaInfo == 1)
+                }).success(function (loginResult) {
+                    if (loginResult.login == 1)
                     {
-                        window.location.href = "../Home/Index";
+                        if (loginResult.menu[0] == 'Home') {
+                            window.location.href = "../Home/Index";
+                        }
+                        else if (loginResult.menu[0] == 'Task') {
+                            window.location.href = "../Task/Index/List";
+                        }
+                        else if (loginResult.menu[0] == 'Breed') {
+                            window.location.href = "../Breed/Index/Index";
+                        }
+                        else if (loginResult.menu[0] == 'Feed') {
+                            window.location.href = "../Feed/CowGroup/List";
+                        }
+                        else if (loginResult.menu[0] == 'Milk') {
+                            window.location.href = "../Milk/Index/Index";
+                        }
+                        else if (loginResult.menu[0] == 'Medical') {
+                            window.location.href = "../Medical/Index/Index";
+                        }
+                        else if (loginResult.menu[0] == 'Platform') {
+                            window.location.href = "../Platform/Farm/List";
+                        }
+                        else if (menu[0] == 'FarmAdmin') {
+                            window.location.href = "../Users/Index/List";
+                        }
                     }
                     else
                     {

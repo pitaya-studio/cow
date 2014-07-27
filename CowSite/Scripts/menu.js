@@ -98,38 +98,46 @@
                         <img src="http://' + host + '/Images/emutong_logo.png" style="width:164px; height:33px;" />   \
                     </div>'
                     ).appendTo(header);
-                var mainMenuContainer = $('<div class="btn-group"></div>').appendTo(header);
-                var mainMenuUL = $('<ul class="nav nav-pills"></ul>').appendTo(mainMenuContainer);
-                var subMenuWrapper = $('<div class="subMenuWrapper none"></div>').appendTo($elem);
-                var subMenuContainer = $('<div class="btn-group subMenuContainer" style="margin: 10px 0px 10px 45px;"></div>').appendTo(subMenuWrapper);
-                $.each(menuList, function () {
-                    if (this.PID == '') {
-                        var menuItemLi = $('<li></li>').appendTo(mainMenuUL);
-                        var menuItemA = $('<a href="http://' + host + '/' + this.Url + '" target="' + this.target + '">' + this.Name + '</a>').appendTo(menuItemLi);
-                        if (opt.mainMenuSelectedID == this.ID) {
-                            menuItemLi.addClass('active');
-                            menuItemA.attr('href', 'javascript:void(0);').attr('target', '');
+
+                $.ajax({
+                    url: 'http://' + host + '/Home/GetMenuID',
+                    type: 'get',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (menuIDList) {
+                        var mainMenuContainer = $('<div class="btn-group"></div>').appendTo(header);
+                        var mainMenuUL = $('<ul class="nav nav-pills"></ul>').appendTo(mainMenuContainer);
+                        var subMenuWrapper = $('<div class="subMenuWrapper none"></div>').appendTo($elem);
+                        var subMenuContainer = $('<div class="btn-group subMenuContainer" style="margin: 10px 0px 10px 45px;"></div>').appendTo(subMenuWrapper);
+                        $.each(menuList, function () {
+                            if (inMenu(menuIDList, this.ID) || inMenu(menuIDList, this.PID)) {
+                                if (this.PID == '') {
+                                    var menuItemLi = $('<li></li>').appendTo(mainMenuUL);
+                                    var menuItemA = $('<a href="http://' + host + '/' + this.Url + '" target="' + this.target + '">' + this.Name + '</a>').appendTo(menuItemLi);
+                                    if (opt.mainMenuSelectedID == this.ID) {
+                                        menuItemLi.addClass('active');
+                                        menuItemA.attr('href', 'javascript:void(0);').attr('target', '');
+                                    }
+                                }
+                                else if (this.PID == opt.mainMenuSelectedID) {
+                                    var subMenuItem = $('<button type="button" class="btn btn-default submenu" href="http://' + host + '/' + this.Url + '">' + this.Name + '</button>').appendTo(subMenuContainer);
+                                    if (opt.subMenuSelectedID == this.ID) {
+                                        subMenuItem.removeClass('btn-default').addClass('btn-primary');
+                                    }
+                                }
+                            }
+                        });
+
+                        if (opt.showSubMemu) {
+                            $('div.subMenuWrapper', $elem).show();
                         }
-                    }
-                    else if (this.PID == opt.mainMenuSelectedID) {
-                        var subMenuItem = $('<button type="button" class="btn btn-default submenu" href="http://' + host + '/' + this.Url + '">' + this.Name + '</button>').appendTo(subMenuContainer);
-                        if (opt.subMenuSelectedID == this.ID) {
-                            subMenuItem.removeClass('btn-default').addClass('btn-primary');
-                        }
+
+                        $('.subMenuContainer .btn-default').click(function () { window.open($(this).attr('href')); });
                     }
                 });
-
-                if (opt.showSubMemu) {
-                    $('div.subMenuWrapper', $elem).show();
-                }
-            }
-
-            var bindEvent = function () {
-                $('.subMenuContainer .btn-default').click(function () { window.open($(this).attr('href')); });
             }
 
             rendMenu(opt.data);
-            bindEvent();
         });
     }
 
@@ -140,6 +148,17 @@
                 return typeof args[number] != 'undefined' ? args[number] : match;
             });
         };
+    }
+
+    function inMenu(menuIDList, menuID) {
+        if (typeof (menuIDList) != null && menuIDList && menuIDList.length > 0) {
+            for (i = 0; i < menuIDList.length; i++) {
+                if (menuIDList[i] == menuID)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
 })(jQuery);

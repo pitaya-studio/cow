@@ -11,6 +11,7 @@ namespace DairyCow.Model
     /// </summary>
     public class DryMilk
     {
+        public int ID { get; set; }
         public DateTime DryDate{get;set;}
         public int EarNum { get; set; }
         /// <summary>

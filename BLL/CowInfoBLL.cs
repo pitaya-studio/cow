@@ -916,6 +916,7 @@ namespace DairyCow.BLL
             DryMilk dry = new DryMilk();
             if (row != null)
             {
+                dry.ID = Convert.ToInt32(row["ID"]);
                 dry.EarNum = Convert.ToInt32(row["EarNum"]);
                 dry.DryDate = Convert.ToDateTime(row["DryDate"]);
                 dry.DrySituation = Convert.ToInt32(row["DrySituation"]);
@@ -941,6 +942,11 @@ namespace DairyCow.BLL
             return list;
         }
 
+        public static int InsertDryMilk(DryMilk dry)
+        {
+            return dryMilkDAL.InsertDryMilkRecord(dry.EarNum, dry.DryDate, dry.DrySituation, dry.DryReason, dry.OperatorID);
+        }
+
         /// <summary>
         /// 获取最后干奶记录
         /// </summary>
@@ -949,7 +955,7 @@ namespace DairyCow.BLL
         public static DryMilk GetLatestDryMilk(int earNum)
         {
             DryMilk dry = new DryMilk();
-            DataTable table = dryMilkDAL.GetLatestCowDryRecords(earNum);
+            DataTable table = dryMilkDAL.GetLatestCowDryRecord(earNum);
             if (table.Rows.Count == 0)
             {
                 return null;

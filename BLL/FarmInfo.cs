@@ -28,19 +28,19 @@ namespace DairyCow.BLL
 
         private List<CowInfo> cowInfoList = new List<CowInfo>();
 
-        private static FarmInfo _instance;
+        //private static FarmInfo _instance;
 
-        public static FarmInfo Instance
-        {
-            get
-            {
-                if (_instance==null)
-                {
-                    _instance = new FarmInfo();
-                }
-                return _instance;
-            }
-        }
+        //public static FarmInfo Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance==null)
+        //        {
+        //            _instance = new FarmInfo();
+        //        }
+        //        return _instance;
+        //    }
+        //}
 
         /// <summary>
         /// 全群牛

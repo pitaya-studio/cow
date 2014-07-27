@@ -116,7 +116,9 @@ namespace DairyCow.Model
         /// <summary>
         /// 耳号
         /// </summary>
-        public int EarNum { get; set; }        
+        public int EarNum { get; set; }
+
+        public string DisplayEarNum { get; set; }
     }
 
     /// <summary>

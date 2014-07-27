@@ -167,6 +167,7 @@ namespace DairyCow.BLL
                 if (row["EarNum"] != DBNull.Value)
                 {
                     t.EarNum = Convert.ToInt32(row["EarNum"]);
+                    t.DisplayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(t.EarNum);
                 }
                 if (row["PastureID"] != DBNull.Value)
                 {

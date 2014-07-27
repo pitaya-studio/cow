@@ -42,7 +42,6 @@ namespace CowSite.Controllers.Task
             }
             catch (Exception)
             {
-                //todo show error msg
                 return View("~/Views/Task/TaskError.cshtml");
             }
         }

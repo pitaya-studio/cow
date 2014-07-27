@@ -39,6 +39,7 @@ namespace DairyCow.BLL
             if (gradeRow != null)
             {
                 gradeItem.EarNum = Convert.ToInt32(gradeRow["EarNum"]);
+                gradeItem.DisplayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(gradeItem.EarNum);
                 if (Convert.ToInt32(gradeRow["Height"]) != 0)
                 {
                     gradeItem.Height = Convert.ToInt32(gradeRow["Height"]);

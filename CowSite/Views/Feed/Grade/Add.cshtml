@@ -25,7 +25,7 @@
             $("#gradeInfo").ligerForm({
                 inputWidth: 170, labelWidth: 90, space: 40,
                 fields: [
-                { display: "耳号", name: "EarNum", type: "text", width: 270, validate: { required: true } },
+                { display: "耳号", name: "DisplayEarNum", type: "text", width: 270, validate: { required: true } },
                 { display: "体高", name: "Height", type: "text", width: 270, validate: { required: true } },
                 { display: "体重", name: "Weight", type: "text", width: 270, validate: { required: true } },
                 { display: "胸围", name: "Chest", type: "text", width: 270, validate: { required: true } },
@@ -66,7 +66,7 @@
             <form class="form-inline" action="~/Feed/Grade/Save" method="post" id="gradeInfo"></form>
             <div style="text-align:left;">
                 <input type="button" id="btnSubmit" value="保存" />
-                <input type="button" id="btnCancel" value="取消" />
+                <input type="button" id="btnCancel" hidden="hidden" value="取消" />
             </div>
         </div>
     </div>

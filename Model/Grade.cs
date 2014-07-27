@@ -10,6 +10,7 @@ namespace DairyCow.Model
     {
         //耳号
         public int EarNum { get; set; }
+        public string DisplayEarNum { get; set; }
         //体高
         public int Height { get; set; }
         //体重

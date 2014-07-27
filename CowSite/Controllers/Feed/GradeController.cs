@@ -27,11 +27,12 @@ namespace CowSite.Controllers.Feed
             {
                 Grade grade = new Grade();
                 UpdateModel<Grade>(grade);
+                grade.EarNum = CowBLL.ConvertDislayEarNumToEarNum(grade.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
                 grade.MeasureDate = DateTime.Now;
                 Cow cow = bllCow.GetCowInfo(grade.EarNum);
                 if (cow.FarmCode == null)
                 {
-                    return RedirectToAction("../Index/List");
+                    return RedirectToAction("../../Feed/CowGroup/List");
                 }
                 else
                 {
@@ -42,7 +43,7 @@ namespace CowSite.Controllers.Feed
             {
 
             }
-            return RedirectToAction("../Index/List");
+            return RedirectToAction("../../Feed/CowGroup/List");
         }
     }
 }

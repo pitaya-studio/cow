@@ -30,7 +30,7 @@
             { ID: "Feed-Empty", PID: "Feed", Name: "空槽记录", Url: "Feed/Empty/Add", target: "_self" },
             { ID: "Feed-Remain", PID: "Feed", Name: "剩料记录", Url: "Feed/Remain/Add", target: "_self" },
             { ID: "Milk", PID: "", Name: "奶厅", Url: "Milk/DailyMilkYield/Add", target: "_self" },
-            //{ ID: "Milk-Home", PID: "Milk", Name: "奶厅首页", Url: "Milk/Index/Index", target: "_self" },            
+            { ID: "Milk-Home", PID: "Milk", Name: "奶厅首页", Url: "Milk/Index/Index", target: "_self" },            
             { ID: "Milk-DailyMilkYield", PID: "Milk", Name: "日产奶量", Url: "Milk/DailyMilkYield/Add", target: "_self" },
             { ID: "Milk-Parameter", PID: "Milk", Name: "奶厅参数", Url: "Milk/Parameter/Edit", target: "_self" },
             { ID: "Milk-Check", PID: "Milk", Name: "奶量抽查", Url: "Milk/MilkabilityCheck/Add", target: "_blank" },

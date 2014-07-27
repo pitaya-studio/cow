@@ -48,12 +48,12 @@ namespace CowSite.Controllers
             ArrayList arrBreedSummary = new ArrayList();
             arrBreedSummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedMultiParity });
             arrBreedSummary.Add(new { name = "已配未检牛", value=  farm.CountOfInseminatedMultiParity });
-            arrBreedSummary.Add(new { name = "已孕头数", value = farm.CountOfPregnantMultiParity });
+            arrBreedSummary.Add(new { name = "已孕牛", value = farm.CountOfPregnantMultiParity });
             // 青年牛繁殖状况
             ArrayList arrParitySummary = new ArrayList();
             arrParitySummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedNullParity });
             arrParitySummary.Add(new { name = "已配未检牛", value = farm.CountOfInseminatedNullParity });
-            arrParitySummary.Add(new { name = "已孕头数", value = farm.CountOfPregnantNullParity });
+            arrParitySummary.Add(new { name = "已孕牛", value = farm.CountOfPregnantNullParity });
 
             return Json(new 
             {

@@ -1119,6 +1119,7 @@
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Breed\CalfController.cs" />
+    <Compile Include="Controllers\Feed\DryMilkController.cs" />
     <Compile Include="Controllers\Medical\ForbidInseminationController.cs" />
     <Compile Include="Controllers\Breed\IndexController.cs" />
     <Compile Include="Controllers\Breed\InitialInspectionController.cs" />
@@ -1245,6 +1246,7 @@
     <Content Include="Views\Medical\Recover\Recover.cshtml" />
     <Content Include="Views\Cow\List.cshtml" />
     <Content Include="Views\Task\TaskError.cshtml" />
+    <Content Include="Views\Feed\DryMilk\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

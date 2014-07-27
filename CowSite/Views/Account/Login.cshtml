@@ -15,11 +15,13 @@
     <script type="text/javascript">
         $(function () {
             $('#btnLogin').click(function () {
+                var usr = $("[name=name]").val();
+                var pas = $("[name=password]").val();
                 $.ajax({
                     type: 'get',
                     url: "../Login/Login",
                     cache: false,
-                    data: { userID: 'user1' },
+                    data: { user: usr, password: pas },
                     dataType: "json"
                 }).success(function (formulaInfo) {
                     if (formulaInfo == 1)

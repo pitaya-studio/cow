@@ -5,15 +5,14 @@ namespace CowSite.Controllers
 {
     public class LoginController : Controller
     {
-        public JsonResult Login(string userID)
+        public JsonResult Login(string user, string password)
         {            
 #if DEBUG
             UserBLL.Instance.GetCurrentUser("farmadmin", "123");
             return Json(1, JsonRequestBehavior.AllowGet);
 #else
-            string name = Request.Form["name"];
-            string password = Request.Form["password"];
-            UserBLL.Instance.GetCurrentUser(name, password);
+
+            UserBLL.Instance.GetCurrentUser(user, password);
             if (UserBLL.Instance.CurrentUser == null)
             {
                 return Json(0, JsonRequestBehavior.AllowGet);

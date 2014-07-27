@@ -27,6 +27,11 @@ namespace CowSite.Controllers
         /// <returns></returns>
         public JsonResult GetCowGroupSummary()
         {
+            if(UserBLL.Instance.CurrentUser.Pasture == null)
+            {
+                return Json(null);
+            }
+
             FarmInfo farm =new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
 
             // 牛群整体结构

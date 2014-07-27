@@ -53,7 +53,10 @@
                 cache: false,
                 timeout: 80000
             }).success(function (user) {
-                $('.farmInfo').html(user.CurrentUser.Name + '：欢迎来到【' + user.CurrentUser.Pasture.Name + '】牧场');
+                if (user.CurrentUser.Pasture != null)
+                {
+                    $('.farmInfo').html(user.CurrentUser.Name + '：欢迎来到【' + user.CurrentUser.Pasture.Name + '】牧场');
+                }               
             });
         }
 

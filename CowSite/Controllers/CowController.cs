@@ -23,7 +23,7 @@ namespace CowSite.Controllers
             return View("~/Views/Cow/Detail.cshtml");
         }
 
-        public JsonResult GetCowInfo1(string displayEarNum)
+        public JsonResult GetCowInfo(string displayEarNum)
         {
             int earNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
             CowInfo myCow = new CowInfo(earNum);
@@ -85,12 +85,6 @@ namespace CowSite.Controllers
             }
 
             return Json(new { Rows = cowList }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetCowInfo(string displayEarNum)
-        {
-            Cow cowItem = bllCow.GetCowInfo(UserBLL.Instance.CurrentUser.Pasture.ID, displayEarNum);
-            return Json(new { Cow = cowItem }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/common.css">
     <link rel="stylesheet" href="~/Style/Home/Index.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <style>
-        .cowListTitle{
+        .cowListTitle {
             font-size: 18px;
             font-weight: bold;
             display: inline-block;
@@ -29,7 +30,7 @@
         $(function () {
             document.title = cowType + "列表";
             $('.cowListTitle').html(cowType + "列表");
-            loadCowList(cowType);            
+            loadCowList(cowType);
         });
 
         function loadCowList(cowType) {
@@ -43,7 +44,13 @@
                     $(".cowList").ligerGrid({
                         checkbox: false,
                         columns: [
-                            { display: '耳号', name: 'DisplayEarNum', type: 'string', width: 100 },
+                            {
+                                display: '耳号', name: 'DisplayEarNum', type: 'string', width: 100,
+                                render: function (row) {
+                                    var html = '<a target="-blank" href="../../Cow/CowDetail?displayEarNum=' + row.DisplayEarNum + '">' + row.DisplayEarNum + '</a>';
+                                    return html;
+                                },
+                            },
                             { display: '群', name: 'GroupName', type: 'double', width: 100 },
                             { display: '性别', name: 'Gender', type: 'double', width: 100 },
                             { display: '月龄', name: 'AgeMonth', type: 'double', width: 100 },
@@ -71,7 +78,7 @@
                 <div class="cowListTitle"></div>
             </div>
         </div>
-        <div class="content">
+        <div class="content mt20">
             <div class="cowList"></div>
         </div>
     </div>

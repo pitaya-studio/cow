@@ -22,47 +22,48 @@
     <script src="~/Scripts/common.js"></script>
     <script>
         $(function () {
-            displayEarNum = "@ViewBag.DisplayEarNum";
+            var displayEarNum = "@ViewBag.DisplayEarNum";
             $('input[name=DisplayEarNum]').val(displayEarNum);
+            renderCowInfo(displayEarNum);
             initBtn();
         });
-        var displayEarNum;
 
         function initBtn() {
             $('#btnQuery').click(function () {
-                displayEarNum = $('input[name=DisplayEarNum]').val();
-                $.ajax({
-                    type: 'get',
-                    url: '../../Cow/GetCowInfo1',
-                    dataType: 'json',
-                    data:{displayEarNum:displayEarNum},
-                    timeout: 90000000,
-                    success: function (myCow) {
-                        $('input[name=AgeMonth]').val(myCow.AgeMonth);
-                        $('input[name=CowType]').val(myCow.CowType);
-                        $('input[name=BirthDate]').val(myCow.BirthDateStr);
-                        $('input[name=Color]').val(myCow.Color);
-                        $('input[name=BirthWeight]').val(myCow.BirthWeight);
-                        $('input[name=Gender]').val(myCow.Gender);
-                        $('input[name=FatherNum]').val(myCow.FatherNum);
-                        $('input[name=MotherNum]').val(myCow.MotherNum);
-                        $('input[name=IllStatus]').val(myCow.IllStatus);
-                        $('input[name=Status]').val(myCow.Status);
-                        $('input[name=TimesOfInsemination]').val(myCow.TimesOfInsemination);
-                        $('input[name=DaysOfPregnant]').val(myCow.DaysOfPregnant);
-                        $('input[name=Parity]').val(myCow.Parity);
-                        $('input[name=AverageParityInterval]').val(myCow.AverageParityInterval);
-                        $('input[name=MilkType]').val(myCow.MilkType);
-                        $('input[name=DaysInMilk]').val(myCow.DaysInMilk);
-                        $('input[name=DaysInDry]').val(myCow.DaysInDry);
+                var displayEarNum = $('input[name=DisplayEarNum]').val();
+                renderCowInfo(displayEarNum);
+            });
+        }
 
-                    }
-                });
+        function renderCowInfo(displayEarNum) {
+            $.ajax({
+                type: 'get',
+                url: '../../Cow/GetCowInfo',
+                dataType: 'json',
+                data: { displayEarNum: displayEarNum },
+                timeout: 90000000,
+                success: function (myCow) {
+                    $('input[name=AgeMonth]').val(myCow.AgeMonth);
+                    $('input[name=CowType]').val(myCow.CowType);
+                    $('input[name=BirthDate]').val(myCow.BirthDateStr);
+                    $('input[name=Color]').val(myCow.Color);
+                    $('input[name=BirthWeight]').val(myCow.BirthWeight);
+                    $('input[name=Gender]').val(myCow.Gender);
+                    $('input[name=FatherNum]').val(myCow.FatherNum);
+                    $('input[name=MotherNum]').val(myCow.MotherNum);
+                    $('input[name=IllStatus]').val(myCow.IllStatus);
+                    $('input[name=Status]').val(myCow.Status);
+                    $('input[name=TimesOfInsemination]').val(myCow.TimesOfInsemination);
+                    $('input[name=DaysOfPregnant]').val(myCow.DaysOfPregnant);
+                    $('input[name=Parity]').val(myCow.Parity);
+                    $('input[name=AverageParityInterval]').val(myCow.AverageParityInterval);
+                    $('input[name=MilkType]').val(myCow.MilkType);
+                    $('input[name=DaysInMilk]').val(myCow.DaysInMilk);
+                    $('input[name=DaysInDry]').val(myCow.DaysInDry);
+                }
             });
         }
     </script>
-    
-
 </head>
 <body>
     <div class="container">
@@ -74,7 +75,7 @@
                 <div class="cowListTitle"></div>
             </div>
         </div>
-        <div class="content">
+        <div class="content mt20">
             <form id="cowInfo">
                 <div class="input-group mt10">
                     <span class="input-group-addon w100">牛耳号</span>

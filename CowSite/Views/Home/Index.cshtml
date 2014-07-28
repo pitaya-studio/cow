@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="images/emutong.ico">
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/common.css">
     <link rel="stylesheet" href="~/Style/Home/Index.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
@@ -19,7 +20,7 @@
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            <div class="farmInfo"></div>
+            <div class="farmInfo"><div class="title"></div></div>
             <div style="margin-top: 20px;">
                 <div id="chart-cowSummary" style="height:350px; width: 450px; display:inline-block;"></div>
                 <div id="chart-milkCowSummary" style="height: 350px; width: 450px; display: inline-block; "></div>
@@ -55,7 +56,8 @@
             }).success(function (user) {
                 if (user.CurrentUser.Pasture != null)
                 {
-                    $('.farmInfo').html(user.CurrentUser.Name + '：欢迎来到【' + user.CurrentUser.Pasture.Name + '】牧场');
+                    $('div.title').html('欢迎来到【' + user.CurrentUser.Pasture.Name + '】牧场');
+                    //$('.farmInfo').html(user.CurrentUser.Name + '：欢迎来到【' + user.CurrentUser.Pasture.Name + '】牧场');
                 }               
             });
         }

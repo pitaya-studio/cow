@@ -598,6 +598,7 @@
     <Content Include="Images\Login\nav-1.jpg" />
     <Content Include="Images\Login\nav-2.jpg" />
     <Content Include="Images\Login\nav-3.jpg" />
+    <Content Include="Images\main-bg.jpg" />
     <Content Include="ligerUI\js\core\base.js" />
     <Content Include="ligerUI\js\core\inject.js" />
     <Content Include="ligerUI\js\ligerui.all.js" />

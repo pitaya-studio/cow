@@ -13,6 +13,22 @@ namespace CowSite.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 牛档案卡Controller
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CowDetail()
+        {
+            ViewBag.DisplayEarNum = Request.QueryString["displayEarNum"];
+            return View("~/Views/Cow/Detail.cshtml");
+        }
+
+        public JsonResult GetCowInfo1(string displayEarNum)
+        {
+            int earNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            CowInfo myCow = new CowInfo(earNum);
+            return Json(myCow, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult CowList()
         {

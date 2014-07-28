@@ -31,6 +31,9 @@ namespace CowSite.Controllers
                 {
                     menus.Add("Home");
                     menus.Add("Task");
+#if DEBUG
+                    menus.Add("Platform");
+#endif
                 }
                 if (role.CanBreed)
                 {

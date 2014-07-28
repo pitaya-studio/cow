@@ -89,14 +89,7 @@ namespace DairyCow.BLL
                 return myCow.IsIll;
             }
         }
-
-        public string IllStatus
-        {
-            get
-            {
-                return IsIll ? "生病" : "健康";
-            }
-        }
+      
 
         public int EarNum
         {
@@ -130,6 +123,13 @@ namespace DairyCow.BLL
                 return myCow.GroupName;
             }
             //set; 
+        }
+        public string IllStatus
+        {
+            get
+            {
+                return myCow.IllStatus;
+            }
         }
 
         public string GroupTypeStr
@@ -174,6 +174,13 @@ namespace DairyCow.BLL
             }
             //set; 
         }
+        public string BirthDateStr
+        {
+            get
+            {
+                return BirthDate.ToShortDateString();
+            }
+        }
         public double AgeMonth
         {
             get
@@ -188,6 +195,21 @@ namespace DairyCow.BLL
                 return myCow.BirthWeight;
             }
             //set; 
+        }
+
+        public string FatherNum
+        {
+            get
+            {
+                return myCow.FatherID;
+            }
+        }
+        public string MotherNum
+        {
+            get
+            {
+                return myCow.MotherID;
+            }
         }
         public string Color
         {

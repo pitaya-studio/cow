@@ -10,8 +10,160 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>牛档案卡</title>
+    <link rel="shortcut icon" href="images/emutong.ico">
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/Home/Index.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script>
+        $(function () {
+            displayEarNum = "@ViewBag.DisplayEarNum";
+            $('input[name=DisplayEarNum]').val(displayEarNum);
+            initBtn();
+        });
+        var displayEarNum;
+
+        function initBtn() {
+            $('#btnQuery').click(function () {
+                displayEarNum = $('input[name=DisplayEarNum]').val();
+                $.ajax({
+                    type: 'get',
+                    url: '../../Cow/GetCowInfo1',
+                    dataType: 'json',
+                    data:{displayEarNum:displayEarNum},
+                    timeout: 90000000,
+                    success: function (myCow) {
+                        $('input[name=AgeMonth]').val(myCow.AgeMonth);
+                        $('input[name=CowType]').val(myCow.CowType);
+                        $('input[name=BirthDate]').val(myCow.BirthDateStr);
+                        $('input[name=Color]').val(myCow.Color);
+                        $('input[name=BirthWeight]').val(myCow.BirthWeight);
+                        $('input[name=Gender]').val(myCow.Gender);
+                        $('input[name=FatherNum]').val(myCow.FatherNum);
+                        $('input[name=MotherNum]').val(myCow.MotherNum);
+                        $('input[name=IllStatus]').val(myCow.IllStatus);
+                        $('input[name=Status]').val(myCow.Status);
+                        $('input[name=TimesOfInsemination]').val(myCow.TimesOfInsemination);
+                        $('input[name=DaysOfPregnant]').val(myCow.DaysOfPregnant);
+                        $('input[name=Parity]').val(myCow.Parity);
+                        $('input[name=AverageParityInterval]').val(myCow.AverageParityInterval);
+                        $('input[name=MilkType]').val(myCow.MilkType);
+                        $('input[name=DaysInMilk]').val(myCow.DaysInMilk);
+                        $('input[name=DaysInDry]').val(myCow.DaysInDry);
+
+                    }
+                });
+            });
+        }
+    </script>
+    
+
 </head>
 <body>
-    牛档案卡
+    <div class="container">
+        <div id="menu">
+            <div class="mt10 mb10">
+                <div style="display: inline">
+                    <img src="../../Images/emutong_logo.png" style="width:164px; height:33px;" />
+                </div>
+                <div class="cowListTitle"></div>
+            </div>
+        </div>
+        <div class="content">
+            <form id="cowInfo">
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">牛耳号</span>
+                    <input type="text" class="form-control w200 js-DisplayEarNum" placeholder="牛耳号" name="DisplayEarNum">
+                    <button type="button" class="btn btn-primary inline" id="btnQuery">刷新</button>
+                </div>
+                <div class="mt10">
+                    基本信息
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">月龄</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="月龄" name="AgeMonth">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">牛类型</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="牛类型" name="CowType">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">出生日期</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="出生日期" name="BirthDate">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">花色</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="花色" name="Color">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">出生体重</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="出生体重" name="BirthWeight">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">性别</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="性别" name="Gender">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">父亲号</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="父亲号" name="FatherNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">母亲号</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="母亲号" name="MotherNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w100">生病状态</span>
+                    <input type="text" class="form-control w200" contenteditable="false" placeholder="生病状态" name="IllStatus">
+                </div>
+                <div class="input-group mt10" id="breedGroup">
+                    <div class="mt10">
+                        繁殖相关信息
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">繁殖状态</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="繁殖状态" name="Status">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">配次</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="配次" name="TimesOfInsemination">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">怀孕天数</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="怀孕天数" name="DaysOfPregnant">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">胎次</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="胎次" name="Parity">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">胎间距</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="胎间距" name="AverageParityInterval">
+                    </div>
+                </div>
+                <div class="input-group mt10" id="milkGroup">
+                    <div class="mt10">
+                        泌乳相关信息
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">泌乳状态</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="泌乳状态" name="MilkType">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">泌乳天数</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="泌乳天数" name="DaysInMilk">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">干奶天数</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="干奶天数" name="DaysInDry">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -95,5 +95,12 @@ namespace DairyCow.Model
         /// 是否病牛，指必须隔离或不能奶入罐的。
         /// </summary>
         public bool IsIll { get; set; }
+        public string IllStatus
+        {
+            get
+            {
+                return IsIll ? "生病" : "健康";
+            }
+        }
     }
 }

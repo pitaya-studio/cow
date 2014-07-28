@@ -20,6 +20,7 @@
     <script src="~/Scripts/common.js"></script>
     <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="~/Style/common.css">
     <link rel="stylesheet" href="~/Style/base.css">
     <script type="text/javascript">
         var taskID = "@ViewBag.TaskID";
@@ -85,7 +86,7 @@
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            <div>妊检初检任务单</div>
+            <div class="page-title">妊检初检任务单</div>
             <div>
                 <form action="../../TaskInitialInspection/SaveTask/@ViewBag.TaskID" method="post">
                     <div>任务单类型: 妊检初检任务单</div>

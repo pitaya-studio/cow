@@ -22,6 +22,7 @@
     <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
     <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/common.css">
     <script type="text/javascript">
         var taskID = "@ViewBag.TaskID";
 
@@ -131,7 +132,7 @@
     <div class="container">
         <div id="menu"></div>
         <div class="content">
-            <div>产前7天任务单</div>
+            <div class="page-title">产前7天任务单</div>
             <div>
                 <form action="../../TaskDay7ToBorn/SaveTask" method="post">
                     <input type="hidden" name="id" />

@@ -20,11 +20,18 @@
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script src="~/Scripts/common.js"></script>
+    <style type="text/css">
+        .cowBaseImage img{
+            width: 150px;
+            height: 120px;
+        }
+    </style>
     <script>
         $(function () {
             var displayEarNum = "@ViewBag.DisplayEarNum";
             $('input[name=DisplayEarNum]').val(displayEarNum);
             renderCowInfo(displayEarNum);
+            loadCowImage(displayEarNum);
             initBtn();
         });
 
@@ -63,6 +70,24 @@
                 }
             });
         }
+
+        function loadCowImage(displayEarNum) {
+            $.ajax({
+                type: 'get',
+                url: '../../Cow/GetCowImage',
+                dataType: 'json',
+                data: { displayEarNum: displayEarNum },
+                timeout: 90000000,
+                success: function (cowImage) {
+                    if (typeof (cowImage) != 'undefined' && cowImage && cowImage.length == 3) {
+                        var host = window.location.host;
+                        $('#cowImage1').attr('src', 'http://' + host + '/CowImage/' + cowImage[0]);
+                        $('#cowImage2').attr('src', 'http://' + host + '/CowImage/' + cowImage[1]);
+                        $('#cowImage3').attr('src', 'http://' + host + '/CowImage/' + cowImage[2]);
+                    }
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -82,44 +107,53 @@
                     <input type="text" class="form-control w200 js-DisplayEarNum" placeholder="牛耳号" name="DisplayEarNum">
                     <button type="button" class="btn btn-primary inline" id="btnQuery">刷新</button>
                 </div>
-                <div class="mt10">
-                    基本信息
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">月龄</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="月龄" name="AgeMonth">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">牛类型</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="牛类型" name="CowType">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">出生日期</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="出生日期" name="BirthDate">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">花色</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="花色" name="Color">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">出生体重</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="出生体重" name="BirthWeight">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">性别</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="性别" name="Gender">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">父亲号</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="父亲号" name="FatherNum">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">母亲号</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="母亲号" name="MotherNum">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w100">生病状态</span>
-                    <input type="text" class="form-control w200" contenteditable="false" placeholder="生病状态" name="IllStatus">
+                <div>
+                    <div class="cowBaseInfo inline">
+                        <div class="mt10">
+                            基本信息
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">月龄</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="月龄" name="AgeMonth">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">牛类型</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="牛类型" name="CowType">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">出生日期</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="出生日期" name="BirthDate">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">花色</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="花色" name="Color">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">出生体重</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="出生体重" name="BirthWeight">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">性别</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="性别" name="Gender">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">父亲号</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="父亲号" name="FatherNum">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">母亲号</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="母亲号" name="MotherNum">
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w100">生病状态</span>
+                            <input type="text" class="form-control w200" contenteditable="false" placeholder="生病状态" name="IllStatus">
+                        </div>
+                    </div>
+                    <div class="cowBaseImage inline ml40 mt40" style="vertical-align: top;">
+                        <img id="cowImage1" alt="" />
+                        <img id="cowImage2" alt="" />
+                        <img id="cowImage3" alt="" />
+                    </div>
                 </div>
                 <div class="input-group mt10" id="breedGroup">
                     <div class="mt10">
@@ -146,7 +180,7 @@
                         <input type="text" class="form-control w200" contenteditable="false" placeholder="胎间距" name="AverageParityInterval">
                     </div>
                 </div>
-                <div class="input-group mt10" id="milkGroup">
+                <div id="milkGroup" class="input-group mt10">
                     <div class="mt10">
                         泌乳相关信息
                     </div>

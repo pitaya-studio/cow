@@ -1,6 +1,7 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 
 namespace CowSite.Controllers
@@ -13,6 +14,7 @@ namespace CowSite.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 牛档案卡Controller
         /// </summary>
@@ -116,6 +118,27 @@ namespace CowSite.Controllers
             CowInfo cow = new CowInfo(earNum);
             int daysOfPregnant = cow.DaysOfPregnant;
             return Json(new { DaysOfPregnant = daysOfPregnant }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCowImage(string displayEarNum)
+        {
+            List<string> lstImage = new List<string>();
+
+            int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+            string rootPath = Server.MapPath("~/");
+
+            for (int i = 1; i <= 3; i++)
+            {
+                string cowImageName = string.Format("{0}-{1}-1.png", pastureID, displayEarNum);
+                string cowImagePath = Path.Combine(rootPath, cowImageName);
+                if (!System.IO.File.Exists(cowImagePath))
+                {
+                    cowImageName = "Default-" + i.ToString() + ".png";
+                }
+                lstImage.Add(cowImageName);
+            }
+
+            return Json(lstImage, JsonRequestBehavior.AllowGet);
         }
     }
 }

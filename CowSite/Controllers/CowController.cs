@@ -2,6 +2,7 @@
 using DairyCow.Model;
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace CowSite.Controllers
@@ -129,7 +130,7 @@ namespace CowSite.Controllers
 
             for (int i = 1; i <= 3; i++)
             {
-                string cowImageName = string.Format("{0}-{1}-1.png", pastureID, displayEarNum);
+                string cowImageName = string.Format("{0}\\{1}-1.png", pastureID, displayEarNum);
                 string cowImagePath = Path.Combine(rootPath, cowImageName);
                 if (!System.IO.File.Exists(cowImagePath))
                 {
@@ -139,6 +140,34 @@ namespace CowSite.Controllers
             }
 
             return Json(lstImage, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UploadCowImage()
+        {
+            string displayEarNum = Request.Form["DisplayEarNum"];
+            string imageIndex = Request.Form["ImgIndex"];
+
+            Stream imgStream = Request.Files["imgFile"].InputStream;
+            if (imgStream != null && imgStream.Length > 0)
+            {
+                byte[] bytes = new byte[imgStream.Length];
+                imgStream.Read(bytes, 0, bytes.Length);
+
+                int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+                string rootPath = Server.MapPath("~/CowImage");
+                string cowImageName = string.Format("{0}\\{1}-{2}.png", pastureID, displayEarNum, imageIndex);
+                string cowImagePath = Path.Combine(rootPath, cowImageName);
+                if (System.IO.File.Exists(cowImagePath))
+                {
+                    System.IO.File.Delete(cowImagePath);
+                }
+                if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(cowImagePath)))
+                {
+                    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(cowImagePath));
+                }
+                System.IO.File.WriteAllBytes(cowImagePath, bytes);
+            }
+            return View("~/Views/Cow/CowDetail?displayEarNum=" + displayEarNum);
         }
     }
 }

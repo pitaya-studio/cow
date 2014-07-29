@@ -585,6 +585,9 @@
     <Content Include="Controls\jQuery.Select2\select2.min.js" />
     <Content Include="Controls\jQuery.Select2\select2.png" />
     <Content Include="Controls\jQuery.Select2\select2x2.png" />
+    <Content Include="CowImage\Default-1.png" />
+    <Content Include="CowImage\Default-2.png" />
+    <Content Include="CowImage\Default-3.png" />
     <Content Include="Global.asax" />
     <Content Include="Images\CowStatus\chujian.png" />
     <Content Include="Images\CowStatus\duniu.png" />
@@ -1255,9 +1258,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CowImage\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />

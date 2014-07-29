@@ -24,15 +24,18 @@
         .cowBaseImage img{
             width: 150px;
             height: 120px;
+            cursor: pointer;
         }
     </style>
     <script>
-        $(function () {
-            var displayEarNum = "@ViewBag.DisplayEarNum";
+        var displayEarNum = "@ViewBag.DisplayEarNum";
+
+        $(function () {            
             $('input[name=DisplayEarNum]').val(displayEarNum);
-            renderCowInfo(displayEarNum);
-            loadCowImage(displayEarNum);
+            renderCowInfo();
+            loadCowImage();
             initBtn();
+            initUploadCowImage();
         });
 
         function initBtn() {
@@ -42,7 +45,7 @@
             });
         }
 
-        function renderCowInfo(displayEarNum) {
+        function renderCowInfo() {
             $.ajax({
                 type: 'get',
                 url: '../../Cow/GetCowInfo',
@@ -71,7 +74,7 @@
             });
         }
 
-        function loadCowImage(displayEarNum) {
+        function loadCowImage() {
             $.ajax({
                 type: 'get',
                 url: '../../Cow/GetCowImage',
@@ -81,11 +84,28 @@
                 success: function (cowImage) {
                     if (typeof (cowImage) != 'undefined' && cowImage && cowImage.length == 3) {
                         var host = window.location.host;
-                        $('#cowImage1').attr('src', 'http://' + host + '/CowImage/' + cowImage[0]);
-                        $('#cowImage2').attr('src', 'http://' + host + '/CowImage/' + cowImage[1]);
-                        $('#cowImage3').attr('src', 'http://' + host + '/CowImage/' + cowImage[2]);
+                        $('#cowImage-1').attr('src', 'http://' + host + '/CowImage/' + cowImage[0]);
+                        $('#cowImage-2').attr('src', 'http://' + host + '/CowImage/' + cowImage[1]);
+                        $('#cowImage-3').attr('src', 'http://' + host + '/CowImage/' + cowImage[2]);
                     }
                 }
+            });
+        }
+
+        function initUploadCowImage() {
+            $('.js-uploadImage').click(function () {
+                displayEarNum = $('input[name=DisplayEarNum]').val();
+                if (displayEarNum == "请输入耳号！") {
+                    alert("");
+                    $('input[name=DisplayEarNum]').focus();
+                    return;
+                }
+                
+                var imgIndex = $(this).attr('id').split('-')[1];
+                $('#imgIndex').val(imgIndex);
+
+                $('#imgFileInput').click();
+                $('#cowInfo').submit();
             });
         }
     </script>
@@ -101,7 +121,7 @@
             </div>
         </div>
         <div class="content mt20">
-            <form id="cowInfo">
+            <form id="cowInfo" enctype="multipart/form-data" method="post" action="../../Cow/UploadCowImage" target="uploadFrame">
                 <div class="input-group mt10">
                     <span class="input-group-addon w100">牛耳号</span>
                     <input type="text" class="form-control w200 js-DisplayEarNum" placeholder="牛耳号" name="DisplayEarNum">
@@ -150,9 +170,11 @@
                         </div>
                     </div>
                     <div class="cowBaseImage inline ml40 mt40" style="vertical-align: top;">
-                        <img id="cowImage1" alt="" />
-                        <img id="cowImage2" alt="" />
-                        <img id="cowImage3" alt="" />
+                        <img class="js-uploadImage" id="cowImage-1" alt="" />
+                        <img class="js-uploadImage" id="cowImage-2" alt="" />
+                        <img class="js-uploadImage" id="cowImage-3" alt="" />
+                        <input id="imgIndex" name="ImgIndex" type="hidden" />
+                        <input id="imgFileInput" name="imgFile" type="file" style="display: none;" />
                     </div>
                 </div>
                 <div class="input-group mt10" id="breedGroup">
@@ -198,6 +220,7 @@
                     </div>
                 </div>
             </form>
+            <iframe id="uploadFrame" style="display:none;"></iframe>
         </div>
     </div>
 </body>

@@ -66,6 +66,11 @@ namespace DairyCow.BLL
                 cookie["UserID"] = CurrentUser.ID.ToString();
                 System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
             }
+        } 
+
+        public static void Logout()
+        {
+            System.Web.HttpContext.Current.Response.Cookies.Remove("CurrentUserCookie");
         }
 
         //获得一个兽医

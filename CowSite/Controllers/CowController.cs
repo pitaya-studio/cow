@@ -126,15 +126,19 @@ namespace CowSite.Controllers
             List<string> lstImage = new List<string>();
 
             int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
-            string rootPath = Server.MapPath("~/");
+            string rootPath = Server.MapPath("~/CowImage");
 
             for (int i = 1; i <= 3; i++)
             {
-                string cowImageName = string.Format("{0}\\{1}-1.png", pastureID, displayEarNum);
+                string cowImageName = string.Format("{0}\\{1}-{2}.jpg", pastureID, displayEarNum, i);
                 string cowImagePath = Path.Combine(rootPath, cowImageName);
                 if (!System.IO.File.Exists(cowImagePath))
                 {
                     cowImageName = "Default-" + i.ToString() + ".png";
+                }
+                else
+                {
+                    cowImageName = string.Format("{0}/{1}-{2}.jpg", pastureID, displayEarNum, i);
                 }
                 lstImage.Add(cowImageName);
             }
@@ -142,12 +146,13 @@ namespace CowSite.Controllers
             return Json(lstImage, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult UploadCowImage()
+        public JsonResult UploadCowImage()
         {
+            string cowImageUrl = string.Empty;
+
             string displayEarNum = Request.Form["DisplayEarNum"];
             string imageIndex = Request.Form["ImgIndex"];
-
-            Stream imgStream = Request.Files["imgFile"].InputStream;
+            Stream imgStream = Request.Files["ImgFile"].InputStream;
             if (imgStream != null && imgStream.Length > 0)
             {
                 byte[] bytes = new byte[imgStream.Length];
@@ -155,7 +160,8 @@ namespace CowSite.Controllers
 
                 int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
                 string rootPath = Server.MapPath("~/CowImage");
-                string cowImageName = string.Format("{0}\\{1}-{2}.png", pastureID, displayEarNum, imageIndex);
+                cowImageUrl = string.Format("{0}/{1}-{2}.jpg", pastureID, displayEarNum, imageIndex);
+                string cowImageName = string.Format("{0}\\{1}-{2}.jpg", pastureID, displayEarNum, imageIndex);
                 string cowImagePath = Path.Combine(rootPath, cowImageName);
                 if (System.IO.File.Exists(cowImagePath))
                 {
@@ -167,7 +173,7 @@ namespace CowSite.Controllers
                 }
                 System.IO.File.WriteAllBytes(cowImagePath, bytes);
             }
-            return View("~/Views/Cow/CowDetail?displayEarNum=" + displayEarNum);
+            return Json(new { ImgUrl = cowImageUrl }, JsonRequestBehavior.AllowGet);
         }
     }
 }

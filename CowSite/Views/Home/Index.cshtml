@@ -70,8 +70,10 @@
                 url: "../Home/GetCowGroupSummary",
                 dataType: "json",
                 cache: false,
-                beforeSend: function () { $('.content').loadingUI(); },
-                succes: function (cowData) {
+                beforeSend: function () {
+                    $('.content').loadingUI(); 
+                },
+                success: function (cowData) {
                     renderCowGroupSummary(cowData.CowSummary);
                     renderMilkCowSummary(cowData.MilkCowSummary);
                     renderBreedSummary(cowData.BreedSummary);

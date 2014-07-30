@@ -93,19 +93,36 @@
         }
 
         function initUploadCowImage() {
-            $('.js-uploadImage').click(function () {
+            $('.js-uploadImage').click(function (e) {
+                e.preventDefault();
+                var id = $(this).attr('id');
                 displayEarNum = $('input[name=DisplayEarNum]').val();
                 if (displayEarNum == "请输入耳号！") {
                     alert("");
                     $('input[name=DisplayEarNum]').focus();
                     return;
                 }
-                
-                var imgIndex = $(this).attr('id').split('-')[1];
-                $('#imgIndex').val(imgIndex);
-
                 $('#imgFileInput').click();
-                $('#cowInfo').submit();
+                // create a new FormData object
+                var formData = new FormData();
+                formData.append('DisplayEarNum', displayEarNum);
+                var imgIndex = $(this).attr('id').split('-')[1];
+                formData.append('ImgIndex', imgIndex);
+                // get the file and append it to the FormData object                
+                formData.append('ImgFile', $('input[name=imgFile]')[0].files[0]);
+                $.ajax({
+                    type: "POST",
+                    url: '../../Cow/UploadCowImage',
+                    data: formData,
+                    success: function (data) {
+                        var host = window.location.host;
+                        var imgUrl = 'http://' + host + '/CowImage/' + data.ImgUrl;
+                        $('#' + id).attr("src", imgUrl);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
             });
         }
     </script>
@@ -173,7 +190,6 @@
                         <img class="js-uploadImage" id="cowImage-1" alt="" />
                         <img class="js-uploadImage" id="cowImage-2" alt="" />
                         <img class="js-uploadImage" id="cowImage-3" alt="" />
-                        <input id="imgIndex" name="ImgIndex" type="hidden" />
                         <input id="imgFileInput" name="imgFile" type="file" style="display: none;" />
                     </div>
                 </div>

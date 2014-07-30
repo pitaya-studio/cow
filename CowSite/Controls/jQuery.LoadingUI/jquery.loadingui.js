@@ -1,12 +1,12 @@
-// http://stackoverflow.com/questions/1117086/how-to-create-a-jquery-plugin-with-methods
+ï»¿// http://stackoverflow.com/questions/1117086/how-to-create-a-jquery-plugin-with-methods
 // How to create a jQuery plugin with methods?
 
 (function ($) {
     $.fn.loadingUI = function (options) {
 
-        //Ä¬ÈÏÖµ
+        //é»˜è®¤å€¼
         var defaultVal = {
-            text: 'Loading...'
+            text: 'åŠ è½½ä¸­...'
         };
 
         var $args = arguments;
@@ -29,7 +29,7 @@
             if (typeof options === 'string') {
                 if ($.isFunction(methods[options])) {
                     // do some check and prepare
-                    // apply´«ÈëµÄthis¶ÔÏóºÜÖØÒª£¬ÔÚpublic methodÖĞÍ¨¹ıthisÒıÓÃ
+                    // applyä¼ å…¥çš„thiså¯¹è±¡å¾ˆé‡è¦ï¼Œåœ¨public methodä¸­é€šè¿‡thiså¼•ç”¨
                     methods[options].apply(this, Array.prototype.slice.call($args, 1));
                     //http://stackoverflow.com/questions/1986896/what-is-the-difference-between-call-and-apply
                 }
@@ -78,7 +78,7 @@
                 $src.width($target.width());
                 var height = $target.height();
                 if (maxHeight != null && height > maxHeight) {
-                    height = maxHeight; // µ±±»¸²¸Ç¶ÔÏóºÜ¸ßÊ±£¬Îª±ÜÃâLoading¿ò¿´²»¼û£¬ÒªÏŞÖÆÒ»ÏÂ
+                    height = maxHeight; // å½“è¢«è¦†ç›–å¯¹è±¡å¾ˆé«˜æ—¶ï¼Œä¸ºé¿å…Loadingæ¡†çœ‹ä¸è§ï¼Œè¦é™åˆ¶ä¸€ä¸‹
                 }
                 $src.height(height);
 
@@ -157,7 +157,7 @@ mutate_event_stack = [
 ;
 (function ($) {
     mutate = {
-        speed: 5, // Õâ¸öÊ±¼äÌ«¶Ì£¬ĞÔÄÜÓĞÑ¹Á¦£¬Ì«³¤£¬·´Ó¦²»ÁéÃô
+        speed: 5, // è¿™ä¸ªæ—¶é—´å¤ªçŸ­ï¼Œæ€§èƒ½æœ‰å‹åŠ›ï¼Œå¤ªé•¿ï¼Œååº”ä¸çµæ•
         event_stack: mutate_event_stack,
         stack: [],
         events: {},

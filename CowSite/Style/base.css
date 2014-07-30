@@ -60,4 +60,4 @@
 }
 .clearboth{clear: both;}
 
-.content{margin-left: 45px;}
+.content{margin-left: 45px; min-height: 300px;}

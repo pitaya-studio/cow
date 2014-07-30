@@ -17,6 +17,8 @@
     <script src="~/ligerUI/js/ligerui.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
+    <link href="~/Controls/jQuery.LoadingUI/jquery.loadingui.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.LoadingUI/jquery.loadingui.js"></script>
     <style>
         .cowListTitle {
             font-size: 18px;
@@ -39,7 +41,7 @@
                 url: '../../Cow/GetCowList',
                 data: { cowType: cowType },
                 dataType: 'json',
-                timeout: 90000000,
+                beforeSend: function () { $('.content').loadingUI(); },
                 success: function (data) {
                     $(".cowList").ligerGrid({
                         checkbox: false,
@@ -63,6 +65,7 @@
                         data: data,
                         usePager: false
                     });
+                    $('.content').loadingUI('hide');
                 }
             });
         }

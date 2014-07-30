@@ -579,6 +579,9 @@
     <Content Include="Controls\echarts\src\util\shape\symbol.js" />
     <Content Include="Controls\echarts\test\allchart\all.html" />
     <Content Include="Controls\echarts\test\allchart\all.js" />
+    <Content Include="Controls\jQuery.LoadingUI\images\loading-ui2.gif" />
+    <Content Include="Controls\jQuery.LoadingUI\jquery.loadingui.css" />
+    <Content Include="Controls\jQuery.LoadingUI\jquery.loadingui.js" />
     <Content Include="Controls\jQuery.Select2\select2-spinner.gif" />
     <Content Include="Controls\jQuery.Select2\select2.css" />
     <Content Include="Controls\jQuery.Select2\select2.js" />

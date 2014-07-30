@@ -12,9 +12,12 @@
     <link rel="stylesheet" href="~/Style/common.css">
     <link rel="stylesheet" href="~/Style/Home/Index.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-tools-min.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Controls/echarts/doc/asset/js/esl/esl.js"></script>
     <script src="~/Scripts/menu.js"></script>
+    <link href="~/Controls/jQuery.LoadingUI/jquery.loadingui.css" rel="stylesheet" />
+    <script src="~/Controls/jQuery.LoadingUI/jquery.loadingui.js"></script>
 </head>
 <body>
     <div class="container">
@@ -41,9 +44,9 @@
         });
 
         $(function () {
-            $('#menu').menu();
+            $('#menu').menu();            
             loadPastureInfo();
-            loadCowGroupSummary();
+            loadCowGroupSummary();            
         });
 
         function loadPastureInfo() {
@@ -51,8 +54,7 @@
                 type: 'get',
                 url: "../Home/GetCurrentUserInfo",
                 dataType: "json",
-                cache: false,
-                timeout: 80000
+                cache: false
             }).success(function (user) {
                 if (user.CurrentUser.Pasture != null)
                 {
@@ -68,12 +70,14 @@
                 url: "../Home/GetCowGroupSummary",
                 dataType: "json",
                 cache: false,
-                timeout: 80000
-            }).success(function (cowData) {
-                renderCowGroupSummary(cowData.CowSummary);
-                renderMilkCowSummary(cowData.MilkCowSummary);
-                renderBreedSummary(cowData.BreedSummary);
-                renderParitySummary(cowData.ParitySummary);
+                beforeSend: function () { $('.content').loadingUI(); },
+                succes: function (cowData) {
+                    renderCowGroupSummary(cowData.CowSummary);
+                    renderMilkCowSummary(cowData.MilkCowSummary);
+                    renderBreedSummary(cowData.BreedSummary);
+                    renderParitySummary(cowData.ParitySummary);
+                    $('.content').loadingUI('hide');
+                }
             });
         }
 

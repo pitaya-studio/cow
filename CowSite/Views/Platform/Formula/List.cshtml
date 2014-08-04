@@ -38,18 +38,11 @@
                         $('#formulaSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
                     });
 
-                    if (formulaID) {
-                        $.each(formula, function () {
-                            if (this.ID = formulaID) {
-                                $('#formulaName').val(this.Name);
-                                return;
-                            }
-                        });
-                    }
-                    else {
+                    if (formulaID == "") {
                         formulaID = formula[0].ID;
-                        $('#formulaName').val(formula[0].Name);
                     }
+
+                    $('#formulaSelector').val(formulaID);
                     loadFodderList(formulaID);
                 }
             });

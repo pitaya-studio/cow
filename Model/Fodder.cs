@@ -16,7 +16,6 @@ namespace DairyCow.Model
         public string Description { get; set; }
         public double Quantity { get; set; }
         public double RefPrice { get; set; }
-
         public double DM { get; set; }
         public double NND { get; set; }
         public double Ca { get; set; }

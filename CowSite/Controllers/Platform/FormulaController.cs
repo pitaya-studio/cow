@@ -33,13 +33,13 @@ namespace CowSite.Controllers.Platform
         public JsonResult GetFormulaInfoList(string formulaID)
         {
             Formula formula = this.bllFormula.GetFormulaByIDWithFodders(formulaID);
-            var cowGroupData = new
+            var formulaData = new
             {
-                FormulaID = formula.ID,
-                FormulaName = formula.Name,
+                ID = formula.ID,
+                Name = formula.Name,
                 Rows = formula.FodderList
             };
-            return Json(cowGroupData, JsonRequestBehavior.AllowGet);
+            return Json(formulaData, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -58,6 +58,7 @@ namespace CowSite.Controllers.Platform
         {
             return View("~/Views/Platform/Formula/Assign.cshtml");
         }
+
         //assign formula related json
         public JsonResult GetCowGroupInfo(string areAll)
         {
@@ -80,9 +81,9 @@ namespace CowSite.Controllers.Platform
                     Rows = list
                 };
                 return Json(cowGroupData, JsonRequestBehavior.AllowGet);
-            }
-           
+            }           
         }
+
         public JsonResult GetFormulas()
         {
             FormulaBLL fBLL = new FormulaBLL();
@@ -99,6 +100,5 @@ namespace CowSite.Controllers.Platform
             var result = new { Count =  i2  };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
 	}
 }

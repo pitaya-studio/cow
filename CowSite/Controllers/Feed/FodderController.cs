@@ -2,12 +2,7 @@
 using DairyCow.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using DairyCow.DAL;
-using DairyCow.Model;
-using DairyCow.BLL;
 
 namespace CowSite.Controllers.Feed
 {
@@ -37,7 +32,7 @@ namespace CowSite.Controllers.Feed
             List<Fodder> sysFodderList = new List<Fodder>();
             FodderBLL fBLL = new FodderBLL();
             sysFodderList = fBLL.GetAllSysFodderList();
-            return Json(sysFodderList, JsonRequestBehavior.AllowGet);
+            return Json(new { Rows = sysFodderList }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AddPastureFodder(string fodderName, string quantity, string  price, string sysFodderID)
@@ -189,6 +184,7 @@ namespace CowSite.Controllers.Feed
             return Json(r, JsonRequestBehavior.AllowGet);
 
         }
+
         public struct CheckFodderResult
         {
             public string Msg;

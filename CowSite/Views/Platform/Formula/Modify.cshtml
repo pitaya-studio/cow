@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>配方维护</title>
     <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../../Style/base.css">
+    @*<link rel="stylesheet" type="text/css" href="../../Style/base.css">*@
     <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="../../cripts/jquery-tools-min.js"></script>
     <script type="text/javascript" src="../../Scripts/json2.js"></script>
@@ -20,11 +20,11 @@
         var pastureID = "@ViewBag.PastureID";
 
         $(function () {
-            if(formulaID){
+            if (formulaID) {
                 loadFormula();
             }
             else {
-                loadPastureSelector();
+                //loadPastureSelector();
                 loadFodder();
             }
             initButton();
@@ -63,8 +63,8 @@
                 dataType: "json"
             }).success(function (formulaInfo) {
                 if (formulaInfo) {
-                    $('#formulaName').val(formulaInfo.Rows[0].Name);
-                    loadPastureSelector(pastureID);
+                    $('#formulaName').val(formulaInfo.Name);
+                    //loadPastureSelector(pastureID);
                     var fooderGridManager = $("#fooderGrid").ligerGrid({
                         columns: [
                             { display: '饲料ID', name: 'ID', width: 1, hide: true },
@@ -128,7 +128,7 @@
 
         function loadFodder() {
             $.ajax({
-                url: "../../../Feed/Fodder/GetFodder",
+                url: "../../Feed/Fodder/GetSysFodders",
                 cache: false,
                 data: { pastureID: pastureID },
                 success: function (fodderInfo) {
@@ -157,9 +157,9 @@
 <body>
     <form id="formulaUpdateForm">
         <div class="container" style="margin-top: 10px;">
-            <div class="form-group">
-                <span>牧场：</span><span><select id="pastureSelector" name="PastureID" style="width: 350px; height: 30px"></select></span>
-            </div>
+            @*<div class="form-group">
+                    <span>牧场：</span><span><select id="pastureSelector" name="PastureID" style="width: 350px; height: 30px"></select></span>
+                </div>*@
             <div class="form-group">
                 <span>配方名称：</span><span><input id="formulaName" name="Name" type="text" style="width: 350px; height: 30px" /></span>
             </div>
@@ -168,7 +168,7 @@
                 <div id="message"></div>
                 <div class="l-loading" id="pageloading"></div>
             </div>
-            <div class="form-group">
+            <div style="margin-top: 10px;">
                 <input id="btnSave" type="submit" value="保存" />
                 <input id="btnCancel" type="button" value="取消" />
             </div>

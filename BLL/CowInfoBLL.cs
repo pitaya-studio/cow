@@ -467,7 +467,7 @@ namespace DairyCow.BLL
         public static List<Insemination> GetInseminationListOfCurrentBreedPeriod(int earNum)
         {
             InseminationBLL bllInsem = new InseminationBLL();
-            DateTime latestCalTime = DateTime.MinValue;
+            DateTime latestCalTime =new DateTime(1900,1,1);
             Calving cal = GetLatestCalving(earNum);
             if (cal != null)
             {

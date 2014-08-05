@@ -69,7 +69,7 @@ namespace DairyCow.DAL
             DataTable inseminationList = null;
             string sql = string.Format(@"select * from [Breed_Insemination] 
                                             where EarNum ={0} 
-                                            and OperateDate > '{1}'", earNum, lastCalvingDate);
+                                            and OperateDate > '{1}'", earNum, lastCalvingDate.ToShortDateString());
             inseminationList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return inseminationList;
         }

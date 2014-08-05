@@ -40,8 +40,9 @@
 
         function initBtn() {
             $('#btnQuery').click(function () {
-                var displayEarNum = $('input[name=DisplayEarNum]').val();
+                displayEarNum = $('input[name=DisplayEarNum]').val();
                 renderCowInfo(displayEarNum);
+                loadCowImage();
             });
         }
 

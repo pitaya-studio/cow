@@ -268,7 +268,7 @@ namespace DairyCow.BLL
             get
             {
                 Dictionary<string, float> myDictionary = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
-                if (this.CowType == "青年牛" || GetTimesOfInsemination(this.earNum) == 0 || myCow.AgeMonth > myDictionary["MaxUninseminatedAgeMonth"])
+                if (this.CowType == "青年牛" || GetTimesOfInsemination() == 0 || myCow.AgeMonth > myDictionary["MaxUninseminatedAgeMonth"])
                 {
                     return true;
                 }
@@ -445,7 +445,7 @@ namespace DairyCow.BLL
             get
             {
                 //配次一定指本轮繁殖周期，即本次产犊后
-                return GetTimesOfInsemination(this.earNum);
+                return GetTimesOfInsemination();
             }
         }
         /// <summary>
@@ -459,6 +459,30 @@ namespace DairyCow.BLL
             return GetInseminationListOfCurrentBreedPeriod(earNum).Count;
 
         }
+        public int GetTimesOfInsemination()
+        {
+
+            return GetInseminationListOfCurrentBreedPeriod(this.earNum).Count;
+
+        }
+
+        public List<Insemination> GetInseminationListOfCurrentBreedPeriod()
+        {
+            InseminationBLL bllInsem = new InseminationBLL();
+            DateTime latestCalTime = new DateTime(1900, 1, 1);
+            Calving cal = GetLatestCalving(this.earNum);
+            if (cal != null)
+            {
+                latestCalTime = cal.Birthday;
+            }
+            else
+            {
+                latestCalTime = this.BirthDate;
+            }
+            List<Insemination> list = bllInsem.GetInseminationList(this.earNum, latestCalTime);
+            return list;
+        }
+
         /// <summary>
         /// 取本轮配种记录列表
         /// </summary>
@@ -482,6 +506,32 @@ namespace DairyCow.BLL
             List<Insemination> list = bllInsem.GetInseminationList(earNum, latestCalTime);
             return list;
         }
+
+        public Insemination GetFirstInseminationOfCurrentBreedPeriod()
+        {
+            Insemination insem;
+            // 取本轮配种记录列表
+            List<Insemination> list = GetInseminationListOfCurrentBreedPeriod();
+            if (list.Count > 0)
+            {
+                insem = list[0];
+                for (int i = 1; i < list.Count; i++)
+                {
+                    if (insem.OperateDate.CompareTo(list[i].OperateDate) > 0)
+                    {
+                        insem = list[i];
+                    }
+                }
+            }
+            else
+            {
+                //本轮无配种记录
+                insem = null;
+            }
+            return insem;
+
+        }
+
         /// <summary>
         /// 获取本轮首次配种记录，未配返回null
         /// </summary>
@@ -498,6 +548,31 @@ namespace DairyCow.BLL
                 for (int i = 1; i < list.Count; i++)
                 {
                     if (insem.OperateDate.CompareTo(list[i].OperateDate) > 0)
+                    {
+                        insem = list[i];
+                    }
+                }
+            }
+            else
+            {
+                //本轮无配种记录
+                insem = null;
+            }
+            return insem;
+
+        }
+
+        public Insemination GetlatestInseminationOfCurrentBreedPeriod()
+        {
+            Insemination insem;
+            // 取本轮配种记录列表
+            List<Insemination> list = GetInseminationListOfCurrentBreedPeriod();
+            if (list.Count > 0)
+            {
+                insem = list[0];
+                for (int i = 1; i < list.Count; i++)
+                {
+                    if (insem.OperateDate.CompareTo(list[i].OperateDate) < 0)
                     {
                         insem = list[i];
                     }

@@ -85,9 +85,10 @@
                 success: function (cowImage) {
                     if (typeof (cowImage) != 'undefined' && cowImage && cowImage.length == 3) {
                         var host = window.location.host;
-                        $('#cowImage-1').attr('src', 'http://' + host + '/CowImage/' + cowImage[0]);
-                        $('#cowImage-2').attr('src', 'http://' + host + '/CowImage/' + cowImage[1]);
-                        $('#cowImage-3').attr('src', 'http://' + host + '/CowImage/' + cowImage[2]);
+                        var initializationTime = (new Date()).getTime();
+                        $('#cowImage-1').attr('src', 'http://' + host + '/CowImage/' + cowImage[0] + "?t=" + initializationTime);
+                        $('#cowImage-2').attr('src', 'http://' + host + '/CowImage/' + cowImage[1] + "?t=" + initializationTime);
+                        $('#cowImage-3').attr('src', 'http://' + host + '/CowImage/' + cowImage[2] + "?t=" + initializationTime);
                     }
                 }
             });

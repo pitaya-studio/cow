@@ -132,8 +132,7 @@
                                     }
                                 },
                             }
-                        ],
-                        valueConnector: '-'
+                        ]
                     };
 
                     // 为echarts对象加载数据
@@ -141,7 +140,7 @@
 
                     var ecConfig = require('echarts/config');
                     myChart.on(ecConfig.EVENT.CLICK, function (param) {
-                        alert(param.name + '-' + param.value + '，列表页面开发中。');
+                        window.open("../../Cow/CowList?cowType=经产牛" + param.name);
                     });
                 }
             );
@@ -204,8 +203,7 @@
                                     }
                                 }
                             }
-                        ],
-                        valueConnector: '-'
+                        ]
                     };
 
                     // 为echarts对象加载数据
@@ -213,7 +211,7 @@
 
                     var ecConfig = require('echarts/config');
                     myChart.on(ecConfig.EVENT.CLICK, function (param) {
-                        alert(param.name + '-' + param.value + '，列表页面开发中。');
+                        window.open("../../Cow/CowList?cowType=青年牛" + param.name);
                     });
                 }
             );

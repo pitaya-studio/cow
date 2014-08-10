@@ -89,7 +89,7 @@ namespace DairyCow.BLL
                 return myCow.IsIll;
             }
         }
-      
+
 
         public int EarNum
         {
@@ -491,7 +491,7 @@ namespace DairyCow.BLL
         public static List<Insemination> GetInseminationListOfCurrentBreedPeriod(int earNum)
         {
             InseminationBLL bllInsem = new InseminationBLL();
-            DateTime latestCalTime =new DateTime(1900,1,1);
+            DateTime latestCalTime = new DateTime(1900, 1, 1);
             Calving cal = GetLatestCalving(earNum);
             if (cal != null)
             {
@@ -960,8 +960,8 @@ namespace DairyCow.BLL
                     default:
                         break;
                 }
-                myCalving.NumberOfMale = Convert.ToInt32(calvingRow["NumberOfMale"]);
-                myCalving.NumberOfFemale = Convert.ToInt32(calvingRow["NumberOfFemale"]);
+                myCalving.NumberOfMale = calvingRow["NumberOfMale"] == DBNull.Value ? 0 : Convert.ToInt32(calvingRow["NumberOfMale"]);
+                myCalving.NumberOfFemale = calvingRow["NumberOfFemale"] == DBNull.Value ? 0 : Convert.ToInt32(calvingRow["NumberOfFemale"]);
                 if (calvingRow["Difficulty"] != DBNull.Value)
                 {
                     myCalving.Difficulty = calvingRow["Difficulty"].ToString();
@@ -1146,7 +1146,7 @@ namespace DairyCow.BLL
         }
 
         public void CheckGrouping(List<CowGroup> groups)
-        {           
+        {
             CowGroup g = groups.FirstOrDefault(p => p.ID == this.GroupID);
             if (g == null)
             {

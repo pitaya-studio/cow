@@ -117,9 +117,9 @@ namespace DairyCow.BLL
             List<User> users = new List<User>();
 
             //只取得本牧场的用户，如果为平台用户，pasture会是null
-            DataTable dt = CurrentUser == null || CurrentUser.Pasture == null ?
+            DataTable dt = Instance.CurrentUser == null || Instance.CurrentUser.Pasture == null ?
                 dalUser.GetUsers(null) :
-                dalUser.GetUsers(CurrentUser.Pasture.ID.ToString());
+                dalUser.GetUsers(Instance.CurrentUser.Pasture.ID.ToString());
 
             if (dt != null && dt.Rows.Count != 0)
             {

@@ -1,1 +1,4 @@
-﻿.container{margin-top: 20px;}
+﻿body {
+    background-image: none !important;
+}
+.container{margin-top: 20px;}

@@ -19,7 +19,7 @@ namespace CowSite.Controllers.Platform
 
         public ActionResult Modify()
         {
-            ViewBag.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+            //ViewBag.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
             ViewBag.FormulaID = Request.QueryString["FormulaID"];
             return View("~/Views/Platform/Formula/Modify.cshtml");
         }

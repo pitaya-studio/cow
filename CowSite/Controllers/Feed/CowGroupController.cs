@@ -75,12 +75,14 @@ namespace CowSite.Controllers.Feed
             List<User> list = uBLL.GetInseminationOperatorList(UserBLL.Instance.CurrentUser.Pasture.ID);
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetPastureDoctors()
         {
             UserBLL uBLL = new UserBLL();
             List<User> list = uBLL.GetDoctorList(UserBLL.Instance.CurrentUser.Pasture.ID);
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetPastureFeeders()
         {
             UserBLL uBLL = new UserBLL();

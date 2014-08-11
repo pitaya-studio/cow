@@ -21,6 +21,7 @@
             loadCowGroupList();
             initButton();
         });
+
         var cowGroups;
         var cowGroupGridManager;
         function loadCowGroupList() {
@@ -45,16 +46,15 @@
         }
 
         function initButton() {
-            $('#btnAdd').show().ligerButton(
-                {
-                    width: 80,
-                    text: "新增牛群",
-                    disabled: false,
-                    click: function () {
-                        var editUrl = "../../CowGroup/AddCowGroup";
-                        $.ligerDialog.open({ title: "新增牛群", height: 630, width: 550, url: editUrl });
-                    }
-                });
+            $('#btnAdd').show().ligerButton({
+                width: 80,
+                text: "新增牛群",
+                disabled: false,
+                click: function () {
+                    var editUrl = "../../CowGroup/AddCowGroup";
+                    $.ligerDialog.open({ title: "新增牛群", height: 260, width: 550, url: editUrl });
+                }
+            });
 
             $('#btnDelete').show().ligerButton({
                 width: 80,

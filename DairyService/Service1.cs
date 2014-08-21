@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
-using DairyCow.BLL;
+﻿using DairyCow.BLL;
 using DairyCow.Model;
+using System;
+using System.Collections.Generic;
+using System.ServiceProcess;
 using System.Timers;
-
 
 namespace DairyService
 {
     public partial class DailyReportService : ServiceBase
     {
         private Timer dailyReportTimer;
+
         public DailyReportService()
         {
             InitializeComponent();
@@ -49,8 +43,6 @@ namespace DairyService
         protected override void OnStop()
         {
             dailyReportTimer.Stop();
-        }
-
-        
+        }        
     }
 }

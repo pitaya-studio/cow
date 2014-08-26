@@ -36,19 +36,21 @@ namespace CowSite.Controllers.Users
 
         public ActionResult Save()
         {
-            //ViewBag.UserID = Request.QueryString["UserID"];
-            //User user = new User();
-            //UpdateModel<User>(user);
-            //bllUser.InsertUser(user.Name, user.Account, user.Password, user.Role.ID.ToString(), user.Pasture.ID.ToString());
+            ViewBag.PastureName = UserBLL.Instance.CurrentUser.Pasture.Name;
             return View("~/Views/Users/AddUser.cshtml");
         }
 
         [HttpPost]
         public ActionResult SaveAddedUser()
         {
-            User user = new User();
-            UpdateModel<User>(user);
-            bllUser.InsertUser(user.Name, user.Account, user.Password, user.Role.ID.ToString(), user.Pasture.ID.ToString());
+
+            string name = Request.Form["Name"];
+            string account = Request.Form["Account"];
+            string roleID = Request.Form["RoleID"];
+            string password = Request.Form["Password"];
+            string ensurePassword = Request.Form["EnsurePassword"];
+
+            bllUser.InsertUser(name, account, password, roleID, UserBLL.Instance.CurrentUser.Pasture.ID.ToString());
             return RedirectToAction("../User/List");
         }
 

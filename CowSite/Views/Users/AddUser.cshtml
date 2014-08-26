@@ -8,29 +8,39 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>新增用户</title>
-    <link rel="stylesheet" type="text/css" href="../ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" type="text/css" href="../Style/base.css">
-    <script type="text/javascript" src="../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme1.min.css">
-    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/Feed/Index/ModifyCowGroup.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Controls/jQuery.Select2/select2.min.js"></script>
+    <script src="~/ligerUI/js/ligerui.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/menu.js"></script>
+    <script src="~/Scripts/settingData.js"></script>
     <script type="text/javascript">
         $(function () {
-            loadUserInfo();
+            //loadUserInfo();
+            loadOperator();
             InitBtnEvent();
         })
 
-        function loadUserInfo() {
-            $("#userInfo").ligerForm({
-                inputWidth: 170, labelWidth: 90, space: 40,
-                fields: [
-                { display: "账号", name: "Account", type: "text", width: 270, validate: { required: true } },
-                { display: "用户名", name: "Name", type: "text", width: 270, validate: { required: true } },
-                { display: "牧场", name: "Pasture", type: "select", width: 270, validate: { required: true } },
-                { display: "角色", name: "RoleID", type: "text", width: 270, validate: { required: true } },
-                { display: "密码", name: "Password", type: "text", width: 270, validate: { required: true } },
-                { display: "再次输入密码", name: "EnsurePassword", type: "text", width: 270, validate: { required: true } }
-                ]
+        function loadOperator() {
+            $.ajax({
+                type: 'get',
+                url: '../../Users/User/GetUserItems',
+                dataType: 'json',
+                cache: false,
+                success: function (user) {
+                    if (user) {
+                        $("#PastureID").empty();
+                        $("#PastureID").append('<option value="0" selected = "selected">' + "请选择角色" + '</option>');
+                        $.each(user, function () {
+                            $("#PastureID").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                        });
+                    }
+                }
             });
         }
 
@@ -41,6 +51,7 @@
                 click: function () {
                     //提交表单
                     document.getElementById('userInfo').submit();
+                    parent.window.loadUserList();
                     parent.$.ligerDialog.close();
                     parent.$(".l-dialog,.l-window-mask").hide();
                 },
@@ -59,7 +70,34 @@
     </script>
 </head>
 <body>
-    <form class="form-inline" action="~/Users/User/SaveAddedUser" method="post" id="userInfo"></form>
+    <form class="form-inline" action="~/Users/User/SaveAddedUser" method="post" id="userInfo">
+        <div class="container">
+            <div class="form-group">
+                <span>用户账号:</span>
+                <span><input type="text" name="Account" style="width: 350px; height: 30px" /></span>
+            </div>
+            <div class="form-group">
+                <span>用户名称:</span>
+                <span><input type="text" name="Name" style="width: 350px; height: 30px" /></span>
+            </div>
+            <div class="form-group">
+                <span>选择牧场:</span>
+                <span><input type="text" value="@ViewBag.PastureName" name="Pasture" style="width: 350px; height: 30px" /></span>
+            </div>
+            <div class="form-group">
+                <span>用户角色:</span>
+                <span><select name="RoleID" id="PastureID" style="width: 350px; height: 30px"></select></span>
+            </div>
+            <div class="form-group">
+                <span>输入密码:</span>
+                <span><input type="text" name="Password" style="width: 350px; height: 30px" /></span>
+            </div>
+            <div class="form-group">
+                <span>确认密码:</span>
+                <span><input type="text" name="EnsurePassword" style="width: 350px; height: 30px" /></span>
+            </div>
+        </div>
+    </form>
     <div style="text-align:center;">
         <input type="button" id="btnSubmit" value="确认" />
         <input type="button" id="btnCancel" value="取消" />

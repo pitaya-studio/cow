@@ -32,6 +32,12 @@ namespace CowSite.Controllers.Feed
             return Json(lstCowGroup, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetCowGroup()
+        {
+            List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(pastureID);
+            return Json(new { Rows = lstCowGroup }, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 分群提示
         /// </summary>

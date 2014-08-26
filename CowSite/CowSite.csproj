@@ -588,6 +588,11 @@
     <Content Include="Controls\jQuery.Select2\select2.min.js" />
     <Content Include="Controls\jQuery.Select2\select2.png" />
     <Content Include="Controls\jQuery.Select2\select2x2.png" />
+    <Content Include="Controls\jQuery.Table2014\example.html" />
+    <Content Include="Controls\jQuery.Table2014\images\DefaultTableIcon.png" />
+    <Content Include="Controls\jQuery.Table2014\prototype.html" />
+    <Content Include="Controls\jQuery.Table2014\Table2014.css" />
+    <Content Include="Controls\jQuery.Table2014\Table2014.js" />
     <Content Include="CowImage\Default-1.png" />
     <Content Include="CowImage\Default-2.png" />
     <Content Include="CowImage\Default-3.png" />

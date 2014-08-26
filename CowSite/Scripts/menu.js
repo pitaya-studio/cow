@@ -2,6 +2,9 @@
     $.fn.menu = function (options) {
         var menuList = [
             { ID: "Home", PID: "", Name: "首页", Url: "Home/Index", target: "_self" },
+            { ID: "Query", PID: "", Name: "查询", Url: "Query/CowGroup", target: "_self" },
+            { ID: "Query-CowGroup", PID: "Query", Name: "牛群", Url: "Query/CowGroup", target: "_self" },
+            { ID: "Query-Cow", PID: "Query", Name: "牛", Url: "Cow/CowDetail", target: "_self" },
             { ID: "Task", PID: "", Name: "任务", Url: "Task/Index/List", target: "_self" },
             { ID: "Task-CompleteCalf", PID: "Task", Name: "犊牛饲喂任务单", Url: "Task/Index/TaskCompleteCalf", target: "_self" },
             { ID: "Task-Day10AfterBorn", PID: "Task", Name: "产后10天任务单", Url: "Task/Index/TaskDay10AfterBorn", target: "_self" },
@@ -52,7 +55,7 @@
             { ID: "FarmAdmin", PID: "", Name: "场长", Url: "Users/Index/List", target: "_self" },
             { ID: "FarmAdmin-User", PID: "FarmAdmin", Name: "用户管理", Url: "Users/Index/List", target: "_self" },
             { ID: "FarmAdmin-GroupAssign", PID: "FarmAdmin", Name: "牛群分配", Url: "Feed/CowGroup/Assign", target: "_self" },
-            { ID: "FarmAdmin-TaskAdjust", PID: "FarmAdmin", Name: "任务调整", Url: "Task/Index/Adjust", target: "_self" },
+            //{ ID: "FarmAdmin-TaskAdjust", PID: "FarmAdmin", Name: "任务调整", Url: "Task/Index/Adjust", target: "_self" },
             { ID: "FarmAdmin-InGroup", PID: "FarmAdmin", Name: "入群", Url: "FarmAdmin/InGroup/List", target: "_self" },
             { ID: "FarmAdmin-OutGroup", PID: "FarmAdmin", Name: "离群", Url: "FarmAdmin/OutGroup/List", target: "_self" }
         ];

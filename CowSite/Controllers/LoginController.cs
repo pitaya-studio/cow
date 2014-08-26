@@ -23,6 +23,7 @@ namespace CowSite.Controllers
             {
                 List<string> menus = new List<string>();
                 Role role = UserBLL.Instance.CurrentUser.Role;
+                
                 if (role.IsAdmin)
                 {
                     menus.Add("Platform");
@@ -35,6 +36,7 @@ namespace CowSite.Controllers
                     menus.Add("Platform");
 #endif
                 }
+                menus.Add("Query");
                 if (role.CanBreed)
                 {
                     menus.Add("Breed");

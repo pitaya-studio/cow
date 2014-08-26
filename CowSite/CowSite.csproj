@@ -1160,6 +1160,7 @@
     <Compile Include="Controllers\Platform\FarmController.cs" />
     <Compile Include="Controllers\Platform\FodderController.cs" />
     <Compile Include="Controllers\Platform\FormulaController.cs" />
+    <Compile Include="Controllers\QueryController.cs" />
     <Compile Include="Controllers\Task\IndexController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteImmuneController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteQuarantineController.cs" />
@@ -1254,6 +1255,7 @@
     <Content Include="Views\Cow\List.cshtml" />
     <Content Include="Views\Task\TaskError.cshtml" />
     <Content Include="Views\Feed\DryMilk\Add.cshtml" />
+    <Content Include="Views\CowGroup\Query.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

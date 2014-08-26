@@ -121,16 +121,29 @@ namespace DairyCow.BLL
                 {
                     inseminationItem.EstrusFindType = Convert.ToInt32(inseminationRow["EstrusFindType"]);
                 }
-                inseminationItem.OperateDate = Convert.ToDateTime(inseminationRow["OperateDate"]);
+
+                if (inseminationRow["OperateDate"] != DBNull.Value)
+                {
+                    inseminationItem.OperateDate = Convert.ToDateTime(inseminationRow["OperateDate"]);
+                }
+                
                 //inseminationItem.Operator = inseminationRow["Operator"].ToString();
                 inseminationItem.Description = inseminationRow["Description"].ToString();
 
-                inseminationItem.EstrusDate = Convert.ToDateTime(inseminationRow["EstrusDate"]);
-                if (inseminationRow["EstrusType"] != null && string.IsNullOrWhiteSpace(inseminationRow["EstrusType"].ToString()))
+                if (inseminationRow["EstrusDate"] != DBNull.Value)
+                {
+                    inseminationItem.EstrusDate = Convert.ToDateTime(inseminationRow["EstrusDate"]);
+                }
+                
+                if (inseminationRow["EstrusType"] != DBNull.Value && string.IsNullOrWhiteSpace(inseminationRow["EstrusType"].ToString()))
                 {
                     inseminationItem.EstrusType = Convert.ToInt32(inseminationRow["EstrusType"]);
                 }
-                inseminationItem.EstrusFindPerson = inseminationRow["EstrusFindPerson"].ToString();
+                if (inseminationRow["EstrusFindPerson"] != DBNull.Value)
+                {
+                    inseminationItem.EstrusFindPerson = inseminationRow["EstrusFindPerson"].ToString();
+                }
+                
             }
             return inseminationItem;
         }

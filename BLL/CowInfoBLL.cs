@@ -236,7 +236,7 @@ namespace DairyCow.BLL
             get
             {
                 Dictionary<string, float> myDictionary = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
-                if (Parity > 0 || GetTimesOfInsemination(this.earNum) == 0 || (DateTime.Now.Subtract(this.GetLatestCalvingDate()).TotalDays) > myDictionary["MaxUninseminatedDays"])
+                if (Parity > 0 || GetTimesOfInsemination(this.earNum) == 0 || (myDictionary.ContainsKey("MaxUninseminatedDays") && (DateTime.Now.Subtract(this.GetLatestCalvingDate()).TotalDays) > myDictionary["MaxUninseminatedDays"]))
                 {
                     return true;
                 }
@@ -252,7 +252,7 @@ namespace DairyCow.BLL
             get
             {
                 Dictionary<string, float> myDictionary = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
-                if (Parity > 0 || (this.Status != "初检+" && this.Status != "复检+") || (DateTime.Now.Subtract(this.GetLatestCalvingDate()).TotalDays) > myDictionary["MaxUnpregnantDays"])
+                if (Parity > 0 || (this.Status != "初检+" && this.Status != "复检+") || (myDictionary.ContainsKey("MaxUnpregnantDays") && (DateTime.Now.Subtract(this.GetLatestCalvingDate()).TotalDays) > myDictionary["MaxUnpregnantDays"]))
                 {
                     return true;
                 }
@@ -268,7 +268,7 @@ namespace DairyCow.BLL
             get
             {
                 Dictionary<string, float> myDictionary = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
-                if (this.CowType == "青年牛" || GetTimesOfInsemination() == 0 || myCow.AgeMonth > myDictionary["MaxUninseminatedAgeMonth"])
+                if (this.CowType == "青年牛" || GetTimesOfInsemination() == 0 ||( myDictionary.ContainsKey("MaxUninseminatedAgeMonth") && myCow.AgeMonth > myDictionary["MaxUninseminatedAgeMonth"]))
                 {
                     return true;
                 }
@@ -284,7 +284,7 @@ namespace DairyCow.BLL
             get
             {
                 Dictionary<string, float> myDictionary = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID);
-                if (this.CowType == "青年牛" || (this.Status != "初检+" && this.Status != "复检+") || myCow.AgeMonth > myDictionary["MaxUnpregnantAgeMonth"])
+                if (this.CowType == "青年牛" || (this.Status != "初检+" && this.Status != "复检+") || myDictionary.ContainsKey("MaxUnpregnantAgeMonth") && myCow.AgeMonth > myDictionary["MaxUnpregnantAgeMonth"])
                 {
                     return true;
                 }

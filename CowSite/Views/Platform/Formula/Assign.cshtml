@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -30,7 +29,6 @@
             initBtn();
         })
 
-
         var cowGroupGridManager;
         var cowGroups;
         var formulaID;
@@ -45,7 +43,6 @@
                 success: function (cowGroupData) {
                     cowGroups = cowGroupData;
                     initGrid();
-                    //alert(houseList.length.toString());
                 }
             });
         }
@@ -80,9 +77,9 @@
                 if (row) {
                     $('input[name=cowGroup]').val(row["Name"]);
                     var cowGroupID = row["ID"];
-                    
+
                     var formulaID = $('select[name=formula]').val();
-                    
+
                     $.ajax({
                         type: 'get',
                         url: "../../Platform/Formula/UpdateFormula",
@@ -107,19 +104,17 @@
             });
         }
 
-
         function initGrid() {
-
             cowGroupGridManager = $("#cowGroupGrid").ligerGrid({
                 checkbox: false,
                 columns: [
                     { display: '牛群ID', name: 'ID', type: 'int', hide: true, width: 50 },
-                    { display: '牧场', name: 'PastureName', align: 'left', hide: true, width: 150 },
-                    { display: '牛群', name: 'Name', align: 'left', width: 250, editor: { type: 'text' } },
+                    { display: '牧场', name: 'PastureName', align: 'left', width: 150 },
+                    { display: '牛群', name: 'Name', align: 'left', width: 260, editor: { type: 'text' } },
                     { display: '牛群类型', name: 'CowGroupTypeString', type: 'text', align: 'left', width: 150 },
                     { display: '牛群说明', name: 'Description', align: 'left', width: 200 },
-                    { display: '配方ID', name: 'FormulaID', type: 'int', width: 50 },
-                    { display: '配方', name: 'FormulaName', width: 100 },
+                    { display: '配方ID', name: 'FormulaID', type: 'int', hide: true, width: 50 },
+                    { display: '配方', name: 'FormulaName', width: 260 },
                 ],
                 title: "牛群配方信息",
                 showTitle: true,
@@ -138,27 +133,27 @@
         <div id="menu"></div>
         <div class="content">
             <form id="cowGroupInfo">
-                <div class="input-group mt10 hidden">
-                    <span class="input-group-addon w200 ">牛群</span>
-                    <input type="text" class="form-control w200 disabled" placeholder="牛群" contenteditable="false" name="cowGroup">
+                <div style="display:table-row;">
+                    <div class="input-group" style="display:table-cell;">
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w200">配方</span>
+                            <select class="w200" name="formula"></select>
+                        </div>
+                        <div class="input-group mt10">
+                            <span class="input-group-addon w200">牛群类型</span>
+                            <select class="w200" name="groupSelect">
+                                <option value="0">仅未指定配方牛群</option>
+                                <option value="1">全部牛群</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:table-cell; width:15px;"></div>
+                    <div class="mt10" style="display:table-cell;">
+                        <button type="button" class="btn btn-primary" id="btnAssign">指定配方</button>
+                    </div>
                 </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w200">配方</span>
-                    <select class="w200" name="formula"></select>
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w200">选择牛群类型</span>
-                    <select class="w200" name="groupSelect">
-                        <option value="0">仅未指定配方牛群</option>
-                        <option value="1">全部牛群</option>
-                    </select>
-                    
-                </div>
-                 <div class="mt10">
-                    <button type="button" class="btn btn-primary" id="btnAssign">指定配方</button>
-                </div>
-                <div>
-                    <div id="cowGroupGrid" class="displayBlock ml5 mr5"></div>
+                <div class="mt5">
+                    <div id="cowGroupGrid" class="displayBlock mr5"></div>
                     <div id="message"></div>
                     <div class="l-loading" id="pageloading"></div>
                 </div>

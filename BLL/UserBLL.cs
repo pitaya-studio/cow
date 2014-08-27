@@ -111,6 +111,32 @@ namespace DairyCow.BLL
             return roles;
         }
 
+        public List<Role> GetPartRoles()
+        {
+            List<Role> roles = new List<Role>();
+            DataTable dt = dalUser.GetPartRoles();
+            if (dt != null)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    Role role = new Role
+                    {
+                        ID = Convert.ToInt32(row["ID"]),
+                        Name = row["Name"].ToString(),
+                        SupervisorID = Convert.ToInt32(row["SupervisorID"]),
+                        CanBreed = Convert.ToBoolean(row["CanBreed"]),
+                        CanFeed = Convert.ToBoolean(row["CanFeed"]),
+                        CanMedical = Convert.ToBoolean(row["CanMedical"]),
+                        CanMilk = Convert.ToBoolean(row["CanMilk"]),
+                        IsAdmin = Convert.ToBoolean(row["IsAdmin"]),
+                        IsDirector = Convert.ToBoolean(row["IsDirector"])
+                    };
+                    roles.Add(role);
+                }
+            }
+            return roles;
+        }
+
         /// <summary>
         /// 获得所有用户
         /// </summary>

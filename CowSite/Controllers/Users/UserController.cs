@@ -36,7 +36,7 @@ namespace CowSite.Controllers.Users
 
         public JsonResult GetRoleItems()
         {
-            List<Role> roleList = bllUser.GetRoles();
+            List<Role> roleList = bllUser.GetPartRoles();
             return Json(roleList, JsonRequestBehavior.AllowGet);
         }
 

@@ -66,7 +66,7 @@ namespace DairyCow.BLL
                 cookie["UserID"] = CurrentUser.ID.ToString();
                 System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
             }
-        } 
+        }
 
         public static void Logout()
         {
@@ -85,7 +85,7 @@ namespace DairyCow.BLL
             return user;
         }
 
-        private List<Role> GetRoles()
+        public List<Role> GetRoles()
         {
             List<Role> roles = new List<Role>();
             DataTable dt = dalUser.GetRoles();
@@ -111,7 +111,10 @@ namespace DairyCow.BLL
             return roles;
         }
 
-
+        /// <summary>
+        /// 获得所有用户
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();

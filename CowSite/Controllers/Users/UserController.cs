@@ -34,6 +34,12 @@ namespace CowSite.Controllers.Users
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetRoleItems()
+        {
+            List<Role> roleList = bllUser.GetRoles();
+            return Json(roleList, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Save()
         {
             ViewBag.PastureName = UserBLL.Instance.CurrentUser.Pasture.Name;

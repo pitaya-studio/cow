@@ -29,7 +29,7 @@
         function loadOperator() {
             $.ajax({
                 type: 'get',
-                url: '../../Users/User/GetUserItems',
+                url: '../../Users/User/GetRoleItems',
                 dataType: 'json',
                 cache: false,
                 success: function (user) {
@@ -73,28 +73,28 @@
     <form class="form-inline" action="~/Users/User/SaveAddedUser" method="post" id="userInfo">
         <div class="container">
             <div class="form-group">
-                <span>用户账号:</span>
+                <span style="width:200px">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</span>
                 <span><input type="text" name="Account" style="width: 350px; height: 30px" /></span>
             </div>
             <div class="form-group">
-                <span>用户名称:</span>
+                <span style="width:200px">名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</span>
                 <span><input type="text" name="Name" style="width: 350px; height: 30px" /></span>
             </div>
             <div class="form-group">
-                <span>选择牧场:</span>
+                <span style="width:200px">牧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;场:</span>
                 <span><input type="text" value="@ViewBag.PastureName" name="Pasture" style="width: 350px; height: 30px" /></span>
             </div>
             <div class="form-group">
-                <span>用户角色:</span>
+                <span style="width:200px">角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色:</span>
                 <span><select name="RoleID" id="PastureID" style="width: 350px; height: 30px"></select></span>
             </div>
             <div class="form-group">
-                <span>输入密码:</span>
-                <span><input type="text" name="Password" style="width: 350px; height: 30px" /></span>
+                <span style="width:200px">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</span>
+                <span><input type="password" name="Password" style="width: 350px; height: 30px" /></span>
             </div>
             <div class="form-group">
-                <span>确认密码:</span>
-                <span><input type="text" name="EnsurePassword" style="width: 350px; height: 30px" /></span>
+                <span style="width:200px">确认密码:</span>
+                <span><input type="password" name="EnsurePassword" style="width: 350px; height: 30px" /></span>
             </div>
         </div>
     </form>

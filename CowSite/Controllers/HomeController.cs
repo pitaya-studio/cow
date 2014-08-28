@@ -8,6 +8,7 @@ namespace CowSite.Controllers
 {
     public class HomeController : Controller
     {
+        [EMuTongAuthorizeAttribute]
         public ActionResult Index()
         {
             return View();

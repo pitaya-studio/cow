@@ -14,9 +14,7 @@ namespace DairyCow.BLL
     {
         private UserDAL dalUser = new UserDAL();
         private PastureDAL dalPasture = new PastureDAL();
-
-        private static Dictionary<int, UserBLL> _instance;
-
+        
         public static UserBLL Instance
         {
             get

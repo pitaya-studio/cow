@@ -17,7 +17,7 @@ namespace CowSite
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             //验证不通过,直接跳转到相应页面，注意：如果不使用以下跳转，则会继续执行Action方法
-            filterContext.Result = new RedirectResult("~/Login/Index");
+            filterContext.Result = new RedirectResult("~/Account/Login");
         }
     }
 }

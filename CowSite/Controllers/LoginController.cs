@@ -7,59 +7,23 @@ namespace CowSite.Controllers
 {
     public class LoginController : Controller
     {
-        public JsonResult Login(string user, string password)
-        {            
-#if DEBUG
-            UserBLL.Instance.GetCurrentUser("farmadmin", "123");            
-#else
+        public JsonResult Login(string userAccount, string password)
+        {
+            UserBLL bllUser = new UserBLL();
+            User user = bllUser.GetUser(userAccount, password);
 
-            UserBLL.Instance.GetCurrentUser(user, password);           
-#endif
-            if (UserBLL.Instance.CurrentUser == null)
+            if (user != null && !string.IsNullOrWhiteSpace(user.Account))
             {
-                return Json(new { Login = 0 }, JsonRequestBehavior.AllowGet);
+                // 验证成功，用户名密码正确，构造用户数据（可以添加更多数据，这里只保存用户Id）
+                var userData = new EMuTongUserDataPrincipal { UserId = user.Account };
+                // 保存Cookie
+                EMuTongFormsAuthentication<EMuTongUserDataPrincipal>.SetAuthCookie(userAccount, userData, false);
+                return Json(new { login = 1, menu = user.Role.Menus }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                List<string> menus = new List<string>();
-                Role role = UserBLL.Instance.CurrentUser.Role;
-                
-                if (role.IsAdmin)
-                {
-                    menus.Add("Platform");
-                }
-                else
-                {
-                    menus.Add("Home");
-                    menus.Add("Task");
-#if DEBUG
-                    menus.Add("Platform");
-#endif
-                }
-                menus.Add("Query");
-                if (role.CanBreed)
-                {
-                    menus.Add("Breed");
-                }
-                if (role.CanFeed)
-                {
-                    menus.Add("Feed");
-                }
-                if (role.CanMilk)
-                {
-                    menus.Add("Milk");
-                }
-                if (role.CanMedical)
-                {
-                    menus.Add("Medical");
-                }
-                if (role.IsDirector)
-                {
-                    menus.Add("FarmAdmin");
-                }
-                role.Menus = menus;
-                return Json(new { login = 1, menu = menus }, JsonRequestBehavior.AllowGet);
-            }            
+                return Json(new { Login = 0 }, JsonRequestBehavior.AllowGet);
+            }
         }
-	}
+    }
 }

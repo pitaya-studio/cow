@@ -16,35 +16,59 @@ namespace DairyCow.BLL
         private PastureDAL dalPasture = new PastureDAL();
 
         private static Dictionary<int, UserBLL> _instance;
+
         public static UserBLL Instance
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new Dictionary<int, UserBLL>();
-                }
-                HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get("CurrentUserCookie");
-                if (cookie == null)
-                {
-                    return new UserBLL();
-                }
-                int userID = Convert.ToInt32(cookie["UserID"]);
-                if (_instance.ContainsKey(userID))
-                {
-                    return _instance[userID];
-                }
-                else
-                {
-                    return new UserBLL();
-                }
+                return new UserBLL();
+
+                //if (_instance == null)
+                //{
+                //    _instance = new Dictionary<int, UserBLL>();
+                //}
+                //HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get("CurrentUserCookie");
+                //if (cookie == null)
+                //{
+                //    return new UserBLL();
+                //}
+                //int userID = Convert.ToInt32(cookie["UserID"]);
+                //if (_instance.ContainsKey(userID))
+                //{
+                //    return _instance[userID];
+                //}
+                //else
+                //{
+                //    return new UserBLL();
+                //}
             }
         }
 
         public List<Role> Roles { get; set; }
+
         public List<Pasture> Pastures { get; set; }
 
-        public User CurrentUser { get; set; }
+        public User CurrentUser
+        {
+            get
+            {
+                User user = new User();
+                DataTable dt = dalUser.GetCurrentUser(HttpContext.Current.User.Identity.Name);
+                if (dt != null && dt.Rows.Count != 0)
+                {
+                    user = WrapUser(dt.Rows[0]);
+                    //if (!_instance.ContainsKey(CurrentUser.ID))
+                    //{
+                    //    _instance.Add(CurrentUser.ID, this);
+                    //}
+                    //HttpCookie cookie = new HttpCookie("CurrentUserCookie");
+                    //cookie["UserID"] = CurrentUser.ID.ToString();
+                    //System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+                }
+
+                return user;
+            }
+        }
 
         public UserBLL()
         {
@@ -52,28 +76,35 @@ namespace DairyCow.BLL
             PastureBLL pbl = new PastureBLL();
             Pastures = pbl.GetPastures();
         }
-        public void GetCurrentUser(string account, string password)
+
+        public User GetUser(string account, string password)
         {
+            User user = new User();
             DataTable dt = dalUser.GetCurrentUser(account, password);
             if (dt != null && dt.Rows.Count != 0)
             {
-                CurrentUser = WrapUser(dt.Rows[0]);
-                if (!_instance.ContainsKey(CurrentUser.ID))
-                {
-                    _instance.Add(CurrentUser.ID, this);
-                }
-                HttpCookie cookie = new HttpCookie("CurrentUserCookie");
-                cookie["UserID"] = CurrentUser.ID.ToString();
-                System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+                user = WrapUser(dt.Rows[0]);
+                //if (!_instance.ContainsKey(CurrentUser.ID))
+                //{
+                //    _instance.Add(CurrentUser.ID, this);
+                //}
+                //HttpCookie cookie = new HttpCookie("CurrentUserCookie");
+                //cookie["UserID"] = CurrentUser.ID.ToString();
+                //System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
             }
-        } 
+            return user;
+        }
 
         public static void Logout()
         {
             System.Web.HttpContext.Current.Response.Cookies.Remove("CurrentUserCookie");
         }
 
-        //获得一个兽医
+        /// <summary>
+        /// 获得一个兽医
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public User GetDefaultDoctor(int id)
         {
             User user = new User();
@@ -111,7 +142,6 @@ namespace DairyCow.BLL
             return roles;
         }
 
-
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
@@ -148,6 +178,7 @@ namespace DairyCow.BLL
 
             return lstInseminationOperator;
         }
+
         /// <summary>
         /// 获得牧场配种员list
         /// </summary>
@@ -166,6 +197,7 @@ namespace DairyCow.BLL
 
             return lstInseminationOperator;
         }
+
         /// <summary>
         /// 获取牧场饲养员list
         /// </summary>
@@ -184,6 +216,7 @@ namespace DairyCow.BLL
 
             return feederList;
         }
+
         /// <summary>
         /// 获取牧场兽医list
         /// </summary>
@@ -217,7 +250,6 @@ namespace DairyCow.BLL
             return lstInseminationOperator;
         }
 
-
         public void InsertUser(string name, string account, string password, string roleID, string pastureID)
         {
             dalUser.InsertUser(name, account, password, roleID, pastureID);
@@ -244,6 +276,39 @@ namespace DairyCow.BLL
                 user.Password = row["Password"].ToString();
                 user.Role = Roles.FirstOrDefault(r => r.ID == Convert.ToInt32(row["RoleID"]));
                 user.Pasture = Pastures.FirstOrDefault(P => P.ID == Convert.ToInt32(row["PastureID"]));
+
+                List<string> menus = new List<string>();
+                if (user.Role.IsAdmin)
+                {
+                    menus.Add("Platform");
+                }
+                else
+                {
+                    menus.Add("Home");
+                    menus.Add("Task");
+                }
+                menus.Add("Query");
+                if (user.Role.CanBreed)
+                {
+                    menus.Add("Breed");
+                }
+                if (user.Role.CanFeed)
+                {
+                    menus.Add("Feed");
+                }
+                if (user.Role.CanMilk)
+                {
+                    menus.Add("Milk");
+                }
+                if (user.Role.CanMedical)
+                {
+                    menus.Add("Medical");
+                }
+                if (user.Role.IsDirector)
+                {
+                    menus.Add("FarmAdmin");
+                }
+                user.Role.Menus = menus;
             }
             return user;
         }

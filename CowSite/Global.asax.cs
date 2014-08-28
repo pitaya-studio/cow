@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace CowSite
 {
@@ -13,6 +14,15 @@ namespace CowSite
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, System.EventArgs e)
+        {
+            var formsIdentity = HttpContext.Current.User.Identity as FormsIdentity;
+            if (formsIdentity != null && formsIdentity.IsAuthenticated && formsIdentity.AuthenticationType == "Forms")
+            {
+                HttpContext.Current.User = EMuTongFormsAuthentication<EMuTongUserDataPrincipal>.TryParsePrincipal(HttpContext.Current.Request);
+            }
         }
     }
 }

@@ -15,13 +15,21 @@
     <script type="text/javascript">
         $(function () {
             $('#btnLogin').click(function () {
-                var usr = $("[name=name]").val();
+                var userAccount = $("[name=name]").val();
                 var pas = $("[name=password]").val();
+                if (userAccount == '') {
+                    alert('请输入用户名！');
+                    return;
+                } else if (pas == '') {
+                    alert('请输入密码！');
+                    return;
+                }
+
                 $.ajax({
                     type: 'get',
                     url: "../Login/Login",
                     cache: false,
-                    data: { user: usr, password: pas },
+                    data: { userAccount: userAccount, password: pas },
                     dataType: "json"
                 }).success(function (loginResult) {
                     if (loginResult.login == 1)

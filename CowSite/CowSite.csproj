@@ -1127,6 +1127,10 @@
     <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\EMuTongAuthorizeAttribute.cs" />
+    <Compile Include="App_Start\EMuTongFormsAuthentication.cs" />
+    <Compile Include="App_Start\EMuTongFormsPrincipal.cs" />
+    <Compile Include="App_Start\EMuTongUserDataPrincipal .cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Controllers\AccountController.cs" />

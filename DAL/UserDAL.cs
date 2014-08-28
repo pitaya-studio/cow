@@ -79,6 +79,18 @@ namespace DairyCow.DAL
             return dt;
         }
 
+        public DataTable GetCurrentUser(string account)
+        {
+            DataTable dt = null;
+
+            string sql = string.Format(@"select *
+                        from auth_user
+                        where account='{0}'", account);
+
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return dt;
+        }
+
         public DataTable GetRoles()
         {
             DataTable dt = null;

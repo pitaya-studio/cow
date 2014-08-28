@@ -21,7 +21,7 @@ namespace DairyCow.BLL
         {
             get
             {
-                return new UserBLL();
+                    return new UserBLL();
 
                 //if (_instance == null)
                 //{
@@ -41,8 +41,8 @@ namespace DairyCow.BLL
                 //{
                 //    return new UserBLL();
                 //}
-            }
-        }
+                }
+                }
 
         public List<Role> Roles { get; set; }
 
@@ -91,9 +91,9 @@ namespace DairyCow.BLL
                 //HttpCookie cookie = new HttpCookie("CurrentUserCookie");
                 //cookie["UserID"] = CurrentUser.ID.ToString();
                 //System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
-            }
+                }
             return user;
-        }
+        } 
 
         public static void Logout()
         {

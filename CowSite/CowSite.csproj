@@ -1265,6 +1265,7 @@
     <Content Include="Views\Task\TaskError.cshtml" />
     <Content Include="Views\Feed\DryMilk\Add.cshtml" />
     <Content Include="Views\CowGroup\Query.cshtml" />
+    <Content Include="Views\Task\TaskRegrouping.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

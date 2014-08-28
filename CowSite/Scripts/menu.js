@@ -18,6 +18,7 @@
             { ID: "Task-InitialInspection", PID: "Task", Name: "妊检初检任务单", Url: "Task/Index/TaskInitialInspection", target: "_self" },
             { ID: "Task-Insemination", PID: "Task", Name: "发情/配种任务单", Url: "Task/Index/TaskInsemination", target: "_self" },
             { ID: "Task-ReInspection", PID: "Task", Name: "妊检复检任务单", Url: "Task/Index/TaskReInspection", target: "_self" },
+            { ID: "Task-Regouping", PID: "Task", Name: "分群任务单", Url: "Task/Index/TaskRegrouping", target: "_self" },
             { ID: "Breed", PID: "", Name: "繁殖", Url: "Breed/Index/Index", target: "_self" },
             { ID: "Breed-Home", PID: "Breed", Name: "繁殖首页", Url: "Breed/Index/Index", target: "_self" },
             { ID: "Breed-Insemination", PID: "Breed", Name: "发情配种", Url: "Task/Index/TaskInsemination", target: "_self" },

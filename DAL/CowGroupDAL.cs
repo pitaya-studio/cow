@@ -44,16 +44,18 @@ namespace DairyCow.DAL
             DataTable cowGroupTable = null;
             string sql = string.Format(@"SELECT G.[ID]
                                             ,G.[Name] AS GroupName
+                                            ,P.[Name] AS PastureName
                                             ,G.[PastureID]
                                             ,G.[Type]
+                                            ,G.[FormulaID]
+                                            ,G.[InsemOperatorID] 
                                             ,G.[Description] 
-                                            ,[FormulaID]
-                                            ,[InsemOperatorID] 
 											,A.Name AS InsemOperatorName
                                             ,FeedOperatorID
                                             ,DoctorID
                                         FROM [Base_CowGroup] G 
 										LEFT JOIN [Auth_User] A ON A.ID = G.InsemOperatorID
+                                        JOIN [Base_Pasture] P ON G.PastureID = P.ID
                                         WHERE G.[PastureID]={0} ", pastureID);
             cowGroupTable = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return cowGroupTable;

@@ -46,7 +46,7 @@ namespace DairyCow.DAL
             DataTable feederList = null;
 
             string sql = string.Format(@"select au.ID, au.Name, au.Account, au.Password, au.RoleID, au.PastureID
-                                        from Auth_User au  where au.RoleID = 3 and au.PastureID={0}",pastureID);
+                                        from Auth_User au  where au.RoleID = 3 and au.PastureID={0}", pastureID);
 
             feederList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return feederList;
@@ -97,6 +97,17 @@ namespace DairyCow.DAL
 
             string sql = @"select *
                         from auth_role";
+
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return dt;
+        }
+
+        public DataTable GetPartRoles()
+        {
+            DataTable dt = null;
+
+            string sql = @"select *
+                        from auth_role where Name not in ('场长','Admin')";
 
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return dt;

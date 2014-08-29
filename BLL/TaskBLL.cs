@@ -643,7 +643,7 @@ namespace DairyCow.BLL
             GroupingRecord record = gBLL.GetGroupingRecordByTaskID(task.ID);
             myCow.GroupID = record.TargetGroupID;
             myCow.HouseID = record.TargetHouseID;
-
+            cowBLL.UpdateCowGroupAndHouse(myCow.EarNum, myCow.GroupID, myCow.HouseID);
         }
 
         /// <summary>

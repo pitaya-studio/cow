@@ -262,6 +262,12 @@ namespace DairyCow.BLL
             return dalCow.UpdateCowBreedStatus(earNum, GetCowStatusNum(status));
         }
 
+
+        public int UpdateCowGroupAndHouse(int earNum,int newGroupID,int newHouseID)
+        {
+            return dalCow.UpdateCow(earNum, newGroupID, newHouseID);
+        }
+
         public int UpdateCowIllStatus(int earNum, bool isIll)
         {
             int temp;

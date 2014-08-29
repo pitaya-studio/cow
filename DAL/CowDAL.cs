@@ -169,6 +169,7 @@ namespace DairyCow.DAL
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
         }
+       
 
         /// <summary>
         /// 设牛生病与否

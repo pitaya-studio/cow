@@ -50,6 +50,11 @@ namespace DairyCow.BLL
             return GetHouseList(pastureID).FindAll(p => p.GroupID == 0);
         }
 
+        public House GetHouseByID(int pastureID,int houseID)
+        {
+            return GetHouseList(pastureID).Find(p => p.ID == houseID);
+        }
+
         private House WrapHouseItem(DataRow row, List<CowGroup> groups)
         {
             House h = new House();

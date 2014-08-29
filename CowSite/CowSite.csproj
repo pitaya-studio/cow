@@ -1180,6 +1180,7 @@
     <Compile Include="Controllers\Task\TaskDay7ToBornController.cs" />
     <Compile Include="Controllers\Task\TaskInitialInspectionController.cs" />
     <Compile Include="Controllers\Task\TaskInseminationController.cs" />
+    <Compile Include="Controllers\Task\TaskRegroupingController.cs" />
     <Compile Include="Controllers\Task\TaskReInspectionController.cs" />
     <Compile Include="Controllers\Users\IndexController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
@@ -1273,7 +1274,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\TaskRegrouping\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />

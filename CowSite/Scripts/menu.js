@@ -110,7 +110,17 @@
                     dataType: 'json',
                     cache: false,
                     success: function (currentUserInfo) {
-                        $('#currentUserInfo').html("当前牧场：" + currentUserInfo.Pasture.Name + "，当前用户：" + currentUserInfo.Name);
+                        var info = "";
+                        if (typeof (currentUserInfo.Pasture) != 'undefined' && currentUserInfo.Pasture && typeof (currentUserInfo.Pasture.Name) != 'undefined' && currentUserInfo.Pasture.Name) {
+                            info += "当前牧场：" + currentUserInfo.Pasture.Name;
+                        }
+                        if (typeof (currentUserInfo.Name) != 'undefined' && currentUserInfo.Name) {
+                            if (info != '') {
+                                info += "，";
+                            }
+                            info += "当前用户：" + currentUserInfo.Name;
+                        }
+                        $('#currentUserInfo').html(info);
                     }
                 });
 

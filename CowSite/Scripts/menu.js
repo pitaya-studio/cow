@@ -98,10 +98,21 @@
             var rendMenu = function () {
                 $elem.html('');
                 var header = $('<div class="mt10 mb10"></div>').appendTo($elem);
+                var userInfo = $('<div id="currentUserInfo" style="position:absolute;right:300px;top:15px;"></div>').appendTo(header);
                 var logo = $('<div class="btn-group">                                             \
                         <img src="http://' + host + '/Images/emutong_logo.png" style="width:164px; height:33px;" />   \
                     </div>'
                     ).appendTo(header);
+
+                $.ajax({
+                    url: 'http://' + host + '/Account/CurrentUserInfo',
+                    type: 'get',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (currentUserInfo) {
+                        $('#currentUserInfo').html("当前牧场：" + currentUserInfo.Pasture.Name + "，当前用户：" + currentUserInfo.Name);
+                    }
+                });
 
                 $.ajax({
                     url: 'http://' + host + '/Home/GetMenuID',

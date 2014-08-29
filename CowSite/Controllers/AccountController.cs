@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using DairyCow.BLL;
+using System.Web.Mvc;
 
 namespace CowSite.Controllers
 {
@@ -15,6 +16,11 @@ namespace CowSite.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        public JsonResult CurrentUserInfo()
+        {
+            return Json(UserBLL.Instance.CurrentUser, JsonRequestBehavior.AllowGet);
         }
 	}
 }

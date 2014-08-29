@@ -10,9 +10,6 @@ namespace CowSite.Controllers.Task
 {
     public class TaskRegroupingController : Controller
     {
-        //
-        // GET: /TaskRegrouping/
-
         public JsonResult LoadTask(string taskID)
         {
             TaskBLL bll = new TaskBLL();

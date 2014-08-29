@@ -16,7 +16,6 @@ namespace CowSite.Controllers.Task
         {
             return View("~/Views/Task/Adjust.cshtml");
         }
-
         /// <summary>
         /// 任务列表页面
         /// </summary>
@@ -132,6 +131,15 @@ namespace CowSite.Controllers.Task
         {
             ViewBag.TaskID = Request.QueryString["taskID"];
             return View("~/Views/Task/TaskCompleteCalf.cshtml");
+        }
+        /// <summary>
+        /// 分群任务单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TaskRegrouping()
+        {
+            ViewBag.TaskID = Request.QueryString["taskID"];
+            return View("~/Views/Task/TaskRegrouping.cshtml");
         }
     }
 }

@@ -68,7 +68,11 @@ namespace DairyCow.BLL
                 cowGroupItem.Description = cowGroupRow["Description"].ToString();
 
                 cowGroupItem.PastureID = Convert.ToInt32(cowGroupRow["PastureID"]);
-                cowGroupItem.PastureName = cowGroupRow["PastureName"].ToString();
+                if (cowGroupRow.Table.Columns.Contains("PastureName"))
+                {
+                    cowGroupItem.PastureName = cowGroupRow["PastureName"].ToString();
+                }
+                
                 if (cowGroupRow["FormulaID"] != DBNull.Value)
                 {
                     cowGroupItem.FormulaID = Convert.ToInt32(cowGroupRow["FormulaID"]);

@@ -62,7 +62,7 @@ namespace DairyCow.DAL
         }
 
 
-        public int InsertCowGroup(string name,int pastureID,int groupType,string description,int formulaID,int insemOperatorID,int feedOperatorID,int doctorID)
+        public int InsertCowGroup(string name, int pastureID, int groupType, string description, int formulaID, int insemOperatorID, int feedOperatorID, int doctorID)
         {
             int temp;
             string sql = string.Format(@"INSERT [Base_CowGroup]
@@ -74,7 +74,7 @@ namespace DairyCow.DAL
                                           ,[InsemOperatorID]
                                           ,[FeedOperatorID]
                                           ,[DoctorID]) values('{0}',{1},{2},'{3}',{4},{5},{6},{7}) "
-                                            ,name, pastureID, groupType, description, formulaID, insemOperatorID, feedOperatorID, doctorID);
+                                            , name, pastureID, groupType, description, formulaID, insemOperatorID, feedOperatorID, doctorID);
             temp = dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
             return temp;
         }
@@ -100,9 +100,9 @@ namespace DairyCow.DAL
         public int DeleteCowGroupByID(int groupID)
         {
             int cowNum = GetCowCount(groupID);
-            if (cowNum==0)
+            if (cowNum == 0)
             {
-                string sql=string.Format(@"delete from  [Base_CowGroup]  where ID ={0}", groupID);
+                string sql = string.Format(@"delete from  [Base_CowGroup]  where ID ={0}", groupID);
                 return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
             }
             else
@@ -169,7 +169,7 @@ namespace DairyCow.DAL
         /// 更新牛群信息
         /// </summary>
         /// <returns></returns>
-        public int UpdateCowGroupInfo(int groupID,string groupName,int pastureID,int formulaID,int groupType,string description,int feederID,int insemOperatorID,int doctorID)
+        public int UpdateCowGroupInfo(int groupID, string groupName, int pastureID, int formulaID, int groupType, string description, int feederID, int insemOperatorID, int doctorID)
         {
             string sql = string.Format(@"UPDATE [Base_CowGroup]
                                            SET [Name] = '{0}'
@@ -187,21 +187,21 @@ namespace DairyCow.DAL
 
 
         //应该统一用一个
-//        public DataTable GetCowGroupInfo()
-//        {
-//            DataTable cowGroup = null;
+        //        public DataTable GetCowGroupInfo()
+        //        {
+        //            DataTable cowGroup = null;
 
-//            string sql = string.Format(@"SELECT G.[ID],G.[NAME],G.[FORMULAID],G.PastureID,G.TYPE,P.NAME AS PastureName,G.FORMULAID,G.Description,F.Name AS FormulaName
-//                                        FROM [DBO].[BASE_COWGROUP] AS G
-//										LEFT JOIN [DBO].[BASE_PASTURE] AS P
-//										ON P.ID = G.PASTUREID
-//										LEFT JOIN [DBO].[FEED_FORMULA] F
-//										ON F.ID = G.FORMULAID");
+        //            string sql = string.Format(@"SELECT G.[ID],G.[NAME],G.[FORMULAID],G.PastureID,G.TYPE,P.NAME AS PastureName,G.FORMULAID,G.Description,F.Name AS FormulaName
+        //                                        FROM [DBO].[BASE_COWGROUP] AS G
+        //										LEFT JOIN [DBO].[BASE_PASTURE] AS P
+        //										ON P.ID = G.PASTUREID
+        //										LEFT JOIN [DBO].[FEED_FORMULA] F
+        //										ON F.ID = G.FORMULAID");
 
-//            cowGroup = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+        //            cowGroup = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
-//            return cowGroup;
-//        }
+        //            return cowGroup;
+        //        }
 
         /// <summary>
         /// 根据牛群ID获得配方ID
@@ -245,9 +245,11 @@ namespace DairyCow.DAL
         public int GetCowCount(int groupID)
         {
             DataTable DT = null;
+            //            string sql = string.Format(@"SELECT COUNT(*)
+            //                                        FROM Base_CowGroup AS G LEFT JOIN Base_Cow AS C ON G.ID = C.GroupID
+            //                                        WHERE G.ID = '{0}'", groupID);
             string sql = string.Format(@"SELECT COUNT(*)
-                                        FROM Base_CowGroup AS G LEFT JOIN Base_Cow AS C ON G.ID = C.GroupID
-                                        WHERE G.ID = '{0}'", groupID);
+                                        FROM Base_Cow WHERE GroupID = {0}", groupID);
             DT = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return Convert.ToInt32(DT.Rows[0].ItemArray[0]);
         }

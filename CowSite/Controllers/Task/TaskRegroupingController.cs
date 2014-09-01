@@ -14,20 +14,9 @@ namespace CowSite.Controllers.Task
         {
             TaskBLL bll = new TaskBLL();
             DairyTask v;
-            v = bll.GetTaskByID(Convert.ToInt32(taskID));
+            v = bll.GetTaskByID(Int32.Parse(taskID));
             string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
 
-            return Json(new
-            {
-                EarNum = v.EarNum,
-                DisplayEarNum = displayEarNum,
-                ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
-                Operator = v.OperatorID
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult LoadRegroupingInfo(string taskID)
-        {
             GroupingRecordBLL grbBLL = new GroupingRecordBLL();
             GroupingRecord gr = grbBLL.GetGroupingRecordByTaskID(Int32.Parse(taskID));
             CowGroupBLL cgBLL = new CowGroupBLL();
@@ -39,13 +28,37 @@ namespace CowSite.Controllers.Task
 
             return Json(new
             {
-                OldGroup =oldgroup.Name,
+                EarNum = v.EarNum,
+                DisplayEarNum = displayEarNum,
+                ArrivalTime = v.ArrivalTime.ToString("yyyy-MM-dd"),
+                Operator = v.OperatorID,
+                OldGroup = oldgroup.Name,
                 OldHouse = oldhouse.Name,
                 NewGroup = newgroup.Name,
                 NewHouse = newhouse.Name
             }, JsonRequestBehavior.AllowGet);
-
         }
+
+        //public JsonResult LoadRegroupingInfo(string taskID)
+        //{
+        //    GroupingRecordBLL grbBLL = new GroupingRecordBLL();
+        //    GroupingRecord gr = grbBLL.GetGroupingRecordByTaskID(Int32.Parse(taskID));
+        //    CowGroupBLL cgBLL = new CowGroupBLL();
+        //    HouseBLL hBLL = new HouseBLL();
+        //    CowGroup oldgroup = cgBLL.GetCowGroupInfo(gr.OriginalGroupID);
+        //    CowGroup newgroup = cgBLL.GetCowGroupInfo(gr.TargetGroupID);
+        //    House oldhouse = hBLL.GetHouseByID(UserBLL.Instance.CurrentUser.Pasture.ID, gr.OriginalHouseID);
+        //    House newhouse = hBLL.GetHouseByID(UserBLL.Instance.CurrentUser.Pasture.ID, gr.TargetHouseID);
+
+        //    return Json(new
+        //    {
+        //        OldGroup =oldgroup.Name,
+        //        OldHouse = oldhouse.Name,
+        //        NewGroup = newgroup.Name,
+        //        NewHouse = newhouse.Name
+        //    }, JsonRequestBehavior.AllowGet);
+
+        //}
 
         [EMuTongAuthorizeAttribute]
         public ActionResult SaveTask()

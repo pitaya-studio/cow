@@ -27,8 +27,10 @@
 
         $(function () {
             $('#menu').menu({ mainMenuSelectedID: "Task", subMenuSelectedID: "Task-Regrouping", showSubMemu: false });
+            
             loadTask();
-            loadGroupingInfo();
+            
+            //loadGroupingInfo();
         })
 
         function loadTask() {
@@ -42,27 +44,32 @@
                     $('input[name=id]').val(taskID);
                     $('#taskid').text(taskID);
                     $('input[name=DisplayEarNum]').val(taskData.DisplayEarNum);
+
+                    $('Input[name=oldgroup]').val(taskData.OldGroup);
+                    $('Input[name=oldhouse]').val(taskData.OldHouse);
+                    $('Input[name=group]').val(taskData.NewGroup);
+                    $('Input[name=house]').val(taskData.NewHouse);
                     initDateSelector(taskData.ArrivalTime);
                     loadOperator(taskData.Operator);
                 }
             });
         }
 
-        function loadGroupingInfo() {
-            $.ajax({
-                type: 'get',
-                url: "../../TaskRegrouping/LoadGroupingInfo",
-                data: { taskID: taskID },
-                dataType: "json",
-                cache: false,
-                success: function (groupData) {
-                    $('Input[name=oldgroup]').val(group.OldGroup);
-                    $('Input[name=oldhouse]').val(group.OldHouse);
-                    $('Input[name=group]').val(group.NewGroup);
-                    $('Input[name=house]').val(group.NewHouse);
-                }
-            });
-        }
+        //function loadGroupingInfo() {
+        //    $.ajax({
+        //        type: 'get',
+        //        url: "../../TaskRegrouping/LoadRegroupingInfo",
+        //        data: { taskID: taskID },
+        //        dataType: "json",
+        //        cache: false,
+        //        success: function (groupData) {
+        //            $('Input[name=oldgroup]').val(groupData.OldGroup);
+        //            $('Input[name=oldhouse]').val(groupData.OldHouse);
+        //            $('Input[name=group]').val(groupData.NewGroup);
+        //            $('Input[name=house]').val(groupData.NewHouse);
+        //        }
+        //    });
+        //}
 
         function loadOperator(op) {
             $.ajax({
@@ -114,7 +121,7 @@
                     <input type="hidden" name="id" />
                     <div>任务单ID：<span id="taskid"></span></div>
                     <div>任务单类型：分群任务单</div>
-                    <div>任务指导：请进行该牛的分群操作。</div>
+                    <div>任务指导：请按照以下信息，把该牛的从原群舍移至新的群舍。</div>
                     <br />
                     <div class="input-group mt10">
                         <span class="input-group-addon w200">牛耳号：</span>
@@ -134,19 +141,19 @@
                     </div>
                     <div class="input-group mt10">
                         <span class="input-group-addon w200">原牛群：</span>
-                        <input type="text" name="oldgroup" class="form-control w200" id="GroupID"></input>
+                        <input type="text" name="oldgroup" class="form-control w200" contenteditable="false" id="GroupID"></input>
                     </div>
                     <div class="input-group mt10">
                         <span class="input-group-addon w200">原牛舍：</span>
-                        <input type="text" name="oldhouse" class="form-control w200" id="HouseID"></input>
+                        <input type="text" name="oldhouse" class="form-control w200" contenteditable="false" id="HouseID"></input>
                     </div>
                     <div class="input-group mt10">
                         <span class="input-group-addon w200">新牛群：</span>
-                        <input type="text" name="group" class="form-control w200" id="GroupID"></input>
+                        <input type="text" name="group" class="form-control w200" contenteditable="false" id="GroupID"></input>
                     </div>
                     <div class="input-group mt10">
                         <span class="input-group-addon w200">新牛舍：</span>
-                        <input type="text" name="house" class="form-control w200" id="HouseID"></input>
+                        <input type="text" name="house" class="form-control w200" contenteditable="false" id="HouseID"></input>
                     </div>
                     <div class="mt10">
                         <input type="submit" class="btn btn-primary" id="btnSave" value="提交" />

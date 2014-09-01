@@ -1171,6 +1171,7 @@
     <Compile Include="Controllers\Platform\FormulaController.cs" />
     <Compile Include="Controllers\QueryController.cs" />
     <Compile Include="Controllers\Task\IndexController.cs" />
+    <Compile Include="Controllers\Task\TaskCompleteCalfController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteImmuneController.cs" />
     <Compile Include="Controllers\Task\TaskCompleteQuarantineController.cs" />
     <Compile Include="Controllers\Task\TaskDay10AfterBornController.cs" />
@@ -1275,6 +1276,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\TaskCompleteCalf\" />
     <Folder Include="Views\TaskRegrouping\" />
   </ItemGroup>
   <ItemGroup />

@@ -121,7 +121,7 @@ namespace CowSite.Controllers.Task
         public ActionResult TaskCompleteGrouping()
         {
             ViewBag.TaskID = Request.QueryString["taskID"];
-            return View("~/Views/Task/TaskCompleteGrouping.cshtml");
+            return View("~/Views/Task/TaskRegrouping.cshtml");
         }
         /// <summary>
         /// 犊牛饲喂任务单

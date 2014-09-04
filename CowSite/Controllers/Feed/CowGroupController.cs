@@ -10,6 +10,7 @@ namespace CowSite.Controllers.Feed
     public class CowGroupController : Controller
     {
         CowGroupBLL bllCowGroup = new CowGroupBLL();
+        HouseBLL bllHouse = new HouseBLL();
         int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
 
         public JsonResult GetCowGroupInfo()
@@ -30,6 +31,16 @@ namespace CowSite.Controllers.Feed
         {
             List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList(pastureID);
             return Json(lstCowGroup, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 用于select绑定
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetHouses()
+        {
+            List<House> lstHouse = bllHouse.GetHouseList(pastureID);
+            return Json(lstHouse, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCowGroup()

@@ -460,13 +460,12 @@ namespace DairyCow.BLL
 
         }
 
-        //在产犊、犊牛入群界面调用本方法
+        //在产犊界面调用本方法
         /// <summary>
-        /// 产生产后三任务和犊牛任务
+        /// 产生产后三任务
         /// </summary>
         /// <param name="calving"></param>
-        /// <param name="calfEarNum"></param>
-        public void CreateAfterBornTasks(Calving calving, int calfEarNum)
+        public void CreateAfterBornTasks(Calving calving)
         {
             //分配兽医,饲养员
             CowGroupBLL g = new CowGroupBLL();
@@ -500,16 +499,6 @@ namespace DairyCow.BLL
             t3.TaskType = TaskType.Day15AfterBornTask;
             this.AddTask(t3);
 
-            ////犊牛任务单,to-do,放到犊牛入群
-            //DairyTask t4 = new DairyTask();
-            //t3.EarNum = calfEarNum;
-            //t3.ArrivalTime = calving.Birthday.AddDays(3.0);
-            //t3.DeadLine = t3.ArrivalTime.AddDays(30.0);
-
-            //cc = c.GetCowInfo(calfEarNum);
-            //t3.OperatorID = g.GetCowGroupList(cc.FarmCode).Find(p => p.ID == cc.GroupID).FeederID;
-            //t3.TaskType=TaskType.CalfTask;
-            //this.AddTask(t3);
             return;
         }
 

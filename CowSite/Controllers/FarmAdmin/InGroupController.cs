@@ -49,8 +49,25 @@ namespace CowSite.Controllers.FarmAdmin
             CowBLL cowBLL = new CowBLL();
             //插入牛基本信息
             cowBLL.InsertCow(myCow);
+
+            
             //取回牛，主要取得ID
             Cow newCow = cowBLL.GetCowInfo(myCow.FarmCode, myCow.DisplayEarNum);
+
+            //如为产后小犊牛，生成犊牛饲喂单（10天之内，最好3天之内）
+            double days = DateTime.Now.Date.Subtract(myCow.BirthDate).TotalDays;
+            if (days <= 10.0)
+            {
+                TaskBLL tBLL = new TaskBLL();
+                DairyTask t = new DairyTask();
+                t.ArrivalTime = DateTime.Now;
+                t.DeadLine = DateTime.Now.AddDays(45.0);
+                t.Status = DairyTaskStatus.Initial;
+                t.TaskType = TaskType.CalfTask;
+                t.EarNum = newCow.EarNum;
+                tBLL.AddTask(t);
+            }
+
             if (newCow.Status.Equals("已配未检")||newCow.Status.Equals("初检+")||newCow.Status.Equals("复检+"))
             {
                 InseminationBLL insemBLL = new InseminationBLL();

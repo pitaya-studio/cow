@@ -166,6 +166,9 @@ namespace DairyCow.DAL
                 case TaskType.GroupingTask:
                     typeValue = 10;
                     break;
+                case TaskType.CalfTask:
+                    typeValue = 11;
+                    break;
                 default:
                     typeValue = 999; //unknow task
                     break;

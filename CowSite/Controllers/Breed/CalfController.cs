@@ -35,8 +35,8 @@ namespace CowSite.Controllers.Breed
             int result = bllCalving.InsertCalving(c);
 
             //产生产后任务
-
-
+            TaskBLL tBLL = new TaskBLL();
+            tBLL.CreateAfterBornTasks(c);
             //如有正常母犊，重定向到犊牛入群
 
             return Json(new { result = result }, JsonRequestBehavior.AllowGet);

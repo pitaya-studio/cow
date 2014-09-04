@@ -139,7 +139,7 @@
         function loadGroups() {
             $.ajax({
                 type: 'get',
-                url: "../../TaskDay3AfterBorn/GetGroups",
+                url: "../../Feed/CowGroup/GetCowGroupList",
                 dataType: 'json',
                 cache: false,
                 success: function (group) {
@@ -156,7 +156,7 @@
         function loadHouses() {
             $.ajax({
                 type: 'get',
-                url: "../../TaskDay3AfterBorn/GetHouses",
+                url: "../../Feed/CowGroup/GetHouses",
                 dataType: 'json',
                 cache: false,
                 success: function (house) {

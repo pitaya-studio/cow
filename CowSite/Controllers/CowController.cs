@@ -175,5 +175,12 @@ namespace CowSite.Controllers
             }
             return Json(new { ImgUrl = cowImageUrl }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CheckCowInFarm(string displayEarNum)
+        {
+            int pastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
+            bool result = this.bllCow.CheckCowInFarm(displayEarNum, pastureID);
+            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

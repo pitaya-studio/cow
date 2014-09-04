@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
     <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
-    
+
     <script>
         var earNum;
         var houseList;
@@ -45,8 +45,8 @@
                 format: "yyyy-mm-dd"
             });
             $('input[name=birthDate]').change(function () {
-                var birthdate =new Date($('input[name=birthDate]').val());
-                if ((new Date().getTime() - birthdate.getTime())>(1000*3600*24*30.5*14)) {
+                var birthdate = new Date($('input[name=birthDate]').val());
+                if ((new Date().getTime() - birthdate.getTime()) > (1000 * 3600 * 24 * 30.5 * 14)) {
                     //至少青年牛
                     initBreedStatusSelector();
                     initParitySelector();
@@ -96,7 +96,7 @@
 
             $('select[name=parityNumber]').change(function () {
                 var parity = $('select[name=parityNumber]').val();
-                if (parity>0) {
+                if (parity > 0) {
                     $('div.js-calving').show();
                 }
                 else {
@@ -135,7 +135,7 @@
                 }
             });
         }
-        
+
         function loadGroups() {
             $.ajax({
                 type: 'get',
@@ -212,24 +212,43 @@
 
         function inGroup() {
             $("#btnInGroup").click(function () {
+                if ($('input[name=displayEarNum]').val() == '') {
+                    alert("请输入耳号！");
+                    return;
+                } else if ($('input[name=birthDate]').val() == '') {
+                    alert("请输入出生日期！");
+                    return;
+                }
 
                 $.ajax({
-                    type: 'post',
-                    url: '../../FarmAdmin/InGroup/InGroup',
-                    data: $("#cowInfo").serialize(),
+                    type: 'get',
+                    url: '../../Cow/CheckCowInFarm',
+                    data: { displayEarNum: $('input[name=displayEarNum]').val() },
+                    cache:false,
                     dataType: 'json',
                     success: function (response) {
-                        if(response.Result==1)
-                        {
-                            alert('入群成功！');
+                        if (response.result) {
+                            alert('本牧场已经存在该耳号，请输入其它耳号！');
+                            return;
                         }
+
+                        $.ajax({
+                            type: 'post',
+                            url: '../../FarmAdmin/InGroup/InGroup',
+                            data: $("#cowInfo").serialize(),
+                            cache: false,
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.Result == 1) {
+                                    alert('入群成功！');
+                                }
+                            }
+                        });
                     }
                 });
             })
         }
     </script>
-
-
 </head>
 <body>
     <div class="container">
@@ -238,7 +257,7 @@
             <form id="cowInfo">
                 <div class="input-group mt10">
                     <span class="input-group-addon w200">牛耳号</span>
-                    <input type="text" class="form-control w400" placeholder="牛耳号，本牧场不能重复。" name="displayEarNum">
+                    <input type="text" class="form-control w400" placeholder="牛耳号，本牧场不能重复" name="displayEarNum">
                 </div>
                 <div class="input-group mt10">
                     <span class="input-group-addon w200">性别</span>
@@ -249,9 +268,9 @@
                     <input type="text" class="form-control w400" placeholder="出生日期" name="birthDate">
                 </div>
                 @*<div class="input-group mt10">
-                    <span class="input-group-addon w200">出生时间</span>
-                    <input type="text" class="form-control w400" placeholder="出生时间" name="birthTime">
-                </div>*@
+                        <span class="input-group-addon w200">出生时间</span>
+                        <input type="text" class="form-control w400" placeholder="出生时间" name="birthTime">
+                    </div>*@
                 <div class="input-group mt10">
                     <span class="input-group-addon w200">牛群</span>
                     <select class="w400" name="group"></select>
@@ -266,7 +285,7 @@
                 </div>
                 <div class="input-group mt10">
                     <span class="input-group-addon w200">母亲牛耳号</span>
-                    <input type="text" class="form-control w400" placeholder="牛耳号，本牧场不能重复。" name="motherDisplayEarNum">
+                    <input type="text" class="form-control w400" placeholder="母亲牛耳号" name="motherDisplayEarNum">
                 </div>
                 <div class="input-group mt10">
                     <span class="input-group-addon w200">父亲冻精号</span>

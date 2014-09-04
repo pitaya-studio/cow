@@ -55,13 +55,13 @@ namespace DairyCow.DAL
             return cowInfo;
         }
 
-        public DataTable GetCowInfo(int pastureID,string dislayEarNum)
+        public DataTable GetCowInfo(int pastureID, string dislayEarNum)
         {
             DataTable cowInfo = null;
 
             string sql = string.Format(@"SELECT D.EarNum,D.HouseID, D.DisplayEarNum, D.FarmID, D.GroupID, D.Gender, D.BirthDate,D.IsIll, D.BirthWeight, D.Color, D.Status,D.IsStray,D.FatherID,D.MotherID,D.IsStray, D.FatherID, D.MotherID,G.Name as GroupName 
                                         FROM Base_Cow AS D LEFT JOIN [Base_CowGroup] as G ON D.GroupID = G.ID 
-                                        WHERE D.DisplayEarNum='{0}' and D.FarmID={1}", dislayEarNum,pastureID);
+                                        WHERE D.DisplayEarNum='{0}' and D.FarmID={1}", dislayEarNum, pastureID);
 
             cowInfo = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
@@ -169,7 +169,7 @@ namespace DairyCow.DAL
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
         }
-       
+
 
         /// <summary>
         /// 设牛生病与否
@@ -229,7 +229,7 @@ namespace DairyCow.DAL
             else
                 return dt.Rows[0]["DisplayEarNum"].ToString();
         }
-        
+
         /// <summary>
         /// 出入一头牛
         /// </summary>
@@ -245,9 +245,9 @@ namespace DairyCow.DAL
         /// <param name="motherID"></param>
         /// <param name="color"></param>
         /// <returns></returns>
-        public int InsertCow(string displayEarNum, int farmID, int groupID, int houseID, string gender, DateTime birthDate, int status, int isIll, string fatherID, string motherID,string color)
+        public int InsertCow(string displayEarNum, int farmID, int groupID, int houseID, string gender, DateTime birthDate, int status, int isIll, string fatherID, string motherID, string color)
         {
-            string sql=string.Format(@"INSERT Base_Cow ([DisplayEarNum]
+            string sql = string.Format(@"INSERT Base_Cow ([DisplayEarNum]
                                                       ,[FarmID]
                                                       ,[GroupID]
                                                       ,[HouseID]
@@ -260,10 +260,22 @@ namespace DairyCow.DAL
                                                     ,[MotherID]
                                                       ,[Color])
                                                         values('{0}',{1},{2},{3},'{4}','{5}',{6},{7},{8},'{9}','{10}','{11}')
-                                    ", displayEarNum,  farmID,  groupID,  houseID,  gender,  birthDate,  status,  isIll,0,  fatherID, motherID,color);
+                                    ", displayEarNum, farmID, groupID, houseID, gender, birthDate, status, isIll, 0, fatherID, motherID, color);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
 
         }
 
+        public bool CheckCowInFarm(string displayEarNum, int farmID)
+        {
+            bool result = false;
+
+            string sql = string.Format(@"SELECT COUNT(0) 
+                                    FROM [Base_Cow]
+                                    WHERE FarmID = {0} AND DisplayEarNum = '{1}'", farmID, displayEarNum);
+
+            int count = Convert.ToInt32(dataProvider1mutong.ExecuteScalar(sql, CommandType.Text));
+            result = count > 0 ? true : false;
+            return result;
+        }
     }
 }

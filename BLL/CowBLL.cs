@@ -340,5 +340,10 @@ namespace DairyCow.BLL
             temp = dalCow.InsertCow(myCow.DisplayEarNum, myCow.FarmCode, myCow.GroupID, myCow.HouseID, myCow.Gender, myCow.BirthDate, statusNum, isill, myCow.FatherID, myCow.MotherID, myCow.Color);
             return temp;
         }
+
+        public bool CheckCowInFarm(string displayEarNum, int farmID)
+        {
+            return dalCow.CheckCowInFarm(displayEarNum, farmID);
+        }
     }
 }

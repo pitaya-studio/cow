@@ -22,20 +22,53 @@ namespace CowSite.Controllers.Milk
             //ViewBag.Pulsation = milkHall.Pulsation;
             //ViewBag.CleanupCount = milkHall.CleanupCount;
             //ViewBag.Name = milkHall.Name;
+            MilkHall milkHallExist = bllMilkHall.GetMilkHallByID();
+            ViewBag.VacuumPressure = milkHallExist.VacuumPressure;
+            ViewBag.Pulsation = milkHallExist.Pulsation;
+            ViewBag.CleanupCount = milkHallExist.CleanupCount;
             return View("~/Views/Milk/Hall/Parameters.cshtml");
         }
-        [HttpPost]
-        public ActionResult Update(int id)
+
+        public JsonResult LoadTask()
         {
+            MilkHall milkHallExist = bllMilkHall.GetMilkHallByID();
+            ViewBag.VacuumPressure = milkHallExist.VacuumPressure;
+            ViewBag.Pulsation = milkHallExist.Pulsation;
+            ViewBag.CleanupCount = milkHallExist.CleanupCount;
+
+            var milkData = new
+            {
+                vacuumPressure = milkHallExist.VacuumPressure,
+                pulsation = milkHallExist.Pulsation,
+                cleanupCount = milkHallExist.CleanupCount
+            };
+            return Json(milkData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Update(string VacuumPressure, string Pulsation, string CleanupCount)
+        {
+            //MilkHall milkHall = new MilkHall();
+            //UpdateModel<MilkHall>(milkHall);
+            //MilkHall milkHallExist = bllMilkHall.GetMilkHallByID(id);
+            //milkHallExist.VacuumPressure = milkHall.VacuumPressure;
+            //milkHallExist.Pulsation = milkHall.Pulsation;
+            //milkHallExist.CleanupCount = milkHall.CleanupCount;
+            //milkHallExist.ModifyTime = DateTime.Now;
+            //bllMilkHall.UpdateMilkHallInfo(milkHallExist, id);
+            //string VacuumPressure = Request.Form["vacPressure"];
+            //string Pulsation = Request.Form["pulsat"];
+            //string CleanupCount = Request.Form["cleaCount"];
+
             MilkHall milkHall = new MilkHall();
-            UpdateModel<MilkHall>(milkHall);
-            MilkHall milkHallExist = bllMilkHall.GetMilkHallByID(id);
-            milkHallExist.VacuumPressure = milkHall.VacuumPressure;
-            milkHallExist.Pulsation = milkHall.Pulsation;
-            milkHallExist.CleanupCount = milkHall.CleanupCount;
-            milkHallExist.ModifyTime = DateTime.Now;
-            bllMilkHall.UpdateMilkHallInfo(milkHallExist, id);
-            return RedirectToAction("../Index/List");
+
+            milkHall.VacuumPressure = float.Parse(VacuumPressure);
+            milkHall.Pulsation = Convert.ToInt32(Pulsation);
+            milkHall.CleanupCount = Convert.ToInt32(CleanupCount);
+            milkHall.ModifyTime = DateTime.Now;
+
+            bllMilkHall.UpdateMilkHallInfo(milkHall);
+
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

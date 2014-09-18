@@ -22,8 +22,6 @@
             initButton();
         });
 
-
-
         function loadFodderList() {
             $.ajax({
                 type: 'get',
@@ -36,7 +34,7 @@
                     fooderGridManager = $("#fodderGrid").ligerGrid({
                         columns: [
                             { display: '饲料ID', name: 'FodderID', width: 1, hide: true },
-                            { display: '牧场饲料名称', name: 'FodderName', width: 100,align: 'left' },
+                            { display: '牧场饲料名称', name: 'FodderName', width: 100, align: 'left' },
                             { display: "对应标准饲料", name: "SysFodderName", width: 100 },
                             { display: '状态', name: 'Status', align: 'left', width: 100 },
                             { display: '价格', name: 'Price', align: 'left', width: 100 },
@@ -46,7 +44,7 @@
                         title: '牧场饲料列表',
                         showTitle: true,
                         width: '100%',
-                        height:'auto',
+                        height: 'auto',
                         isScroll: false,
                         data: fodders,
                         enabledEdit: false,
@@ -67,9 +65,8 @@
                 success: function (sysFodderList) {
                     $("select[name=sysFodder]").empty();
                     $("select[name=sysFodder]").append('<option></option>');
-                    if (typeof (sysFodderList) != 'undefined' && sysFodderList && sysFodderList.length > 0) {
-                        
-                        $.each(sysFodderList, function () {
+                    if (typeof (sysFodderList.Rows) != 'undefined' && sysFodderList.Rows && sysFodderList.Rows.length > 0) {
+                        $.each(sysFodderList.Rows, function () {
                             $("select[name=sysFodder]").append('<option value="' + this.ID + '">' + this.Name + '</option>');
                         });
                     }
@@ -78,7 +75,7 @@
 
             $('#btnAdd').click(function () {
                 var fodderName = $('input[name=fodderName]').val();
-                if (fodderName=='') {
+                if (fodderName == '') {
                     alert("请输入饲料名称。");
                     return;
                 }
@@ -107,7 +104,7 @@
                     alert(Msg.Msg);
                 });
 
-            }); 
+            });
             $('#btnDelete').click(function () {
                 var row = fooderGridManager.getSelectedRow();
                 if (row) {

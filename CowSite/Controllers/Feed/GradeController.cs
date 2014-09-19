@@ -20,30 +20,30 @@ namespace CowSite.Controllers.Feed
             return View("~/Views/Feed/Grade/Add.cshtml");
         }
 
-        [HttpPost]
-        public ActionResult Save()
+        public JsonResult Save(string earNum, string date, string height, string weight, string chest, string grade, string description)
         {
-            try
-            {
-                Grade grade = new Grade();
-                UpdateModel<Grade>(grade);
-                grade.EarNum = CowBLL.ConvertDislayEarNumToEarNum(grade.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
-                grade.MeasureDate = DateTime.Now;
-                Cow cow = bllCow.GetCowInfo(grade.EarNum);
-                if (cow.FarmCode == null)
-                {
-                    return RedirectToAction("../../Feed/CowGroup/List");
-                }
-                else
-                {
-                    bllGrade.InsertGradeInfo(grade);
-                }
-            }
-            catch (Exception e)
-            {
+            Grade cowGrade = new Grade();
 
+            cowGrade.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            cowGrade.MeasureDate = Convert.ToDateTime(date);
+            cowGrade.Height = Convert.ToInt32(height);
+            cowGrade.Weight = Convert.ToInt32(weight);
+            cowGrade.Chest = Convert.ToInt32(chest);
+            cowGrade.Score = Convert.ToInt32(grade);
+            cowGrade.Description = description;
+
+            Cow cow = bllCow.GetCowInfo(cowGrade.EarNum);
+            if (cow.FarmCode == null)
+            {
+                var msg = "此牛不存在！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("../../Feed/CowGroup/List");
+            else
+            {
+                bllGrade.InsertGradeInfo(cowGrade);
+                var msg = "保存成功！";
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

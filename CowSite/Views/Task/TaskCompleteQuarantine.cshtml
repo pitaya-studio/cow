@@ -63,7 +63,7 @@
                 success: function (user) {
                     if (user) {
                         $("#doctor").empty();
-                        $("#doctor").append('<option value="0" selected = "selected">' + "请选择配种员" + '</option>');
+                        $("#doctor").append('<option value="0" selected = "selected">' + "请选择操作人员" + '</option>');
                         $.each(user, function () {
                             $("#doctor").append('<option value="' + this.ID + '">' + this.Name + '</option>');
                         });

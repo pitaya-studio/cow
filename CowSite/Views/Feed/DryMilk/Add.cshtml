@@ -50,7 +50,7 @@
                     <button type="button" class="btn btn-primary" id="btnAdd">记录</button>
                 </div>
             </form>
-            <div>
+            <div class="mt10">
                 <div id="cowGrid"></div>
                 <div id="message"></div>
                 <div class="l-loading" id="pageloading"></div>
@@ -139,7 +139,7 @@
                 dataType: 'json',
                 cache: false,
                 success: function (cowList) {
-                    var processGridManager = $("#processGrid").ligerGrid({
+                    var processGridManager = $("#cowGrid").ligerGrid({
                         columns: [
                             { display: '耳号', name: 'DisplayEarNum' },
                             { display: '泌乳天数', name: 'DaysInMilk', align: 'left' }

@@ -305,10 +305,6 @@ namespace DairyCow.BLL
 
         }
 
-
-
-
-
         /// <summary>
         /// 泌乳天数
         /// </summary>
@@ -586,6 +582,7 @@ namespace DairyCow.BLL
             return insem;
 
         }
+
         public static Insemination GetlatestInseminationOfCurrentBreedPeriod(int earNum)
         {
             Insemination insem;
@@ -610,11 +607,7 @@ namespace DairyCow.BLL
             return insem;
 
         }
-
-
-
-
-
+                
         /// <summary>
         /// 牛类型，公牛，犊牛，育成牛，青年牛，经产牛
         /// </summary>
@@ -682,12 +675,6 @@ namespace DairyCow.BLL
                 return parity;
             }
         }
-
-
-
-
-
-
 
         /// <summary>
         /// 获取单个牛（经产牛）的泌乳天数
@@ -856,9 +843,6 @@ namespace DairyCow.BLL
             return insem1.GetLatestInsemination(earNum);
 
         }
-
-
-
 
         /// <summary>
         /// 获取产犊记录表(包括计胎次的早产，流产)

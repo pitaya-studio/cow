@@ -182,5 +182,16 @@ namespace CowSite.Controllers
             bool result = this.bllCow.CheckCowInFarm(displayEarNum, pastureID);
             return Json(new { result = result }, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 取得泌乳天数>225天的牛
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetCowForMilkDayGT225()
+        {
+            FarmInfo farm = new FarmInfo();
+            List<CowInfo> lstCow = farm.CowInfoList.FindAll(cow => cow.DaysInMilk > 225);
+            return Json(new { Rows = lstCow }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -16,10 +16,10 @@ namespace DairyCow.BLL
         /// <param name="pastureID"></param>
         /// <param name="houseID"></param>
         /// <returns></returns>
-        public int GetCowNumberInHouse(int pastureID,int houseID)
+        public int GetCowNumberInHouse(int pastureID, int houseID)
         {
-            
-            return GetCowListInHouse( pastureID, houseID).Count;
+
+            return GetCowListInHouse(pastureID, houseID).Count;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace DairyCow.BLL
         /// <param name="pastureID"></param>
         /// <param name="houseID"></param>
         /// <returns></returns>
-        public List<Cow> GetCowListInHouse(int pastureID,int houseID)
+        public List<Cow> GetCowListInHouse(int pastureID, int houseID)
         {
             return GetCowList(pastureID).FindAll(p => p.HouseID == houseID);
         }
@@ -40,7 +40,7 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static string ConvertEarNumToDisplayEarNum(int earNum)
         {
-            if(earNum == -1)
+            if (earNum == -1)
             {
                 return string.Empty;
             }
@@ -56,7 +56,7 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public static int ConvertDislayEarNumToEarNum(string displayEarNum, int pastureID)
         {
-            if(string.IsNullOrEmpty(displayEarNum))
+            if (string.IsNullOrEmpty(displayEarNum))
             {
                 return -1;
             }
@@ -70,16 +70,7 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public List<Cow> GetCowList()
         {
-            List<Cow> lstCow = new List<Cow>();
-
-            DataTable datCow = this.dalCow.GetCowList(UserBLL.Instance.CurrentUser.Pasture.ID);
-            foreach (DataRow drCow in datCow.Rows)
-            {
-                Cow cowItem = WrapCowItem(drCow);
-                lstCow.Add(cowItem);
-            }
-
-            return lstCow;
+            return GetCowList(UserBLL.Instance.CurrentUser.Pasture.ID);
         }
 
         /// <summary>
@@ -112,7 +103,7 @@ namespace DairyCow.BLL
             return cow;
         }
 
-        public Cow GetCowInfo(int pastureID,string displayEarNum)
+        public Cow GetCowInfo(int pastureID, string displayEarNum)
         {
             Cow cow = new Cow();
             DataTable datCow = this.dalCow.GetCowInfo(pastureID, displayEarNum);
@@ -151,16 +142,14 @@ namespace DairyCow.BLL
                 {
                     cowItem.BirthWeight = float.Parse(cowRow["BirthWeight"].ToString());
                 }
-                if (cowRow["Color"]!= DBNull.Value)
+                if (cowRow["Color"] != DBNull.Value)
                 {
                     cowItem.Color = cowRow["Color"].ToString();
                 }
                 else
                 {
-                    cowItem.Color =String.Empty;
+                    cowItem.Color = String.Empty;
                 }
-                
-
 
                 //经产牛和青年牛才有繁殖状态，从繁殖相关事件表可以得出，初始买的牛必须输入
                 if (cowRow["Status"] != DBNull.Value)
@@ -197,9 +186,7 @@ namespace DairyCow.BLL
                 {
                     cowItem.FatherID = String.Empty;
                 }
-                cowItem.IsStray= Convert.ToInt32(cowRow["IsStray"])==0? false:true;
-                
-
+                cowItem.IsStray = Convert.ToInt32(cowRow["IsStray"]) == 0 ? false : true;
             }
             return cowItem;
         }
@@ -263,7 +250,7 @@ namespace DairyCow.BLL
         }
 
 
-        public int UpdateCowGroupAndHouse(int earNum,int newGroupID,int newHouseID)
+        public int UpdateCowGroupAndHouse(int earNum, int newGroupID, int newHouseID)
         {
             return dalCow.UpdateCow(earNum, newGroupID, newHouseID);
         }
@@ -335,8 +322,8 @@ namespace DairyCow.BLL
         public int InsertCow(Cow myCow)
         {
             int temp = 0;
-            int statusNum=GetCowStatusNum(myCow.Status);
-            int isill=myCow.IsIll?1:0;
+            int statusNum = GetCowStatusNum(myCow.Status);
+            int isill = myCow.IsIll ? 1 : 0;
             temp = dalCow.InsertCow(myCow.DisplayEarNum, myCow.FarmCode, myCow.GroupID, myCow.HouseID, myCow.Gender, myCow.BirthDate, statusNum, isill, myCow.FatherID, myCow.MotherID, myCow.Color);
             return temp;
         }

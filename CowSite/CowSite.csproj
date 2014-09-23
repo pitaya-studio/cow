@@ -1277,8 +1277,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Task\Platform\" />
-    <Folder Include="Views\TaskCompleteCalf\" />
-    <Folder Include="Views\TaskRegrouping\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

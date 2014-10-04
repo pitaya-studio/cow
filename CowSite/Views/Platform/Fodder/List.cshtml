@@ -34,6 +34,13 @@
                         if (response.Result == 1) {
                             alert('添加标准饲料成功！');
                         }
+                        else if (response.Result == -10) {
+                            alert('标准饲料已存在！');
+                        }
+                        else
+                        {
+                            alert('添加标准饲料失败！');
+                        }
                     }
                 });
             });

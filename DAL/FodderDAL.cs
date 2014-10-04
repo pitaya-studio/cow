@@ -1,4 +1,5 @@
 ﻿using DairyCow.DAL.Base;
+using System;
 using System.Data;
 
 namespace DairyCow.DAL
@@ -176,6 +177,13 @@ namespace DairyCow.DAL
                                                                                             double nuSe
                                                                                             )
         {
+            string str = "select * from [Feed_Fodder] where [Name] = '" + name + "'";
+            DataTable dt = dataProvider1mutong.FillDataTable(str, CommandType.Text);
+            if (dt.Rows.Count > 1)
+            {
+                return -10;
+            }
+            
             string sql = string.Format(@"Insert [Feed_Fodder] ([Name],
                                                                 [Description],
                                                                 [RefPrice],
@@ -285,8 +293,25 @@ namespace DairyCow.DAL
                                                                              nuZn,
                                                                              nuSe
                                                                             );
-            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            int i = dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            if (i < 0) return i;
+            str = "select [ID], [Name] from [Feed_Fodder] where [Name] = '" + name + "'";
+            dt = dataProvider1mutong.FillDataTable(str, CommandType.Text);
 
+            int id = Convert.ToInt32(dt.Rows[0]["ID"]);
+            str = "select [ID] from [Feed_Formula]";
+            dt = dataProvider1mutong.FillDataTable(str, CommandType.Text);
+            foreach(DataRow row in dt.Rows)
+            {
+                sql = string.Format(@"Insert [Feed_FodderFormula] ([FormulaID],
+                                                                [FodderID],
+                                                                [Quantity]
+                                                                ) values ('{0}',
+                                                                            '{1}',
+                                                                            {2})",Convert.ToInt32(row["ID"]),id,0);
+                dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+            }
+            return 1;
         }
     }
 

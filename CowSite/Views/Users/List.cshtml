@@ -8,10 +8,29 @@
     <meta name="viewport" content="width=device-width" />
     <title>用户管理</title>
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
-    <link rel="stylesheet" href="~/Style/base.css">
+    <link rel="stylesheet" href="~/Style/base.css">    
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="menu"></div>
+        <div class="content">
+            <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
+                <div style="display: inline-block; position: absolute; right: 0px;">
+                    <input type="button" id="btnAdd" value="新增用户" style="display: none;" />
+                    <input type="button" id="btnDelete" value="删除用户" style="display: none;" />
+                    <input type="button" id="btnModify" value="修改密码" style="display: none;" />
+                </div>
+            </div>
+            <div>
+                <div id="fooderGrid"></div>
+                <div id="message"></div>
+                <div class="l-loading" id="pageloading"></div>
+            </div>
+        </div>
+    </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="~/bootstrap/css/bootstrap-theme1.min.css">
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
@@ -91,24 +110,5 @@
             });
         }
     </script>
-</head>
-<body>
-    <div class="container">
-        <div id="menu"></div>
-        <div class="content">
-            <div style="margin: 10px 0px 10px 0px; position: relative; height: 30px; width: 100%;">
-                <div style="display: inline-block; position: absolute; right: 0px;">
-                    <input type="button" id="btnAdd" value="新增用户" style="display: none;" />
-                    <input type="button" id="btnDelete" value="删除用户" style="display: none;" />
-                    <input type="button" id="btnModify" value="修改密码" style="display: none;" />
-                </div>
-            </div>
-            <div>
-                <div id="fooderGrid"></div>
-                <div id="message"></div>
-                <div class="l-loading" id="pageloading"></div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

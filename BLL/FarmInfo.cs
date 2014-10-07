@@ -804,6 +804,7 @@ namespace DairyCow.BLL
             }
             return list;
         }
+
         /// <summary>
         /// 干奶牛
         /// </summary>
@@ -822,6 +823,7 @@ namespace DairyCow.BLL
                 return DryMilkCows.Count;
             }
         }
+
         /// <summary>
         /// 获取所有干奶牛
         /// </summary>

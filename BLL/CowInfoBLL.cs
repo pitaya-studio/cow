@@ -295,7 +295,6 @@ namespace DairyCow.BLL
             }
         }
 
-
         public string MilkType
         {
             get

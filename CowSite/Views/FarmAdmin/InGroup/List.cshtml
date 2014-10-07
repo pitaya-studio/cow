@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="~/ligerUI/skins/Aqua/css/ligerui-all.css">
     <link href="~/Controls/bootstrap.datepicker/datepicker.css" rel="stylesheet" />
     <script src="~/Controls/bootstrap.datepicker/bootstrap-datepicker.js"></script>
-
     <script>
         var earNum;
         var houseList;
@@ -165,6 +164,9 @@
                 }
             });
         }
+
+
+
         function initHouseSelector() {
             $("select[name=group]").select2({
                 placeholder: "牛群",
@@ -256,6 +258,15 @@
         <div class="content">
             <form id="cowInfo">
                 <div class="input-group mt10">
+                    <span class="input-group-addon w200">母亲牛耳号</span>
+                    <input type="text" class="form-control w400" placeholder="母亲牛耳号" name="motherDisplayEarNum">
+                </div>
+                <div class="input-group mt10">
+                    <span class="input-group-addon w200">父亲冻精号</span>
+                    <input type="text" class="form-control w400" name="fatherSemen">
+                    <button type="button" class="btn btn-info inline mb5" id="btnGetSemon">获取</button>
+                </div>
+                <div class="input-group mt10">
                     <span class="input-group-addon w200">牛耳号</span>
                     <input type="text" class="form-control w400" placeholder="牛耳号，本牧场不能重复" name="displayEarNum">
                 </div>
@@ -283,15 +294,7 @@
                     <span class="input-group-addon w200">毛色</span>
                     <select class="w400" name="color"></select>
                 </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w200">母亲牛耳号</span>
-                    <input type="text" class="form-control w400" placeholder="母亲牛耳号" name="motherDisplayEarNum">
-                </div>
-                <div class="input-group mt10">
-                    <span class="input-group-addon w200">父亲冻精号</span>
-                    <input type="text" class="form-control w400" name="fatherSemen">
-                    <button type="button" class="btn btn-info inline mb5" id="btnGetSemon">获取</button>
-                </div>
+                
                 <div class="mt10 none js-breedInfo">
                     <div class="input-group mt10">
                         <span class="input-group-addon w200">繁殖状态</span>

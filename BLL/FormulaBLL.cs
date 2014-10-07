@@ -3,7 +3,6 @@ using DairyCow.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace DairyCow.BLL
 {
@@ -11,11 +10,7 @@ namespace DairyCow.BLL
     {
         private FormulaDAL dalFormula = new FormulaDAL();
         CowGroupDAL groupDAL = new CowGroupDAL();
-        private FodderBLL fBLL=new FodderBLL();
-
-        
-
-       
+        private FodderBLL fBLL=new FodderBLL();       
 
         //public Dictionary<string, double> ExecFodder(int groupID, int machineNumber)
         //{
@@ -193,6 +188,26 @@ namespace DairyCow.BLL
         public void UpdateFormulaOfCowGroup(string formulaID, string cowGroupID)
         {
             this.dalFormula.UpdateFormulaOfCowGroup(formulaID, cowGroupID);
+        }
+
+        public int AddFodder(string formulaID, string fodderID, string fodderQuantity)
+        {
+            return this.dalFormula.AddFodder(formulaID, fodderID, fodderQuantity);
+        }
+
+        public int DeleteFodder(string formulaID, string fodderID)
+        {
+            return this.dalFormula.DeleteFodder(formulaID, fodderID);
+        }
+
+        public int UpdateFodderQuantity(string formulaID, string fodderID, string fodderQuantity)
+        {
+            return this.dalFormula.UpdateFodderQuantity(formulaID, fodderID, fodderQuantity);
+        }
+
+        public int AddFormula(string formulaName)
+        {
+            return this.dalFormula.AddFormula(formulaName);
         }
     }
 }

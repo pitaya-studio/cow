@@ -68,7 +68,6 @@
             $('select[name=groupSelect]').change(function () {
                 loadCowGroupList();
             })
-
         }
 
         function initBtn() {
@@ -77,9 +76,7 @@
                 if (row) {
                     $('input[name=cowGroup]').val(row["Name"]);
                     var cowGroupID = row["ID"];
-
                     var formulaID = $('select[name=formula]').val();
-
                     $.ajax({
                         type: 'get',
                         url: "../../Platform/Formula/UpdateFormula",

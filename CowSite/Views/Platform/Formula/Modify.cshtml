@@ -5,15 +5,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>配方维护</title>
-    <link rel="stylesheet" type="text/css" href="../../ligerUI/skins/Aqua/css/ligerui-all.css">
-    @*<link rel="stylesheet" type="text/css" href="../../Style/base.css">*@
+    <link href="~/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/bootstrap/css/bootstrap-theme1.min.css" rel="stylesheet" />
+    <link href="~/Controls/jQuery.Select2/select2.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="formulaUpdateForm">
+        <div class="container" style="margin-top: 10px;">
+            @*<div class="form-group">
+                    <span>牧场：</span><span><select id="pastureSelector" name="PastureID" style="width: 350px; height: 30px"></select></span>
+                </div>*@
+            <div class="form-group">
+                <span>配方名称：</span><span><input id="formulaName" name="Name" type="text" style="width: 350px; height: 30px" /></span>
+            </div>
+            <div>
+                <div id="fooderGrid"></div>
+                <div id="message"></div>
+                <div class="l-loading" id="pageloading"></div>
+            </div>
+            <div style="margin-top: 10px;">
+                <input id="btnSave" type="submit" value="保存" />
+                <input id="btnCancel" type="button" value="取消" />
+            </div>
+        </div>
+    </form>
     <script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="../../cripts/jquery-tools-min.js"></script>
     <script type="text/javascript" src="../../Scripts/json2.js"></script>
     <script type="text/javascript" src="../../ligerUI/js/ligerui.min.js"></script>
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-theme1.min.css">
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         var formulaID = "@ViewBag.FormulaID";
@@ -24,7 +46,6 @@
                 loadFormula();
             }
             else {
-                //loadPastureSelector();
                 loadFodder();
             }
             initButton();
@@ -153,26 +174,5 @@
             });
         }
     </script>
-</head>
-<body>
-    <form id="formulaUpdateForm">
-        <div class="container" style="margin-top: 10px;">
-            @*<div class="form-group">
-                    <span>牧场：</span><span><select id="pastureSelector" name="PastureID" style="width: 350px; height: 30px"></select></span>
-                </div>*@
-            <div class="form-group">
-                <span>配方名称：</span><span><input id="formulaName" name="Name" type="text" style="width: 350px; height: 30px" /></span>
-            </div>
-            <div>
-                <div id="fooderGrid"></div>
-                <div id="message"></div>
-                <div class="l-loading" id="pageloading"></div>
-            </div>
-            <div style="margin-top: 10px;">
-                <input id="btnSave" type="submit" value="保存" />
-                <input id="btnCancel" type="button" value="取消" />
-            </div>
-        </div>
-    </form>
 </body>
 </html>

@@ -1,13 +1,15 @@
 ﻿using Common;
-using CowSite.Base;
 using DairyCow.BLL;
 using DairyCow.Model;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System;
 
 namespace CowSite.Controllers.Platform
 {
+    /// <summary>
+    /// 平台-配方管理
+    /// </summary>
     public class FormulaController : Controller
     {
         private FormulaBLL bllFormula = new FormulaBLL();
@@ -17,11 +19,69 @@ namespace CowSite.Controllers.Platform
             return View("~/Views/Platform/Formula/List.cshtml");
         }
 
+        public ActionResult Assign()
+        {
+            return View("~/Views/Platform/Formula/Assign.cshtml");
+        }
+
         public ActionResult Modify()
         {
-            //ViewBag.PastureID = UserBLL.Instance.CurrentUser.Pasture.ID;
             ViewBag.FormulaID = Request.QueryString["FormulaID"];
             return View("~/Views/Platform/Formula/Modify.cshtml");
+        }
+
+        public ActionResult ModifyFodderQuantity()
+        {
+            ViewBag.FormulaID = Request.QueryString["FormulaID"];
+            ViewBag.FodderID = Request.QueryString["FodderID"];
+            return View("~/Views/Platform/Formula/ModifyFodderQuantity.cshtml");
+        }
+
+        public ActionResult AddFodder()
+        {
+            ViewBag.FormulaID = Request.QueryString["FormulaID"];
+            return View("~/Views/Platform/Formula/AddFodder.cshtml");
+        }
+
+        public ActionResult AddFormula()
+        {
+            return View("~/Views/Platform/Formula/AddFormula.cshtml");
+        }
+
+        public JsonResult SaveFodderQuantity(string formulaId, string fodderId, string fodderQuantity)
+        {
+            var result = new
+            {
+                result = this.bllFormula.UpdateFodderQuantity(formulaId, fodderId, fodderQuantity)
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult InsertFodder(string formulaId, string fodderId, string fodderQuantity)
+        {
+            var result = new
+            {
+                result = this.bllFormula.AddFodder(formulaId, fodderId, fodderQuantity)
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteFodder(string formulaId, string fodderId)
+        {
+            var result = new
+            {
+                result = this.bllFormula.DeleteFodder(formulaId, fodderId)
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult InsertFormula(string formulaName)
+        {
+            var result = new
+            {
+                result = this.bllFormula.AddFormula(formulaName)
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetFormulaList()
@@ -46,25 +106,24 @@ namespace CowSite.Controllers.Platform
         public JsonResult SaveFormula(string formulaID, string formulaName, string fodderQuantity)
         {
             List<Fodder> lstFodder = Utility.Deserialize<List<Fodder>>(fodderQuantity);
-            this.bllFormula.SaveFormula(formulaID, formulaName, lstFodder);
+
             var result = new
             {
-                result = 1
+                result = this.bllFormula.SaveFormula(formulaID, formulaName, lstFodder)
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Assign()
-        {
-            return View("~/Views/Platform/Formula/Assign.cshtml");
-        }
-
-        //assign formula related json
+        /// <summary>
+        /// assign formula related json
+        /// </summary>
+        /// <param name="areAll"></param>
+        /// <returns></returns>
         public JsonResult GetCowGroupInfo(string areAll)
         {
             CowGroupBLL bllCowGroup = new CowGroupBLL();
             List<CowGroup> lstCowGroup = bllCowGroup.GetCowGroupList();
-            List<CowGroup> list=lstCowGroup.FindAll(p=> p.FormulaID==0);
+            List<CowGroup> list = lstCowGroup.FindAll(p => p.FormulaID == 0);
             bool all = Int32.Parse(areAll) == 1 ? true : false;
             if (all)
             {
@@ -81,7 +140,7 @@ namespace CowSite.Controllers.Platform
                     Rows = list
                 };
                 return Json(cowGroupData, JsonRequestBehavior.AllowGet);
-            }           
+            }
         }
 
         public JsonResult GetFormulas()
@@ -91,14 +150,14 @@ namespace CowSite.Controllers.Platform
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateFormula(string cowGroupID,  string formulaID)
+        public JsonResult UpdateFormula(string cowGroupID, string formulaID)
         {
             CowGroupBLL cBLL = new CowGroupBLL();
             int gID = Int32.Parse(cowGroupID);
             int fID = Int32.Parse(formulaID);
             int i2 = cBLL.UpdateCowGroupFormula(gID, fID);
-            var result = new { Count =  i2  };
+            var result = new { Count = i2 };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-	}
+    }
 }

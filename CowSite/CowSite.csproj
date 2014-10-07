@@ -1132,7 +1132,6 @@
     <Compile Include="App_Start\EMuTongFormsPrincipal.cs" />
     <Compile Include="App_Start\EMuTongUserDataPrincipal .cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Base\BasePage.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Breed\CalfController.cs" />
     <Compile Include="Controllers\Feed\DryMilkController.cs" />
@@ -1268,6 +1267,9 @@
     <Content Include="Views\Feed\DryMilk\Add.cshtml" />
     <Content Include="Views\CowGroup\Query.cshtml" />
     <Content Include="Views\Task\TaskRegrouping.cshtml" />
+    <Content Include="Views\Platform\Formula\ModifyFodderQuantity.cshtml" />
+    <Content Include="Views\Platform\Formula\AddFodder.cshtml" />
+    <Content Include="Views\Platform\Formula\AddFormula.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

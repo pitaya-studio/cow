@@ -163,5 +163,39 @@ namespace DairyCow.DAL
             }
             return result;
         }
+
+        public int AddFodder(string formulaID, string fodderID, string fodderQuantity)
+        {
+            string sql = string.Format(@"INSERT INTO [dbo].[Feed_FodderFormula]
+                                               ([FormulaID]
+                                               ,[FodderID]
+                                               ,[Quantity])
+                                         VALUES
+                                               ({0},{1},{2})", formulaID, fodderID, fodderQuantity);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        public int DeleteFodder(string formulaID, string fodderID)
+        {
+            string sql = string.Format(@"DELETE FROM [dbo].[Feed_FodderFormula]
+                                         WHERE [FormulaID]={0} AND [FodderID]={1}", formulaID, fodderID);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        public int UpdateFodderQuantity(string formulaID, string fodderID, string fodderQuantity)
+        {
+            string sql = string.Format(@"UPDATE [dbo].[Feed_FodderFormula]
+                        SET [Quantity]={2}
+                        WHERE [FormulaID]={0} AND [FodderID]={1}", formulaID, fodderID, fodderQuantity);
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        public int AddFormula(string formulaName)
+        {
+            string sql = string.Format(@"INSERT INTO [dbo].[Feed_Formula]([Name])
+                                         VALUES ('{0}')
+                                        select @@identity", formulaName);
+            return Convert.ToInt32(dataProvider1mutong.ExecuteScalar(sql, CommandType.Text));
+        }
     }
 }

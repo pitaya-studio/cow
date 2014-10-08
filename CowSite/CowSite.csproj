@@ -1121,6 +1121,7 @@
     <Content Include="Style\Feed\Formula\Select.css" />
     <Content Include="Style\Feed\Index\ModifyCowGroup.css" />
     <Content Include="Style\Home\Index.css" />
+    <Content Include="Views\CowGroup\ChangeGroup.html" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />

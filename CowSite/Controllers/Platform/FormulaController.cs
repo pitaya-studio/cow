@@ -79,7 +79,7 @@ namespace CowSite.Controllers.Platform
         {
             var result = new
             {
-                result = this.bllFormula.AddFormula(formulaName)
+                formulaId = this.bllFormula.AddFormula(formulaName)
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }

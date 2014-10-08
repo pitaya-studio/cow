@@ -40,6 +40,8 @@
     <script src="~/Scripts/menu.js"></script>
     <script type="text/javascript">
         var formulaID = "@ViewBag.FormulaID";
+        var fooderGridManager = null;
+
         $('#menu').menu({ mainMenuSelectedID: "Platform", subMenuSelectedID: "Platform-Formula" });
 
         $(function () {            
@@ -64,7 +66,7 @@
                     $.each(formula, function () {
                         $('#formulaSelector').append('<option value="' + this.ID + '">' + this.Name + '</option>');
                     });
-
+                    
                     $("#formulaSelector").select2({
                         placeholder: "配方",
                         allowClear: true,
@@ -78,7 +80,8 @@
                         formulaID = formula[0].ID;
                     }
 
-                    $('#formulaSelector').val(formulaID);
+                    //$('#formulaSelector').val(formulaID);
+                    $('#formulaSelector').select2("val", formulaID);
                     loadFodderList(formulaID);
                 }
             });
@@ -94,7 +97,7 @@
                 dataType: "json"
             }).success(function (formulaInfo) {
                 if (formulaInfo) {
-                    var fooderGridManager = $("#fooderGrid").ligerGrid({
+                    fooderGridManager = $("#fooderGrid").ligerGrid({
                         columns: [
                             { display: '饲料ID', name: 'ID', width: 1, hide: true },
                             { display: '饲料名称', name: 'Name', align: 'left', width: 600, },
@@ -137,8 +140,19 @@
             });
 
             $('#btnDeleteFodder').click(function () {
-                var editUrl = "../../Platform/Formula/Modify?FormulaID=" + $('#formulaSelector').val();
-                $.ligerDialog.open({ title: "删除配方中选中的饲料", height: 630, width: 550, url: editUrl });
+                var row = fooderGridManager.getSelectedRow();
+                var fodderId = row["ID"];
+                $.ajax({
+                    type: 'get',
+                    url: '../../Platform/Formula/DeleteFodder',
+                    data: { formulaId: formulaID, fodderId: fodderId },
+                    dataType: 'json',
+                    cache: false,
+                    success: function () {
+                        alert('配方中的饲料删除成功！');
+                        loadFodderList(formulaID);
+                    }
+                });
             });
 
             $('#btnAddFormula').click(function () {

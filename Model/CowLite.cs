@@ -8,6 +8,7 @@ namespace DairyCow.Model
 {
     public class CowLite
     {
+        public int EarNum { get; set; }
         public string DisplayEarNum { get; set; }
         public int HouseID { get; set; }
         public string HouseName { get; set; }

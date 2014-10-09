@@ -85,6 +85,11 @@ namespace CowSite.Controllers.Feed
             return View("~/Views/CowGroup/Assign.cshtml");
         }
 
+        public ActionResult ChangeGroup()
+        {
+            return View("~/Views/CowGroup/ChangeGroup.cshtml");
+        }
+
         //assign 相关 json
         public JsonResult GetPastureInsemOperators()
         {

@@ -1,4 +1,5 @@
 ﻿using DairyCow.DAL.Base;
+using DairyCow.Model;
 using System;
 using System.Data;
 
@@ -55,7 +56,7 @@ namespace DairyCow.DAL
             return cowInfo;
         }
 
-        public DataTable GetCowLiteInfo(string displayEarNum)
+        public DataTable GetCowLiteInfo(int earNum)
         {
             DataTable cowInfo = null;
 
@@ -63,11 +64,20 @@ namespace DairyCow.DAL
                                 FROM Base_Cow AS C
                                 LEFT JOIN Base_CowHouse AS H ON C.HouseID = H.ID
                                 LEFT JOIN Base_CowGroup AS G ON C.GroupID = G.ID
-                                WHERE C.DisplayEarNum = '{0}'", displayEarNum);
+                                WHERE C.EarNum = '{0}'", earNum);
 
             cowInfo = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
 
             return cowInfo;
+        }
+
+        public int UpdateCowLiteInfo(CowLite cowLite)
+        {
+            string sql = string.Format(@"UPDATE Base_Cow
+                                SET GroupID ={0},HouseID = {1}
+                                WHERE EarNum = '{2}'", cowLite.GroupID,cowLite.HouseID,cowLite.EarNum);
+
+            return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         public DataTable GetCowInfo(int pastureID, string dislayEarNum)

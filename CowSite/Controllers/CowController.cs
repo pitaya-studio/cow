@@ -1,5 +1,6 @@
 ﻿using DairyCow.BLL;
 using DairyCow.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -192,6 +193,24 @@ namespace CowSite.Controllers
             FarmInfo farm = new FarmInfo();
             List<CowInfo> lstCow = farm.CowInfoList.FindAll(cow => cow.DaysInMilk > 225);
             return Json(new { Rows = lstCow }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCowLiteInfo(string displayEarNum)
+        {
+            CowLite cow = this.bllCow.GetCowLiteInfo(displayEarNum);
+            return Json(cow, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateCowLiteInfo()
+        {
+            CowLite cowLite = new CowLite
+            {
+                DisplayEarNum = Request["DisplayEarNum"],
+                GroupID = Convert.ToInt32(Request["GroupID"]),
+                HouseID = Convert.ToInt32(Request["HouseID"])
+            };
+            int result = this.bllCow.UpdateCowLiteInfo(cowLite);
+            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace DairyCow.BLL
         /// <returns></returns>
         public int GetCowNumberInHouse(int pastureID, int houseID)
         {
-
             return GetCowListInHouse(pastureID, houseID).Count;
         }
 
@@ -104,8 +103,9 @@ namespace DairyCow.BLL
         }
 
         public CowLite GetCowLiteInfo(string displayEarNum)
-        {            
-            DataTable dt = this.dalCow.GetCowLiteInfo(displayEarNum);
+        {
+            int earNum = ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            DataTable dt = this.dalCow.GetCowLiteInfo(earNum);
             if(dt.Rows.Count ==0)
             {
                 return null;
@@ -120,6 +120,12 @@ namespace DairyCow.BLL
                 cow.GroupName = dt.Rows[0]["GroupName"].ToString();
                 return cow;
             }           
+        }
+
+        public int UpdateCowLiteInfo(CowLite cowLite)
+        {
+            cowLite.EarNum = ConvertDislayEarNumToEarNum(cowLite.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
+            return this.dalCow.UpdateCowLiteInfo(cowLite);
         }
 
         public Cow GetCowInfo(int pastureID, string displayEarNum)

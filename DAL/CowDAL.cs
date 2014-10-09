@@ -55,6 +55,21 @@ namespace DairyCow.DAL
             return cowInfo;
         }
 
+        public DataTable GetCowLiteInfo(string displayEarNum)
+        {
+            DataTable cowInfo = null;
+
+            string sql = string.Format(@"SELECT C.DisplayEarNum, H.ID AS HouseID, H.Name AS HouseName, G.ID AS GroupID, G.Name AS GroupName
+                                FROM Base_Cow AS C
+                                LEFT JOIN Base_CowHouse AS H ON C.HouseID = H.ID
+                                LEFT JOIN Base_CowGroup AS G ON C.GroupID = G.ID
+                                WHERE C.DisplayEarNum = '{0}'", displayEarNum);
+
+            cowInfo = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+
+            return cowInfo;
+        }
+
         public DataTable GetCowInfo(int pastureID, string dislayEarNum)
         {
             DataTable cowInfo = null;

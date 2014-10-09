@@ -103,6 +103,25 @@ namespace DairyCow.BLL
             return cow;
         }
 
+        public CowLite GetCowLiteInfo(string displayEarNum)
+        {            
+            DataTable dt = this.dalCow.GetCowLiteInfo(displayEarNum);
+            if(dt.Rows.Count ==0)
+            {
+                return null;
+            }
+            else
+            {
+                CowLite cow = new CowLite();
+                cow.DisplayEarNum = displayEarNum;
+                cow.HouseID = Convert.ToInt32(dt.Rows[0]["HouseID"]);
+                cow.HouseName = dt.Rows[0]["HouseName"].ToString();
+                cow.GroupID = Convert.ToInt32(dt.Rows[0]["GroupID"]);
+                cow.GroupName = dt.Rows[0]["GroupName"].ToString();
+                return cow;
+            }           
+        }
+
         public Cow GetCowInfo(int pastureID, string displayEarNum)
         {
             Cow cow = new Cow();

@@ -49,6 +49,7 @@
     <Compile Include="Cow.cs" />
     <Compile Include="CowGroup.cs" />
     <Compile Include="CowGroupInfo.cs" />
+    <Compile Include="CowLite.cs" />
     <Compile Include="DairyParameter.cs" />
     <Compile Include="Disease.cs" />
     <Compile Include="DiseaseType.cs" />

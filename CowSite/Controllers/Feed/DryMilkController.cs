@@ -24,7 +24,7 @@ namespace CowSite.Controllers.Feed
         public JsonResult InsertDryMilk(string earNum, string dryDate, string drySitudation, string dryReason, string operatorID)
         {
             DryMilk dry = new DryMilk();
-            dry.EarNum = Int32.Parse(earNum);
+            dry.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
             dry.DryDate = DateTime.Parse(dryDate);
             dry.DrySituation = Int32.Parse(drySitudation);
             dry.OperatorID = Int32.Parse(operatorID);

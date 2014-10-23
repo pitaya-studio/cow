@@ -51,30 +51,43 @@
 
         $('#btnSave').click(function () {
             var displayEarNum = $("#earNum").val();
-            var targetGroupId = $("#GroupSelector").val();
-            var targetHouseId = $("#HouseSelector").val();
-            
-            if (targetGroupId == null || targetGroupId == "" || targetGroupId == "0") {
-                alert('请选择目标牛群！');
-                return;
-            }
-            else if (targetHouseId == null || targetHouseId == "" || targetHouseId == "0") {
-                alert('请选择目标牛舍！');
-                return;
-            }
-
             $.ajax({
                 type: 'post',
-                url: '../../Cow/UpdateCowLiteInfo',
-                data: { DisplayEarNum: displayEarNum, GroupID: targetGroupId, HouseID: targetHouseId },
+                url: '../../Cow/InsertChangeGroupTask',
+                data: { DisplayEarNum: displayEarNum },
                 dataType: 'json',
                 cache: false,
                 success: function (result) {
                     if (result) {
-                        alert("转群成功！");
+                        alert("转群任务添加成功！");
                     }
                 }
             });
+
+            //var targetGroupId = $("#GroupSelector").val();
+            //var targetHouseId = $("#HouseSelector").val();
+            
+            //if (targetGroupId == null || targetGroupId == "" || targetGroupId == "0") {
+            //    alert('请选择目标牛群！');
+            //    return;
+            //}
+            //else if (targetHouseId == null || targetHouseId == "" || targetHouseId == "0") {
+            //    alert('请选择目标牛舍！');
+            //    return;
+            //}
+
+            //$.ajax({
+            //    type: 'post',
+            //    url: '../../Cow/UpdateCowLiteInfo',
+            //    data: { DisplayEarNum: displayEarNum, GroupID: targetGroupId, HouseID: targetHouseId },
+            //    dataType: 'json',
+            //    cache: false,
+            //    success: function (result) {
+            //        if (result) {
+            //            alert("转群成功！");
+            //        }
+            //    }
+            //});
         });
 
         $('#earNum').blur(function () {

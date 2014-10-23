@@ -212,5 +212,30 @@ namespace CowSite.Controllers
             int result = this.bllCow.UpdateCowLiteInfo(cowLite);
             return Json(new { result = result }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult InsertChangeGroupTask()
+        {
+            bool bResult = false;
+
+            List<User> lstFeeder = UserBLL.Instance.GetFeederList();
+            if (lstFeeder != null && lstFeeder.Count > 0)
+            {
+                DairyTask t = new DairyTask
+                {
+                    DisplayEarNum = Request["DisplayEarNum"],
+                    EarNum = CowBLL.ConvertDislayEarNumToEarNum(Request["DisplayEarNum"].ToString(), UserBLL.Instance.CurrentUser.Pasture.ID),
+                    TaskType = TaskType.GroupingTask,
+                    Status = DairyTaskStatus.Initial,
+                    PastureID = UserBLL.Instance.CurrentUser.Pasture.ID,
+                    OperatorID = lstFeeder[0].ID,
+                    RoleID = lstFeeder[0].Role.ID,
+                    ArrivalTime = DateTime.Now,
+                    DeadLine = DateTime.Now.AddDays(15)
+                };
+                TaskBLL bllTask = new TaskBLL();
+                bResult = bllTask.AddTask(t);
+            }
+            return Json(bResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }

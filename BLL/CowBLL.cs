@@ -121,13 +121,7 @@ namespace DairyCow.BLL
                 return cow;
             }           
         }
-
-        public int UpdateCowLiteInfo(CowLite cowLite)
-        {
-            cowLite.EarNum = ConvertDislayEarNumToEarNum(cowLite.DisplayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
-            return this.dalCow.UpdateCowLiteInfo(cowLite);
-        }
-
+        
         public Cow GetCowInfo(int pastureID, string displayEarNum)
         {
             Cow cow = new Cow();

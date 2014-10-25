@@ -13,8 +13,7 @@ namespace CowSite.Controllers.Task
         public JsonResult LoadTask(string taskID)
         {
             TaskBLL bll = new TaskBLL();
-            DairyTask v;
-            v = bll.GetTaskByID(Convert.ToInt32(taskID));
+            DairyTask v = bll.GetTaskByID(Convert.ToInt32(taskID));
             string displayEarNum = CowBLL.ConvertEarNumToDisplayEarNum(v.EarNum);
                         
             return Json(new

@@ -200,24 +200,17 @@ namespace CowSite.Controllers
             CowLite cow = this.bllCow.GetCowLiteInfo(displayEarNum);
             return Json(cow, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult UpdateCowLiteInfo()
-        {
-            CowLite cowLite = new CowLite
-            {
-                DisplayEarNum = Request["DisplayEarNum"],
-                GroupID = Convert.ToInt32(Request["GroupID"]),
-                HouseID = Convert.ToInt32(Request["HouseID"])
-            };
-            int result = this.bllCow.UpdateCowLiteInfo(cowLite);
-            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
-        }
-
+        
+        /// <summary>
+        /// 插入转群任务
+        /// </summary>
+        /// <returns></returns>
         public JsonResult InsertChangeGroupTask()
         {
             bool bResult = false;
 
-            List<User> lstFeeder = UserBLL.Instance.GetFeederList();
+            UserBLL uBLL = new UserBLL();
+            List<User> lstFeeder = uBLL.GetFeederList(UserBLL.Instance.CurrentUser.Pasture.ID);
             if (lstFeeder != null && lstFeeder.Count > 0)
             {
                 DairyTask t = new DairyTask
@@ -234,6 +227,19 @@ namespace CowSite.Controllers
                 };
                 TaskBLL bllTask = new TaskBLL();
                 bResult = bllTask.AddTask(t);
+
+                GroupingRecord gRecord = new GroupingRecord
+                {
+                    TaskID = t.ID,
+                    EarNum = t.EarNum,
+                    TargetGroupID = Convert.ToInt32(Request["TargetGroupID"]),
+                    TargetHouseID = Convert.ToInt32(Request["TargetHouseID"]),
+                    OriginalGroupID = Convert.ToInt32(Request["OriginalGroupID"]),
+                    OriginalHouseID = Convert.ToInt32(Request["OriginalHouseID"])
+                };
+                GroupingRecordBLL bllGroupingRecord = new GroupingRecordBLL();
+                bllGroupingRecord.InsertGroupingRecord(gRecord);
+
             }
             return Json(bResult, JsonRequestBehavior.AllowGet);
         }

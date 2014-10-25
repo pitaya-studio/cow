@@ -38,7 +38,7 @@
                 <select id="HouseSelector" class="w200"></select>
             </div>
             <div class="mt10">
-                <button class="btn btn-primary" id="btnSave">转群</button>
+                <button class="btn btn-primary hidden" id="btnSave">转群</button>
             </div>
         </div>
     </div>
@@ -48,13 +48,33 @@
     <script src="~/Scripts/menu.js"></script>
     <script>
         $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-ChangeGroup" });
+        var originalGroupId = 0;
+        var originalHouseId = 0;
 
         $('#btnSave').click(function () {
+            var targetGroupId = $("#GroupSelector").val();
+            var targetHouseId = $("#HouseSelector").val();
+
+            if (targetGroupId == null || targetGroupId == "" || targetGroupId == "0") {
+                alert('请选择目标牛群！');
+                return;
+            }
+            else if (targetHouseId == null || targetHouseId == "" || targetHouseId == "0") {
+                alert('请选择目标牛舍！');
+                return;
+            }
+
             var displayEarNum = $("#earNum").val();
             $.ajax({
                 type: 'post',
                 url: '../../Cow/InsertChangeGroupTask',
-                data: { DisplayEarNum: displayEarNum },
+                data: {
+                    DisplayEarNum: displayEarNum,
+                    TargetGroupID: targetGroupId,
+                    TargetHouseID: targetHouseId,
+                    OriginalGroupID: originalGroupId,
+                    OriginalHouseID: originalHouseId
+                },
                 dataType: 'json',
                 cache: false,
                 success: function (result) {
@@ -63,31 +83,6 @@
                     }
                 }
             });
-
-            //var targetGroupId = $("#GroupSelector").val();
-            //var targetHouseId = $("#HouseSelector").val();
-            
-            //if (targetGroupId == null || targetGroupId == "" || targetGroupId == "0") {
-            //    alert('请选择目标牛群！');
-            //    return;
-            //}
-            //else if (targetHouseId == null || targetHouseId == "" || targetHouseId == "0") {
-            //    alert('请选择目标牛舍！');
-            //    return;
-            //}
-
-            //$.ajax({
-            //    type: 'post',
-            //    url: '../../Cow/UpdateCowLiteInfo',
-            //    data: { DisplayEarNum: displayEarNum, GroupID: targetGroupId, HouseID: targetHouseId },
-            //    dataType: 'json',
-            //    cache: false,
-            //    success: function (result) {
-            //        if (result) {
-            //            alert("转群成功！");
-            //        }
-            //    }
-            //});
         });
 
         $('#earNum').blur(function () {
@@ -101,6 +96,9 @@
                     if (cow) {
                         $('#currGroupName').text(cow.GroupName);
                         $('#currHouseName').text(cow.HouseName);
+                        originalGroupId = cow.GroupID;
+                        originalHouseId = cow.HouseID;
+                        $('#btnSave').removeClass('hidden');
                     }
                 }
             });

@@ -36,7 +36,7 @@ namespace DairyCow.DAL
                                         TargetHouseID,
                                         OriginalGroupID,
                                         OriginalHouseID)
-                                        values({0},{1},{2},{3},{4},{5},)", taskID,earNum,targetGroupID,targetHouseID,originalGroupID,originalHouseID);
+                                        values({0},{1},{2},{3},{4},{5})", taskID,earNum,targetGroupID,targetHouseID,originalGroupID,originalHouseID);
 
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
         }

@@ -187,7 +187,7 @@ namespace DairyCow.DAL
                           + taskStatus + ",'"
                           + myTask.InputTime + "','"
                           + myTask.RoleID + "','"
-                          + myTask.PastureID + "')");
+                          + myTask.PastureID + "'); select @@identity;");
             }
             else
             {
@@ -201,12 +201,12 @@ namespace DairyCow.DAL
                           + myTask.DeadLine + "',"
                           + taskStatus + ",'"
                           + myTask.RoleID + "','"
-                          + myTask.PastureID + "')");
+                          + myTask.PastureID + "'); select @@identity;");
             }
 
 
-            return dataProvider1mutong.ExecuteNonQuery(sqlString.ToString(), CommandType.Text);
-
+            object taskId= dataProvider1mutong.ExecuteScalar(sqlString.ToString(), CommandType.Text);
+            return Convert.ToInt32(taskId);
         }
 
         /// <summary>

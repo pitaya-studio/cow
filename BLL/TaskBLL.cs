@@ -31,7 +31,7 @@ namespace DairyCow.BLL
         {
             List<DairyTask> list = new List<DairyTask>();
 
-            if(UserBLL.Instance.CurrentUser.Role.CanBreed)
+            if (UserBLL.Instance.CurrentUser.Role.CanBreed)
             {
                 DairyTask task = new DairyTask();
                 task.EarNum = -1;
@@ -185,13 +185,15 @@ namespace DairyCow.BLL
         public bool AddTask(DairyTask myTask)
         {
             bool isSuccessful = false;
-            //
+            
             TaskDAL dal = new TaskDAL();
             int i = dal.InsertTask(myTask);
-            if (i == 1)
+            if (i > 0)
             {
+                myTask.ID = i;
                 isSuccessful = true;
             }
+
             return isSuccessful;
         }
 

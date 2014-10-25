@@ -246,7 +246,7 @@ namespace DairyCow.DAL
 
             string sql = string.Format(@"SELECT DisplayEarNum
                             FROM Base_Cow
-                            WHERE EarNum = '{0}' and [IsStray]=0", earNum);
+                            WHERE EarNum = {0} and [IsStray]=0", earNum);
 
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             if (dt.Rows.Count == 0)

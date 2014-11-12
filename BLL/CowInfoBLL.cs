@@ -408,7 +408,7 @@ namespace DairyCow.BLL
                 {
                     total = total + Math.Abs(calvingList[i].Birthday.Subtract(calvingList[i + 1].Birthday).TotalDays);
                 }
-                interval = total / count - 1;
+                interval = Math.Round(total / (count - 1),2);
             }
             return interval;
         }

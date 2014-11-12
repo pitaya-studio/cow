@@ -99,7 +99,7 @@
             var rendMenu = function () {
                 $elem.html('');
                 var header = $('<div class="mt10 mb10"></div>').appendTo($elem);
-                var userInfo = $('<div id="currentUserInfo" style="position:absolute;right:300px;top:15px;"></div>').appendTo(header);
+                var userInfo = $('<div id="currentUserInfo" style="position:absolute;right:45px;top:15px;"></div>').appendTo(header);
                 var logo = $('<div class="btn-group">                                             \
                         <img src="http://' + host + '/Images/emutong_logo.png" style="width:164px; height:33px;" />   \
                     </div>'

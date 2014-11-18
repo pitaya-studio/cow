@@ -432,6 +432,17 @@ namespace DairyCow.BLL
                 }
             }
         }
+
+        /// <summary>
+        /// 取最后配种日期字符串
+        /// </summary>
+        public string LatestInseminationDateString
+        {
+            get
+            {
+                return GetLatestInsemination(this.earNum).OperateDate.Date.ToLongDateString();
+            }
+        }
         /// <summary>
         /// 配次
         /// </summary>

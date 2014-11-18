@@ -73,6 +73,7 @@
                     $('input[name=MilkType]').val(myCow.MilkType);
                     $('input[name=DaysInMilk]').val(myCow.DaysInMilk);
                     $('input[name=DaysInDry]').val(myCow.DaysInDry);
+                    $('input[name=LatestInseminationDateString]').val(myCow.LatestInseminationDateString);
                 }
             });
         }
@@ -204,8 +205,12 @@
                         <input type="text" class="form-control w200" contenteditable="false" placeholder="配次" name="TimesOfInsemination">
                     </div>
                     <div class="input-group mt10">
-                        <span class="input-group-addon w100">怀孕天数</span>
-                        <input type="text" class="form-control w200" contenteditable="false" placeholder="怀孕天数" name="DaysOfPregnant">
+                        <span class="input-group-addon w100">配种天数</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="配种天数" name="DaysOfPregnant">
+                    </div>
+                    <div class="input-group mt10">
+                        <span class="input-group-addon w100">最近配种日期</span>
+                        <input type="text" class="form-control w200" contenteditable="false" placeholder="最近配种日期" name="LatestInseminationDateString">
                     </div>
                     <div class="input-group mt10">
                         <span class="input-group-addon w100">胎次</span>

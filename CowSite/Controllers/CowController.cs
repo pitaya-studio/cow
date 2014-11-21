@@ -195,6 +195,13 @@ namespace CowSite.Controllers
             return Json(new { Rows = lstCow }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetCowForPregnantDayGT225()
+        {
+            FarmInfo farm = new FarmInfo();
+            List<CowInfo> lstCow = farm.CowInfoList.FindAll(cow => cow.DaysOfPregnant > 210);
+            return Json(new { Rows = lstCow }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetCowLiteInfo(string displayEarNum)
         {
             CowLite cow = this.bllCow.GetCowLiteInfo(displayEarNum);

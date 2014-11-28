@@ -11,8 +11,18 @@ namespace DairyCow.Model
     /// </summary>
     public class Cow
     {
+        /// <summary>
+        /// 牛每个月30.5天
+        /// </summary>
         public const double DAYS_OF_COW_MONTH = 30.5;
+        /// <summary>
+        /// 育成牛最大月龄：14
+        /// </summary>
         public const int MONTHS_OF_NULLPARITY = 14;
+        /// <summary>
+        /// 犊牛最大日龄
+        /// </summary>
+        public const int DAYS_OF_CALF=60;
 
         /// <summary>
         /// 耳号，系统产生

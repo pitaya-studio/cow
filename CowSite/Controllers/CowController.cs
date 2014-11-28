@@ -185,13 +185,13 @@ namespace CowSite.Controllers
         }
 
         /// <summary>
-        /// 取得泌乳天数>225天的牛
+        /// 取得配种天数/怀孕天数>210天的牛
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetCowForMilkDayGT225()
+        public JsonResult GetCowForInseminatedDayGT210()
         {
             FarmInfo farm = new FarmInfo();
-            List<CowInfo> lstCow = farm.CowInfoList.FindAll(cow => cow.DaysInMilk > 225);
+            List<CowInfo> lstCow = farm.CowInfoList.FindAll(cow => cow.DaysOfPregnant > 210);
             return Json(new { Rows = lstCow }, JsonRequestBehavior.AllowGet);
         }
 

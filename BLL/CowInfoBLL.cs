@@ -647,7 +647,7 @@ namespace DairyCow.BLL
             {
                 TimeSpan span = DateTime.Now.Subtract(myCow.BirthDate);
                 //to-do：把天数换成参数配置中的数；
-                if (span.TotalDays < 180.0)
+                if (span.TotalDays < Cow.DAYS_OF_CALF)
                 {
                     cowType = "犊牛";
                 }
@@ -815,6 +815,11 @@ namespace DairyCow.BLL
             {
                 //未产过犊
                 milkType = "非经产牛";
+                //@2014.11.25,易牧通要求，青年牛，也干奶。
+                if (this.dryMilkList.Count > 0)
+                {
+                    milkType = "干奶牛";
+                }
             }
             else
             {

@@ -132,11 +132,11 @@
             });
         }
 
-        // 加载泌乳天数>225天的牛列表，显示耳号，和泌乳天数
+        // 加载配种天数>225天的牛列表，显示耳号，和泌乳天数
         function loadMilkDayLT225CowList() {
             $.ajax({
                 type: 'get',
-                url: "../../Cow/GetCowForPregnantDayGT225",
+                url: "../../Cow/GetCowForInseminatedDayGT210",
                 dataType: 'json',
                 cache: false,
                 success: function (cowList) {
@@ -150,7 +150,7 @@
                         height: 'auto',
                         isScroll: false,
                         data: cowList,
-                        title: '泌乳天数大于225天的牛',
+                        title: '配种天数大于210天的牛',
                         showTitle: true,
                         enabledEdit: false,
                         clickToEdit: false,

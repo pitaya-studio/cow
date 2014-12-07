@@ -28,7 +28,7 @@ namespace DairyCow.DAL
                                         RoleID,
                                         EarNum
                                         FROM         Task
-                                        where PastureID={0} and [Status]=1 and ArrivalTime<DATEADD(DD,3,GETDATE())");
+                                        where PastureID={0} and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())");
 
             recentTaskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return recentTaskList;

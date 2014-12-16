@@ -245,7 +245,7 @@ namespace DairyCow.BLL
         }
 
         /// <summary>
-        /// 发情/配种任务
+        /// 点击[繁殖-发情配种]，增加发情/配种任务
         /// </summary>
         public void CompleteInsemination(DairyTask task, Insemination insemination)
         {
@@ -370,10 +370,7 @@ namespace DairyCow.BLL
                 CowBLL c = new CowBLL();
                 Cow cc = c.GetCowInfo(task.EarNum);
                 int doctorID = g.GetCowGroupList(UserBLL.Instance.CurrentUser.Pasture.ID).Find(p => p.ID == cc.GroupID).DoctorID;
-
                 day21ToBornTask.OperatorID = doctorID;
-
-
                 day21ToBornTask.Status = DairyTaskStatus.Initial;
                 float normalCalvingDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_NORMALCALVINGDAYS];
                 float reInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFREINSEPECTION];
@@ -389,11 +386,7 @@ namespace DairyCow.BLL
             {
                 //更新牛繁殖状态
                 cowBLL.UpdateCowBreedStatus(task.EarNum, "复检-");
-
             }
-
-
-
         }
 
         /// <summary>
@@ -431,13 +424,13 @@ namespace DairyCow.BLL
         /// </summary>
         public void CompleteDay7ToBorn(DairyTask task, int cowHouseId, int cowGroupId)
         {
-            //更新任务记录，标记完成
+            // 更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
             task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
             UpdateTask(task);
 
-            //产生调群任务，进产房
+            // 产生调群任务，进产房
             DairyTask groupingTask = new DairyTask();
             groupingTask.TaskType = TaskType.GroupingTask;
             DateTime time = DateTime.Now;
@@ -445,9 +438,9 @@ namespace DairyCow.BLL
             groupingTask.EarNum = task.EarNum;
             groupingTask.DeadLine = time.AddDays(1.0);
             AddTask(groupingTask);
-            //取回这条任务
+            // 取回这条任务
             DairyTask groupingTaskCopy = GetUnfinishedTasks(UserBLL.Instance.CurrentUser.Pasture.ID).Find(p => p.ArrivalTime == time && p.TaskType == TaskType.GroupingTask);
-            //关联调群记录，任务单找到如何调群
+            // 关联调群记录，任务单找到如何调群
             GroupingRecord groupingRecord = new GroupingRecord();
             groupingRecord.EarNum = groupingTaskCopy.EarNum;
             groupingRecord.TaskID = groupingTaskCopy.ID;
@@ -459,11 +452,10 @@ namespace DairyCow.BLL
             groupingRecord.TargetHouseID = cowHouseId;
             GroupingRecordBLL gBLL = new GroupingRecordBLL();
             gBLL.InsertGroupingRecord(groupingRecord);
-
         }
 
-        //在产犊界面调用本方法
         /// <summary>
+        /// 在产犊界面调用本方法
         /// 产生产后三任务
         /// </summary>
         /// <param name="calving"></param>
@@ -646,7 +638,6 @@ namespace DairyCow.BLL
             task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
             UpdateTask(task);
-
         }
     }
 }

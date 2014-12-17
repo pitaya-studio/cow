@@ -245,6 +245,31 @@ namespace DairyCow.BLL
             return feederList;
         }
 
+        public List<User> GetUsers(int pastureId, int roleId)
+        {
+            List<User> userList = new List<User>();
+
+            DataTable datUser = this.dalUser.GetUsers(pastureId, roleId);
+            if (datUser == null || datUser.Rows.Count == 0)
+            {
+                // 没有角色对应的人员时，默认取场长
+                datUser = this.dalUser.GetUsers(pastureId, 8);
+            }
+
+            foreach (DataRow row in datUser.Rows)
+            {
+                User user = new User()
+                {
+                    ID = Convert.ToInt32(row["ID"]),
+                    Name = row["Name"].ToString(),
+                    Account = row["Account"].ToString()
+                };
+                userList.Add(user);
+            }
+
+            return userList;
+        }
+
         /// <summary>
         /// 获取牧场兽医list
         /// </summary>

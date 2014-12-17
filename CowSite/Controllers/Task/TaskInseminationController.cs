@@ -59,7 +59,6 @@ namespace CowSite.Controllers.Task
                 bllTask.CompleteInsemination(task, i);
 
                 return View("~/Views/Task/Index.cshtml");
-
             }
             catch (Exception)
             {

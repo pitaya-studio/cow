@@ -10,6 +10,7 @@ namespace DairyCow.BLL
     {
         TaskDAL taskDAL = new TaskDAL();
         MedicalDAL dalMedical = new MedicalDAL();
+        UserBLL bllUser = new UserBLL();
 
         /// <summary>
         /// 获取某人未完成的最近任务
@@ -26,7 +27,7 @@ namespace DairyCow.BLL
             }
             return list;
         }
-
+        
         public List<DairyTask> GetAllTasks(int pastureID)
         {
             List<DairyTask> list = new List<DairyTask>();
@@ -250,37 +251,37 @@ namespace DairyCow.BLL
         public void CompleteInsemination(DairyTask task, Insemination insemination)
         {
             CowInfo cow = new CowInfo(insemination.EarNum);
-            //添加任务记录，添加即已完成 Todo
+            // 添加任务记录，添加即已完成 Todo
             task.Status = DairyTaskStatus.Completed;
             task.InputTime = DateTime.Now;
             taskDAL.InsertTask(task);
 
-            //删除无效的妊检任务单
+            // 删除无效的妊检任务单
             RemovePreviousInspectionTasks(insemination.EarNum, true);
             RemovePreviousInspectionTasks(insemination.EarNum, false);
 
-
-
-            //产生新妊检任务单
-
+            // 产生新妊检任务单
             DairyTask initialInspectionTask = new DairyTask();
             initialInspectionTask.TaskType = TaskType.InitialInspectionTask;
             initialInspectionTask.Status = DairyTaskStatus.Initial;
             initialInspectionTask.ArrivalTime = insemination.OperateDate.AddDays(DairyParameterBLL.GetCurrentParameterDictionary(cow.FarmCode)[FarmInfo.PN_DAYSOFINITIALINSPECTION]);
-            //3 days to complete task
+
+            // 3 days to complete task
             initialInspectionTask.DeadLine = initialInspectionTask.ArrivalTime.AddDays(3.0);
             initialInspectionTask.EarNum = insemination.EarNum;
-            //To-do 根据牛耳号找配种员
-            //分配配种员
-            CowGroupBLL g = new CowGroupBLL();
-            CowBLL c = new CowBLL();
-            Cow cc = c.GetCowInfo(task.EarNum);
-            initialInspectionTask.OperatorID = g.GetCowGroupList(task.PastureID).Find(p => p.ID == cc.GroupID).InsemOperatorID;
+
+            // 分配配种员
+            //CowGroupBLL g = new CowGroupBLL();
+            //CowBLL c = new CowBLL();
+            //Cow cc = c.GetCowInfo(task.EarNum);
+            //initialInspectionTask.OperatorID = g.GetCowGroupList(task.PastureID).Find(p => p.ID == cc.GroupID).InsemOperatorID;
+            List<User> userList = this.bllUser.GetUsers(task.PastureID, 1);
+            initialInspectionTask.OperatorID = userList[0].ID;
             initialInspectionTask.RoleID = task.RoleID;
             initialInspectionTask.PastureID = task.PastureID;
+            initialInspectionTask.InputTime = DateTime.Now;
             taskDAL.InsertTask(initialInspectionTask);
-
-
+            
             //添加配种记录
             InseminationBLL insemBLL = new InseminationBLL();
             //to-do sopy

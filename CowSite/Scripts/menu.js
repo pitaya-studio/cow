@@ -139,7 +139,8 @@
                             if (inMenu(menuIDList, this.ID) || inMenu(menuIDList, this.PID)) {
                                 if (this.PID == '') {
                                     var menuItemLi = $('<li></li>').appendTo(mainMenuUL);
-                                    var menuItemA = $('<a href="http://' + host + '/' + this.Url + '" target="' + this.target + '">' + this.Name + '</a>').appendTo(menuItemLi);
+                                    //var menuItemA = $('<a href="http://' + host + '/' + this.Url + '" target="' + this.target + '">' + this.Name + '</a>').appendTo(menuItemLi);
+                                    var menuItemA = $('<a href="http://' + host + '/' + this.Url + '">' + this.Name + '</a>').appendTo(menuItemLi);
                                     if (opt.mainMenuSelectedID == this.ID) {
                                         menuItemLi.addClass('active');
                                         menuItemA.attr('href', 'javascript:void(0);').attr('target', '');

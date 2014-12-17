@@ -78,7 +78,7 @@ namespace DairyCow.DAL
                                         EarNum
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
-                                        and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID, pastureID);
+                                        and [Status]=0", operatorID, pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;

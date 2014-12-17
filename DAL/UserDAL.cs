@@ -51,6 +51,7 @@ namespace DairyCow.DAL
             feederList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return feederList;
         }
+
         /// <summary>
         /// 获取牧场兽医table
         /// </summary>
@@ -130,6 +131,22 @@ namespace DairyCow.DAL
             }
 
 
+            dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
+            return dt;
+        }
+
+        /// <summary>
+        /// 取得一个牧场某一角色的用户
+        /// </summary>
+        /// <param name="pastureId"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public DataTable GetUsers(int pastureId, int roleId)
+        {
+            DataTable dt = null;
+            string sql = string.Format(@"select *
+                            from auth_user
+                            where PastureID={0} and RoleID={1}", pastureId, roleId);
             dt = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return dt;
         }

@@ -78,7 +78,7 @@ namespace DairyCow.DAL
                                         EarNum
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
-                                        and [Status]=0", operatorID, pastureID);
+                                        and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID, pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
@@ -192,7 +192,7 @@ namespace DairyCow.DAL
             else
             {
                 sqlString.Append(@"insert into [Task] 
-                          (TaskType,OperatorID,EarNum,ArrivalTime,DeadLine,[Status],RoleID,PastureID) 
+                          (TaskType,OperatorID,EarNum,ArrivalTime,DeadLine,[Status],InputTime,RoleID,PastureID) 
                                                     values (
                                     '" + typeValue + "',"
                           + myTask.OperatorID + ",'"
@@ -200,6 +200,7 @@ namespace DairyCow.DAL
                           + myTask.ArrivalTime + "','"
                           + myTask.DeadLine + "',"
                           + taskStatus + ",'"
+                          + myTask.InputTime + "','"
                           + myTask.RoleID + "','"
                           + myTask.PastureID + "'); select @@identity;");
             }

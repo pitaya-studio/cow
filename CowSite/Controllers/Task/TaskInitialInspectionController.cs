@@ -41,10 +41,14 @@ namespace CowSite.Controllers.Task
 
                 i.OperateDate = DateTime.Parse(endDate);
                 i.InspectResult = Convert.ToInt32(pregnantStatus);
-                i.Operator = Convert.ToInt32(operatorID);
+                i.Operator = Convert.ToInt32(operatorID); //@德华，怀疑有错
                 i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
 
+                //取原任务
                 DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
+                task.CompleteTime = i.OperateDate;//完成时间
+                task.Status = DairyTaskStatus.Completed;
+                task.OperatorID = i.Operator;
 
                 //完成初检任务，同时增加初检信息
                 bllTask.CompleteInitialInspection(task, i);

@@ -30,7 +30,7 @@ namespace CowSite.Controllers.Task
                 string displayEarNum = Request.Form["DisplayEarNum"];
                 string startDate = Request.Form["start"];
                 string endDate = Request.Form["end"];
-                string operatorID = Request.Form["operatorName"];
+                string operatorID = Request.Form["operatorName"]; //@德华 怀疑有错
                 string knownWay = Request.Form["knownWay"];
                 string semenNum = Request.Form["semNum"];
                 string semenCount = Request.Form["semCount"];

@@ -46,7 +46,10 @@ namespace CowSite.Controllers.Task
 
                 DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
 
-                //完成初检任务，同时增加初检信息
+                //完成复检任务，同时增加复检信息
+                task.CompleteTime = i.OperateDate;
+                task.Status = DairyTaskStatus.Completed;
+                task.OperatorID = i.Operator;
                 bllTask.CompleteReInspection(task, i);
 
                 return View("~/Views/Task/Index.cshtml");

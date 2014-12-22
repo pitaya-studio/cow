@@ -68,8 +68,19 @@ namespace CowSite.Controllers
         public JsonResult GetToDoList()
         {
             TaskBLL task = new TaskBLL();
+            List<DairyTask> lstTask;
+            //取当前用户的role,如果是场长，需要看到所有用户的未完成任务列表。
+            if (UserBLL.Instance.CurrentUser.Role.IsDirector )
+            {
+                lstTask = task.GetUnfinishedTasks(UserBLL.Instance.CurrentUser.Pasture.ID);
 
-            List<DairyTask> lstTask = task.GetRecentUnfinishedTaskList(UserBLL.Instance.CurrentUser.ID, UserBLL.Instance.CurrentUser.Pasture.ID);
+            }
+            else
+            {
+                lstTask = task.GetRecentUnfinishedTaskList(UserBLL.Instance.CurrentUser.ID, UserBLL.Instance.CurrentUser.Pasture.ID);
+
+            }
+
 
             return Json(new { Rows = lstTask }, JsonRequestBehavior.AllowGet);
         }

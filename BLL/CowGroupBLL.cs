@@ -81,6 +81,10 @@ namespace DairyCow.BLL
                 {
                     cowGroupItem.InsemOperatorID = Convert.ToInt32(cowGroupRow["InsemOperatorID"]);
                 }
+                else
+                {
+                    cowGroupItem.InsemOperatorID = 0;//0表示没有人
+                }
                 user = u.GetUsers().Find(p => p.ID == cowGroupItem.InsemOperatorID);
 
                 cowGroupItem.InsemOperatorName = user == null ? null : user.Name;
@@ -89,12 +93,20 @@ namespace DairyCow.BLL
                 {
                     cowGroupItem.FeederID = Convert.ToInt32(cowGroupRow["FeedOperatorID"]);
                 }
+                else
+                {
+                    cowGroupItem.FeederID = 0;//0表示没有人
+                }
                 
                 user = u.GetUsers().Find(p => p.ID == cowGroupItem.FeederID);
                 cowGroupItem.FeederName = user == null? null: user.Name;
                 if (cowGroupRow["DoctorID"] != DBNull.Value)
                 {
                     cowGroupItem.DoctorID = Convert.ToInt32(cowGroupRow["DoctorID"]);
+                }
+                else
+                {
+                    cowGroupItem.DoctorID = 0;//0表示没有人
                 }
                 user = u.GetUsers().Find(p => p.ID == cowGroupItem.DoctorID);
                 cowGroupItem.DoctorName = user == null ? null : user.Name;

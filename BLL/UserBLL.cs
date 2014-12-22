@@ -253,7 +253,7 @@ namespace DairyCow.BLL
             if (datUser == null || datUser.Rows.Count == 0)
             {
                 // 没有角色对应的人员时，默认取场长
-                datUser = this.dalUser.GetUsers(pastureId, 8);
+                datUser = this.dalUser.GetUsers(pastureId, Role.FARM_ADMIN_ID);
             }
 
             foreach (DataRow row in datUser.Rows)

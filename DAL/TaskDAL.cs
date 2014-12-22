@@ -83,6 +83,7 @@ namespace DairyCow.DAL
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
         }
+        
         public DataTable GetTaskByID(int id)
         {
             DataTable taskList = null;
@@ -185,9 +186,9 @@ namespace DairyCow.DAL
                           + myTask.DeadLine + "','"
                           + myTask.CompleteTime + "',"
                           + taskStatus + ",'"
-                          + myTask.InputTime + "','"
-                          + myTask.RoleID + "','"
-                          + myTask.PastureID + "'); select @@identity;");
+                          + myTask.InputTime + "',"
+                          + myTask.RoleID + ","
+                          + myTask.PastureID + "); select @@identity;");
             }
             else
             {
@@ -200,9 +201,9 @@ namespace DairyCow.DAL
                           + myTask.ArrivalTime + "','"
                           + myTask.DeadLine + "',"
                           + taskStatus + ",'"
-                          + myTask.InputTime + "','"
-                          + myTask.RoleID + "','"
-                          + myTask.PastureID + "'); select @@identity;");
+                          + myTask.InputTime + "',"
+                          + myTask.RoleID + ","
+                          + myTask.PastureID + "); select @@identity;");
             }
 
 
@@ -282,6 +283,15 @@ namespace DairyCow.DAL
         {
             string sql = String.Format(@"Delete From [Task] Where (TaskType=3 OR TaskType=4) AND [Status]=0 AND EarNum={0}", earNum);
             return dataProvider1mutong.ExecuteNonQuery(sql, CommandType.Text);
+        }
+
+        public int GetInseminationID(int earNum)
+        {
+            string sql = string.Format(@"SELECT top 1 ID
+                                        FROM [1mutong].[dbo].[Breed_Insemination]
+                                        where EarNum={0}
+                                        order by ID desc", earNum);
+            return Convert.ToInt32(dataProvider1mutong.ExecuteScalar(sql, CommandType.Text));
         }
     }
 }

@@ -38,7 +38,6 @@ namespace CowSite.Controllers.Task
                 string pregnantStatus = Request.Form["pregnantStatus"];
 
                 ReInspection i = new ReInspection();
-
                 i.OperateDate = DateTime.Parse(endDate);
                 i.ReInspectResult = Convert.ToInt32(pregnantStatus);
                 i.Operator = Convert.ToInt32(operatorName);
@@ -46,16 +45,15 @@ namespace CowSite.Controllers.Task
 
                 DairyTask task = bllTask.GetTaskByID(Convert.ToInt32(id));
 
-                //完成复检任务，同时增加复检信息
+                // 完成复检任务，同时增加复检信息
                 task.CompleteTime = i.OperateDate;
                 task.Status = DairyTaskStatus.Completed;
                 task.OperatorID = i.Operator;
                 bllTask.CompleteReInspection(task, i);
 
                 return View("~/Views/Task/Index.cshtml");
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return View("~/Views/Task/TaskError.cshtml");
             }

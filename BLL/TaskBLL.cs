@@ -57,6 +57,7 @@ namespace DairyCow.BLL
             }
             return list;
         }
+
         /// <summary>
         /// 获取牧场所有未完成的最近任务
         /// </summary>
@@ -277,6 +278,7 @@ namespace DairyCow.BLL
                 //牛群未分配，则分配给场长
                 userID=UserBLL.Instance.GetUsers(UserBLL.Instance.CurrentUser.Pasture.ID, Role.FARM_ADMIN_ID)[0].ID;
             }
+
             return userID;
         }
 
@@ -307,21 +309,17 @@ namespace DairyCow.BLL
 
             // 分配配种员
             initialInspectionTask.OperatorID = AssignTask(task.PastureID, task.EarNum, Role.FARM_INSEMINATOR_ID);
-            
-            
 
-            //List<User> userList = this.bllUser.GetUsers(task.PastureID, 1);
-            //initialInspectionTask.OperatorID = userList[0].ID;
             initialInspectionTask.RoleID = task.RoleID;
             initialInspectionTask.PastureID = task.PastureID;
             initialInspectionTask.InputTime = DateTime.Now;
             taskDAL.InsertTask(initialInspectionTask);
             
-            //添加配种记录
+            // 添加配种记录
             InseminationBLL insemBLL = new InseminationBLL();
             insemBLL.InsertInseminationInfo(insemination);
 
-            //更新牛繁殖状态
+            // 更新牛繁殖状态
             CowBLL cowBLL = new CowBLL();
             cowBLL.UpdateCowBreedStatus(insemination.EarNum, "已配未检");
         }
@@ -333,15 +331,12 @@ namespace DairyCow.BLL
         {
             //添加初检记录
             InitialInspectionBLL iBLL = new InitialInspectionBLL();
+            initialInspetion.InseminationID = this.taskDAL.GetInseminationID(initialInspetion.EarNum);
             iBLL.InsertInitialInspection(initialInspetion);
 
-            //更新任务记录，标记完成
-            //task.Status = DairyTaskStatus.Completed;
-            //task.CompleteTime = DateTime.Now;
-            task.InputTime = DateTime.Now;
+            // 更新初检任务记录
             UpdateTask(task);
-
-
+            
             CowBLL cowBLL = new CowBLL();
 
             if (initialInspetion.InspectResult == 1)
@@ -360,19 +355,16 @@ namespace DairyCow.BLL
                 reinspectionTask.ArrivalTime = task.ArrivalTime.AddDays(reInspectionDays - initialInspectionDays);
                 reinspectionTask.DeadLine = reinspectionTask.ArrivalTime.AddDays(3.0);
                 reinspectionTask.TaskType = TaskType.ReInspectionTask;
+                reinspectionTask.InputTime = DateTime.Now;
                 AddTask(reinspectionTask);
                 //更新牛繁殖状态
                 cowBLL.UpdateCowBreedStatus(task.EarNum, "初检+");
-
             }
             else
             {
                 //更新牛繁殖状态
                 cowBLL.UpdateCowBreedStatus(task.EarNum, "初检-");
             }
-
-
-
         }
 
         /// <summary>
@@ -380,16 +372,13 @@ namespace DairyCow.BLL
         /// </summary>
         public void CompleteReInspection(DairyTask task, ReInspection reInspection)
         {
-            //添加复检记录
+            // 添加复检记录
             ReInspectionBLL rBLL = new ReInspectionBLL();
+            reInspection.InseminationID = this.taskDAL.GetInseminationID(reInspection.EarNum);
             rBLL.InsertReInspection(reInspection);
 
-            //更新任务记录，标记完成
-            task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime = DateTime.Now;
-            task.InputTime = DateTime.Now;
+            // 更新任务记录，标记完成
             UpdateTask(task);
-
 
             CowBLL cowBLL = new CowBLL();
 
@@ -410,10 +399,10 @@ namespace DairyCow.BLL
                 day21ToBornTask.ArrivalTime = task.ArrivalTime.AddDays(-reInspectionDays + normalCalvingDays - 14);//NormalCalvingDays是进产房天数
                 day21ToBornTask.DeadLine = day21ToBornTask.ArrivalTime.AddDays(1.0);
                 day21ToBornTask.TaskType = TaskType.Day21ToBornTask;
+                day21ToBornTask.InputTime = DateTime.Now;
                 AddTask(day21ToBornTask);
-                //更新牛繁殖状态
+                // 更新牛繁殖状态
                 cowBLL.UpdateCowBreedStatus(task.EarNum, "复检+");
-
             }
             else
             {

@@ -37,6 +37,7 @@ namespace CowSite.Controllers.Task
                 v.ArrivalTime = DateTime.Parse(Request.Form["start"]);
                 v.CompleteTime = DateTime.Parse(Request.Form["end"]);
                 v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
+                v.Status = DairyTaskStatus.Completed;
                 bll.CompleteDay21ToBorn(v);
                 return View("~/Views/Task/Index.cshtml");
             }

@@ -38,10 +38,11 @@ namespace CowSite.Controllers.Task
                 v.OperatorID = Convert.ToInt32(Request.Form["operatorName"]);
                 int house = Convert.ToInt32(Request.Form["house"]);
                 int group = Convert.ToInt32(Request.Form["group"]);
+                v.Status = DairyTaskStatus.Completed;
                 bll.CompleteDay7ToBorn(v, house, group);
                 return View("~/Views/Task/Index.cshtml");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return View("~/Views/Task/TaskError.cshtml");
             }

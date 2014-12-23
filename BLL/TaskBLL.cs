@@ -416,20 +416,15 @@ namespace DairyCow.BLL
         /// </summary>
         public void CompleteDay21ToBorn(DairyTask task)
         {
-            //更新任务记录，标记完成
-            task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime = DateTime.Now;
-            task.InputTime = DateTime.Now;
+            // 更新任务记录，标记完成
             UpdateTask(task);
 
-            //
-            //生成产前7天任务单
+            // 生成产前7天任务单
             DairyTask day7ToBornTask = new DairyTask();
             day7ToBornTask.EarNum = task.EarNum;
             day7ToBornTask.PastureID = task.PastureID;
-            //分配兽医
+            // 分配兽医
             day7ToBornTask.OperatorID = task.OperatorID;//兽医不变
-
 
             day7ToBornTask.Status = DairyTaskStatus.Initial;
             float initialInspectionDays = DairyParameterBLL.GetCurrentParameterDictionary(UserBLL.Instance.CurrentUser.Pasture.ID)[FarmInfo.PN_DAYSOFINITIALINSPECTION];
@@ -437,8 +432,8 @@ namespace DairyCow.BLL
             day7ToBornTask.ArrivalTime = task.ArrivalTime.AddDays(14.0);
             day7ToBornTask.DeadLine = day7ToBornTask.ArrivalTime.AddDays(3.0);
             day7ToBornTask.TaskType = TaskType.Day7ToBornTask;
-            AddTask(day7ToBornTask);
-
+            day7ToBornTask.InputTime = DateTime.Now;
+            AddTask(day7ToBornTask); 
         }
 
         /// <summary>
@@ -446,10 +441,7 @@ namespace DairyCow.BLL
         /// </summary>
         public void CompleteDay7ToBorn(DairyTask task, int cowHouseId, int cowGroupId)
         {
-            // 更新任务记录，标记完成
-            task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime = DateTime.Now;
-            task.InputTime = DateTime.Now;
+            // 更新任务记录，标记完成            
             UpdateTask(task);
 
             // 产生调群任务，进产房
@@ -457,9 +449,11 @@ namespace DairyCow.BLL
             groupingTask.TaskType = TaskType.GroupingTask;
             DateTime time = DateTime.Now;
             groupingTask.ArrivalTime = time;
+            groupingTask.InputTime = time;
             groupingTask.EarNum = task.EarNum;
             groupingTask.DeadLine = time.AddDays(1.0);
             AddTask(groupingTask);
+
             // 取回这条任务
             DairyTask groupingTaskCopy = GetUnfinishedTasks(UserBLL.Instance.CurrentUser.Pasture.ID).Find(p => p.ArrivalTime == time && p.TaskType == TaskType.GroupingTask);
             // 关联调群记录，任务单找到如何调群

@@ -481,36 +481,41 @@ namespace DairyCow.BLL
         /// <param name="calving"></param>
         public void CreateAfterBornTasks(Calving calving)
         {
-            //分配兽医,饲养员
+            // 分配兽医,饲养员
             CowGroupBLL g = new CowGroupBLL();
             CowBLL c = new CowBLL();
             Cow cc = c.GetCowInfo(calving.EarNum);
             CowGroup gg = g.GetCowGroupList(cc.FarmCode).Find(p => p.ID == cc.GroupID);
 
-
-            //产犊界面，输入产犊信息，调用本方法产生3个产后任务和犊牛饲喂任务
+            // 产犊界面，输入产犊信息，调用本方法产生3个产后任务和犊牛饲喂任务
             DairyTask t1 = new DairyTask();
+            t1.PastureID = gg.PastureID;
             t1.EarNum = calving.EarNum;
             t1.ArrivalTime = calving.Birthday.AddDays(3.0);
             t1.DeadLine = t1.ArrivalTime.AddDays(1.0);
             t1.OperatorID = gg.DoctorID;
             t1.TaskType = TaskType.Day3AfterBornTask;
+            t1.InputTime = DateTime.Now;
             this.AddTask(t1);
 
             DairyTask t2 = new DairyTask();
+            t2.PastureID = gg.PastureID;
             t2.EarNum = calving.EarNum;
             t2.ArrivalTime = calving.Birthday.AddDays(10.0);
             t2.DeadLine = t2.ArrivalTime.AddDays(1.0);
             t2.OperatorID = gg.DoctorID;
             t2.TaskType = TaskType.Day10AfterBornTask;
+            t2.InputTime = DateTime.Now;
             this.AddTask(t2);
 
             DairyTask t3 = new DairyTask();
+            t3.PastureID = gg.PastureID;
             t3.EarNum = calving.EarNum;
             t3.ArrivalTime = calving.Birthday.AddDays(15.0);
             t3.DeadLine = t3.ArrivalTime.AddDays(1.0);
             t3.OperatorID = gg.DoctorID;
             t3.TaskType = TaskType.Day15AfterBornTask;
+            t3.InputTime = DateTime.Now;
             this.AddTask(t3);
 
             return;
@@ -521,11 +526,10 @@ namespace DairyCow.BLL
         /// </summary>
         public void CompleteDay3AfterBorn(DairyTask task, int cowHouseId, int cowGroupId)
         {
-            //此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
-            //更新任务记录，标记完成
+            // 此任务单在，产犊界面/事件中产生，或者流产早产；流产等会取消之前的未完成产前任务单
+            // 更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
             task.CompleteTime = DateTime.Now;
-            task.InputTime = DateTime.Now;
             UpdateTask(task);
         }
 
@@ -538,7 +542,6 @@ namespace DairyCow.BLL
             //更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
             task.CompleteTime = DateTime.Now;
-            task.InputTime = DateTime.Now;
             UpdateTask(task);
 
             //牛调群至，初产牛群或高产牛群
@@ -563,7 +566,6 @@ namespace DairyCow.BLL
             groupingRecord.TargetHouseID = cowHouseId;
             GroupingRecordBLL gBLL = new GroupingRecordBLL();
             gBLL.InsertGroupingRecord(groupingRecord);
-
         }
 
         /// <summary>

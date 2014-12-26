@@ -199,11 +199,11 @@ namespace DairyCow.BLL
                 }
                 if (cowRow["MotherID"] != DBNull.Value)
                 {
-                    cowItem.FatherID = cowRow["MotherID"].ToString();
+                    cowItem.MotherID = cowRow["MotherID"].ToString();
                 }
                 else
                 {
-                    cowItem.FatherID = String.Empty;
+                    cowItem.MotherID = String.Empty;
                 }
                 cowItem.IsStray = Convert.ToInt32(cowRow["IsStray"]) == 0 ? false : true;
             }

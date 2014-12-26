@@ -377,14 +377,11 @@ namespace DairyCow.BLL
             reInspection.InseminationID = this.taskDAL.GetInseminationID(reInspection.EarNum);
             rBLL.InsertReInspection(reInspection);
 
-<<<<<<< HEAD
             //更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
             //task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
-=======
-            // 更新任务记录，标记完成
->>>>>>> origin/master
+
             UpdateTask(task);
 
             CowBLL cowBLL = new CowBLL();

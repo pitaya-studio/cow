@@ -41,7 +41,7 @@ namespace CowSite.Controllers.Task
 
                 i.OperateDate = DateTime.Parse(endDate);
                 i.InspectResult = Convert.ToInt32(pregnantStatus);
-                i.Operator = Convert.ToInt32(operatorID); //@德华，怀疑有错
+                i.Operator = Convert.ToInt32(operatorID);
                 i.EarNum = CowBLL.ConvertDislayEarNumToEarNum(earNum, UserBLL.Instance.CurrentUser.Pasture.ID);
 
                 //取原任务

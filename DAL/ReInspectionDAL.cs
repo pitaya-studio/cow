@@ -129,8 +129,7 @@ namespace DairyCow.DAL
         public int InsertReInspection(ReInspection reInspection)
         {
             StringBuilder sql = new StringBuilder();
-            //sql.Append(@"insert into [1mutong].[dbo].[DairyCow_Insemination] values (" + insemination.EarNum + ")");
-            sql.Append(@"insert into [1mutong].[dbo].[Breed_ReInspection] values (
+            sql.Append(@"insert into [Breed_ReInspection] values (
                                     " + reInspection.InseminationID + ","
                           + reInspection.EarNum + ",'"
                           + reInspection.OperateDate + "',"

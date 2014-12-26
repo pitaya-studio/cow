@@ -386,7 +386,7 @@ namespace DairyCow.BLL
 
             //更新任务记录，标记完成
             task.Status = DairyTaskStatus.Completed;
-            task.CompleteTime = DateTime.Now;
+            //task.CompleteTime = DateTime.Now;
             task.InputTime = DateTime.Now;
             UpdateTask(task);
 

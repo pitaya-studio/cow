@@ -16,7 +16,7 @@ namespace DairyCow.DAL
         {
             DataTable recentTaskList = null;
 
-            string sql = string.Format(@"SELECT     ID, 
+            string sql = string.Format(@"SELECT ID, 
                                         PastureID,
                                         [TaskType], 
                                         OperatorID, 
@@ -27,8 +27,8 @@ namespace DairyCow.DAL
                                         InputTime,
                                         RoleID,
                                         EarNum
-                                        FROM         Task
-                                        where PastureID={0} and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())");
+                                        FROM Task
+                                        where PastureID={0} and [Status]=0 and ArrivalTime<=DATEADD(DD,3,GETDATE())", pastureID);
 
             recentTaskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return recentTaskList;
@@ -78,12 +78,12 @@ namespace DairyCow.DAL
                                         EarNum
                                         FROM Task
                                         where OperatorID={0} and PastureID={1}
-                                        and [Status]=0 and ArrivalTime<DATEADD(DD,3,GETDATE())", operatorID, pastureID);
+                                        and [Status]=0 and ArrivalTime<=DATEADD(DD,3,GETDATE())", operatorID, pastureID);
 
             taskList = dataProvider1mutong.FillDataTable(sql, CommandType.Text);
             return taskList;
         }
-        
+
         public DataTable GetTaskByID(int id)
         {
             DataTable taskList = null;
@@ -207,7 +207,7 @@ namespace DairyCow.DAL
             }
 
 
-            object taskId= dataProvider1mutong.ExecuteScalar(sqlString.ToString(), CommandType.Text);
+            object taskId = dataProvider1mutong.ExecuteScalar(sqlString.ToString(), CommandType.Text);
             return Convert.ToInt32(taskId);
         }
 

@@ -28,12 +28,12 @@ namespace CowSite.Controllers
         /// <returns></returns>
         public JsonResult GetCowGroupSummary()
         {
-            if(UserBLL.Instance.CurrentUser.Pasture == null)
+            if (UserBLL.Instance.CurrentUser.Pasture == null)
             {
                 return Json(null);
             }
 
-            FarmInfo farm =new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
+            FarmInfo farm = new FarmInfo(UserBLL.Instance.CurrentUser.Pasture.ID);
 
             // 牛群整体结构
             ArrayList arrCowSummary = new ArrayList();
@@ -48,7 +48,7 @@ namespace CowSite.Controllers
             // 经产牛繁殖状况
             ArrayList arrBreedSummary = new ArrayList();
             arrBreedSummary.Add(new { name = "未配牛", value = farm.CountOfUninseminatedMultiParity });
-            arrBreedSummary.Add(new { name = "已配未检牛", value=  farm.CountOfInseminatedMultiParity });
+            arrBreedSummary.Add(new { name = "已配未检牛", value = farm.CountOfInseminatedMultiParity });
             arrBreedSummary.Add(new { name = "已孕牛", value = farm.CountOfPregnantMultiParity });
             // 青年牛繁殖状况
             ArrayList arrParitySummary = new ArrayList();
@@ -56,7 +56,7 @@ namespace CowSite.Controllers
             arrParitySummary.Add(new { name = "已配未检牛", value = farm.CountOfInseminatedNullParity });
             arrParitySummary.Add(new { name = "已孕牛", value = farm.CountOfPregnantNullParity });
 
-            return Json(new 
+            return Json(new
             {
                 CowSummary = arrCowSummary,
                 MilkCowSummary = arrMilkCowSummary,
@@ -69,18 +69,15 @@ namespace CowSite.Controllers
         {
             TaskBLL task = new TaskBLL();
             List<DairyTask> lstTask;
-            //取当前用户的role,如果是场长，需要看到所有用户的未完成任务列表。
-            if (UserBLL.Instance.CurrentUser.Role.IsDirector )
+            // 取当前用户的role,如果是场长，需要看到所有用户的未完成任务列表。
+            if (UserBLL.Instance.CurrentUser.Role.IsDirector)
             {
                 lstTask = task.GetUnfinishedTasks(UserBLL.Instance.CurrentUser.Pasture.ID);
-
             }
             else
             {
                 lstTask = task.GetRecentUnfinishedTaskList(UserBLL.Instance.CurrentUser.ID, UserBLL.Instance.CurrentUser.Pasture.ID);
-
             }
-
 
             return Json(new { Rows = lstTask }, JsonRequestBehavior.AllowGet);
         }

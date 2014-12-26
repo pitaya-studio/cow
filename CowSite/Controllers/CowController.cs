@@ -219,20 +219,17 @@ namespace CowSite.Controllers
             int pastureID=UserBLL.Instance.CurrentUser.Pasture.ID;
             TaskBLL bllTask = new TaskBLL();
             int operatorID = bllTask.AssignTask(pastureID, earNum, Role.FARM_FEEDER_ID);
-            //UserBLL uBLL = new UserBLL();
-            //List<User> lstFeeder = uBLL.GetFeederList(UserBLL.Instance.CurrentUser.Pasture.ID);
             if (earNum != 0)
             {
                 DairyTask t = new DairyTask
                 {
-                    DisplayEarNum = Request["DisplayEarNum"],
                     EarNum =earNum,
                     TaskType = TaskType.GroupingTask,
                     Status = DairyTaskStatus.Initial,
                     PastureID = pastureID,
-                    //OperatorID = lstFeeder[0].ID,
-                    //RoleID = lstFeeder[0].Role.ID, //Sopy Change to Feeder owner
+                    OperatorID = operatorID,
                     ArrivalTime = DateTime.Now,
+                    InputTime = DateTime.Now,
                     DeadLine = DateTime.Now.AddDays(15)
                 };
                 
@@ -247,10 +244,11 @@ namespace CowSite.Controllers
                     OriginalGroupID = Convert.ToInt32(Request["OriginalGroupID"]),
                     OriginalHouseID = Convert.ToInt32(Request["OriginalHouseID"])
                 };
+
                 GroupingRecordBLL bllGroupingRecord = new GroupingRecordBLL();
                 bllGroupingRecord.InsertGroupingRecord(gRecord);
-
             }
+
             return Json(bResult, JsonRequestBehavior.AllowGet);
         }
     }

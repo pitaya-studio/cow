@@ -49,6 +49,7 @@
         $('#menu').menu({ mainMenuSelectedID: "Feed", subMenuSelectedID: "Feed-ChangeGroup" });
         var originalGroupId = 0;
         var originalHouseId = 0;
+        var houseList = null;
 
         $('#btnSave').click(function () {
             var targetGroupId = $("#GroupSelector").val();
@@ -109,41 +110,56 @@
             dataType: 'json',
             cache: false,
             success: function (group) {
-                if (group) {
-                    $("#GroupSelector").empty();
-                    $("#GroupSelector").append('<option value="0" selected = "selected">' + "请选择牛群" + '</option>');
-                    $.each(group, function () {
-                        $("#GroupSelector").append('<option value="' + this.ID + '">' + this.Name + '</option>');
-                    });
-                    $('#GroupSelector').select2({
-                        placeholder: "牛群",
-                        allowClear: true,
-                        minimumResultsForSearch: -1
-                    });
-                }
+                $.ajax({
+                    type: 'get',
+                    url: '../../Feed/CowHouse/GetCowHouseList',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (house) {
+                        houseList = house;
+
+                        if (group) {
+                            $("#GroupSelector").empty();
+                            $("#GroupSelector").append('<option value="0" selected="selected">' + "请选择牛群" + '</option>');
+                            $.each(group, function () {
+                                $("#GroupSelector").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                            });
+                            $('#GroupSelector').select2({
+                                placeholder: "牛群",
+                                allowClear: true,
+                                minimumResultsForSearch: -1
+                            }).change(function () {
+                                var groupID = $('#GroupSelector').val()
+                                var mapHouseList = $.map(houseList, function (el, index) {
+                                    if (el.GroupID == groupID) {
+                                        return el;
+                                    }
+                                });
+                                changeHouseSelector(mapHouseList);
+                            });
+                        }
+                    }
+                });                
             }
         });
 
-        $.ajax({
-            type: 'get',
-            url: '../../Feed/CowHouse/GetCowHouseList',
-            dataType: 'json',
-            cache: false,
-            success: function (house) {
-                if (house) {
-                    $("#HouseSelector").empty();
-                    $("#HouseSelector").append('<option value="0" selected = "selected">' + "请选择牛舍" + '</option>');
-                    $.each(house, function () {
-                        $("#HouseSelector").append('<option value="' + this.ID + '">' + this.Name + '</option>');
-                    });
-                    $('#HouseSelector').select2({
-                        placeholder: "牛舍",
-                        allowClear: true,
-                        minimumResultsForSearch: -1
-                    });
-                }
+        
+
+        // 选择牛群时，牛舍联动
+        function changeHouseSelector(house) {
+            $("#HouseSelector").empty();
+            if (house) {                
+                $("#HouseSelector").append('<option value="0" selected = "selected">' + "请选择牛舍" + '</option>');
+                $.each(house, function () {
+                    $("#HouseSelector").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                });
+                $('#HouseSelector').select2({
+                    placeholder: "牛舍",
+                    allowClear: true,
+                    minimumResultsForSearch: -1
+                });
             }
-        });
+        }
     </script>
     <script src="~/Scripts/bdhm.js"></script>
 </body>

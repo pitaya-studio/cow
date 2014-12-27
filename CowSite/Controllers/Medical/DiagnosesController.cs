@@ -52,6 +52,8 @@ namespace CowSite.Controllers.Medical
             c.DoctorID = UserBLL.Instance.CurrentUser.ID;
 
             bllMedical.InsertCare(c);
+            CowBLL bllCow = new CowBLL();
+            bllCow.UpdateCowIllStatus(c.EarNum, true);
             return Json(new { Result = 1}, JsonRequestBehavior.AllowGet);
         }
 	}

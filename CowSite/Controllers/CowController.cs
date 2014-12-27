@@ -228,7 +228,7 @@ namespace CowSite.Controllers
                     Status = DairyTaskStatus.Initial,
                     PastureID = pastureID,
                     OperatorID = operatorID,
-                    ArrivalTime = DateTime.Now,
+                    ArrivalTime = DateTime.Now, //转群当天要做
                     InputTime = DateTime.Now,
                     DeadLine = DateTime.Now.AddDays(15)
                 };

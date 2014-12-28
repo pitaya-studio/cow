@@ -65,7 +65,17 @@
                     //parent.$.ligerDialog.close();
                     //parent.$(".l-dialog,.l-window-mask").hide();
                     var VacuumPressure = $("#VacuumPressure").val();
+                    var v = parseFloat(VacuumPressure);
+                    if (v < 4.2 || v > 4.6) {
+                        alert('真空压力预警标准值：4.2mpa-4.6mpa，请检查设备是否正常！');
+                        return;
+                    }
                     var Pulsation = $("#Pulsation").val();
+                    var p = parseInt(Pulsation);
+                    if (p < 60 || p > 68) {
+                        alert('脉动次数预警标准值：60-68次/min，请检查设备是否正常！');
+                        return;
+                    }
                     var CleanupCount = $("#CleanupCount").val();
 
                     $.ajax({
@@ -91,10 +101,12 @@
                 <div class="input-group mt10">
                     <span class="input-group-addon w100">真空压力(mpa)</span>
                     <input type="text" class="form-control w200" placeholder="真空压力" id="VacuumPressure" name="vacPressure">
+                    标准值：4.2mpa-4.6mpa
                 </div>
                 <div class="input-group mt10">
                     <span class="input-group-addon w100">脉动次数(次/min)</span>
                     <input type="text" class="form-control w200" placeholder="脉动次数" id="Pulsation" name="pulsat" />
+                    标准值：60-68次/min
                 </div>
                 <div class="input-group mt10">
                     <span class="input-group-addon w100">设备清洗次数</span>

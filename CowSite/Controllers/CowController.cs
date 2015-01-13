@@ -119,7 +119,8 @@ namespace CowSite.Controllers
             int earNum = CowBLL.ConvertDislayEarNumToEarNum(displayEarNum, UserBLL.Instance.CurrentUser.Pasture.ID);
             CowInfo cow = new CowInfo(earNum);
             int daysOfPregnant = cow.DaysOfPregnant;
-            return Json(new { DaysOfPregnant = daysOfPregnant }, JsonRequestBehavior.AllowGet);
+            string cowType = cow.CowType;
+            return Json(new { DaysOfPregnant = daysOfPregnant,CowType=cowType }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCowImage(string displayEarNum)

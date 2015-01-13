@@ -115,6 +115,9 @@
                 cache: false,
                 success: function (cow) {
                     $("input[name=DaysOfPregnant]").val(cow.DaysOfPregnant);
+                    if (cow.CowType == "犊牛"|cow.CowType == "育成牛") {
+                        alert("此牛为"+cow.CowType+"，不可能产犊!")
+                    }
                 }
             });
         }

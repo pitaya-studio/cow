@@ -18,23 +18,27 @@
         <div class="content">
             <div class="input-group mt10">
                 <span class="input-group-addon w200">牛耳号：</span>
-                <input type="text" class="form-control w200" placeholder="耳号" id="earNum" />
+                <input type="text" class="form-control w400" placeholder="耳号" id="earNum" />
+            </div>
+            <div class="input-group mt10">
+                <span class="input-group-addon w200">牛类型：</span>
+                <input type="text" class="form-control w400" placeholder="牛类型" contenteditable="false" id="cowType" />
             </div>
             <div class="input-group mt10">
                 <span class="input-group-addon w200">现在所在牛群:</span>
-                <span class="form-control w200" id="currGroupName"></span>
+                <span class="form-control w400" id="currGroupName"></span>
             </div>
             <div class="input-group mt10">
                 <span class="input-group-addon w200">现在所在牛舍: </span>
-                <span class="form-control w200" id="currHouseName"></span>
+                <span class="form-control w400" id="currHouseName"></span>
             </div>
             <div class="input-group mt10">
                 <span class="input-group-addon w200">调群后目标牛群：</span>
-                <select id="GroupSelector" class="w200"></select>
+                <select id="GroupSelector" class="w400"></select>
             </div>
             <div class="input-group mt10">
                 <span class="input-group-addon w200">调群后目标牛舍：</span>
-                <select id="HouseSelector" class="w200"></select>
+                <select id="HouseSelector" class="w400"></select>
             </div>
             <div class="mt10">
                 <button class="btn btn-primary hidden" id="btnSave">转群</button>
@@ -94,10 +98,11 @@
                 cache: false,
                 success: function (cow) {
                     if (cow) {
-                        $('#currGroupName').text(cow.GroupName);
-                        $('#currHouseName').text(cow.HouseName);
-                        originalGroupId = cow.GroupID;
-                        originalHouseId = cow.HouseID;
+                        $('#currGroupName').text(cow.cow.GroupName);
+                        $('#currHouseName').text(cow.cow.HouseName);
+                        originalGroupId = cow.cow.GroupID;
+                        originalHouseId = cow.cow.HouseID;
+                        $('#cowType').val(cow.cowType);
                         $('#btnSave').removeClass('hidden');
                     }
                 }
@@ -122,7 +127,7 @@
                             $("#GroupSelector").empty();
                             $("#GroupSelector").append('<option value="0" selected="selected">' + "请选择牛群" + '</option>');
                             $.each(group, function () {
-                                $("#GroupSelector").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                                $("#GroupSelector").append('<option value="' + this.ID + '">' +'[类型：'+ this.CowGroupTypeString+'] ' + this.Name + '</option>');
                             });
                             $('#GroupSelector').select2({
                                 placeholder: "牛群",

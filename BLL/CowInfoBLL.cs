@@ -124,6 +124,22 @@ namespace DairyCow.BLL
             }
             //set; 
         }
+
+        public int HouseID
+        {
+            get
+            {
+                return myCow.HouseID;
+            }
+        }
+
+        public string HouseName
+        {
+            get
+            {
+                return myCow.HouseName;
+            }
+        }
         public string IllStatus
         {
             get

@@ -113,6 +113,7 @@ namespace DairyCow.BLL
             else
             {
                 CowLite cow = new CowLite();
+                cow.EarNum = earNum;
                 cow.DisplayEarNum = displayEarNum;
                 cow.HouseID = Convert.ToInt32(dt.Rows[0]["HouseID"]);
                 cow.HouseName = dt.Rows[0]["HouseName"].ToString();
@@ -150,6 +151,8 @@ namespace DairyCow.BLL
                 {
                     cowItem.HouseID = 0; //表示无牛舍？
                 }
+                //HouseBLL houseBLL = new HouseBLL();
+                //cowItem.HouseName = houseBLL.GetHouseByID(UserBLL.Instance.CurrentUser.Pasture.ID, cowItem.HouseID).Name;
 
                 cowItem.Gender = cowRow["Gender"].ToString();
                 cowItem.FarmCode = Convert.ToInt32(cowRow["FarmID"]);

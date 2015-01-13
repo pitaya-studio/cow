@@ -206,8 +206,11 @@ namespace CowSite.Controllers
         public JsonResult GetCowLiteInfo(string displayEarNum)
         {
             CowLite cow = this.bllCow.GetCowLiteInfo(displayEarNum);
-            return Json(cow, JsonRequestBehavior.AllowGet);
+            string cowType = (new CowInfo(cow.EarNum)).CowType;
+            return Json(new {cow,cowType}, JsonRequestBehavior.AllowGet);
         }
+
+ 
         
         /// <summary>
         /// 插入转群任务

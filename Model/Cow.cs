@@ -89,6 +89,10 @@ namespace DairyCow.Model
         /// 牛舍ID
         /// </summary>
         public int HouseID { get; set; }
+        /// <summary>
+        ///  牛舍名
+        /// </summary>
+        public string HouseName { get; set; }
         
         /// <summary>
         /// 牛日龄

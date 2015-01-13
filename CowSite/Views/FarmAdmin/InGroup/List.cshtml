@@ -146,7 +146,7 @@
                     $("select[name=group]").append('<option></option>');
                     if (typeof (group) != 'undefined' && group && group.length > 0) {
                         $.each(group, function () {
-                            $("select[name=group]").append('<option value="' + this.ID + '">' + this.Name + '</option>');
+                            $("select[name=group]").append('<option value="' + this.ID + '">' + '[类型：' + this.CowGroupTypeString + '] ' + this.Name + '</option>');
                         });
                     }
                 }
